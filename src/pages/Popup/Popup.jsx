@@ -12,7 +12,7 @@ const Popup = () => {
       아마 popup창 따로 content창 따로 console 있는거 같음*/
     });
   };
-
+  /*
   const sendClicks = () => {
     console.log('popup.js > sendClicks()');
     chrome.tabs.query(
@@ -27,7 +27,8 @@ const Popup = () => {
         );
       }
     );
-  }; //탭 정보 message passing으로 보내는 예제코드 console창 볼 수가 없음
+  }; 탭 정보 message passing으로 보내는 예제코드 console창 볼 수가 없음
+  */
 
   return (
     <div className="App">
@@ -45,7 +46,6 @@ const Popup = () => {
           Learn React
         </a>
         <button onClick={handleUrl}>click</button>
-        <button onClick={sendClicks}>click</button>
       </header>
     </div>
   );

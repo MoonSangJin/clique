@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from '../../assets/img/logo.svg';
+import App from '../../Components/App'; //Create react app처럼 App에서 시작한다.
 const Newtab = () => {
-  return <img src={logo} className="App-logo" alt="logo" />;
+  return <App />;
 };
 
 export default Newtab;
