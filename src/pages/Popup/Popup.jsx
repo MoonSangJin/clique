@@ -6,12 +6,18 @@ import './Popup.css';
 const Popup = () => {
   const handleUrl = () => {
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-      let url = tabs[0].url;
+      const url = tabs[0].url;
+      const favIconUrl = tabs[0].favIconUrl;
+      const title = tabs[0].title;
+      console.log(url);
+      console.log(favIconUrl);
+      console.log(title);
+
       alert(url);
-      /* popup 창에서 현재 url check, alert로는 나오는데 개발자도구에서 console창에서 체크안됨.
-      아마 popup창 따로 content창 따로 console 있는거 같음*/
+      // popup창 console check는 popup창에서 오른쪽클릭해서 개발자도구 따로 켜야됨, 일단 현재 탭 url만 alert로 띄움
     });
   };
+
   /*
   const sendClicks = () => {
     console.log('popup.js > sendClicks()');
