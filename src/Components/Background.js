@@ -7,6 +7,7 @@ const Wrapper = styled.div`
 `;
 const Image = styled.img`
   width: 100%;
+  height: 200px;
 `;
 export default function background() {
   return (

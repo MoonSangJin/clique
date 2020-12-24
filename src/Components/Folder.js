@@ -6,11 +6,10 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  width: 20%;
+
+  width: 20rem;
 `;
-const FolderImage = styled.img`
-  width: 100%;
-`;
+const FolderImage = styled.img``;
 const FolderTitle = styled.div``;
 const FolderDescription = styled.div``;
 

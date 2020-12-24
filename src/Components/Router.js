@@ -6,6 +6,6 @@ import Detail from '../Routes/Detail';
 export default () => (
   <Router>
     <Route path="/" exact component={Home} />
-    <Route path="/detail" component={Detail} />
+    <Route path="/detail/" component={Detail} />
   </Router>
 );
