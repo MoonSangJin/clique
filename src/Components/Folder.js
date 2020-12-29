@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Example from '../assets/img/example.png';
 const Container = styled.div`
@@ -9,16 +9,21 @@ const Container = styled.div`
 
   width: 20rem;
 `;
-const FolderImage = styled.img``;
+const FolderImage = styled.img`
+  width: 100px;
+  height: 100px;
+`;
 const FolderTitle = styled.div``;
 const FolderDescription = styled.div``;
-
-export default function Folder() {
+const Wrapper = styled.div``;
+export default function Folder({ favIconUrl, title, url }) {
   return (
     <Container>
-      <FolderImage src={Example} />
-      <FolderTitle>Title</FolderTitle>
-      <FolderDescription>Description</FolderDescription>
+      <Wrapper>
+        <FolderImage src={favIconUrl} />
+      </Wrapper>
+      <FolderTitle>{title}</FolderTitle>
+      <FolderDescription>{url}</FolderDescription>
     </Container>
   );
 }

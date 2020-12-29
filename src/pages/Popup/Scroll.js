@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-const Container = styled.div`
+const Container = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -28,37 +28,63 @@ const CheckBox = styled.input`
 `;
 
 export default function Scroll({ tabs }) {
-  const [checkList, setCheckList] = useState([{ tab: null, url: null }]);
+  const [checkList, setCheckList] = useState([]);
 
   const handleClick = (e) => {
-    const { id, name, checked } = e.target;
-    console.log(checked);
+    const { id, name, value, src, checked } = e.target;
+    console.log(e.target);
 
     checked
-      ? setCheckList((checkList) => [...checkList, { tab: id, url: name }])
+      ? setCheckList((checkList) => [
+          ...checkList,
+          { tab: id, title: name, url: value, favIconUrl: src },
+        ])
       : setCheckList((checkList) => checkList.filter((i) => i.tab !== id));
   };
 
-  function check() {
+  const submitList = (e) => {
+    chrome.storage.sync.set({ key: checkList }, function () {
+      console.log('checkList 저장');
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (checkList.length === 0) {
+      alert('At least one should be checked');
+    } else {
+      e.target.reset();
+      setCheckList([]);
+      alert('저장되었습니다.');
+    }
+  };
+
+  const check = () => {
     console.log(checkList);
-  }
+  };
 
   return (
-    <Container>
+    <Container onSubmit={handleSubmit}>
       {tabs.map(({ favIconUrl, title, url }, index) => (
         <ListRow key={index}>
           <CheckBox
             id={index}
-            name={url}
+            name={title}
+            value={url}
+            src={favIconUrl}
             type="checkbox"
             onClick={handleClick}
           />
-
           <Image src={favIconUrl} />
           <Title> {title}</Title>
         </ListRow>
       ))}
-      <button onClick={check}>checklist</button>
+      <button onClick={submitList}>완료</button>
+
+      <button type="button" onClick={check}>
+        check
+      </button>
     </Container>
   );
 }
