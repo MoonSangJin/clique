@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Folder from '../Components/Folder';
+
 
 const Container = styled.div`
   width: 100%;
@@ -8,12 +9,13 @@ const Container = styled.div`
   justify-content: space-around;
   flex-wrap: wrap;
 `;
+
 export default function FolderRow() {
   const [completeList, setCompleteList] = useState([]);
 
   chrome.storage.sync.get(['key'], function (result) {
-    // console.log('받아온 결과');
-    setCompleteList(result.key);
+    // Todo(Maitracle): 에러 나는 코드 주석처리, 확인 후 다시 해제하기
+    // setCompleteList(result.key);
   });
 
   return (
