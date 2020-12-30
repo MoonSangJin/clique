@@ -5,6 +5,8 @@ import Background from '../../Components/Background';
 import SearchInput from '../../Components/SearchInput';
 import FolderRow from '../../Components/FolderRow';
 import { Link } from 'react-router-dom';
+
+
 const Container = styled.div``;
 
 const HomeScreenPresenter = () => {
