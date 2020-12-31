@@ -5,11 +5,21 @@ import Background from '../../Components/Background';
 import SearchInput from '../../Components/SearchInput';
 import FolderRow from '../../Components/FolderRow';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { dumbStateIncrease } from '../../Store/User/actions';
 
 
 const Container = styled.div``;
 
 const HomeScreenPresenter = () => {
+  const userReducer = useSelector(state => state.userReducer);
+  const dispatch = useDispatch();
+
+  const increase = () => {
+    dispatch(dumbStateIncrease());
+  };
+
+
   return (
     <Container>
       <Gnb />
@@ -17,6 +27,11 @@ const HomeScreenPresenter = () => {
       <Background />
       <SearchInput />
       <FolderRow />
+      asdf
+      <div>
+        {userReducer.dumbState}
+      </div>
+      <button onClick={increase}>increase</button>
     </Container>
   );
 };
