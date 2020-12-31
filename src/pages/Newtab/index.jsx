@@ -1,7 +1,26 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 import Newtab from './Newtab';
 import './index.css';
+import rootReducer from '../../Store';
+import { rootSaga } from '../../Store/rootSaga';
 
-render(<Newtab />, window.document.querySelector('#app-container'));
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: [...getDefaultMiddleware(),  sagaMiddleware],
+});
+
+sagaMiddleware.run(rootSaga);
+
+render(
+  <Provider store={store}>
+    <Newtab />
+  </Provider>
+  , window.document.querySelector('#app-container'));

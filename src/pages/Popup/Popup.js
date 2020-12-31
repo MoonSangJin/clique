@@ -17,7 +17,7 @@ export default function Popup() {
 
   return (
     <Container>
-      <Scroll {...{ tabs }}></Scroll>
+      <Scroll {...{ tabs }} />
     </Container>
   );
 }
