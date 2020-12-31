@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import check from '../../assets/img/check.svg';
+
 const SubmitForm = styled.form`
   width: 100%;
   display: flex;
@@ -71,6 +72,11 @@ const Input = styled.input`
     line-height: 20px;
     color: #b5bdc2;
     letter-spacing: -0.02em;
+  }
+  ::-webkit-calendar-picker-indicator {
+    color: #90a0ad;
+
+    margin-right: 10px;
   }
 
   margin-right: 10px;
@@ -182,18 +188,22 @@ export default function Scroll({ tabs }) {
         ))}
       </List>
       <InputRow>
-        <Font>폴더</Font>
+        <Font>Create</Font>
         <Input
           type="text"
           value={newFolderName}
           onChange={changeInputNewFolder}
-          placeholder="새 폴더의 이름을 입력하세요"
+          placeholder="Enter new folder name"
         ></Input>
       </InputRow>
 
       <InputRow>
-        <Font>기존 폴더</Font>
-        <Input type="text" placeholder="기존폴더이름" list="folderList" />
+        <Font>Add to</Font>
+        <Input
+          type="text"
+          placeholder="Enter existing folder name"
+          list="folderList"
+        />
         <datalist id="folderList">
           <option value="컴퓨터공학과"></option>
           <option value="영어영문과"></option>
