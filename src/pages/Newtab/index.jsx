@@ -3,9 +3,9 @@ import { render } from 'react-dom';
 
 import Newtab from './Newtab';
 import './index.css';
+import rootReducer from '../../Store';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from '../../Store';
 
 
 const store = configureStore({

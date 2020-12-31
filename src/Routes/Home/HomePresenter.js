@@ -6,7 +6,7 @@ import SearchInput from '../../Components/SearchInput';
 import FolderRow from '../../Components/FolderRow';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { dumbStateIncrease } from '../../Store/User/actions';
+import { dumbStateIncrease, dumbStateIncreaseByAmount } from '../../Store/User/actions';
 
 
 const Container = styled.div``;
@@ -17,6 +17,10 @@ const HomeScreenPresenter = () => {
 
   const increase = () => {
     dispatch(dumbStateIncrease());
+  };
+
+  const increaseWithValue = () => {
+    dispatch(dumbStateIncreaseByAmount(5));
   };
 
 
@@ -32,6 +36,7 @@ const HomeScreenPresenter = () => {
         {userReducer.dumbState}
       </div>
       <button onClick={increase}>increase</button>
+      <button onClick={increaseWithValue}>increase with value</button>
     </Container>
   );
 };
