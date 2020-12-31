@@ -1,15 +1,148 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import check from '../../assets/img/check.svg';
+import popUpLogo from '../../assets/img/popUpLogo.svg';
+
+export default function Scroll({ tabs }) {
+  const [checkList, setCheckList] = useState([]);
+  const [folder, setFolder] = useState([]);
+  const [newFolderName, setNewFolderName] = useState('');
+
+  const handleClick = (e) => {
+    const { id, name, value, src, checked } = e.target;
+    console.log(e.target);
+
+    checked
+      ? setCheckList((checkList) => [
+          ...checkList,
+          { tab: id, title: name, url: value, favIconUrl: src },
+        ])
+      : setCheckList((checkList) => checkList.filter((i) => i.tab !== id));
+  };
+
+  const changeInputNewFolder = (e) => {
+    const { value } = e.target;
+    setNewFolderName(value);
+    console.log(`폴더 이름 ${value}`);
+  };
+
+  const submitList = (e) => {
+    chrome.storage.sync.set({ key: checkList }, function () {
+      console.log('checkList 저장');
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (newFolderName === '') {
+      alert('폴더 이름을 입력하세요');
+    }
+    if (checkList.length === 0) {
+      alert('At least one should be checked');
+      setNewFolderName('');
+    } else {
+      e.target.reset();
+      setCheckList([]);
+      alert('저장되었습니다.');
+
+      setFolder((folder) => [
+        ...folder,
+        { folderName: newFolderName, folderInfo: checkList },
+      ]);
+      setNewFolderName('');
+    }
+  };
+
+  const check = () => {
+    console.log(checkList);
+    console.log(folder);
+  };
+
+  return (
+    <SubmitForm onSubmit={handleSubmit}>
+      <LogoRow>
+        <LogoImage src={popUpLogo} />
+      </LogoRow>
+      <List>
+        {tabs.map(({ favIconUrl, title, url }, index) => (
+          <ListRow key={index}>
+            <CheckBox
+              id={index}
+              name={title}
+              value={url}
+              src={favIconUrl}
+              onClick={handleClick}
+              type="checkbox"
+            />
+            <CheckLabel htmlFor={index}></CheckLabel>
+            <Image src={favIconUrl} />
+            <Title> {title}</Title>
+          </ListRow>
+        ))}
+      </List>
+      <InputRow>
+        <Font>Create</Font>
+        <Input
+          type="text"
+          value={newFolderName}
+          onChange={changeInputNewFolder}
+          placeholder="Enter new folder name"
+        ></Input>
+      </InputRow>
+
+      <InputRow>
+        <Font>Add to</Font>
+        <Input
+          type="text"
+          placeholder="Enter existing folder name"
+          list="folderList"
+        />
+        <datalist id="folderList">
+          <option value="폴더이름1"></option>
+          <option value="폴더이름2"></option>
+          <option value="폴더이름3"></option>
+          <option value="폴더이름4"></option>
+        </datalist>
+      </InputRow>
+
+      <ButtonRow>
+        <CompleteButton onClick={submitList}>완료</CompleteButton>
+      </ButtonRow>
+
+      <button type="button" onClick={check}>
+        check
+      </button>
+    </SubmitForm>
+  );
+}
 
 const SubmitForm = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
 `;
+const LogoRow = styled.div``;
+const LogoImage = styled.img`
+  width: 70px;
+  height: 33px;
+
+  margin: 15px;
+`;
 const List = styled.div`
   height: 200px;
-  overflow-y: scroll;
+  overflow: auto;
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgba(144, 160, 173, 0.5);
+  }
+
+  margin: 10px;
 `;
 const ListRow = styled.div`
   display: flex;
@@ -112,113 +245,3 @@ const ButtonRow = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-export default function Scroll({ tabs }) {
-  const [checkList, setCheckList] = useState([]);
-  const [folder, setFolder] = useState([]);
-  const [newFolderName, setNewFolderName] = useState('');
-
-  const handleClick = (e) => {
-    const { id, name, value, src, checked } = e.target;
-    console.log(e.target);
-
-    checked
-      ? setCheckList((checkList) => [
-          ...checkList,
-          { tab: id, title: name, url: value, favIconUrl: src },
-        ])
-      : setCheckList((checkList) => checkList.filter((i) => i.tab !== id));
-  };
-
-  const changeInputNewFolder = (e) => {
-    const { value } = e.target;
-    setNewFolderName(value);
-    console.log(`폴더 이름 ${value}`);
-  };
-
-  const submitList = (e) => {
-    chrome.storage.sync.set({ key: checkList }, function () {
-      console.log('checkList 저장');
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (newFolderName === '') {
-      alert('폴더 이름을 입력하세요');
-    }
-    if (checkList.length === 0) {
-      alert('At least one should be checked');
-      setNewFolderName('');
-    } else {
-      e.target.reset();
-      setCheckList([]);
-      alert('저장되었습니다.');
-
-      setFolder((folder) => [
-        ...folder,
-        { folderName: newFolderName, folderInfo: checkList },
-      ]);
-      setNewFolderName('');
-    }
-  };
-
-  const check = () => {
-    console.log(checkList);
-    console.log(folder);
-  };
-
-  return (
-    <SubmitForm onSubmit={handleSubmit}>
-      <List>
-        {tabs.map(({ favIconUrl, title, url }, index) => (
-          <ListRow key={index}>
-            <CheckBox
-              id={index}
-              name={title}
-              value={url}
-              src={favIconUrl}
-              onClick={handleClick}
-              type="checkbox"
-            />
-            <CheckLabel htmlFor={index}></CheckLabel>
-            <Image src={favIconUrl} />
-            <Title> {title}</Title>
-          </ListRow>
-        ))}
-      </List>
-      <InputRow>
-        <Font>Create</Font>
-        <Input
-          type="text"
-          value={newFolderName}
-          onChange={changeInputNewFolder}
-          placeholder="Enter new folder name"
-        ></Input>
-      </InputRow>
-
-      <InputRow>
-        <Font>Add to</Font>
-        <Input
-          type="text"
-          placeholder="Enter existing folder name"
-          list="folderList"
-        />
-        <datalist id="folderList">
-          <option value="컴퓨터공학과"></option>
-          <option value="영어영문과"></option>
-          <option value="경영학과"></option>
-          <option value="사회체육과"></option>
-        </datalist>
-      </InputRow>
-
-      <ButtonRow>
-        <CompleteButton onClick={submitList}>완료</CompleteButton>
-      </ButtonRow>
-
-      <button type="button" onClick={check}>
-        check
-      </button>
-    </SubmitForm>
-  );
-}
