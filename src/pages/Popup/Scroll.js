@@ -59,6 +59,15 @@ export default function Scroll({ tabs }) {
     console.log(folder);
   };
 
+  const check2 = () => {
+    chrome.runtime.sendMessage({ greeting: 'popupinfo' }, (response) => {
+      console.log('popup->background');
+      console.log(response.farewell);
+    });
+  };
+
+  //window.scrollY
+  //window.scrollTo({top:300, behavior:'smooth'});
   return (
     <SubmitForm onSubmit={handleSubmit}>
       <LogoRow>
@@ -117,6 +126,9 @@ export default function Scroll({ tabs }) {
 
       <button type="button" onClick={check}>
         check
+      </button>
+      <button type="button" onClick={check2}>
+        check scroll height
       </button>
     </SubmitForm>
   );
