@@ -106,8 +106,13 @@ export default function Scroll({ tabs }) {
         </datalist>
       </InputRow>
 
+      <ScrollPositionRow>
+        <ScrollPositionLabel htmlFor="scrollPosition" />
+        Remember my last scroll position
+        <ScrollPosition type="radio" id="scrollPosition" />
+      </ScrollPositionRow>
       <ButtonRow>
-        <CompleteButton onClick={submitList}>완료</CompleteButton>
+        <CompleteButton onClick={submitList}>Save</CompleteButton>
       </ButtonRow>
 
       <button type="button" onClick={check}>
@@ -232,6 +237,8 @@ const CompleteButton = styled.button`
   all: unset;
   width: 86px;
   height: 36px;
+  font-weight: bold;
+  font-size: 14px;
   background: #7785ff;
   border-radius: 3px;
   color: #ffffff;
@@ -245,3 +252,9 @@ const ButtonRow = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
+const ScrollPositionRow = styled.div`
+  display: flex;
+  font-size: 14px;
+`;
+const ScrollPositionLabel = styled.label``;
+const ScrollPosition = styled.input``;
