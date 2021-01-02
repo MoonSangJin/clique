@@ -65,14 +65,14 @@ export default function Scroll({ tabs }) {
       console.log(response.farewell);
     });
   };
-  const gettabs = () => {
-    console.log(tabs);
+  const getChromeLocal = () => {
+    console.log(chrome.storage.local.get);
   };
   //window.scrollY
   //window.scrollTo({top:300, behavior:'smooth'});
   return (
     <SubmitForm onSubmit={handleSubmit}>
-      <button onClick={gettabs}>tabs</button>
+      <button onClick={getChromeLocal}>tabs</button>
       <LogoRow>
         <LogoImage src={popUpLogo} />
       </LogoRow>

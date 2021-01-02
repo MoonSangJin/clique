@@ -17,8 +17,13 @@ printLine("Using the 'printLine' function from the Print Module");
 //   }
 // });
 let last_known_scroll_position = 0;
-
-window.addEventListener('scroll', function (e) {
+window.addEventListener('scroll', (e) => {
   last_known_scroll_position = window.scrollY;
-  console.log(last_known_scroll_position);
+
+  let contentTitle = document.title;
+  let items = { title: contentTitle, scrollHeight: last_known_scroll_position };
+  chrome.runtime.sendMessage({ result: items }, (response) => {
+    console.log('content에서 보냄');
+    console.log(response.farewell);
+  });
 });
