@@ -7,14 +7,12 @@ console.log('Put the background scripts here.');
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   console.log('[background] chrome.runtime.onMessage.addListener()');
 
-  if (request.greeting === 'backgroundhello') {
-    console.log('[background] request:' + request.greeting);
-    // TODO
-    sendResponse({ farewell: 'contentgoodbye' });
-  }
-  if (request.greeting === 'popupinfo') {
-    console.log('popup에서 온 정보' + request.greeting);
-    // TODO
-    sendResponse({ farewell: 'background에서 보낸 정보' });
+  if (request.greeting === 'findScrollHeight') {
+    console.log('popup에서 각 content 스크롤 찾으래');
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, { greeting2: 'a' }, (response) => {
+        console.log(response.farewell);
+      });
+    });
   }
 });

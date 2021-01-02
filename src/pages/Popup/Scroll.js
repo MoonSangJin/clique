@@ -60,16 +60,19 @@ export default function Scroll({ tabs }) {
   };
 
   const check2 = () => {
-    chrome.runtime.sendMessage({ greeting: 'popupinfo' }, (response) => {
-      console.log('popup->background');
+    chrome.runtime.sendMessage({ greeting: 'findScrollHeight' }, (response) => {
+      console.log('back으로 메시지 보냄 from popup');
       console.log(response.farewell);
     });
   };
-
+  const gettabs = () => {
+    console.log(tabs);
+  };
   //window.scrollY
   //window.scrollTo({top:300, behavior:'smooth'});
   return (
     <SubmitForm onSubmit={handleSubmit}>
+      <button onClick={gettabs}>tabs</button>
       <LogoRow>
         <LogoImage src={popUpLogo} />
       </LogoRow>
