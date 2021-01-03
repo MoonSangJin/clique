@@ -59,20 +59,20 @@ export default function Scroll({ tabs }) {
     console.log(folder);
   };
 
-  const check2 = () => {
-    chrome.runtime.sendMessage({ greeting: 'findScrollHeight' }, (response) => {
-      console.log('back으로 메시지 보냄 from popup');
-      console.log(response.farewell);
+  const getChromeLocal = () => {
+    chrome.storage.local.get(['GitHub'], (result) => {
+      if (result) {
+        alert('찾음');
+        console.log(result);
+      } else {
+        alert('못찾음');
+      }
     });
   };
-  const getChromeLocal = () => {
-    console.log(chrome.storage.local.get);
-  };
-  //window.scrollY
-  //window.scrollTo({top:300, behavior:'smooth'});
+
   return (
     <SubmitForm onSubmit={handleSubmit}>
-      <button onClick={getChromeLocal}>tabs</button>
+      <button onClick={getChromeLocal}>getChromeLocal</button>
       <LogoRow>
         <LogoImage src={popUpLogo} />
       </LogoRow>
@@ -129,9 +129,6 @@ export default function Scroll({ tabs }) {
 
       <button type="button" onClick={check}>
         check
-      </button>
-      <button type="button" onClick={check2}>
-        check scroll height
       </button>
     </SubmitForm>
   );
