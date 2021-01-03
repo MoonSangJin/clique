@@ -59,8 +59,21 @@ export default function Scroll({ tabs }) {
     console.log(folder);
   };
 
+  const getChromeLocal = () => {
+    // ChromeLocal로 부터 해당 title을 key로 이용하여 찾는 로직 필요
+    // chrome.storage.local.get(['GitHub'], (result) => {
+    //   if (result) {
+    //     alert('찾음');
+    //     console.log(result);
+    //   } else {
+    //     alert('못찾음');
+    //   }
+    // });
+  };
+
   return (
     <SubmitForm onSubmit={handleSubmit}>
+      <button onClick={getChromeLocal}>getChromeLocal</button>
       <LogoRow>
         <LogoImage src={popUpLogo} />
       </LogoRow>
