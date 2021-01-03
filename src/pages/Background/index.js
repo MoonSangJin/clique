@@ -9,7 +9,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
   if (request) {
     console.log(request);
-    //console.log(sender);
     const { title, scrollHeight } = request;
     chrome.storage.local.set({ [title]: scrollHeight });
     sendResponse({ farewell: 'back이 받음' });
