@@ -1,29 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
+import Logo from './Logo';
+import Profile from './Profile';
 const Wrapper = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  height: 100px;
-`;
-
-const Logo = styled.div`
-  width: 15%;
-  height: 72px;
-  background: skyblue;
-`;
-const Profile = styled.div`
-  width: 15%;
-  height: 72px;
-  background: skyblue;
+  align-items: center;
 `;
 
 export default function Gnb() {
   return (
     <Wrapper>
-      <Logo>this is logo</Logo>
-      <Profile>this is profile</Profile>
+      <Link to="/" style={{ all: 'unset' }}>
+        <Logo style={{ marginLeft: '10px' }} />
+      </Link>
+      <Profile style={{ marginRight: '30px' }} />
     </Wrapper>
   );
 }
