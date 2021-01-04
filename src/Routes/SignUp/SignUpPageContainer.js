@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import SignInPagePresenter from './SignInPagePresenter';
+import SignUpPagePresenter from './SignUpPagePresenter';
 
-const SignInPageContainer = () => {
+const SignUpPageContainer = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
@@ -52,7 +52,7 @@ const SignInPageContainer = () => {
     }
   };
   return (
-    <SignInPagePresenter
+    <SignUpPagePresenter
       {...{
         email,
         password,
@@ -70,4 +70,4 @@ const SignInPageContainer = () => {
   );
 };
 
-export default SignInPageContainer;
+export default SignUpPageContainer;
