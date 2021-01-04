@@ -51,8 +51,6 @@ const SignUpPagePresenter = ({
           />
         </InputRow>
         <PurpleButton onClick={checkValidation} text={'Sign Up'} />
-        <GrayText text={'OR'} />
-        <div>google</div>
         <Row>
           <GrayText text={'By joining Clique you agree to our'} />
           <PurpleText

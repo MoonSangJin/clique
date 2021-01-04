@@ -28,8 +28,6 @@ const SignInPagePresenter = ({
       <Link to="/">home</Link>
       <AuthContainer>
         <LargeText text={'Welcome to Clique'} />
-        <div>google</div>
-        <GrayText text={'OR'} />
         <InputRow>
           <Input
             value={email}
