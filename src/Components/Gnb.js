@@ -10,10 +10,12 @@ const Wrapper = styled.div`
 
 const Logo = styled.div`
   width: 15%;
+  height: 72px;
   background: skyblue;
 `;
 const Profile = styled.div`
   width: 15%;
+  height: 72px;
   background: skyblue;
 `;
 

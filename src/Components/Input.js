@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const ValidationMessage = styled.div`
   color: red;
-  margin: 15px;
+  margin-left: 35px;
 `;
 const InputContainer = styled.input`
   all: unset;
@@ -12,6 +12,19 @@ const InputContainer = styled.input`
   background: #f5f7f8;
   border-radius: 50px;
   margin: 15px;
+  text-indent: 20px;
+  ::placeholder {
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+    /* identical to box height */
+
+    letter-spacing: -0.02em;
+
+    color: rgba(144, 160, 173, 0.8);
+  }
 `;
 export default function Input({
   value,
@@ -20,6 +33,7 @@ export default function Input({
   onBlur,
   placeholder,
   validationMessage,
+  type = 'text',
 }) {
   return (
     <>
@@ -29,6 +43,7 @@ export default function Input({
         placeholder={placeholder}
         onFocus={onFocus}
         onBlur={onBlur}
+        type={type}
       />
       <ValidationMessage>{validationMessage}</ValidationMessage>
     </>
