@@ -14,14 +14,12 @@ export default function SearchInput() {
     console.log(`${bookMark} 검색중`);
     setEngine(e.target.getAttribute('name'));
     console.log(`검색은 ${engine}에서`);
-    setBookMarkEngine(true);
   };
   const googleSearch = (e) => {
     setKeyWord(e.target.value);
     console.log(`${keyWord} 검색중`);
     setEngine(e.target.getAttribute('name'));
     console.log(`검색은 ${engine}에서`);
-    setGoogleEngine(true);
   };
 
   const submitHandler = (e) => {
@@ -38,6 +36,18 @@ export default function SearchInput() {
     setBookMark('');
   };
 
+  const initBookMarkSearch = () => {
+    setBookMarkEngine(true);
+  };
+  const endBookMarkSearch = () => {
+    setBookMarkEngine(false);
+  };
+  const initGoogleSearch = () => {
+    setGoogleEngine(true);
+  };
+  const endGoogleSearch = () => {
+    setGoogleEngine(false);
+  };
   return (
     <Continaer>
       <InputRow>
@@ -55,7 +65,8 @@ export default function SearchInput() {
             placeholder="Search bookmark,folder,keyword or URL"
             autoComplete="off"
             googleEngine={googleEngine}
-            bookMarkEngine={bookMarkEngine}
+            onFocus={initBookMarkSearch}
+            onBlur={endBookMarkSearch}
           ></BookmarkInput>
         </Form>
         <VerticalLine
@@ -71,6 +82,8 @@ export default function SearchInput() {
             placeholder="or google"
             autoComplete="off"
             bookMarkEngine={bookMarkEngine}
+            onFocus={initGoogleSearch}
+            onBlur={endGoogleSearch}
           ></GoogleInput>
         </Form>
       </InputRow>
