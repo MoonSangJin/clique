@@ -9,7 +9,7 @@ import AuthContainer from '../../Components/AuthContainer';
 import LargeText from '../../Components/LargeText';
 import { Link } from 'react-router-dom';
 
-const SignInPagePresenter = ({
+const SignUpPagePresenter = ({
   email,
   password,
   emailValidationMessage,
@@ -27,9 +27,10 @@ const SignInPagePresenter = ({
       <Gnb />
       <Link to="/">home</Link>
       <AuthContainer>
-        <LargeText text={'Welcome to Clique'} />
-        <div>google</div>
-        <GrayText text={'OR'} />
+        <LargeText text={'Complete signing up'} />
+        <GrayText
+          text={'Create an account and unlock all the benefits of Clique'}
+        />
         <InputRow>
           <Input
             value={email}
@@ -49,13 +50,9 @@ const SignInPagePresenter = ({
             type={'password'}
           />
         </InputRow>
-        <Row>
-          <GrayText text={'Need an account?'} />
-          <Link to="/sign-up">
-            <PurpleText text={'Sign Up'} style={{ marginLeft: '8px' }} />
-          </Link>
-        </Row>
-        <PurpleButton onClick={checkValidation} text={'Sign In'} />
+        <PurpleButton onClick={checkValidation} text={'Sign Up'} />
+        <GrayText text={'OR'} />
+        <div>google</div>
         <Row>
           <GrayText text={'By joining Clique you agree to our'} />
           <PurpleText
@@ -69,6 +66,9 @@ const SignInPagePresenter = ({
     </>
   );
 };
+
+export default SignUpPagePresenter;
+
 const InputRow = styled.div`
   width: 100%;
   display: flex;
@@ -78,4 +78,3 @@ const InputRow = styled.div`
 const Row = styled.div`
   display: flex;
 `;
-export default SignInPagePresenter;

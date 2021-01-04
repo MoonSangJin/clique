@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Input from './Input';
-import PurpleButton from './PurpleButton';
-
+import Input from '../Input';
+import PurpleButton from '../PurpleButton';
+import GrayText from '../GrayText';
+import PurpleText from '../PurpleText';
+import AuthContainer from '../AuthContainer';
+import LargeText from '../LargeText';
+import { Link } from 'react-router-dom';
 export default function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -54,9 +58,10 @@ export default function SignInForm() {
     }
   };
   return (
-    <Container>
-      <Welcome>Welcome to Clique</Welcome>
+    <AuthContainer>
+      <LargeText text={'Welcome to Clique'} />
       <div>google</div>
+      <GrayText text={'OR'} />
       <Wrapper>
         <Input
           label={''}
@@ -75,42 +80,34 @@ export default function SignInForm() {
           onChange={passwordChangeHandler}
           onFocus={() => setPasswordValidationMessage('')}
           onBlur={isValidPassword}
+          type={'password'}
         />
       </Wrapper>
-      <div>signup</div>
-      <ButtonWrapper>
-        <PurpleButton onClick={checkValidation} text={'Sign In'} />
-      </ButtonWrapper>
-    </Container>
+      <Row>
+        <GrayText text={'Need an account?'} />
+        <Link to="/sign-up">
+          <PurpleText text={'Sign Up'} style={{ marginLeft: '8px' }} />
+        </Link>
+      </Row>
+      <PurpleButton onClick={checkValidation} text={'Sign In'} />
+      <Row>
+        <GrayText text={'By joining Clique you agree to our'} />
+        <PurpleText
+          text={'Privacy Policy'}
+          style={{ marginLeft: '5px', marginRight: '5px' }}
+        />
+        <GrayText text={'and'} />
+        <PurpleText text={'Terms of Service'} style={{ marginLeft: '5px' }} />
+      </Row>
+    </AuthContainer>
   );
 }
-const Container = styled.div`
-  width: 630px;
-  height: 700px;
-  border-top: 5px solid #7785ff;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 15px;
-
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.08);
-`;
-const Welcome = styled.div`
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 26px;
-  line-height: 39px;
-  text-align: center;
-`;
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
-const ButtonWrapper = styled.div`
+const Row = styled.div`
   display: flex;
-  justify-content: center;
 `;

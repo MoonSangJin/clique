@@ -35,6 +35,7 @@ const HomeScreenPresenter = () => {
       <Gnb />
       <Link to="/detail/">detail</Link>
       <Link to="/sign-in/">sign-in</Link>
+      <Link to="/sign-up/">sign-up</Link>
       <Background />
       <SearchInput />
       <FolderRow />
