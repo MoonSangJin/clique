@@ -90,11 +90,7 @@ export default function SearchInput() {
     </Continaer>
   );
 }
-const Continaer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-`;
+const Continaer = styled.div``;
 const Form = styled.form`
   display: flex;
   align-items: center;
