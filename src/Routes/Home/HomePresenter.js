@@ -37,7 +37,9 @@ const HomeScreenPresenter = () => {
       <Link to="/sign-in/">sign-in</Link>
       <Link to="/sign-up/">sign-up</Link>
       <Background />
-      <SearchInput />
+      <SearchRow>
+        <SearchInput />
+      </SearchRow>
       <FolderRow />
       asdf
       <div>{userReducer.dumbState}</div>
@@ -50,4 +52,9 @@ const HomeScreenPresenter = () => {
     </Container>
   );
 };
+
+const SearchRow = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 export default HomeScreenPresenter;

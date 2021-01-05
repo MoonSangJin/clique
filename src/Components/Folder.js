@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Example from '../assets/img/example.png';
 import folder from '../assets/img/folder.svg';
 import option from '../assets/img/option.svg';
 import verticalLine from '../assets/img/verticalLine.svg';
+import isFavorite from '../assets/img/isFavorite.svg';
 import LargeText from '../Components/LargeText';
 import GrayText from '../Components/GrayText';
 
-export default function Folder({ favIconUrl, title, url, completeList }) {
+export default function Folder({
+  favIconUrl,
+  title,
+  url,
+  completeList,
+  favorite,
+}) {
   return (
     <Container>
       <FolderImage {...{ favIconUrl }} />
+      <IsFavorite {...{ favorite }}>
+        <img src={isFavorite} />
+      </IsFavorite>
       <TextRow>
         <LargeText text={`${title}`} fontSize={20} fontWeight={'normal'} />
         <GrayText text={`${url}`} />
@@ -52,8 +62,12 @@ const FolderImage = styled.div`
   background-image: url(${(props) => props.favIconUrl || { Example }});
   background-size: cover;
 `;
+const IsFavorite = styled.div`
+  ${({ favorite }) =>
+    favorite ? `display: flex; flex-direction:row-reverse;` : `display:none`}
+`;
 const TextRow = styled.div`
-  margin-left: 35px;
+  margin-left: 37px;
 `;
 const FaviconRow = styled.div`
   display: flex;

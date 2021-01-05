@@ -11,6 +11,7 @@ const Container = styled.div`
 
 export default function FolderRow() {
   const [completeList, setCompleteList] = useState([]);
+  const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {
     chrome.storage.sync.get(['key'], function (result) {
@@ -30,6 +31,7 @@ export default function FolderRow() {
             title={data.title}
             url={data.url}
             completeList={completeList}
+            favorite={favorite}
           />
         );
       })}
