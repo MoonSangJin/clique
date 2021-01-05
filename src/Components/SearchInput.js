@@ -41,12 +41,14 @@ export default function SearchInput() {
   };
   const endBookMarkSearch = () => {
     setBookMarkEngine(false);
+    setBookMark('');
   };
   const initGoogleSearch = () => {
     setGoogleEngine(true);
   };
   const endGoogleSearch = () => {
     setGoogleEngine(false);
+    setKeyWord('');
   };
   return (
     <Continaer>
