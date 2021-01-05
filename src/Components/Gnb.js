@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Logo from './Logo';
 import Profile from './Profile';
-import DropdownMenu from './DropdownMenu';
+import Popover from './Popover';
+import PopoverController from './Popover/PopoverController';
 
 
 export default function Gnb() {
+  const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
+  const [profileElementHolder, setProfileElementHolder] = useState(null);
+  const ref = React.createRef();
+
+  useEffect(() => {
+    setProfileElementHolder(ref.current);
+  }, [ref]);
+
+  const openIsOpenDropdownMenu = () => {
+    setIsOpenDropdownMenu(true);
+  };
+
+  const closeIsOpenDropdownMenu = () => {
+    setIsOpenDropdownMenu(false);
+  };
+
   return (
     <>
       <Wrapper>
@@ -16,11 +33,14 @@ export default function Gnb() {
             <Logo />
           </LogoWrapper>
         </StyledLink>
-        <ProfileWrapper onClick={() => console.log('clicked')}>
-          <Profile />
+        <ProfileWrapper>
+          <PopoverController onClick={openIsOpenDropdownMenu} ref={ref}>
+            <Profile />
+          </PopoverController>
         </ProfileWrapper>
+
+        <Popover isOpen={isOpenDropdownMenu} closeHandler={closeIsOpenDropdownMenu} anchorEl={profileElementHolder} />
       </Wrapper>
-      <DropdownMenu anchorEl={Wrapper} />
     </>
   );
 }
