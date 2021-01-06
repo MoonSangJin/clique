@@ -94,11 +94,14 @@ const ProfileImage = styled.img`
 
 const MenuItem = styled.div`
   margin-top: 18px;
-  
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.02em;
   color: #90A0AD;
+  
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default ProfileMenu;
