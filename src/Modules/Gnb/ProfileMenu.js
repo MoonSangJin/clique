@@ -23,7 +23,7 @@ const profileMenuInfo = [
 const ProfileMenu = ({ isOpen, closeHandler, anchorEl, profileImageSrc }) => {
 
   return (
-    <Popover isOpen={isOpen} closeHandler={closeHandler} anchorEl={anchorEl}>
+    <Popover isOpen={isOpen} closeHandler={closeHandler} anchorEl={anchorEl} position={'hover'}>
       <MenuWrapper>
         <Panel>
           <ProfilePanel>

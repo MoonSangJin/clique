@@ -25,9 +25,8 @@ const FolderDropdownMenuInfo = [
 
 
 const DropdownMenu = ({ isOpen, closeHandler, anchorEl }) => {
-
   return (
-    <Popover isOpen={isOpen} closeHandler={closeHandler} anchorEl={anchorEl}>
+    <Popover isOpen={isOpen} closeHandler={closeHandler} anchorEl={anchorEl} position={'hover'}>
       <MenuWrapper>
         {
           FolderDropdownMenuInfo.map((info) =>
