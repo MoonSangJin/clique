@@ -2,14 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 153px;
-  height: 72px;
   font-family: Poppins;
   font-style: normal;
   font-weight: bold;
   font-size: 48px;
   line-height: 72px;
-  /* identical to box height */
 
   letter-spacing: -0.03em;
 
