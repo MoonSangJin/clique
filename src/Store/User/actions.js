@@ -12,6 +12,8 @@ export const DUMB_API_REQUEST = 'users/DUMB_API_REQUEST';
 export const DUMB_API_SUCCESS = 'users/DUMB_API_SUCCESS';
 export const DUMB_API_FAILURE = 'users/DUMB_API_FAILURE';
 
+export const SET_USER_INFO = 'users/SET_USER_INFO';
+
 
 export const dumbStateIncrease = createAction(DUMB_STATE_INCREASE);
 
@@ -22,3 +24,5 @@ export const dumbStateIncreaseByAmount = createAction(DUMB_STATE_INCREASE_BY_AMO
 export const dumbApiRequest = createAction(DUMB_API_REQUEST);
 export const dumbApiSuccess = createAction(DUMB_API_SUCCESS);
 export const dumbApiFailure = createAction(DUMB_API_FAILURE);
+
+export const setUserInfo = createAction(SET_USER_INFO);

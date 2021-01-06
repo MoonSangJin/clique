@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import SignUpPagePresenter from './SignUpPagePresenter';
+import { useDispatch } from 'react-redux';
+import { signUpRequest } from '../../Store/SignUp/actions';
+
 
 const SignUpPageContainer = () => {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
   const [passwordValidationMessage, setPasswordValidationMessage] = useState(
-    ''
+    '',
   );
 
   const emailChangeHandler = (e) => {
@@ -43,12 +48,12 @@ const SignUpPageContainer = () => {
 
   const checkValidation = () => {
     let isValid = true;
-
     isValid = isValidEmail() && isValid;
     isValid = isValidPassword() && isValid;
 
     if (isValid) {
       // Todo(maitracle): 로그인 처리 로직 추가하기
+      dispatch(signUpRequest({ email, password }));
     }
   };
   return (
