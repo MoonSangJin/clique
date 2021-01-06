@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Example from '../assets/img/example.png';
 import folder from '../assets/img/folder.svg';
 import option from '../assets/img/option.svg';
 import verticalLine from '../assets/img/verticalLine.svg';
 import isFavorite from '../assets/img/isFavorite.svg';
-import LargeText from '../Components/LargeText';
-import GrayText from '../Components/GrayText';
 
 export default function Folder({
   favIconUrl,
@@ -22,8 +20,8 @@ export default function Folder({
         <img src={isFavorite} />
       </IsFavorite>
       <TextRow>
-        <LargeText text={`${title}`} fontSize={20} fontWeight={'normal'} />
-        <GrayText text={`${url}`} />
+        <FolderName>{title}</FolderName>
+        <FolderTime>{url}</FolderTime>
       </TextRow>
       <FaviconRow>
         <Icon>
@@ -31,15 +29,19 @@ export default function Folder({
           <VerticalLine src={verticalLine} />
           {completeList.map((data, index) => {
             return (
-              <img key={index} src={data.favIconUrl} alt={data.favIconUrl} />
+              <FavIcon
+                key={index}
+                src={data.favIconUrl}
+                alt={data.favIconUrl}
+              />
             );
           })}
-          <img src={folder} />
-          <img src={folder} />
-          <img src={folder} />
-          <img src={folder} />
-          <img src={folder} />
-          <img src={folder} />
+          <FavIcon src={folder} />
+          <FavIcon src={folder} />
+          <FavIcon src={folder} />
+          <FavIcon src={folder} />
+          <FavIcon src={folder} />
+          <FavIcon src={folder} />
         </Icon>
         <OptionIcon src={option} alt={option} />
       </FaviconRow>
@@ -59,7 +61,7 @@ const Container = styled.div`
 const FolderImage = styled.div`
   width: 372px;
   height: 279.42px;
-  background-image: url(${(props) => props.favIconUrl || { Example }});
+  background-image: url(${({ favIconUrl }) => favIconUrl || Example});
   background-size: cover;
 `;
 const IsFavorite = styled.div`
@@ -69,18 +71,58 @@ const IsFavorite = styled.div`
 const TextRow = styled.div`
   margin-left: 37px;
 `;
+const FolderName = styled.div`
+  display: block;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+  /* identical to box height */
+
+  letter-spacing: -0.02em;
+
+  color: #070701;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+const FolderTime = styled.div`
+  display: block;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height */
+
+  letter-spacing: -0.02em;
+
+  color: #90a0ad;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
 const FaviconRow = styled.div`
   display: flex;
   justify-content: space-around;
 `;
 const Icon = styled.div`
   display: flex;
-  width: 225px;
+  align-items: center;
+  width: 200px;
   overflow-x: hidden;
 `;
-const DefaultFolder = styled.img``;
+const DefaultFolder = styled.img`
+  width: 30px;
+  height: 25px;
+`;
 const VerticalLine = styled.img`
   margin-left: 10px;
   margin-right: 10px;
+`;
+const FavIcon = styled.img`
+  width: 26px;
+  height: 26px;
 `;
 const OptionIcon = styled.img``;
