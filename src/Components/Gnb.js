@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Logo from './Logo';
 import Profile from './Profile';
+import defaultImage from '../assets/img/defaultImage';
 import PopoverController from './Popover/PopoverController';
 import ProfileMenu from '../Modules/Gnb/ProfileMenu';
 
@@ -35,12 +36,17 @@ export default function Gnb() {
         </StyledLink>
         <ProfileWrapper>
           <PopoverController onClick={openIsOpenDropdownMenu} ref={ref}>
-            <Profile />
+            <Profile profileImageSrc={defaultImage} />
           </PopoverController>
         </ProfileWrapper>
 
-        <ProfileMenu isOpen={isOpenDropdownMenu} closeHandler={closeIsOpenDropdownMenu}
-                     anchorEl={profileElementHolder} />
+        <ProfileMenu
+          isOpen={isOpenDropdownMenu}
+          closeHandler={closeIsOpenDropdownMenu}
+          anchorEl={profileElementHolder}
+          profileImageSrc={defaultImage}
+        />
+
       </Wrapper>
     </>
   );
