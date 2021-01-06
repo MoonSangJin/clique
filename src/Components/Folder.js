@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Example from '../assets/img/example.png';
 import folder from '../assets/img/folder.svg';
@@ -34,7 +34,6 @@ export default function Folder({
   const closeDropdownMenu = () => {
     setIsOpenDropdownMenu(false);
   };
-
   return (
     <Container>
       <FolderImage {...{ favIconUrl }} />
@@ -75,7 +74,6 @@ export default function Folder({
           anchorEl={profileElementHolder}
           sharedText={mockedTextForShare}
         />
-
       </FaviconRow>
     </Container>
   );
