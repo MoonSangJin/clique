@@ -57,6 +57,7 @@ const Container = styled.div`
   justify-content: space-around;
   align-items: space-around;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
 `;
 const FolderImage = styled.div`
   width: 372px;
