@@ -2,7 +2,7 @@ import React from 'react';
 import Popover from '@material-ui/core/Popover';
 
 
-const WrappedPopover = ({ isOpen, closeHandler, menuList, anchorEl }) => {
+const WrappedPopover = ({ isOpen, closeHandler, anchorEl, children }) => {
 
   return isOpen ? (
     <Popover
@@ -18,18 +18,7 @@ const WrappedPopover = ({ isOpen, closeHandler, menuList, anchorEl }) => {
         horizontal: 'right',
       }}
     >
-      <div>
-        The content of the Popover.
-      </div>
-      <div>
-        The content of the Popover.
-      </div>
-      <div>
-        The content of the Popover.
-      </div>
-      <div>
-        The content of the Popover.
-      </div>
+      {children}
     </Popover>
   ) : null;
 };

@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 import Logo from './Logo';
 import Profile from './Profile';
-import Popover from './Popover';
 import PopoverController from './Popover/PopoverController';
+import ProfileMenu from '../Modules/Gnb/ProfileMenu';
 
 
 export default function Gnb() {
@@ -39,7 +39,8 @@ export default function Gnb() {
           </PopoverController>
         </ProfileWrapper>
 
-        <Popover isOpen={isOpenDropdownMenu} closeHandler={closeIsOpenDropdownMenu} anchorEl={profileElementHolder} />
+        <ProfileMenu isOpen={isOpenDropdownMenu} closeHandler={closeIsOpenDropdownMenu}
+                     anchorEl={profileElementHolder} />
       </Wrapper>
     </>
   );
