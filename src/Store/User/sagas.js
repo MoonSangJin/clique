@@ -2,7 +2,7 @@ import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { HOST } from '../../Constants/requests';
-import { setUserInfo, signInFailure, signInRequest } from './actions';
+import { removeUserInfo, setUserInfo, signInRequest } from './actions';
 
 
 const signInAsyncApi = (payload) => axios.post(HOST + '/token/', payload);
@@ -23,7 +23,7 @@ function* signInAsync({ payload }) {
 
     yield put(setUserInfo(mockUser));
   } catch (e) {
-    yield put(signInFailure());
+    yield put(removeUserInfo());
   }
 }
 

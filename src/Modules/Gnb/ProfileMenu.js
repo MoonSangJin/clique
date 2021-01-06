@@ -1,26 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
 import Popover from '../../Components/Popover';
-
-
-const profileMenuInfo = [
-  {
-    menuName: 'Help & Support',
-    onClickFunction: () => null,
-  },
-  {
-    menuName: 'Getting Started',
-    onClickFunction: () => null,
-  },
-  {
-    menuName: 'Sign Out',
-    onClickFunction: () => null,
-  },
-];
+import { removeUserInfo } from '../../Store/User/actions';
 
 
 const ProfileMenu = ({ isOpen, closeHandler, anchorEl, profileImageSrc }) => {
+  const dispatch = useDispatch();
+
+  const profileMenuInfo = [
+    {
+      menuName: 'Help & Support',
+      onClickFunction: () => null,
+    },
+    {
+      menuName: 'Getting Started',
+      onClickFunction: () => null,
+    },
+    {
+      menuName: 'Sign Out',
+      onClickFunction: () => {
+        chrome.storage.sync.remove(['access']);
+        dispatch(removeUserInfo());
+      },
+    },
+  ];
 
   return (
     <Popover isOpen={isOpen} closeHandler={closeHandler} anchorEl={anchorEl} position={'hover'}>
@@ -40,7 +45,7 @@ const ProfileMenu = ({ isOpen, closeHandler, anchorEl, profileImageSrc }) => {
         </Panel>
         {
           profileMenuInfo.map((info) =>
-            <MenuItem key={info.menuName} onClicl={info.onClickFunction}>{info.menuName}</MenuItem>)
+            <MenuItem key={info.menuName} onClick={info.onClickFunction}>{info.menuName}</MenuItem>)
         }
       </MenuWrapper>
     </Popover>

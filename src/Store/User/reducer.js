@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { setUserInfo, signInFailure } from './actions';
+import { removeUserInfo, setUserInfo } from './actions';
 
 
 const initState = {
@@ -24,7 +24,7 @@ const userReducer = createReducer(initState, {
       profileImageUrl: action.payload.profile_image_url ? action.payload.profile_image_url : '',
     },
   }),
-  [signInFailure]: (state) => ({
+  [removeUserInfo]: (state) => ({
     ...state,
     user: {
       isLoggedIn: false,
