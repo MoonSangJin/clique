@@ -54,11 +54,17 @@ const SignUpPageContainer = () => {
     isValid = isValidEmail() && isValid;
     isValid = isValidPassword() && isValid;
 
+    return isValid;
+  };
+
+  const handleSignUp = () => {
+    const isValid = checkValidation();
+
     if (isValid) {
-      // Todo(maitracle): 로그인 처리 로직 추가하기
       dispatch(signUpRequest({ email, password }));
     }
   };
+
   return (
     <>
       <SignUpPagePresenter
@@ -69,7 +75,7 @@ const SignUpPageContainer = () => {
           setEmailValidationMessage,
           passwordValidationMessage,
           setPasswordValidationMessage,
-          checkValidation,
+          handleSignUp,
           emailChangeHandler,
           passwordChangeHandler,
           isValidEmail,
