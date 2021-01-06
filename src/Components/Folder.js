@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Example from '../assets/img/example.png';
 import folder from '../assets/img/folder.svg';
@@ -8,9 +8,7 @@ import isFavorite from '../assets/img/isFavorite.svg';
 import PopoverController from './Popover/PopoverController';
 import DropdownMenu from '../Modules/Folder/DropdownMenu';
 
-
 const mockedTextForShare = 'this is text for sharing about bookmarks';
-
 
 export default function Folder({
   favIconUrl,
@@ -156,5 +154,4 @@ const FavIcon = styled.img`
   width: 26px;
   height: 26px;
 `;
-const OptionIcon = styled.img`
-`;
+const OptionIcon = styled.img``;
