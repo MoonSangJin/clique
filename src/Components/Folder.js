@@ -8,6 +8,10 @@ import isFavorite from '../assets/img/isFavorite.svg';
 import PopoverController from './Popover/PopoverController';
 import DropdownMenu from '../Modules/Folder/DropdownMenu';
 
+
+const mockedTextForShare = 'this is text for sharing about bookmarks';
+
+
 export default function Folder({
   favIconUrl,
   title,
@@ -69,6 +73,7 @@ export default function Folder({
           isOpen={isOpenDropdownMenu}
           closeHandler={closeDropdownMenu}
           anchorEl={profileElementHolder}
+          sharedText={mockedTextForShare}
         />
 
       </FaviconRow>
