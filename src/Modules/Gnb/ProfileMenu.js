@@ -40,7 +40,7 @@ const ProfileMenu = ({ isOpen, closeHandler, anchorEl, profileImageSrc }) => {
         </Panel>
         {
           profileMenuInfo.map((info) =>
-            <MenuItem key={info.menuName}>{info.menuName}</MenuItem>)
+            <MenuItem key={info.menuName} onClicl={info.onClickFunction}>{info.menuName}</MenuItem>)
         }
       </MenuWrapper>
     </Popover>
@@ -64,8 +64,6 @@ const ProfilePanel = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  
-  
 `;
 
 const Information = styled.div`

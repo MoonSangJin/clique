@@ -7,6 +7,7 @@ import Profile from './Profile';
 import defaultImage from '../assets/img/defaultImage';
 import PopoverController from './Popover/PopoverController';
 import ProfileMenu from '../Modules/Gnb/ProfileMenu';
+import DropdownMenu from '../Modules/Folder/DropdownMenu';
 
 
 export default function Gnb() {
@@ -47,6 +48,7 @@ export default function Gnb() {
           profileImageSrc={defaultImage}
         />
 
+        <DropdownMenu isOpen={false} anchorEl={profileElementHolder} />
       </Wrapper>
     </>
   );

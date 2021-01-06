@@ -10,7 +10,7 @@ const WrappedPopover = ({ isOpen, closeHandler, anchorEl, children }) => {
       onClose={closeHandler}
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'bottom',
+        vertical: 'top',
         horizontal: 'right',
       }}
       transformOrigin={{
