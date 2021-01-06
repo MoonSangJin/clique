@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import handGlass from '../assets/img/handGlass';
 
+
 export default function SearchInput() {
   const [bookMark, setBookMark] = useState('');
   const [keyWord, setKeyWord] = useState('');
@@ -50,14 +51,15 @@ export default function SearchInput() {
     setGoogleEngine(false);
     setKeyWord('');
   };
+
   return (
-    <Continaer>
+    <Container>
       <InputRow>
         <img
           src={handGlass}
           alt={`handglass`}
           style={{ marginLeft: '20px', marginRight: '20px' }}
-        ></img>
+        />
         <Form onSubmit={submitHandler}>
           <BookmarkInput
             type="text"
@@ -69,7 +71,7 @@ export default function SearchInput() {
             googleEngine={googleEngine}
             onFocus={initBookMarkSearch}
             onBlur={endBookMarkSearch}
-          ></BookmarkInput>
+          />
         </Form>
         <VerticalLine
           googleEngine={googleEngine}
@@ -86,13 +88,13 @@ export default function SearchInput() {
             bookMarkEngine={bookMarkEngine}
             onFocus={initGoogleSearch}
             onBlur={endGoogleSearch}
-          ></GoogleInput>
+          />
         </Form>
       </InputRow>
-    </Continaer>
+    </Container>
   );
 }
-const Continaer = styled.div``;
+const Container = styled.div``;
 const Form = styled.form`
   display: flex;
   align-items: center;
