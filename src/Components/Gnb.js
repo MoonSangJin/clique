@@ -7,7 +7,6 @@ import Profile from './Profile';
 import defaultImage from '../assets/img/defaultImage';
 import PopoverController from './Popover/PopoverController';
 import ProfileMenu from '../Modules/Gnb/ProfileMenu';
-import DropdownMenu from '../Modules/Folder/DropdownMenu';
 
 
 export default function Gnb() {
@@ -19,11 +18,11 @@ export default function Gnb() {
     setProfileElementHolder(ref.current);
   }, [ref]);
 
-  const openIsOpenDropdownMenu = () => {
+  const openDropdownMenu = () => {
     setIsOpenDropdownMenu(true);
   };
 
-  const closeIsOpenDropdownMenu = () => {
+  const closeDropdownMenu = () => {
     setIsOpenDropdownMenu(false);
   };
 
@@ -36,19 +35,17 @@ export default function Gnb() {
           </LogoWrapper>
         </StyledLink>
         <ProfileWrapper>
-          <PopoverController onClick={openIsOpenDropdownMenu} ref={ref}>
+          <PopoverController onClick={openDropdownMenu} ref={ref}>
             <Profile profileImageSrc={defaultImage} />
           </PopoverController>
         </ProfileWrapper>
 
         <ProfileMenu
           isOpen={isOpenDropdownMenu}
-          closeHandler={closeIsOpenDropdownMenu}
+          closeHandler={closeDropdownMenu}
           anchorEl={profileElementHolder}
           profileImageSrc={defaultImage}
         />
-
-        <DropdownMenu isOpen={false} anchorEl={profileElementHolder} />
       </Wrapper>
     </>
   );
@@ -57,6 +54,7 @@ export default function Gnb() {
 
 const Wrapper = styled.div`
   width: 100%;
+  height: 65px;
   display: flex;
   justify-content: space-between;
   align-items: center;

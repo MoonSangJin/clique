@@ -3,7 +3,7 @@ import Popover from '@material-ui/core/Popover';
 
 
 const positionSettings = {
-  'hover': {
+  hover: {
     anchorOrigin: {
       vertical: 'top',
       horizontal: 'right',
@@ -13,7 +13,7 @@ const positionSettings = {
       horizontal: 'right',
     },
   },
-  'bottom': {
+  bottom: {
     anchorOrigin: {
       vertical: 'bottom',
       horizontal: 'center',
@@ -27,7 +27,7 @@ const positionSettings = {
 
 
 const WrappedPopover = ({ isOpen, closeHandler, anchorEl, children, position = 'hover' }) => {
-  return isOpen ? (
+  return !!anchorEl && isOpen ? (
     <Popover
       open={isOpen}
       onClose={closeHandler}
