@@ -2,36 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Popover from '../../Components/Popover';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 
-const FolderDropdownMenuInfo = [
-  {
-    menuName: 'Add to favorites',
-    onClickFunction: () => null,
-  },
-  {
-    menuName: 'Share',
-    onClickFunction: () => null,
-  },
-  {
-    menuName: 'Rename',
-    onClickFunction: () => null,
-  },
-  {
-    menuName: 'Delete folder',
-    onClickFunction: () => null,
-  },
-];
-
-
-const DropdownMenu = ({ isOpen, closeHandler, anchorEl }) => {
+const DropdownMenu = ({ isOpen, closeHandler, anchorEl, sharedText }) => {
   return (
     <Popover isOpen={isOpen} closeHandler={closeHandler} anchorEl={anchorEl} position={'hover'}>
       <MenuWrapper>
-        {
-          FolderDropdownMenuInfo.map((info) =>
-            <MenuItem key={info.menuName} onClick={info.onClickFunction}>{info.menuName}</MenuItem>)
-        }
+        <MenuItem>Add to favorites</MenuItem>
+        <CopyToClipboard
+          text={sharedText}
+          onCopy={closeHandler}
+        >
+          <MenuItem>Share</MenuItem>
+        </CopyToClipboard>
+        <MenuItem>Rename</MenuItem>
+        <MenuItem>Delete folder</MenuItem>
       </MenuWrapper>
     </Popover>
   );

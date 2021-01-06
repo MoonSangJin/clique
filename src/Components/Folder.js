@@ -5,6 +5,12 @@ import folder from '../assets/img/folder.svg';
 import option from '../assets/img/option.svg';
 import verticalLine from '../assets/img/verticalLine.svg';
 import isFavorite from '../assets/img/isFavorite.svg';
+import PopoverController from './Popover/PopoverController';
+import DropdownMenu from '../Modules/Folder/DropdownMenu';
+
+
+const mockedTextForShare = 'this is text for sharing about bookmarks';
+
 
 export default function Folder({
   favIconUrl,
@@ -13,11 +19,26 @@ export default function Folder({
   completeList,
   favorite,
 }) {
+  const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
+  const [profileElementHolder, setProfileElementHolder] = useState(null);
+  const dotMenuRef = React.createRef();
+
+  useEffect(() => {
+    setProfileElementHolder(dotMenuRef.current);
+  }, [dotMenuRef]);
+
+  const openDropdownMenu = () => {
+    setIsOpenDropdownMenu(true);
+  };
+
+  const closeDropdownMenu = () => {
+    setIsOpenDropdownMenu(false);
+  };
   return (
     <Container>
       <FolderImage {...{ favIconUrl }} />
       <IsFavorite {...{ favorite }}>
-        <img src={isFavorite} />
+        <img src={isFavorite} alt={'favorite icom'} />
       </IsFavorite>
       <TextRow>
         <FolderName>{title}</FolderName>
@@ -43,7 +64,16 @@ export default function Folder({
           <FavIcon src={folder} />
           <FavIcon src={folder} />
         </Icon>
-        <OptionIcon src={option} alt={option} />
+        <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
+          <OptionIcon src={option} alt={option} />
+        </PopoverController>
+
+        <DropdownMenu
+          isOpen={isOpenDropdownMenu}
+          closeHandler={closeDropdownMenu}
+          anchorEl={profileElementHolder}
+          sharedText={mockedTextForShare}
+        />
       </FaviconRow>
     </Container>
   );
@@ -56,7 +86,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: space-around;
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
 `;
 const FolderImage = styled.div`
@@ -126,4 +156,5 @@ const FavIcon = styled.img`
   width: 26px;
   height: 26px;
 `;
-const OptionIcon = styled.img``;
+const OptionIcon = styled.img`
+`;
