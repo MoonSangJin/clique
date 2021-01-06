@@ -7,9 +7,12 @@ import Profile from './Profile';
 import defaultImage from '../assets/img/defaultImage';
 import PopoverController from './Popover/PopoverController';
 import ProfileMenu from '../Modules/Gnb/ProfileMenu';
+import { useSelector } from 'react-redux';
 
 
 export default function Gnb() {
+  const userReducer = useSelector((state) => state.userReducer);
+
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
   const [profileElementHolder, setProfileElementHolder] = useState(null);
   const ref = React.createRef();
@@ -34,11 +37,19 @@ export default function Gnb() {
             <Logo />
           </LogoWrapper>
         </StyledLink>
-        <ProfileWrapper>
-          <PopoverController onClick={openDropdownMenu} ref={ref}>
-            <Profile profileImageSrc={defaultImage} />
-          </PopoverController>
-        </ProfileWrapper>
+
+        {
+          userReducer.user.isLoggedIn ?
+            <ProfileWrapper>
+              <PopoverController onClick={openDropdownMenu} ref={ref}>
+                <Profile profileImageSrc={defaultImage} />
+              </PopoverController>
+            </ProfileWrapper>
+            :
+            <ProfileWrapper>
+              <Profile profileImageSrc={defaultImage} />
+            </ProfileWrapper>
+        }
 
         <ProfileMenu
           isOpen={isOpenDropdownMenu}
