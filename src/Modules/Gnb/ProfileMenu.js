@@ -21,8 +21,9 @@ const ProfileMenu = ({ isOpen, closeHandler, anchorEl, profileImageSrc }) => {
     {
       menuName: 'Sign Out',
       onClickFunction: () => {
-        chrome.storage.sync.remove(['access']);
-        dispatch(removeUserInfo());
+        chrome.storage.sync.remove(['access'], () => {
+          dispatch(removeUserInfo());
+        });
       },
     },
   ];
