@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import SignUpPagePresenter from './SignUpPagePresenter';
-import { useDispatch } from 'react-redux';
 import { signUpRequest } from '../../Store/SignUp/actions';
 
 
 const SignUpPageContainer = () => {
+  const signUpReducer = useSelector((state) => state.signUpReducer);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
@@ -57,21 +60,28 @@ const SignUpPageContainer = () => {
     }
   };
   return (
-    <SignUpPagePresenter
-      {...{
-        email,
-        password,
-        emailValidationMessage,
-        setEmailValidationMessage,
-        passwordValidationMessage,
-        setPasswordValidationMessage,
-        checkValidation,
-        emailChangeHandler,
-        passwordChangeHandler,
-        isValidEmail,
-        isValidPassword,
-      }}
-    />
+    <>
+      <SignUpPagePresenter
+        {...{
+          email,
+          password,
+          emailValidationMessage,
+          setEmailValidationMessage,
+          passwordValidationMessage,
+          setPasswordValidationMessage,
+          checkValidation,
+          emailChangeHandler,
+          passwordChangeHandler,
+          isValidEmail,
+          isValidPassword,
+        }}
+      />
+      {
+        signUpReducer.signUpResult.result === 'success' ?
+          <Redirect to='/' />
+          : null
+      }
+    </>
   );
 };
 
