@@ -6,8 +6,7 @@ import SearchInput from '../../Components/SearchInput';
 import FolderRow from '../../Components/FolderRow';
 import { Link } from 'react-router-dom';
 
-
-const HomeScreenPresenter = () => {
+const HomeScreenPresenter = ({ data }) => {
   return (
     <Container>
       <Gnb />
@@ -18,7 +17,7 @@ const HomeScreenPresenter = () => {
       <SearchRow>
         <SearchInput />
       </SearchRow>
-      <FolderRow />
+      <FolderRow {...{ data }} />
     </Container>
   );
 };
@@ -29,6 +28,5 @@ const SearchRow = styled.div`
   display: flex;
   justify-content: center;
 `;
-
 
 export default HomeScreenPresenter;

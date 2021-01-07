@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Folder from '../Components/Folder';
 import ListFolder from '../Components/ListFolder';
@@ -9,39 +9,14 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-export default function FolderRow() {
-  const [completeList, setCompleteList] = useState([]);
-  const [favorite, setFavorite] = useState(true);
-
-  useEffect(() => {
-    chrome.storage.sync.get(['key'], function (result) {
-      if (result.key) {
-        setCompleteList(result.key);
-      }
-    });
-  }, []);
-
+export default function FolderRow({ data }) {
   return (
     <Container>
-      {completeList.map((data, index) => {
-        return (
-          <div key={index}>
-            <Folder
-              favIconUrl={data.favIconUrl}
-              title={data.title}
-              url={data.url}
-              completeList={completeList}
-              favorite={favorite}
-            />
-            <ListFolder
-              favIconUrl={data.favIconUrl}
-              title={data.title}
-              url={data.url}
-              completeList={completeList}
-              favorite={favorite}
-            />
-          </div>
-        );
+      {data.map((folder_data, index) => {
+        return <Folder key={index} {...{ folder_data }} />;
+      })}
+      {data.map((folder_data, index) => {
+        return <ListFolder key={index} {...{ folder_data }} />;
       })}
     </Container>
   );

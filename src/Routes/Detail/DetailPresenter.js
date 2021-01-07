@@ -1,6 +1,12 @@
 import React from 'react';
-
+import Gnb from '../../Components/Gnb';
+import SearchInput from '../../Components/SearchInput';
 const DetailPresenter = () => {
-  return <div>hi this is detail</div>;
+  return (
+    <>
+      <Gnb />
+      <SearchInput />
+    </>
+  );
 };
 export default DetailPresenter;

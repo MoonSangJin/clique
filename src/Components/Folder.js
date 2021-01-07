@@ -10,16 +10,12 @@ import DropdownMenu from '../Modules/Folder/DropdownMenu';
 
 const mockedTextForShare = 'this is text for sharing about bookmarks';
 
-export default function Folder({
-  favIconUrl,
-  title,
-  url,
-  completeList,
-  favorite,
-}) {
+export default function Folder({ folder_data }) {
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
   const [profileElementHolder, setProfileElementHolder] = useState(null);
   const dotMenuRef = React.createRef();
+
+  const { folder_title, time, favorite } = folder_data;
 
   useEffect(() => {
     setProfileElementHolder(dotMenuRef.current);
@@ -34,27 +30,19 @@ export default function Folder({
   };
   return (
     <Container>
-      <FolderImage {...{ favIconUrl }} />
+      <FolderImage {...{}} />{' '}
+      {/* 폴더 이미지 들어갈 곳, 아래 styled-component도 수정 필요 */}
       <IsFavorite {...{ favorite }}>
         <img src={isFavorite} alt={'favorite icom'} />
       </IsFavorite>
       <TextRow>
-        <FolderName>{title}</FolderName>
-        <FolderTime>{url}</FolderTime>
+        <FolderName>{folder_title}</FolderName>
+        <FolderTime>{time}</FolderTime>
       </TextRow>
       <FaviconRow>
         <Icon>
           <DefaultFolder src={folder} alt={folder} />
           <VerticalLine src={verticalLine} />
-          {completeList.map((data, index) => {
-            return (
-              <FavIcon
-                key={index}
-                src={data.favIconUrl}
-                alt={data.favIconUrl}
-              />
-            );
-          })}
           <FavIcon src={folder} />
           <FavIcon src={folder} />
           <FavIcon src={folder} />
@@ -154,4 +142,8 @@ const FavIcon = styled.img`
   width: 26px;
   height: 26px;
 `;
-const OptionIcon = styled.img``;
+const OptionIcon = styled.img`
+  &:hover {
+    cursor: pointer;
+  }
+`;

@@ -4,26 +4,16 @@ import folder from '../assets/img/folder.svg';
 import favoriteFolder from '../assets/img/favoriteFolder.svg';
 import option from '../assets/img/option.svg';
 
-export default function ListFolder({
-  favIconUrl,
-  title,
-  url,
-  completeList,
-  favorite,
-}) {
+export default function ListFolder({ folder_data }) {
+  const { folder_title, time, favorite } = folder_data;
   return (
     <Container>
       <ListTitle>
         <Folder {...{ favorite }} />
-        <Text>{title}</Text>
+        <Text>{folder_title}</Text>
       </ListTitle>
 
       <Icon>
-        {completeList.map((data, index) => {
-          return (
-            <FavIcon key={index} src={data.favIconUrl} alt={data.favIconUrl} />
-          );
-        })}
         <FavIcon src={folder} />
         <FavIcon src={folder} />
         <FavIcon src={folder} />
