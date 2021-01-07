@@ -12,36 +12,40 @@ export default function Scroll({ tabs }) {
     const { id, name, value, src, checked } = e.target;
     console.log(e.target);
     chrome.storage.local.get([`${name}`], (result) => {
-      if (result[name].scroll !== undefined) {
+      if (result[name].scroll !== 0) {
         //scroll저장하기 누르면
+        console.log('스크롤 정보 O 페이지');
         const scrollResult = result[name].scroll; //scroll 위치 가져와서 저장
 
         checked
           ? setBookmarks((bookmarks) => [
               ...bookmarks,
               {
-                tab: id,
                 title: name,
                 url: value,
                 favIconUrl: src,
                 scrollPos: scrollResult,
               },
             ])
-          : setBookmarks((bookmarks) => bookmarks.filter((i) => i.tab !== id));
+          : setBookmarks((bookmarks) =>
+              bookmarks.filter((i) => i.title !== name)
+            );
       } else {
         //scroll저장하기 안누르거나||scroll 정보 없음(scroll안함)
+        console.log('스크롤 정보 X 페이지');
         checked
           ? setBookmarks((bookmarks) => [
               ...bookmarks,
               {
-                tab: id,
                 title: name,
                 url: value,
                 favIconUrl: src,
                 scrollPos: null,
               },
             ])
-          : setBookmarks((bookmarks) => bookmarks.filter((i) => i.tab !== id));
+          : setBookmarks((bookmarks) =>
+              bookmarks.filter((i) => i.title !== name)
+            );
       }
     });
   };

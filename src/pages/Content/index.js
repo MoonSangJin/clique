@@ -7,14 +7,21 @@ printLine("Using the 'printLine' function from the Print Module");
 let last_known_scroll_position = 0;
 let contentTitle = document.title;
 
+let init = {
+  title: contentTitle,
+  scrollHeight: last_known_scroll_position,
+};
+chrome.runtime.sendMessage(init, (response) => {
+  console.log('content에서 처음 보냄');
+  console.log(response.farewell);
+});
+
 const onScroll = () => {
   last_known_scroll_position = window.scrollY;
-
   let items = {
     title: contentTitle,
     scrollHeight: last_known_scroll_position,
   };
-
   chrome.runtime.sendMessage(items, (response) => {
     console.log('content에서 보냄');
     console.log(response.farewell);
