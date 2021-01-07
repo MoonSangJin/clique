@@ -1,39 +1,37 @@
 import { createReducer } from '@reduxjs/toolkit';
-import {
-  dumbApiFailure,
-  dumbApiSuccess,
-  dumbStateDecrease,
-  dumbStateIncrease,
-  dumbStateIncreaseByAmount,
-} from './actions';
+
+import { removeUserInfo, setUserInfo } from './actions';
 
 
 const initState = {
-  dumbState: 0,
-  imageUrl: '',
+  user: {
+    isLoggedIn: false,
+    id: -1,
+    email: '',
+    profileImageUrl: '',
+  },
 };
 
 
 const userReducer = createReducer(initState, {
-  [dumbStateIncrease]: (state) => ({
+  [setUserInfo]: (state, action) => ({
     ...state,
-    dumbState: state.dumbState + 1,
+    user: {
+      isLoggedIn: true,
+      id: action.payload.id,
+      email: action.payload.email,
+      // Todo(maitracle): backend에서 인자를 camelCase로 넘겨주게 수정한 후 snake_case를 제거한다.
+      profileImageUrl: action.payload.profile_image_url ? action.payload.profile_image_url : '',
+    },
   }),
-  [dumbStateDecrease]: (state) => ({
+  [removeUserInfo]: (state) => ({
     ...state,
-    dumbState: state.dumbState - 1,
-  }),
-  [dumbStateIncreaseByAmount]: (state, action) => ({
-    ...state,
-    dumbState: state.dumbState + action.payload,
-  }),
-  [dumbApiSuccess]: (state, action) => ({
-    ...state,
-    imageUrl: action.payload,
-  }),
-  [dumbApiFailure]: (state) => ({
-    ...state,
-    imageUrl: '',
+    user: {
+      isLoggedIn: false,
+      id: -1,
+      email: '',
+      profileImageUrl: '',
+    },
   }),
 });
 

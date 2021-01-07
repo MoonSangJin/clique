@@ -1,23 +1,32 @@
 import axios from 'axios';
-import { dumbApiFailure, dumbApiRequest, dumbApiSuccess } from './actions';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
+import { HOST } from '../../Constants/requests';
+import { removeUserInfo, setUserInfo, signInRequest } from './actions';
 
-const randomDogImageApiUrl = 'https://dog.ceo/api/breeds/image/random';
 
-const fetchRandomDogImageApi = () => axios.get(randomDogImageApiUrl);
+const signInAsyncApi = (payload) => axios.post(HOST + '/token/', payload);
 
-function* DumbApiAsync() {
+function* signInAsync({ payload }) {
   try {
-    const res = yield call(fetchRandomDogImageApi);
+    const res = yield call(signInAsyncApi, payload);
 
-    yield put(dumbApiSuccess(res.data.message));
+    // Todo(maitracle): server에서 user 정보를 주면 user 정보를 세팅하게 수정한다.
+    // server 에서 로그인 시 user 정보를 주고있지 않으므로 mock user를 임시로 세팅한다.
+    const mockUser = {
+      id: -1,
+      email: '',
+      profileImageUrl: '',
+    };
+
+    chrome.storage.sync.set({ access: res.data.access });
+
+    yield put(setUserInfo(mockUser));
   } catch (e) {
-    yield put(dumbApiFailure());
+    yield put(removeUserInfo());
   }
 }
 
-
 export function* watchUser() {
-  yield takeEvery(dumbApiRequest, DumbApiAsync);
+  yield takeEvery(signInRequest, signInAsync);
 }

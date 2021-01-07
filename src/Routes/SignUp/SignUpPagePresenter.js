@@ -16,7 +16,7 @@ const SignUpPagePresenter = ({
   setEmailValidationMessage,
   passwordValidationMessage,
   setPasswordValidationMessage,
-  checkValidation,
+  handleSignUp,
   emailChangeHandler,
   passwordChangeHandler,
   isValidEmail,
@@ -50,7 +50,7 @@ const SignUpPagePresenter = ({
             type={'password'}
           />
         </InputRow>
-        <PurpleButton onClick={checkValidation} text={'Sign Up'} />
+        <PurpleButton onClick={handleSignUp} text={'Sign Up'} />
         <Row>
           <GrayText text={'By joining Clique you agree to our'} />
           <PurpleText

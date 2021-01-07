@@ -21,9 +21,9 @@ const Text = styled.span`
   letter-spacing: -0.02em;
   color: #ffffff;
 `;
-export default function PurpleButton({ text }) {
+export default function PurpleButton({ text, onClick }) {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Text>{text}</Text>
     </Container>
   );

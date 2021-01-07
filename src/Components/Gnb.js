@@ -7,9 +7,14 @@ import Profile from './Profile';
 import defaultImage from '../assets/img/defaultImage';
 import PopoverController from './Popover/PopoverController';
 import ProfileMenu from '../Modules/Gnb/ProfileMenu';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserInfo } from '../Store/User/actions';
 
 
 export default function Gnb() {
+  const userReducer = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
+
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
   const [profileElementHolder, setProfileElementHolder] = useState(null);
   const ref = React.createRef();
@@ -17,6 +22,20 @@ export default function Gnb() {
   useEffect(() => {
     setProfileElementHolder(ref.current);
   }, [ref]);
+
+  useEffect(() => {
+    chrome.storage.sync.get(['access'], function(result) {
+      if (result.access) {
+        // Todo(maitracle): access token이 있을 경우 profile 정보를 받아서 store에 함께 저장한다.
+        dispatch(setUserInfo({
+            id: -1,
+            email: '',
+            profileImageUrl: '',
+          }),
+        );
+      }
+    });
+  }, [dispatch]);
 
   const openDropdownMenu = () => {
     setIsOpenDropdownMenu(true);
@@ -34,11 +53,19 @@ export default function Gnb() {
             <Logo />
           </LogoWrapper>
         </StyledLink>
-        <ProfileWrapper>
-          <PopoverController onClick={openDropdownMenu} ref={ref}>
-            <Profile profileImageSrc={defaultImage} />
-          </PopoverController>
-        </ProfileWrapper>
+
+        {
+          userReducer.user.isLoggedIn ?
+            <ProfileWrapper>
+              <PopoverController onClick={openDropdownMenu} ref={ref}>
+                <Profile profileImageSrc={defaultImage} />
+              </PopoverController>
+            </ProfileWrapper>
+            :
+            <ProfileWrapper>
+              <Profile profileImageSrc={defaultImage} />
+            </ProfileWrapper>
+        }
 
         <ProfileMenu
           isOpen={isOpenDropdownMenu}

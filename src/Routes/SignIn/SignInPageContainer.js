@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import SignInPagePresenter from './SignInPagePresenter';
+import { Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInRequest } from '../../Store/User/actions';
+
 
 const SignInPageContainer = () => {
+  const userReducer = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
   const [passwordValidationMessage, setPasswordValidationMessage] = useState(
-    ''
+    '',
   );
 
   const emailChangeHandler = (e) => {
@@ -47,26 +54,40 @@ const SignInPageContainer = () => {
     isValid = isValidEmail() && isValid;
     isValid = isValidPassword() && isValid;
 
+    return isValid;
+  };
+
+  const handleSignIn = () => {
+    const isValid = checkValidation();
+
     if (isValid) {
-      // Todo(maitracle): 로그인 처리 로직 추가하기
+      dispatch(signInRequest({ email, password }));
     }
   };
+
   return (
-    <SignInPagePresenter
-      {...{
-        email,
-        password,
-        emailValidationMessage,
-        setEmailValidationMessage,
-        passwordValidationMessage,
-        setPasswordValidationMessage,
-        checkValidation,
-        emailChangeHandler,
-        passwordChangeHandler,
-        isValidEmail,
-        isValidPassword,
-      }}
-    />
+    <>
+      <SignInPagePresenter
+        {...{
+          email,
+          password,
+          emailValidationMessage,
+          setEmailValidationMessage,
+          passwordValidationMessage,
+          setPasswordValidationMessage,
+          handleSignIn,
+          emailChangeHandler,
+          passwordChangeHandler,
+          isValidEmail,
+          isValidPassword,
+        }}
+      />
+      {
+        userReducer.user.isLoggedIn ?
+          <Redirect to='/' />
+          : null
+      }
+    </>
   );
 };
 

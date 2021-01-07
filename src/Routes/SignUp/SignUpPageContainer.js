@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import SignUpPagePresenter from './SignUpPagePresenter';
+import { signUpRequest } from '../../Store/SignUp/actions';
+
 
 const SignUpPageContainer = () => {
+  const signUpReducer = useSelector((state) => state.signUpReducer);
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
   const [passwordValidationMessage, setPasswordValidationMessage] = useState(
-    ''
+    '',
   );
 
   const emailChangeHandler = (e) => {
@@ -43,30 +51,43 @@ const SignUpPageContainer = () => {
 
   const checkValidation = () => {
     let isValid = true;
-
     isValid = isValidEmail() && isValid;
     isValid = isValidPassword() && isValid;
 
+    return isValid;
+  };
+
+  const handleSignUp = () => {
+    const isValid = checkValidation();
+
     if (isValid) {
-      // Todo(maitracle): 로그인 처리 로직 추가하기
+      dispatch(signUpRequest({ email, password }));
     }
   };
+
   return (
-    <SignUpPagePresenter
-      {...{
-        email,
-        password,
-        emailValidationMessage,
-        setEmailValidationMessage,
-        passwordValidationMessage,
-        setPasswordValidationMessage,
-        checkValidation,
-        emailChangeHandler,
-        passwordChangeHandler,
-        isValidEmail,
-        isValidPassword,
-      }}
-    />
+    <>
+      <SignUpPagePresenter
+        {...{
+          email,
+          password,
+          emailValidationMessage,
+          setEmailValidationMessage,
+          passwordValidationMessage,
+          setPasswordValidationMessage,
+          handleSignUp,
+          emailChangeHandler,
+          passwordChangeHandler,
+          isValidEmail,
+          isValidPassword,
+        }}
+      />
+      {
+        signUpReducer.signUpResult.result === 'success' ?
+          <Redirect to='/' />
+          : null
+      }
+    </>
   );
 };
 

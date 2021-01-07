@@ -1,24 +1,10 @@
 import { createAction } from '@reduxjs/toolkit';
 
 
-export const DUMB_STATE_INCREASE = 'users/DUMB_STATE_INCREASE';
+export const SIGN_IN_REQUEST = 'users/SIGN_IN_REQUEST';
+export const SET_USER_INFO = 'users/SET_USER_INFO';
+export const REMOVE_USER_INFO = 'users/REMOVE_USER_INFO';
 
-export const DUMB_STATE_DECREASE = 'users/DUMB_STATE_DECREASE';
-
-export const DUMB_STATE_INCREASE_BY_AMOUNT = 'users/DUMB_STATE_INCREASE_BY_AMOUNT';
-
-
-export const DUMB_API_REQUEST = 'users/DUMB_API_REQUEST';
-export const DUMB_API_SUCCESS = 'users/DUMB_API_SUCCESS';
-export const DUMB_API_FAILURE = 'users/DUMB_API_FAILURE';
-
-
-export const dumbStateIncrease = createAction(DUMB_STATE_INCREASE);
-
-export const dumbStateDecrease = createAction(DUMB_STATE_DECREASE);
-
-export const dumbStateIncreaseByAmount = createAction(DUMB_STATE_INCREASE_BY_AMOUNT);
-
-export const dumbApiRequest = createAction(DUMB_API_REQUEST);
-export const dumbApiSuccess = createAction(DUMB_API_SUCCESS);
-export const dumbApiFailure = createAction(DUMB_API_FAILURE);
+export const signInRequest = createAction(SIGN_IN_REQUEST);
+export const setUserInfo = createAction(SET_USER_INFO);
+export const removeUserInfo = createAction(REMOVE_USER_INFO);
