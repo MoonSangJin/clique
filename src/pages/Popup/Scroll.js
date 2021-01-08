@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import check from '../../assets/img/check.svg';
 import popUpLogo from '../../assets/img/popUpLogo.svg';
@@ -9,44 +9,24 @@ export default function Scroll({ tabs }) {
   const [newFolderName, setNewFolderName] = useState('');
 
   const handleClick = (e) => {
-    const { id, name, value, src, checked } = e.target;
+    const { name, value, src, checked } = e.target;
     console.log(e.target);
     chrome.storage.local.get([`${name}`], (result) => {
-      if (result[name].scroll !== 0) {
-        //scroll저장하기 누르면
-        console.log('스크롤 정보 O 페이지');
-        const scrollResult = result[name].scroll; //scroll 위치 가져와서 저장
+      const scrollResult = result[name].scroll;
 
-        checked
-          ? setBookmarks((bookmarks) => [
-              ...bookmarks,
-              {
-                title: name,
-                url: value,
-                favIconUrl: src,
-                scrollPos: scrollResult,
-              },
-            ])
-          : setBookmarks((bookmarks) =>
-              bookmarks.filter((i) => i.title !== name)
-            );
-      } else {
-        //scroll저장하기 안누르거나||scroll 정보 없음(scroll안함)
-        console.log('스크롤 정보 X 페이지');
-        checked
-          ? setBookmarks((bookmarks) => [
-              ...bookmarks,
-              {
-                title: name,
-                url: value,
-                favIconUrl: src,
-                scrollPos: null,
-              },
-            ])
-          : setBookmarks((bookmarks) =>
-              bookmarks.filter((i) => i.title !== name)
-            );
-      }
+      checked
+        ? setBookmarks((bookmarks) => [
+            ...bookmarks,
+            {
+              title: name,
+              url: value,
+              favIconUrl: src,
+              scrollPos: scrollResult, //scroll안했으면 0이 들어가있음
+            },
+          ])
+        : setBookmarks((bookmarks) =>
+            bookmarks.filter((i) => i.title !== name)
+          );
     });
   };
 
@@ -67,12 +47,22 @@ export default function Scroll({ tabs }) {
       setNewFolderName('');
     } else {
       e.target.reset();
-      setBookmarks([]);
-      alert('저장되었습니다.');
 
       setFolder({ bookmark_folder_name: newFolderName, bookmarks: bookmarks });
+
+      setBookmarks([]);
       setNewFolderName('');
+      alert('저장되었습니다.');
     }
+  };
+
+  const handleRadioChange = (e) => {
+    const { checked } = e.target;
+    if (bookmarks.length === 0) {
+      e.preventDefault();
+      alert('At least one should be checked');
+    }
+    console.log(checked);
   };
 
   const check = () => {
@@ -80,11 +70,8 @@ export default function Scroll({ tabs }) {
     console.log(folder);
   };
 
-  const getChromeLocal = () => {};
-
   return (
     <SubmitForm onSubmit={handleSubmit}>
-      <button onClick={getChromeLocal}>getChromeLocal</button>
       <LogoRow>
         <LogoImage src={popUpLogo} />
       </LogoRow>
@@ -133,7 +120,11 @@ export default function Scroll({ tabs }) {
       <ScrollPositionRow>
         <ScrollPositionLabel htmlFor="scrollPosition" />
         Remember my last scroll position
-        <ScrollPosition type="radio" id="scrollPosition" />
+        <ScrollPosition
+          type="radio"
+          id="scrollPosition"
+          onChange={handleRadioChange}
+        />
       </ScrollPositionRow>
       <ButtonRow>
         <CompleteButton>Save</CompleteButton>
