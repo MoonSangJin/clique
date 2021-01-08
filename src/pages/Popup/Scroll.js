@@ -1,23 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import check from '../../assets/img/check.svg';
 import popUpLogo from '../../assets/img/popUpLogo.svg';
 
 export default function Scroll({ tabs }) {
-  const [checkList, setCheckList] = useState([]);
-  const [folder, setFolder] = useState([]);
+  const [bookmarks, setBookmarks] = useState([]);
+  const [folder, setFolder] = useState({});
   const [newFolderName, setNewFolderName] = useState('');
 
   const handleClick = (e) => {
-    const { id, name, value, src, checked } = e.target;
+    const { name, value, src, checked } = e.target;
     console.log(e.target);
+    chrome.storage.local.get([`${name}`], (result) => {
+      const scrollResult = result[name].scroll;
 
-    checked
-      ? setCheckList((checkList) => [
-          ...checkList,
-          { tab: id, title: name, url: value, favIconUrl: src },
-        ])
-      : setCheckList((checkList) => checkList.filter((i) => i.tab !== id));
+      checked
+        ? setBookmarks((bookmarks) => [
+            ...bookmarks,
+            {
+              title: name,
+              url: value,
+              favIconUrl: src,
+              scrollPos: scrollResult, //scroll안했으면 0이 들어가있음
+            },
+          ])
+        : setBookmarks((bookmarks) =>
+            bookmarks.filter((i) => i.title !== name)
+          );
+    });
   };
 
   const changeInputNewFolder = (e) => {
@@ -26,54 +36,42 @@ export default function Scroll({ tabs }) {
     console.log(`폴더 이름 ${value}`);
   };
 
-  const submitList = (e) => {
-    chrome.storage.sync.set({ key: checkList }, function () {
-      console.log('checkList 저장');
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (newFolderName === '') {
       alert('폴더 이름을 입력하세요');
     }
-    if (checkList.length === 0) {
+    if (bookmarks.length === 0) {
       alert('At least one should be checked');
       setNewFolderName('');
     } else {
       e.target.reset();
-      setCheckList([]);
-      alert('저장되었습니다.');
 
-      setFolder((folder) => [
-        ...folder,
-        { folderName: newFolderName, folderInfo: checkList },
-      ]);
+      setFolder({ bookmark_folder_name: newFolderName, bookmarks: bookmarks });
+
+      setBookmarks([]);
       setNewFolderName('');
+      alert('저장되었습니다.');
     }
   };
 
-  const check = () => {
-    console.log(checkList);
-    console.log(folder);
+  const handleRadioChange = (e) => {
+    const { checked } = e.target;
+    if (bookmarks.length === 0) {
+      e.preventDefault();
+      alert('At least one should be checked');
+    }
+    console.log(checked);
   };
 
-  const getChromeLocal = () => {
-    // ChromeLocal로 부터 해당 title을 key로 이용하여 찾는 로직 필요
-    // chrome.storage.local.get(['GitHub'], (result) => {
-    //   if (result) {
-    //     alert('찾음');
-    //     console.log(result);
-    //   } else {
-    //     alert('못찾음');
-    //   }
-    // });
+  const check = () => {
+    console.log(bookmarks);
+    console.log(folder);
   };
 
   return (
     <SubmitForm onSubmit={handleSubmit}>
-      <button onClick={getChromeLocal}>getChromeLocal</button>
       <LogoRow>
         <LogoImage src={popUpLogo} />
       </LogoRow>
@@ -122,10 +120,14 @@ export default function Scroll({ tabs }) {
       <ScrollPositionRow>
         <ScrollPositionLabel htmlFor="scrollPosition" />
         Remember my last scroll position
-        <ScrollPosition type="radio" id="scrollPosition" />
+        <ScrollPosition
+          type="radio"
+          id="scrollPosition"
+          onChange={handleRadioChange}
+        />
       </ScrollPositionRow>
       <ButtonRow>
-        <CompleteButton onClick={submitList}>Save</CompleteButton>
+        <CompleteButton>Save</CompleteButton>
       </ButtonRow>
 
       <button type="button" onClick={check}>
