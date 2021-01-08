@@ -5,8 +5,9 @@ import ListFolder from '../Components/ListFolder';
 const Container = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
+  margin: 0 auto;
 `;
 
 export default function FolderRow({ data }) {

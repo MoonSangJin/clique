@@ -3,17 +3,42 @@ import HomePresenter from './HomePresenter';
 const mock_data = [
   {
     folder_title: 'folder1',
-    time: '10',
+    time: 'Last updated 3 mins ago',
     favorite: true,
   },
   {
     folder_title: 'folder2',
-    time: '20',
+    time: 'Last updated 3 mins ago',
     favorite: false,
   },
   {
     folder_title: 'folder3',
-    time: '30',
+    time: 'Last updated 3 mins ago',
+    favorite: false,
+  },
+  {
+    folder_title: 'folder4',
+    time: 'Last updated 3 mins ago',
+    favorite: true,
+  },
+  {
+    folder_title: 'folder5',
+    time: 'Last updated 3 mins ago',
+    favorite: false,
+  },
+  {
+    folder_title: 'folder6',
+    time: 'Last updated 3 mins ago',
+    favorite: true,
+  },
+  {
+    folder_title: 'folder7',
+    time: 'Last updated 3 mins ago',
+    favorite: true,
+  },
+  {
+    folder_title: 'folder8',
+    time: 'Last updated 3 mins ago',
     favorite: false,
   },
 ];

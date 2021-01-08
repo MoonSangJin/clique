@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Example from '../assets/img/example.png';
+import Example from '../assets/img/example.jpg';
+import whiteBlank from '../assets/img/whiteBlank.jpg';
 import folder from '../assets/img/folder.svg';
 import option from '../assets/img/option.svg';
 import verticalLine from '../assets/img/verticalLine.svg';
-import isFavorite from '../assets/img/isFavorite.svg';
+import isFavorite from '../assets/img/isFavorite.png';
 import PopoverController from './Popover/PopoverController';
 import DropdownMenu from '../Modules/Folder/DropdownMenu';
 
@@ -30,11 +31,10 @@ export default function Folder({ folder_data }) {
   };
   return (
     <Container>
-      <FolderImage {...{}} />{' '}
-      {/* 폴더 이미지 들어갈 곳, 아래 styled-component도 수정 필요 */}
-      <IsFavorite {...{ favorite }}>
-        <img src={isFavorite} alt={'favorite icom'} />
-      </IsFavorite>
+      <FolderImage {...{}} /> {/* 폴더 이미지 들어갈 곳*/}
+      <FavoriteRow>
+        <IsFavorite {...{ favorite }} />
+      </FavoriteRow>
       <TextRow>
         <FolderName>{folder_title}</FolderName>
         <FolderTime>{time}</FolderTime>
@@ -66,27 +66,34 @@ export default function Folder({ folder_data }) {
 }
 
 const Container = styled.div`
-  width: 372px;
+  width: 320px;
   height: 482px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: space-around;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
+
+  margin-bottom: 30px;
 `;
 const FolderImage = styled.div`
-  width: 372px;
+  width: 100%;
   height: 279.42px;
   background-image: url(${({ favIconUrl }) => favIconUrl || Example});
   background-size: cover;
+  border-radius: 10px 10px 0 0;
 `;
-const IsFavorite = styled.div`
-  ${({ favorite }) =>
-    favorite ? `display: flex; flex-direction:row-reverse;` : `display:none`}
+const FavoriteRow = styled.div`
+  text-align: right;
+`;
+const IsFavorite = styled.img.attrs(({ favorite }) =>
+  favorite ? { src: `${isFavorite}` } : { src: `${whiteBlank}` }
+)`
+  width: 41.12px;
+  height: 47.9px;
+  margin-right: 30px;
 `;
 const TextRow = styled.div`
-  margin-left: 37px;
+  margin-left: 32px;
 `;
 const FolderName = styled.div`
   display: block;
@@ -123,11 +130,12 @@ const FolderTime = styled.div`
 const FaviconRow = styled.div`
   display: flex;
   justify-content: space-around;
+  margin-top: 50px;
 `;
 const Icon = styled.div`
   display: flex;
   align-items: center;
-  width: 200px;
+  width: 210px;
   overflow-x: hidden;
 `;
 const DefaultFolder = styled.img`
