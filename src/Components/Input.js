@@ -3,15 +3,15 @@ import styled from 'styled-components';
 
 const ValidationMessage = styled.div`
   color: red;
-  margin-left: 35px;
+  margin-left: 20px;
+  height: 30px;
 `;
 const InputContainer = styled.input`
   all: unset;
-  width: 544px;
+  width: 100%;
   height: 60px;
   background: #f5f7f8;
   border-radius: 50px;
-  margin: 15px;
   text-indent: 20px;
   ::placeholder {
     font-family: Noto Sans KR;

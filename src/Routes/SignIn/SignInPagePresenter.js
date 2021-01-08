@@ -68,10 +68,8 @@ const SignInPagePresenter = ({
   );
 };
 const InputRow = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  width: 90%;
+  margin: 0 auto;
 `;
 const Row = styled.div`
   display: flex;

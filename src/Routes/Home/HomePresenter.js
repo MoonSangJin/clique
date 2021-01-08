@@ -13,11 +13,13 @@ const HomeScreenPresenter = ({ data }) => {
       <Link to="/detail/">detail</Link>
       <Link to="/sign-in/">sign-in</Link>
       <Link to="/sign-up/">sign-up</Link>
-      <Background />
-      <SearchRow>
-        <SearchInput />
-      </SearchRow>
-      <FolderRow {...{ data }} />
+      <Wrapper>
+        <Background />
+        <SearchRow>
+          <SearchInput />
+        </SearchRow>
+        <FolderRow {...{ data }} />
+      </Wrapper>
     </Container>
   );
 };
@@ -28,5 +30,8 @@ const SearchRow = styled.div`
   display: flex;
   justify-content: center;
 `;
-
+const Wrapper = styled.div`
+  width: 90%;
+  margin: 0 auto;
+`;
 export default HomeScreenPresenter;

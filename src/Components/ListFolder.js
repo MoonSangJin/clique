@@ -28,7 +28,7 @@ export default function ListFolder({ folder_data }) {
 }
 
 const Container = styled.div`
-  width: 772px;
+  width: 660px;
   height: 75px;
   display: flex;
   justify-content: space-around;
