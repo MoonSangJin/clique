@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import Example from '../assets/img/example.jpg';
 import whiteBlank from '../assets/img/whiteBlank.jpg';
 import folder from '../assets/img/folder.svg';
-import option from '../assets/img/option.svg';
 import verticalLine from '../assets/img/verticalLine.svg';
 import isFavorite from '../assets/img/isFavorite.png';
 import PopoverController from './Popover/PopoverController';
 import DropdownMenu from '../Modules/Folder/DropdownMenu';
+import OptionIcon from './OptionIcon';
 
 const mockedTextForShare = 'this is text for sharing about bookmarks';
 
@@ -51,7 +51,7 @@ export default function Folder({ folder_data }) {
           <FavIcon src={folder} />
         </Icon>
         <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
-          <OptionIcon src={option} alt={option} />
+          <OptionIcon />
         </PopoverController>
 
         <DropdownMenu
@@ -88,8 +88,8 @@ const FavoriteRow = styled.div`
 const IsFavorite = styled.img.attrs(({ favorite }) =>
   favorite ? { src: `${isFavorite}` } : { src: `${whiteBlank}` }
 )`
-  width: 41.12px;
-  height: 47.9px;
+  width: 40px;
+  height: 40px;
   margin-right: 30px;
 `;
 const TextRow = styled.div`
@@ -128,9 +128,10 @@ const FolderTime = styled.div`
   white-space: nowrap;
 `;
 const FaviconRow = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-around;
-  margin-top: 50px;
+  margin-top: 30px;
 `;
 const Icon = styled.div`
   display: flex;
@@ -149,9 +150,4 @@ const VerticalLine = styled.img`
 const FavIcon = styled.img`
   width: 26px;
   height: 26px;
-`;
-const OptionIcon = styled.img`
-  &:hover {
-    cursor: pointer;
-  }
 `;

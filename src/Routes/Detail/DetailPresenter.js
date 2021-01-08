@@ -9,7 +9,6 @@ const DetailPresenter = ({ data, detailData }) => {
   return (
     <>
       <Gnb />
-      <SearchInput />
       <Wrapper>
         <Folder {...{ folder_data }} />
         <DetailForm {...{ folder_data, detailData }} />
@@ -19,7 +18,8 @@ const DetailPresenter = ({ data, detailData }) => {
 };
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
+  margin: 0 auto;
 `;
 export default DetailPresenter;
