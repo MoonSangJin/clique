@@ -23,7 +23,6 @@ const HomeScreenPresenter = ({ data }) => {
     </Container>
   );
 };
-
 const Container = styled.div``;
 
 const SearchRow = styled.div`

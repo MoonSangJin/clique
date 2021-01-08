@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import backSpace from '../assets/img/backSpace';
-
+import DetailWhiteButton from './DetailWhiteButton';
+import DetailPurpleButton from './DetailPurpleButton';
+import OptionIcon from './OptionIcon';
 export default function DetailForm({ folder_data, detailData }) {
   const { folder_title } = folder_data;
   const { favIconUrl, title, url } = detailData;
@@ -13,8 +15,8 @@ export default function DetailForm({ folder_data, detailData }) {
           <Title>{folder_title}</Title>
         </Left>
         <Right>
-          <WhiteButton>Open All</WhiteButton>
-          <PurpleButton>Add</PurpleButton>
+          <DetailWhiteButton />
+          <DetailPurpleButton />
         </Right>
       </TitleRow>
       <GrayHorizontail />
@@ -25,6 +27,7 @@ export default function DetailForm({ folder_data, detailData }) {
         </Left>
         <Right>
           <Url>{url}</Url>
+          <OptionIcon />
         </Right>
       </UrlRow>
     </Container>
@@ -32,8 +35,7 @@ export default function DetailForm({ folder_data, detailData }) {
 }
 
 const Container = styled.div`
-  width: 1232px;
-  height: 856px;
+  width: 1100px;
   background: #ffffff;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
@@ -41,10 +43,37 @@ const Container = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
+
+  margin-left: 30px;
 `;
 const TitleRow = styled.div`
   display: flex;
   justify-content: space-between;
+
+  margin: 13px;
+`;
+const BackSpace = styled.img`
+  width: 30px;
+  height: 30px;
+
+  margin: 5px;
+`;
+const Title = styled.div`
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  /* identical to box height */
+  letter-spacing: -0.02em;
+  color: #070701;
+
+  margin: 5px;
 `;
 const GrayHorizontail = styled.div`
   margin-left: 10px;
@@ -56,29 +85,35 @@ const UrlRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  margin: 13px;
 `;
 const UrlImage = styled.img`
-  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+
+  margin: 5px;
 `;
 const UrlTitle = styled.div`
-  width: 751px;
+  width: 600px;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
   font-family: Poppins;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 27px;
   /* identical to box height */
-
   letter-spacing: -0.02em;
-
   color: #000000;
+
+  margin: 10px;
 `;
 const Url = styled.div`
-  width: 238px;
+  width: 200px;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -93,84 +128,16 @@ const Url = styled.div`
 
   letter-spacing: -0.02em;
   text-decoration-line: underline;
-
   color: #90a0ad;
+
+  margin-right: 15px;
 `;
-const WhiteButton = styled.div`
-  width: 86px;
-  height: 36px;
-  border: 1.5px solid #7785ff;
-  box-sizing: border-box;
-  border-radius: 3px;
 
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 21px;
-  /* identical to box height */
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  letter-spacing: -0.02em;
-
-  color: #7785ff;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-const PurpleButton = styled.div`
-  width: 86px;
-  height: 36px;
-  background: #7785ff;
-  border-radius: 3px;
-
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 21px;
-  /* identical to box height */
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  letter-spacing: -0.02em;
-
-  color: #ffffff;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-const BackSpace = styled.img`
-  margin-right: 10px;
-`;
-const Title = styled.div`
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 30px;
-  /* identical to box height */
-
-  letter-spacing: -0.02em;
-  color: #070701;
-`;
 const Left = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 10px;
 `;
 const Right = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 10px;
 `;
