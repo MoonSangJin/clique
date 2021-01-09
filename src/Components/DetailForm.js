@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import backSpace from '../assets/img/backSpace';
 import DetailWhiteButton from './DetailWhiteButton';
 import DetailPurpleButton from './DetailPurpleButton';
 import OptionIcon from './OptionIcon';
+
+
 export default function DetailForm({ folder_data, detailData }) {
   const { folder_title } = folder_data;
   const { favIconUrl, title, url } = detailData;
@@ -20,44 +22,48 @@ export default function DetailForm({ folder_data, detailData }) {
         </Right>
       </TitleRow>
       <GrayHorizontail />
-      <UrlRow>
-        <Left>
+      <UrlListWrapper>
+        <UrlRow>
           <UrlImage src={favIconUrl} />
           <UrlTitle>{title}</UrlTitle>
-        </Left>
-        <Right>
           <Url>{url}</Url>
           <OptionIcon />
-        </Right>
-      </UrlRow>
+        </UrlRow>
+        <UrlRow>
+          <UrlImage src={favIconUrl} />
+          <UrlTitle>{title}</UrlTitle>
+          <Url>{url}</Url>
+          <OptionIcon />
+        </UrlRow>
+      </UrlListWrapper>
     </Container>
   );
 }
 
 const Container = styled.div`
-  width: 1100px;
+  width: 100%;
+  max-width: 100%;
   background: #ffffff;
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
 
   margin-left: 30px;
+  padding: 38px 53px 53px 43px;
+  box-sizing: content-box;
 `;
+
 const TitleRow = styled.div`
   display: flex;
   justify-content: space-between;
-
-  margin: 13px;
 `;
+
 const BackSpace = styled.img`
   width: 30px;
   height: 30px;
 
-  margin: 5px;
+  margin-right: 22px;
 `;
+
 const Title = styled.div`
   display: block;
   overflow: hidden;
@@ -69,33 +75,39 @@ const Title = styled.div`
   font-weight: 500;
   font-size: 20px;
   line-height: 30px;
-  /* identical to box height */
   letter-spacing: -0.02em;
   color: #070701;
-
-  margin: 5px;
 `;
+
 const GrayHorizontail = styled.div`
-  margin-left: 10px;
-  margin-right: 10px;
-  height: 0px;
+  margin-top: 25px;
+  height: 0;
   border: 1px solid rgba(222, 227, 230, 0.8);
 `;
+
+const UrlListWrapper = styled.div`
+  margin-top: 35px;
+`;
+
 const UrlRow = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin: 13px;
+  width: 100%;
+  
+  margin-top: 27px;
 `;
+
 const UrlImage = styled.img`
-  width: 30px;
-  height: 30px;
-
-  margin: 5px;
+  width: 20px;
+  height: 20px;
+  margin-right: 22px;
+  flex-shrink: 0;
 `;
+
 const UrlTitle = styled.div`
-  width: 600px;
+  // Todo(maitracle): 이유는 모르지만 width값을 부여해야만 flex 속성이 작용하여 적절한 가로크기를 찾아간다.
+  //                  이유를 찾아 width 속성 없이 해결한다.
+  width: 10px;
+  flex: 1 1 10px;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -106,14 +118,13 @@ const UrlTitle = styled.div`
   font-weight: normal;
   font-size: 18px;
   line-height: 27px;
-  /* identical to box height */
   letter-spacing: -0.02em;
   color: #000000;
-
-  margin: 10px;
 `;
+
 const Url = styled.div`
-  width: 200px;
+  flex: 0 0 240px;
+  max-width: 240px;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -124,19 +135,17 @@ const Url = styled.div`
   font-weight: normal;
   font-size: 16px;
   line-height: 23px;
-  /* identical to box height */
 
   letter-spacing: -0.02em;
   text-decoration-line: underline;
   color: #90a0ad;
-
-  margin-right: 15px;
 `;
 
 const Left = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const Right = styled.div`
   display: flex;
   align-items: center;

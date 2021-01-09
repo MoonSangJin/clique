@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+
 import Gnb from '../../Components/Gnb';
-import SearchInput from '../../Components/SearchInput';
 import Folder from '../../Components/Folder';
 import DetailForm from '../../Components/DetailForm';
+
+
 const DetailPresenter = ({ data, detailData }) => {
   const folder_data = data;
   return (
@@ -18,8 +20,10 @@ const DetailPresenter = ({ data, detailData }) => {
 };
 
 const Wrapper = styled.div`
-  width: 90%;
+  width: 85%;
   display: flex;
   margin: 0 auto;
+  border: solid 1px black;
 `;
+
 export default DetailPresenter;
