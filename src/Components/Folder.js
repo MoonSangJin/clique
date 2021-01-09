@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Example from '../assets/img/example.jpg';
 import folder from '../assets/img/folder.svg';
 import verticalLine from '../assets/img/verticalLine.svg';
-import isFavorite from '../assets/img/isFavorite.png';
+import isFavorite from '../assets/img/isFavorite.svg';
 import PopoverController from './Popover/PopoverController';
 import DropdownMenu from '../Modules/Folder/DropdownMenu';
 import OptionIcon from './OptionIcon';
