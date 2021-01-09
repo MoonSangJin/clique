@@ -23,7 +23,6 @@ const Wrapper = styled.div`
   width: 85%;
   display: flex;
   margin: 0 auto;
-  border: solid 1px black;
 `;
 
 export default DetailPresenter;
