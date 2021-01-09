@@ -5,8 +5,8 @@ export default function DetailPurpleButton() {
 }
 
 const Container = styled.div`
-  width: 80px;
-  height: 30px;
+  width: 86px;
+  height: 36px;
   background: #7785ff;
   border-radius: 3px;
 

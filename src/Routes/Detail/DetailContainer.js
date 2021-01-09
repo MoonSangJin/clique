@@ -13,10 +13,11 @@ const mock_detail = {
     'title : stackover dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaa',
   url: 'https://stackoverflow.comjfkldjsalkfjdasl;kjf;lajsldfjdafsadfasdfsadf/',
 };
+
 const DetailContainer = () => {
   const [data, setData] = useState(mock_data);
   const [detailData, setDetailData] = useState(mock_detail);
 
-  return <DetailPresenter {...{ data, detailData }}></DetailPresenter>;
+  return <DetailPresenter {...{ data, detailData }} />;
 };
 export default DetailContainer;

@@ -6,8 +6,8 @@ export default function DetailWhiteButton() {
 }
 
 const Container = styled.div`
-  width: 80px;
-  height: 30px;
+  width: 86px;
+  height: 36px;
   border: 1.5px solid #7785ff;
   box-sizing: border-box;
   border-radius: 3px;

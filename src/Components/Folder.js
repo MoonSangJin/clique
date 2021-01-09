@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Example from '../assets/img/example.jpg';
-import whiteBlank from '../assets/img/whiteBlank.jpg';
 import folder from '../assets/img/folder.svg';
 import verticalLine from '../assets/img/verticalLine.svg';
 import isFavorite from '../assets/img/isFavorite.svg';
 import PopoverController from './Popover/PopoverController';
 import DropdownMenu from '../Modules/Folder/DropdownMenu';
 import OptionIcon from './OptionIcon';
+
 
 const mockedTextForShare = 'this is text for sharing about bookmarks';
 
@@ -31,9 +31,11 @@ export default function Folder({ folder_data }) {
   };
   return (
     <Container>
-      <FolderImage {...{}} /> {/* 폴더 이미지 들어갈 곳*/}
+      <FolderImage /> {/* 폴더 이미지 들어갈 곳*/}
       <FavoriteRow>
-        <IsFavorite {...{ favorite }} />
+        {
+          favorite ? <IsFavorite src={isFavorite} /> : null
+        }
       </FavoriteRow>
       <TextRow>
         <FolderName>{folder_title}</FolderName>
@@ -66,7 +68,7 @@ export default function Folder({ folder_data }) {
 }
 
 const Container = styled.div`
-  width: 320px;
+  width: 372px;
   height: 482px;
   display: flex;
   flex-direction: column;
@@ -75,6 +77,7 @@ const Container = styled.div`
 
   margin-bottom: 30px;
 `;
+
 const FolderImage = styled.div`
   width: 100%;
   height: 279.42px;
@@ -82,19 +85,22 @@ const FolderImage = styled.div`
   background-size: cover;
   border-radius: 10px 10px 0 0;
 `;
+
 const FavoriteRow = styled.div`
   text-align: right;
+  height: 46px;
 `;
-const IsFavorite = styled.img.attrs(({ favorite }) =>
-  favorite ? { src: `${isFavorite}` } : { src: `${whiteBlank}` }
-)`
-  width: 40px;
-  height: 40px;
+
+const IsFavorite = styled.img`
+  width: 30px;
+  height: 46px;
   margin-right: 30px;
 `;
+
 const TextRow = styled.div`
   margin-left: 32px;
 `;
+
 const FolderName = styled.div`
   display: block;
   font-family: Poppins;
@@ -102,7 +108,6 @@ const FolderName = styled.div`
   font-weight: normal;
   font-size: 20px;
   line-height: 30px;
-  /* identical to box height */
 
   letter-spacing: -0.02em;
 
@@ -111,6 +116,7 @@ const FolderName = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
+
 const FolderTime = styled.div`
   display: block;
   font-family: Poppins;
@@ -118,7 +124,6 @@ const FolderTime = styled.div`
   font-weight: normal;
   font-size: 16px;
   line-height: 24px;
-  /* identical to box height */
 
   letter-spacing: -0.02em;
 
@@ -127,26 +132,30 @@ const FolderTime = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
+
 const FaviconRow = styled.div`
-  width: 100%;
   display: flex;
-  justify-content: space-around;
-  margin-top: 30px;
+  justify-content: space-between;
+  margin: 60px 32px 0 32px;
 `;
+
 const Icon = styled.div`
   display: flex;
   align-items: center;
-  width: 210px;
+  max-width: 293px;
   overflow-x: hidden;
 `;
+
 const DefaultFolder = styled.img`
   width: 30px;
   height: 25px;
 `;
+
 const VerticalLine = styled.img`
   margin-left: 10px;
   margin-right: 10px;
 `;
+
 const FavIcon = styled.img`
   width: 26px;
   height: 26px;
