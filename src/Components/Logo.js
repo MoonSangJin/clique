@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import logo from '../assets/img/logo';
 
 const Image = styled.img`
-  width: 127px;
+  width: 83px;
   
   &:hover {
     cursor: pointer;
