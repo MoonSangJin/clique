@@ -41,25 +41,20 @@ export default function Popup() {
     searchUrl();
   }, []);
 
-  const submitInfo = async (example) => {
-    try {
-      console.log(example);
-      const data = JSON.stringify(example);
-      const data2 = JSON.parse(data);
-      console.log(`data:${data}`);
-      console.log(`data2:${data2}`);
-      await axios.get(
-        'http://ec2-15-165-203-130.ap-northeast-2.compute.amazonaws.com:8000/bookmark',
-        JSON.parse(data),
-        { headers: { 'content-type': 'application/json' } }
-      );
-      alert('보내기 성공');
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const submitInfo = async () => {
+  //   try {
+  //     const result = await axios.get(
+  //       'http://ec2-52-78-239-231.ap-northeast-2.compute.amazonaws.com/user',
+  //       { headers: { 'content-type': 'application/json' } }
+  //     );
+  //     alert('읽기 성공');
+  //     console.log(result);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
-  // submitInfo(example);
+  // submitInfo();
   return (
     <Container>
       <Scroll {...{ tabs }} />
