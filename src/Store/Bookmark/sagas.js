@@ -8,20 +8,19 @@ import {
   fetchBookmarkRequest,
 } from './actions';
 
-const fetchBookmarkAsyncApi = (payload) => axios.get(HOST + '/token/', payload);
+const fetchBookmarkApi = (payload) => axios.get(HOST + '/token/', payload);
 
 function* fetchBookmarkAsync({ payload }) {
   try {
-    const res = yield call(fetchBookmarkAsyncApi, payload);
+    let token;
+    chrome.storage.sync.get(['access'], function (result) {
+      console.log('chrome storage에서 가져온 토큰' + result.access);
+      token = result.access;
+    });
+    const res = yield call(fetchBookmarkApi(token), payload);
+    console.log(res);
 
-    const mockBookmark = {
-      bookmarkFolder: [{ folder_title: '' }],
-      bookmark: [{ title: '', url: '', favIconUrl: '' }],
-    };
-
-    // chrome.storage.sync.set({ access: res.data.access });
-    yield put(fetchBookmarkSuccess());
-    // yield put(setBookmarkinfo(mockUser));
+    yield put(fetchBookmarkSuccess(payload));
   } catch (e) {
     yield put(fetchBookmarkFailure());
   }

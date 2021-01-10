@@ -3,8 +3,8 @@ import { createReducer } from '@reduxjs/toolkit';
 import { fetchBookmarkSuccess, fetchBookmarkFailure } from './actions';
 
 const initState = {
-  bookmarkFolder: [{ folder_title: '' }],
-  bookmark: [{ title: '', url: '', favIconUrl: '' }],
+  bookmarkFolder: [],
+  bookmarkList: [],
 };
 
 const bookmarkReducer = createReducer(initState, {
@@ -16,10 +16,10 @@ const bookmarkReducer = createReducer(initState, {
         bookmarkFolder: [{ folder_title: action.payload.folder_title }],
       },
     ],
-    bookmark: [
+    bookmarkList: [
       {
-        ...state.bookmark,
-        bookmark: [
+        ...state.bookmarkList,
+        bookmarkList: [
           {
             title: action.payload.title,
             url: action.payload.url,
@@ -34,10 +34,10 @@ const bookmarkReducer = createReducer(initState, {
     bookmarkFolder: [
       { ...state.bookmarkFolder, bookmarkFolder: [{ folder_title: '' }] },
     ],
-    bookmark: [
+    bookmarkList: [
       {
-        ...state.bookmark,
-        bookmark: [
+        ...state.bookmarkList,
+        bookmarkList: [
           {
             title: '',
             url: '',
