@@ -10,17 +10,31 @@ const DetailPresenter = ({ data, detailData }) => {
   return (
     <>
       <Wrapper>
-        <Folder {...{ folder_data }} />
-        <DetailForm {...{ folder_data, detailData }} />
+        <FolderWrapper>
+          <Folder {...{ folder_data }} />
+        </FolderWrapper>
+
+        <BookmarksWrapper>
+          <DetailForm {...{ folder_data, detailData }} />
+        </BookmarksWrapper>
+
       </Wrapper>
     </>
   );
 };
 
 const Wrapper = styled.div`
-  width: 85%;
-  display: flex;
+  max-width: 1185px;
   margin: 0 auto;
+  display: flex;
+`;
+
+const FolderWrapper = styled.div`
+  flex: 0 0;
+`;
+
+const BookmarksWrapper = styled.div`
+  flex: 1 1;
 `;
 
 export default DetailPresenter;
