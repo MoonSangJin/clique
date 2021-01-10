@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Scroll from './Scroll';
+import SubmitForm from './SubmitForm';
 
 const Container = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ const Container = styled.div`
 const PopupPresenter = ({ tabs }) => {
   return (
     <Container>
-      <Scroll {...{ tabs }} />
+      <SubmitForm {...{ tabs }} />
     </Container>
   );
 };

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import check from '../../assets/img/check.svg';
 import popUpLogo from '../../assets/img/popUpLogo.svg';
 
-export default function Scroll({ tabs }) {
+export default function SubmitForm({ tabs }) {
   const [bookmarks, setBookmarks] = useState([]);
   const [folder, setFolder] = useState({});
   const [newFolderName, setNewFolderName] = useState('');
@@ -67,7 +67,7 @@ export default function Scroll({ tabs }) {
   };
 
   return (
-    <SubmitForm onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <LogoRow>
         <LogoImage src={popUpLogo} />
       </LogoRow>
@@ -118,11 +118,11 @@ export default function Scroll({ tabs }) {
       <button type="button" onClick={check}>
         check
       </button>
-    </SubmitForm>
+    </Form>
   );
 }
 
-const SubmitForm = styled.form`
+const Form = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -167,10 +167,15 @@ const Title = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: 500;
+
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 24px;
+  /* identical to box height */
   letter-spacing: -0.03em;
+  color: #070701;
 
   margin: 3px;
 `;
@@ -221,17 +226,23 @@ const Input = styled.input`
 `;
 const Font = styled.div`
   height: 20px;
-  margin: 10px;
-  font-size: 14px;
-  color: #90a0ad;
 
-  margin-left: 15px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height */
+  letter-spacing: -0.02em;
+  color: #90a0ad;
 `;
 const InputRow = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   margin-top: 20px;
+  margin-left: 20px;
 `;
 const CompleteButton = styled.button`
   all: unset;
