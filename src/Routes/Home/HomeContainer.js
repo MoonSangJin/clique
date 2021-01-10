@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import HomePresenter from './HomePresenter';
+
+
 const mock_data = [
   {
     folder_title: 'folder1',
@@ -44,6 +46,6 @@ const mock_data = [
 ];
 const HomeScreenContainer = () => {
   const [data, setData] = useState(mock_data);
-  return <HomePresenter {...{ data }}></HomePresenter>;
+  return <HomePresenter {...{ data }} />;
 };
 export default HomeScreenContainer;
