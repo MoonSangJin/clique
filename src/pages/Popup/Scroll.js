@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import check from '../../assets/img/check.svg';
 import popUpLogo from '../../assets/img/popUpLogo.svg';
@@ -41,28 +41,24 @@ export default function Scroll({ tabs }) {
 
     if (newFolderName === '') {
       alert('폴더 이름을 입력하세요');
+      reset(e);
+      return;
     }
     if (bookmarks.length === 0) {
       alert('At least one should be checked');
-      setNewFolderName('');
-    } else {
-      e.target.reset();
-
-      setFolder({ bookmark_folder_name: newFolderName, bookmarks: bookmarks });
-
-      setBookmarks([]);
-      setNewFolderName('');
-      alert('저장되었습니다.');
+      reset(e);
+      return;
     }
+
+    setFolder({ bookmark_folder_name: newFolderName, bookmarks: bookmarks });
+    reset(e);
+    alert('저장되었습니다.');
   };
 
-  const handleRadioChange = (e) => {
-    const { checked } = e.target;
-    if (bookmarks.length === 0) {
-      e.preventDefault();
-      alert('At least one should be checked');
-    }
-    console.log(checked);
+  const reset = (e) => {
+    e.target.reset();
+    setBookmarks([]);
+    setNewFolderName('');
   };
 
   const check = () => {
@@ -101,7 +97,6 @@ export default function Scroll({ tabs }) {
           placeholder="Enter new folder name"
         ></Input>
       </InputRow>
-
       <InputRow>
         <Font>Add to</Font>
         <Input
@@ -116,16 +111,6 @@ export default function Scroll({ tabs }) {
           <option value="폴더이름4"></option>
         </datalist>
       </InputRow>
-
-      <ScrollPositionRow>
-        <ScrollPositionLabel htmlFor="scrollPosition" />
-        Remember my last scroll position
-        <ScrollPosition
-          type="radio"
-          id="scrollPosition"
-          onChange={handleRadioChange}
-        />
-      </ScrollPositionRow>
       <ButtonRow>
         <CompleteButton>Save</CompleteButton>
       </ButtonRow>
@@ -267,9 +252,3 @@ const ButtonRow = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-const ScrollPositionRow = styled.div`
-  display: flex;
-  font-size: 14px;
-`;
-const ScrollPositionLabel = styled.label``;
-const ScrollPosition = styled.input``;
