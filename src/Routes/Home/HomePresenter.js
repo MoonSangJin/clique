@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
 import Background from '../../Components/Background';
 import FolderRow from '../../Components/FolderRow';
-import { Link } from 'react-router-dom';
 
 
 const HomeScreenPresenter = ({ data }) => {
