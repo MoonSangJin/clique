@@ -92,8 +92,8 @@ const EditProfile = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  width: 54px;
-  height: 54px;
+  width: 32px;
+  height: 32px;
 `;
 
 const MenuItem = styled.div`
