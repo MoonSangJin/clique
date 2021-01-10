@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+
 import DetailPresenter from './DetailPresenter';
+
+
 const mock_data = {
   folder_title: 'folder1',
   time: '10',

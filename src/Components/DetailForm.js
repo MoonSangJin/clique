@@ -42,14 +42,13 @@ export default function DetailForm({ folder_data, detailData }) {
 
 const Container = styled.div`
   width: 100%;
-  max-width: 100%;
   background: #ffffff;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
 
   margin-left: 30px;
   padding: 38px 53px 53px 43px;
-  box-sizing: content-box;
+  box-sizing: border-box;
 `;
 
 const TitleRow = styled.div`
