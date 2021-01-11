@@ -12,7 +12,7 @@ const RootRouter = () => (
     <Gnb />
 
     <Route path="/" exact component={Home} />
-    <Route path="/detail/" component={Detail} />
+    <Route path="/detail/:folderId" component={Detail} />
     <Route path="/sign-in/" component={SignIn} />
     <Route path="/sign-up/" component={SignUp} />
   </Router>
