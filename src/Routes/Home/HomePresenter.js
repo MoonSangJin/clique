@@ -8,10 +8,6 @@ import FolderRow from '../../Components/FolderRow';
 const HomeScreenPresenter = ({ bookmarkFolderList }) => {
   return (
     <Container>
-      <Link to="/detail/">detail</Link>
-      <Link to="/sign-in/">sign-in</Link>
-      <Link to="/sign-up/">sign-up</Link>
-
       <Background />
 
       {/*Todo(maitracle): 데모데이 버전에서는 search 기능을 지원하지 않는다.*/}

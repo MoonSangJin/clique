@@ -23,48 +23,45 @@ const SignUpPagePresenter = ({
   isValidPassword,
 }) => {
   return (
-    <>
-      <Link to="/">home</Link>
-      <AuthContainer>
-        <LargeText text={'Complete signing up'} />
-        <Description>
-          <GrayText
-            text={'Create an account and unlock all the benefits of Clique'}
-          />
-        </Description>
+    <AuthContainer>
+      <LargeText text={'Complete signing up'} />
+      <Description>
+        <GrayText
+          text={'Create an account and unlock all the benefits of Clique'}
+        />
+      </Description>
 
-        <InputRow>
-          <Input
-            value={email}
-            placeholder={'Email'}
-            validationMessage={emailValidationMessage}
-            onChange={emailChangeHandler}
-            onFocus={() => setEmailValidationMessage('')}
-            onBlur={isValidEmail}
-          />
-          <Input
-            value={password}
-            placeholder={'password'}
-            validationMessage={passwordValidationMessage}
-            onChange={passwordChangeHandler}
-            onFocus={() => setPasswordValidationMessage('')}
-            onBlur={isValidPassword}
-            type={'password'}
-          />
-        </InputRow>
+      <InputRow>
+        <Input
+          value={email}
+          placeholder={'Email'}
+          validationMessage={emailValidationMessage}
+          onChange={emailChangeHandler}
+          onFocus={() => setEmailValidationMessage('')}
+          onBlur={isValidEmail}
+        />
+        <Input
+          value={password}
+          placeholder={'password'}
+          validationMessage={passwordValidationMessage}
+          onChange={passwordChangeHandler}
+          onFocus={() => setPasswordValidationMessage('')}
+          onBlur={isValidPassword}
+          type={'password'}
+        />
+      </InputRow>
 
-        <ButtonWrapper>
-          <PurpleButton onClick={handleSignUp} text={'Sign Up'} />
-        </ButtonWrapper>
+      <ButtonWrapper>
+        <PurpleButton onClick={handleSignUp} text={'Sign Up'} />
+      </ButtonWrapper>
 
-        <PolicyDescription>
-          By joining Clique you agree to our
-          <ExternalLink href={'#'}>&nbsp;Privacy Policy&nbsp;</ExternalLink>
-          and
-          <ExternalLink href={'#'}>&nbsp;Terms of Service</ExternalLink>
-        </PolicyDescription>
-      </AuthContainer>
-    </>
+      <PolicyDescription>
+        By joining Clique you agree to our
+        <ExternalLink href={'#'}>&nbsp;Privacy Policy&nbsp;</ExternalLink>
+        and
+        <ExternalLink href={'#'}>&nbsp;Terms of Service</ExternalLink>
+      </PolicyDescription>
+    </AuthContainer>
   );
 };
 
