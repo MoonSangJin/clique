@@ -12,7 +12,7 @@ function* signUpAsync({ payload }) {
   try {
     const res = yield call(signUpAsyncApi, payload);
 
-    chrome.storage.sync.set({ access: res.data.access });
+    chrome.storage.sync.set({ access: res.data.access, userId: res.data.user.id });
 
     yield put(signUpSuccess());
     yield put(setUserInfo(res.data.user));
