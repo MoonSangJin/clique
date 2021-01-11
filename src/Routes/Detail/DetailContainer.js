@@ -9,18 +9,41 @@ const mock_data = {
   favorite: true,
 };
 
-const mock_detail = {
-  favIconUrl:
-    'https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196',
-  title:
-    'title : stackover dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaa',
-  url: 'https://stackoverflow.comjfkldjsalkfjdasl;kjf;lajsldfjdafsadfasdfsadf/',
-};
+const mock_detail = [
+  {
+    favIconUrl:
+      'https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196',
+    title:
+      'title : stackover dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaa',
+    url: 'https://stackoverflow.com',
+  },
+  {
+    favIconUrl:
+      'https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196',
+    title:
+      'title : stackover dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaa',
+    url: 'https://stackoverflow.com',
+  },
+  {
+    favIconUrl:
+      'https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196',
+    title:
+      'title : stackover dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaa',
+    url: 'https://stackoverflow.com',
+  },
+  {
+    favIconUrl:
+      'https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196',
+    title:
+      'title : stackover dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaa',
+    url: 'https://stackoverflow.com',
+  },
+];
 
 const DetailContainer = () => {
   const [data, setData] = useState(mock_data);
-  const [detailData, setDetailData] = useState(mock_detail);
+  const [detailDataList, setDetailData] = useState(mock_detail);
 
-  return <DetailPresenter {...{ data, detailData }} />;
+  return <DetailPresenter {...{ data, detailDataList }} />;
 };
 export default DetailContainer;

@@ -5,7 +5,7 @@ import Folder from '../../Components/Folder';
 import DetailForm from '../../Components/DetailForm';
 
 
-const DetailPresenter = ({ data, detailData }) => {
+const DetailPresenter = ({ data, detailDataList }) => {
   const folder_data = data;
   return (
     <>
@@ -15,7 +15,7 @@ const DetailPresenter = ({ data, detailData }) => {
         </FolderWrapper>
 
         <BookmarksWrapper>
-          <DetailForm {...{ folder_data, detailData }} />
+          <DetailForm {...{ folder_data, detailDataList }} />
         </BookmarksWrapper>
 
       </Wrapper>

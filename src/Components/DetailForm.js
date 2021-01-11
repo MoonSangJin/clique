@@ -1,14 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import backSpace from '../assets/img/backSpace';
 import DetailWhiteButton from './DetailWhiteButton';
 import DetailPurpleButton from './DetailPurpleButton';
 import OptionIcon from './OptionIcon';
 
 
-export default function DetailForm({ folder_data, detailData }) {
-  const { folder_title } = folder_data;
+const BookmarkItem = ({ detailData }) => {
   const { favIconUrl, title, url } = detailData;
+
+  return (
+    <ExternalLink href={url} target={'_blank'}>
+      <UrlRow>
+        <UrlImage src={favIconUrl} />
+        <UrlTitle>{title}</UrlTitle>
+        <Url>{url}</Url>
+        <OptionIcon />
+      </UrlRow>
+    </ExternalLink>
+  );
+};
+
+
+export default function DetailForm({ folder_data, detailDataList }) {
+  const { folder_title } = folder_data;
+
   return (
     <Container>
       <TitleRow>
@@ -23,22 +40,22 @@ export default function DetailForm({ folder_data, detailData }) {
       </TitleRow>
       <GrayHorizontail />
       <UrlListWrapper>
-        <UrlRow>
-          <UrlImage src={favIconUrl} />
-          <UrlTitle>{title}</UrlTitle>
-          <Url>{url}</Url>
-          <OptionIcon />
-        </UrlRow>
-        <UrlRow>
-          <UrlImage src={favIconUrl} />
-          <UrlTitle>{title}</UrlTitle>
-          <Url>{url}</Url>
-          <OptionIcon />
-        </UrlRow>
+        {
+          detailDataList.map((detailData) => {
+            return <BookmarkItem {...{ detailData }} />;
+          })
+        }
       </UrlListWrapper>
     </Container>
   );
 }
+
+const ExternalLink = styled.a`
+  all: unset;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const Container = styled.div`
   width: 100%;
