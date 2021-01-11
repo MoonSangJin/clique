@@ -120,6 +120,7 @@ const UrlListWrapper = styled.div`
 const UrlRow = styled.div`
   display: flex;
   width: 100%;
+  align-items: center;
   
   margin-top: 20px;
 `;

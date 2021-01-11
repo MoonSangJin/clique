@@ -14,7 +14,7 @@ const mock_detail = [
     favIconUrl:
       'https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196',
     title:
-      'title : stackover dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaa',
+      'title : stackover',
     url: 'https://stackoverflow.com',
   },
   {

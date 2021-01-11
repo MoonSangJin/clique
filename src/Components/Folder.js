@@ -108,6 +108,7 @@ const FavoriteIcon = styled.img`
 `;
 
 const FolderName = styled.div`
+  width: 200px;
   display: block;
   font-family: Poppins;
   font-style: normal;
