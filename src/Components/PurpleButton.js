@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
 const Container = styled.button`
   all: unset;
-  width: 90%;
-  height: 56px;
+  width: 100%;
+  height: 40px;
   background: #7785ff;
   border-radius: 3px;
   &:hover {
@@ -12,15 +13,17 @@ const Container = styled.button`
   }
   text-align: center;
 `;
+
 const Text = styled.span`
   font-family: Poppins;
   font-style: normal;
   font-weight: bold;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 12px;
+  line-height: 18px;
   letter-spacing: -0.02em;
   color: #ffffff;
 `;
+
 export default function PurpleButton({ text, onClick }) {
   return (
     <Container onClick={onClick}>

@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import Input from '../../Components/Input';
 import PurpleButton from '../../Components/PurpleButton';
 import GrayText from '../../Components/GrayText';
-import PurpleText from '../../Components/PurpleText';
 import AuthContainer from '../../Components/AuthContainer';
 import LargeText from '../../Components/LargeText';
 
@@ -28,9 +27,12 @@ const SignUpPagePresenter = ({
       <Link to="/">home</Link>
       <AuthContainer>
         <LargeText text={'Complete signing up'} />
-        <GrayText
-          text={'Create an account and unlock all the benefits of Clique'}
-        />
+        <Description>
+          <GrayText
+            text={'Create an account and unlock all the benefits of Clique'}
+          />
+        </Description>
+
         <InputRow>
           <Input
             value={email}
@@ -50,16 +52,17 @@ const SignUpPagePresenter = ({
             type={'password'}
           />
         </InputRow>
-        <PurpleButton onClick={handleSignUp} text={'Sign Up'} />
-        <Row>
-          <GrayText text={'By joining Clique you agree to our'} />
-          <PurpleText
-            text={'Privacy Policy'}
-            style={{ marginLeft: '5px', marginRight: '5px' }}
-          />
-          <GrayText text={'and'} />
-          <PurpleText text={'Terms of Service'} style={{ marginLeft: '5px' }} />
-        </Row>
+
+        <ButtonWrapper>
+          <PurpleButton onClick={handleSignUp} text={'Sign Up'} />
+        </ButtonWrapper>
+
+        <PolicyDescription>
+          By joining Clique you agree to our
+          <ExternalLink href={'#'}>&nbsp;Privacy Policy&nbsp;</ExternalLink>
+          and
+          <ExternalLink href={'#'}>&nbsp;Terms of Service</ExternalLink>
+        </PolicyDescription>
       </AuthContainer>
     </>
   );
@@ -67,10 +70,37 @@ const SignUpPagePresenter = ({
 
 export default SignUpPagePresenter;
 
-const InputRow = styled.div`
-  width: 90%;
-  margin: 0 auto;
+const Description = styled.div`
+  margin-top: 4px;
 `;
-const Row = styled.div`
+
+const InputRow = styled.div`
+  width: 100%;
+  margin-top: 48px;
+`;
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  margin-top: 28px;
+`;
+
+const PolicyDescription = styled.div`
   display: flex;
+  margin-top: 144px;
+  
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+  color: #90A0AD;
+`;
+
+const ExternalLink = styled.a`
+  all: unset;
+  display: inline;
+  
+  color: #7785FF;
+  
+  &:hover {
+    cursor: pointer;
+  }
 `;
