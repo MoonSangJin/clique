@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Background from '../../Components/Background';
 import FolderRow from '../../Components/FolderRow';
 
-const HomeScreenPresenter = ({ data }) => {
+const HomeScreenPresenter = ({ bookmarkFolderList }) => {
   return (
     <Container>
       <Link to="/detail/">detail</Link>
@@ -20,7 +20,7 @@ const HomeScreenPresenter = ({ data }) => {
       {/*</SearchRow>*/}
 
       <FolderRowWrapper>
-        <FolderRow {...{ data, type: 'card' }} />
+        <FolderRow {...{ bookmarkFolderList, type: 'card' }} />
       </FolderRowWrapper>
     </Container>
   );
