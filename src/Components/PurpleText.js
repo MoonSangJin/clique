@@ -3,11 +3,8 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   font-family: Poppins;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  /* identical to box height */
+  font-size: 12px;
+  line-height: 18px;
   letter-spacing: -0.02em;
   color: #7785ff;
 
