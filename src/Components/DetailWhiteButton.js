@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function DetailWhiteButton() {
-  return <Container>Open All</Container>;
+
+export default function DetailWhiteButton({ onClick }) {
+  return <Container onClick={onClick}>Open All</Container>;
 }
 
 const Container = styled.div`

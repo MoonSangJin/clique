@@ -26,6 +26,12 @@ const BookmarkItem = ({ detailData }) => {
 export default function DetailForm({ folder_data, detailDataList }) {
   const { folder_title } = folder_data;
 
+  const openAllBookmarks = () => {
+    detailDataList.map((detailData) => {
+      window.open(detailData.url, '_blank');
+    });
+  };
+
   return (
     <Container>
       <TitleRow>
@@ -34,7 +40,7 @@ export default function DetailForm({ folder_data, detailDataList }) {
           <Title>{folder_title}</Title>
         </Left>
         <Right>
-          <DetailWhiteButton />
+          <DetailWhiteButton onClick={openAllBookmarks} />
           <DetailPurpleButton />
         </Right>
       </TitleRow>
