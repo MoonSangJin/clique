@@ -1,49 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import DetailPresenter from './DetailPresenter';
+import { useSelector } from 'react-redux';
 
 
-const mock_data = {
-  folder_title: 'folder1',
-  time: '10',
-  favorite: true,
-};
+const DetailContainer = ({ match }) => {
+  const { folderId } = match.params;
+  const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
 
-const mock_detail = [
-  {
-    favIconUrl:
-      'https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196',
-    title:
-      'title : stackover',
-    url: 'https://stackoverflow.com',
-  },
-  {
-    favIconUrl:
-      'https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196',
-    title:
-      'title : stackover dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaa',
-    url: 'https://stackoverflow.com',
-  },
-  {
-    favIconUrl:
-      'https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196',
-    title:
-      'title : stackover dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaa',
-    url: 'https://stackoverflow.com',
-  },
-  {
-    favIconUrl:
-      'https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196',
-    title:
-      'title : stackover dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaa',
-    url: 'https://stackoverflow.com',
-  },
-];
 
-const DetailContainer = () => {
-  const [data, setData] = useState(mock_data);
-  const [detailDataList, setDetailData] = useState(mock_detail);
+  const findBookmarkFolder = () => {
+    const foundBookmarkFolder = bookmarkReducer.bookmarkFolderList.filter((bookmarkFolder) => {
+      return bookmarkFolder.id === Number(folderId);
+    });
 
-  return <DetailPresenter {...{ data, detailDataList }} />;
+    const notFoundBookmarkFolder = {
+      id: -1,
+      user: -1,
+      name: '',
+      is_favorite: false,
+    };
+
+    return foundBookmarkFolder.length >= 1 ? foundBookmarkFolder[0] : notFoundBookmarkFolder;
+  };
+
+  const filterBookmarkList = () => {
+    return bookmarkReducer.bookmarkList.filter((bookmark) => {
+      return bookmark.bookmark_folder_id === Number(folderId);
+    });
+  };
+
+  return <DetailPresenter {...{ data: findBookmarkFolder(), detailDataList: filterBookmarkList() }} />;
 };
 export default DetailContainer;

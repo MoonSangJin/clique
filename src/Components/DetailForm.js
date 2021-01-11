@@ -50,7 +50,7 @@ export default function DetailForm({ folder_data, detailDataList }) {
       <UrlListWrapper>
         {
           detailDataList.map((detailData) => {
-            return <BookmarkItem {...{ detailData }} />;
+            return <BookmarkItem key={detailData.id} {...{ detailData }} />;
           })
         }
       </UrlListWrapper>
