@@ -10,7 +10,6 @@ import AuthContainer from '../../Components/AuthContainer';
 import LargeText from '../../Components/LargeText';
 
 
-
 const SignInPagePresenter = ({
   email,
   password,
@@ -25,49 +24,46 @@ const SignInPagePresenter = ({
   isValidPassword,
 }) => {
   return (
-    <>
-      <Link to="/">home</Link>
-      <AuthContainer>
-        <LargeText text={'Welcome to Clique'} />
-        <InputRow>
-          <Input
-            value={email}
-            placeholder={'Email'}
-            validationMessage={emailValidationMessage}
-            onChange={emailChangeHandler}
-            onFocus={() => setEmailValidationMessage('')}
-            onBlur={isValidEmail}
-          />
-          <Input
-            value={password}
-            placeholder={'password'}
-            validationMessage={passwordValidationMessage}
-            onChange={passwordChangeHandler}
-            onFocus={() => setPasswordValidationMessage('')}
-            onBlur={isValidPassword}
-            type={'password'}
-          />
-        </InputRow>
+    <AuthContainer>
+      <LargeText text={'Welcome to Clique'} />
+      <InputRow>
+        <Input
+          value={email}
+          placeholder={'Email'}
+          validationMessage={emailValidationMessage}
+          onChange={emailChangeHandler}
+          onFocus={() => setEmailValidationMessage('')}
+          onBlur={isValidEmail}
+        />
+        <Input
+          value={password}
+          placeholder={'password'}
+          validationMessage={passwordValidationMessage}
+          onChange={passwordChangeHandler}
+          onFocus={() => setPasswordValidationMessage('')}
+          onBlur={isValidPassword}
+          type={'password'}
+        />
+      </InputRow>
 
-        <SignUpLinkWrapper>
-          <GrayText text={'Need an account?'} />
-          <StyledLink to="/sign-up">
-            <PurpleText text={'Sign Up'} />
-          </StyledLink>
-        </SignUpLinkWrapper>
+      <SignUpLinkWrapper>
+        <GrayText text={'Need an account?'} />
+        <StyledLink to="/sign-up">
+          <PurpleText text={'Sign Up'} />
+        </StyledLink>
+      </SignUpLinkWrapper>
 
-        <ButtonWrapper>
-          <PurpleButton onClick={handleSignIn} text={'Sign In'} />
-        </ButtonWrapper>
+      <ButtonWrapper>
+        <PurpleButton onClick={handleSignIn} text={'Sign In'} />
+      </ButtonWrapper>
 
-        <PolicyDescription>
-          By joining Clique you agree to our
-          <ExternalLink href={'#'}>&nbsp;Privacy Policy&nbsp;</ExternalLink>
-          and
-          <ExternalLink href={'#'}>&nbsp;Terms of Service</ExternalLink>
-        </PolicyDescription>
-      </AuthContainer>
-    </>
+      <PolicyDescription>
+        By joining Clique you agree to our
+        <ExternalLink href={'#'}>&nbsp;Privacy Policy&nbsp;</ExternalLink>
+        and
+        <ExternalLink href={'#'}>&nbsp;Terms of Service</ExternalLink>
+      </PolicyDescription>
+    </AuthContainer>
   );
 };
 

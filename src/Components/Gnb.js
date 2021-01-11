@@ -52,20 +52,16 @@ export default function Gnb() {
           <Logo />
         </StyledLink>
 
-        {
-          userReducer.user.isLoggedIn ?
-            <PopoverController onClick={openDropdownMenu} ref={ref}>
-              <Profile profileImageSrc={defaultImage} />
-            </PopoverController>
-            :
-            <Profile profileImageSrc={defaultImage} />
-        }
+        <PopoverController onClick={openDropdownMenu} ref={ref}>
+          <Profile profileImageSrc={defaultImage} />
+        </PopoverController>
 
         <ProfileMenu
           isOpen={isOpenDropdownMenu}
           closeHandler={closeDropdownMenu}
           anchorEl={profileElementHolder}
           profileImageSrc={defaultImage}
+          isLoggedIn={userReducer.user.isLoggedIn}
         />
       </Wrapper>
     </>
