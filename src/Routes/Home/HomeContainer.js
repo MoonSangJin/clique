@@ -5,7 +5,7 @@ import HomePresenter from './HomePresenter';
 
 const mock_data = [
   {
-    folder_title: 'folder1',
+    folder_title: 'folder1 folder1 folder1 folder1 folder1 folder1 folder1 folder1 folder1 folder1 ',
     time: 'Last updated 3 mins ago',
     favorite: true,
   },
