@@ -24,7 +24,6 @@ const SignInPagePresenter = ({
 }) => {
   return (
     <>
-      <Gnb />
       <Link to="/">home</Link>
       <AuthContainer>
         <LargeText text={'Welcome to Clique'} />

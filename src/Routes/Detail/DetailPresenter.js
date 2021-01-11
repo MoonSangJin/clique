@@ -1,28 +1,40 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Gnb from '../../Components/Gnb';
 import Folder from '../../Components/Folder';
 import DetailForm from '../../Components/DetailForm';
 
 
-const DetailPresenter = ({ data, detailData }) => {
+const DetailPresenter = ({ data, detailDataList }) => {
   const folder_data = data;
   return (
     <>
-      <Gnb />
       <Wrapper>
-        <Folder {...{ folder_data }} />
-        <DetailForm {...{ folder_data, detailData }} />
+        <FolderWrapper>
+          <Folder {...{ folder_data }} />
+        </FolderWrapper>
+
+        <BookmarksWrapper>
+          <DetailForm {...{ folder_data, detailDataList }} />
+        </BookmarksWrapper>
+
       </Wrapper>
     </>
   );
 };
 
 const Wrapper = styled.div`
-  width: 85%;
-  display: flex;
+  max-width: 1185px;
   margin: 0 auto;
+  display: flex;
+`;
+
+const FolderWrapper = styled.div`
+  flex: 0 0;
+`;
+
+const BookmarksWrapper = styled.div`
+  flex: 1 1;
 `;
 
 export default DetailPresenter;

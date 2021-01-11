@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import SignInPagePresenter from './SignInPagePresenter';
-import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
+import SignInPagePresenter from './SignInPagePresenter';
 import { signInRequest } from '../../Store/User/actions';
 
 

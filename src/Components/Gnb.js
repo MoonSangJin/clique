@@ -49,22 +49,16 @@ export default function Gnb() {
     <>
       <Wrapper>
         <StyledLink to="/" style={{ all: 'unset' }}>
-          <LogoWrapper>
-            <Logo />
-          </LogoWrapper>
+          <Logo />
         </StyledLink>
 
         {
           userReducer.user.isLoggedIn ?
-            <ProfileWrapper>
-              <PopoverController onClick={openDropdownMenu} ref={ref}>
-                <Profile profileImageSrc={defaultImage} />
-              </PopoverController>
-            </ProfileWrapper>
-            :
-            <ProfileWrapper>
+            <PopoverController onClick={openDropdownMenu} ref={ref}>
               <Profile profileImageSrc={defaultImage} />
-            </ProfileWrapper>
+            </PopoverController>
+            :
+            <Profile profileImageSrc={defaultImage} />
         }
 
         <ProfileMenu
@@ -80,21 +74,15 @@ export default function Gnb() {
 
 
 const Wrapper = styled.div`
-  width: 100%;
-  height: 65px;
   display: flex;
   justify-content: space-between;
+  padding: 0 30px;
+  width: 100%;
+  height: 57px;
+  box-sizing: border-box;
   align-items: center;
 `;
 
 const StyledLink = styled(Link)`
   all: unset;
-`;
-
-const LogoWrapper = styled.div`
-  margin-left: 10px;
-`;
-
-const ProfileWrapper = styled.div`
-  margin-right: 30px;
 `;
