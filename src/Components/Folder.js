@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
 import Example from '../assets/img/example.jpg';
 import folder from '../assets/img/folder.svg';
 import verticalLine from '../assets/img/verticalLine.svg';
@@ -16,8 +18,6 @@ export default function Folder({ folder_data }) {
   const [profileElementHolder, setProfileElementHolder] = useState(null);
   const dotMenuRef = React.createRef();
 
-  const { folder_title, time, favorite } = folder_data;
-
   useEffect(() => {
     setProfileElementHolder(dotMenuRef.current);
   }, [dotMenuRef]);
@@ -29,45 +29,51 @@ export default function Folder({ folder_data }) {
   const closeDropdownMenu = () => {
     setIsOpenDropdownMenu(false);
   };
-  return (
-    <Container>
-      <FolderImage /> {/* 폴더 이미지 들어갈 곳*/}
 
-      <ContentsWrapper>
-        <TitleWrapper>
-          <TextRow>
-            <FolderName>{folder_title}</FolderName>
-            <FolderTime>{time}</FolderTime>
-          </TextRow>
-          {
-            favorite ? <FavoriteIcon src={FavoriteIconSrc} /> : null
-          }
-        </TitleWrapper>
-        <MenuWrapper>
-          <FaviconWrapper>
-            <FaviconFolder src={folder} alt={folder} />
-            <VerticalLine src={verticalLine} />
-            <FavIcon src={folder} />
-            <FavIcon src={folder} />
-            <FavIcon src={folder} />
-            <FavIcon src={folder} />
-            <FavIcon src={folder} />
-            <FavIcon src={folder} />
-          </FaviconWrapper>
-          <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
-            <OptionIcon />
-          </PopoverController>
-          <DropdownMenu
-            isOpen={isOpenDropdownMenu}
-            closeHandler={closeDropdownMenu}
-            anchorEl={profileElementHolder}
-            sharedText={mockedTextForShare}
-          />
-        </MenuWrapper>
-      </ContentsWrapper>
-    </Container>
+  return (
+    <StyledLink to={`/detail/${folder_data.id}`}>
+      <Container>
+        <FolderImage /> {/* 폴더 이미지 들어갈 곳*/}
+        <ContentsWrapper>
+          <TitleWrapper>
+            <TextRow>
+              <FolderName>{folder_data.name}</FolderName>
+              <FolderTime>
+                {/*현재 서버에서 time 정보는 보내주지 않는다*/}
+              </FolderTime>
+            </TextRow>
+            {folder_data.is_favorite ? <FavoriteIcon src={FavoriteIconSrc} /> : null}
+          </TitleWrapper>
+          <MenuWrapper>
+            <FaviconWrapper>
+              <FaviconFolder src={folder} alt={folder} />
+              <VerticalLine src={verticalLine} />
+              <FavIcon src={folder} />
+              <FavIcon src={folder} />
+              <FavIcon src={folder} />
+              <FavIcon src={folder} />
+              <FavIcon src={folder} />
+              <FavIcon src={folder} />
+            </FaviconWrapper>
+            <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
+              <OptionIcon />
+            </PopoverController>
+            <DropdownMenu
+              isOpen={isOpenDropdownMenu}
+              closeHandler={closeDropdownMenu}
+              anchorEl={profileElementHolder}
+              sharedText={mockedTextForShare}
+            />
+          </MenuWrapper>
+        </ContentsWrapper>
+      </Container>
+    </StyledLink>
   );
 }
+
+const StyledLink = styled(Link)`
+  all: unset;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -132,7 +138,7 @@ const FolderTime = styled.div`
   font-size: 12px;
   line-height: 18px;
   letter-spacing: -0.02em;
-  color: #90A0AD;
+  color: #90a0ad;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

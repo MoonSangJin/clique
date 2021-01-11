@@ -4,15 +4,15 @@ import Folder from '../Components/Folder';
 import ListFolder from '../Components/ListFolder';
 
 
-export default function FolderRow({ data, type }) {
+export default function FolderRow({ bookmarkFolderList, type }) {
   return (
     <Container>
       {
         type === 'card' ?
-          data.map((folder_data, index) => {
+          bookmarkFolderList.map((folder_data, index) => {
             return <Folder key={index} {...{ folder_data }} />;
           }) :
-          data.map((folder_data, index) => {
+          bookmarkFolderList.map((folder_data, index) => {
             return <ListFolder key={index} {...{ folder_data }} />;
           })
       }

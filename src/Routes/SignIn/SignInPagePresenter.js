@@ -1,12 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
 import Input from '../../Components/Input';
 import PurpleButton from '../../Components/PurpleButton';
 import GrayText from '../../Components/GrayText';
 import PurpleText from '../../Components/PurpleText';
 import AuthContainer from '../../Components/AuthContainer';
 import LargeText from '../../Components/LargeText';
-import { Link } from 'react-router-dom';
+
 
 
 const SignInPagePresenter = ({
