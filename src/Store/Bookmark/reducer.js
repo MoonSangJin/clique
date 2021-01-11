@@ -1,52 +1,29 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { fetchBookmarkSuccess, fetchBookmarkFailure } from './actions';
+import {
+  fetchBookmarkSuccess,
+  fetchBookmarkFailure,
+  fetchBookmarkFolderSuccess,
+  fetchBookmarkFolderFailure,
+} from './actions';
 
 const initState = {
-  bookmarkFolder: [],
+  bookmarkFolderList: [],
   bookmarkList: [],
 };
 
 const bookmarkReducer = createReducer(initState, {
+  [fetchBookmarkFolderSuccess]: (state, action) => ({
+    ...state,
+    bookmarkFolderList: action.payload.bookmarkFolderList,
+  }),
+  [fetchBookmarkFolderFailure]: (state) => state,
+
   [fetchBookmarkSuccess]: (state, action) => ({
     ...state,
-    bookmarkFolder: [
-      {
-        ...state.bookmarkFolder,
-        bookmarkFolder: [{ folder_title: action.payload.folder_title }],
-      },
-    ],
-    bookmarkList: [
-      {
-        ...state.bookmarkList,
-        bookmarkList: [
-          {
-            title: action.payload.title,
-            url: action.payload.url,
-            favIconUrl: action.payload.url,
-          },
-        ],
-      },
-    ],
+    bookmarkList: action.payload.bookmarkList,
   }),
-  [fetchBookmarkFailure]: (state) => ({
-    ...state,
-    bookmarkFolder: [
-      { ...state.bookmarkFolder, bookmarkFolder: [{ folder_title: '' }] },
-    ],
-    bookmarkList: [
-      {
-        ...state.bookmarkList,
-        bookmarkList: [
-          {
-            title: '',
-            url: '',
-            favIconUrl: '',
-          },
-        ],
-      },
-    ],
-  }),
+  [fetchBookmarkFailure]: (state) => state,
 });
 
 export default bookmarkReducer;

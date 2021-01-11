@@ -1,9 +1,21 @@
 import { createAction } from '@reduxjs/toolkit';
 
+const FETCH_BOOKMARK_FOLDER_REQUEST = 'bookmarks/FETCH_BOOKMARK_FOLDER_REQUEST';
+const FETCH_BOOKMARK_FOLDER_SUCCESS = 'bookmarks/FETCH_BOOKMARK_FOLDER_SUCCESS';
+const FETCH_BOOKMARK_FOLDER_FAILURE = 'bookmarks/FETCH_BOOKMARK_FOLDER_FAILURE';
 const FETCH_BOOKMARK_REQUEST = 'bookmarks/FETCH_BOOKMARK_REQUEST';
 const FETCH_BOOKMARK_SUCCESS = 'bookmarks/FETCH_BOOKMARK_SUCCESS';
 const FETCH_BOOKMARK_FAILURE = 'bookmarks/FETCH_BOOKMARK_FAILURE';
 
+export const fetchBookmarkFolderRequest = createAction(
+  FETCH_BOOKMARK_FOLDER_REQUEST
+);
+export const fetchBookmarkFolderSuccess = createAction(
+  FETCH_BOOKMARK_FOLDER_SUCCESS
+);
+export const fetchBookmarkFolderFailure = createAction(
+  FETCH_BOOKMARK_FOLDER_FAILURE
+);
 export const fetchBookmarkRequest = createAction(FETCH_BOOKMARK_REQUEST);
 export const fetchBookmarkSuccess = createAction(FETCH_BOOKMARK_SUCCESS);
 export const fetchBookmarkFailure = createAction(FETCH_BOOKMARK_FAILURE);
