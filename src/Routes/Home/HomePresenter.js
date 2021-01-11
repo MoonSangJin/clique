@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import Background from '../../Components/Background';
 import FolderRow from '../../Components/FolderRow';
 
-
 const HomeScreenPresenter = ({ data }) => {
   return (
     <Container>
@@ -23,7 +22,6 @@ const HomeScreenPresenter = ({ data }) => {
       <FolderRowWrapper>
         <FolderRow {...{ data, type: 'card' }} />
       </FolderRowWrapper>
-
     </Container>
   );
 };

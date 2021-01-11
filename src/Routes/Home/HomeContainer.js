@@ -51,11 +51,13 @@ const mock_data = [
 const HomeScreenContainer = () => {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
   const dispatch = useDispatch();
-  const [data, setData] = useState(mock_data);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    dispatch(fetchBookmarkRequest());
+    setData([bookmarkReducer.bookmarkFolderList]);
+    //dispatch(fetchBookmarkRequest());
   }, []);
+
   return <HomePresenter {...{ data }} />;
 };
 export default HomeScreenContainer;
