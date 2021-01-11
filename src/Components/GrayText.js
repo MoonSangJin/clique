@@ -3,16 +3,13 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   font-family: Poppins;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  /* identical to box height */
-
+  font-size: 12px;
+  line-height: 18px;
   letter-spacing: -0.02em;
 
-  color: #90a0ad;
+  color: rgba(144, 160, 173, 0.8);
 `;
+
 export default function GrayText({ text }) {
   return <Container>{text}</Container>;
 }

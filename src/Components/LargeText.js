@@ -5,9 +5,8 @@ const Container = styled.div`
   font-family: Poppins;
   font-style: normal;
   font-weight: ${({ fontWeight }) => fontWeight};
-  font-size: ${({ fontSize }) => fontSize}px;
-  line-height: 39px;
-  /* identical to box height */
+  font-size: 20px;
+  line-height: 30px;
 
   display: flex;
   align-items: center;
@@ -15,6 +14,7 @@ const Container = styled.div`
 
   color: #070701;
 `;
-export default function LargeText({ text, fontSize = 24, fontWeight = '600' }) {
+
+export default function LargeText({ text, fontSize = 20, fontWeight = '600' }) {
   return <Container style={{ fontSize, fontWeight }}>{text}</Container>;
 }
