@@ -1,0 +1,12 @@
+import { createAction } from '@reduxjs/toolkit';
+
+const FETCH_BOOKMARK_REQUEST = 'bookmarks/FETCH_BOOKMARK_REQUEST';
+const FETCH_BOOKMARK_SUCCESS = 'bookmarks/FETCH_BOOKMARK_SUCCESS';
+const FETCH_BOOKMARK_FAILURE = 'bookmarks/FETCH_BOOKMARK_FAILURE';
+
+export const fetchBookmarkRequest = createAction(FETCH_BOOKMARK_REQUEST);
+export const fetchBookmarkSuccess = createAction(FETCH_BOOKMARK_SUCCESS);
+export const fetchBookmarkFailure = createAction(FETCH_BOOKMARK_FAILURE);
+
+//서버로부터 북마크,북마크 정보 폴더 받아오는 기능
+//북마크,북마크 폴더 정보 담을 store 만들어야한다.

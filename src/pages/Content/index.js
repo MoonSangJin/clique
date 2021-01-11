@@ -4,6 +4,13 @@ console.log('Content script works!');
 console.log('Must reload extension for modifications to take effect.');
 printLine("Using the 'printLine' function from the Print Module");
 
+// let winH = window.innerHeight;
+
+// let confirm_variable = confirm('저장된 스크롤 위치로 이동하시겠습니까?');
+// confirm_variable
+//   ? window.scrollTo({ top: 800, behavior: 'smooth' })
+//   : console.log('이동안함');
+
 let last_known_scroll_position = 0;
 let contentTitle = document.title;
 

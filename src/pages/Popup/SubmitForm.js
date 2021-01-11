@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import check from '../../assets/img/check.svg';
 import popUpLogo from '../../assets/img/popUpLogo.svg';
 
-export default function Scroll({ tabs }) {
+export default function SubmitForm({ tabs }) {
   const [bookmarks, setBookmarks] = useState([]);
   const [folder, setFolder] = useState({});
   const [newFolderName, setNewFolderName] = useState('');
@@ -41,28 +41,24 @@ export default function Scroll({ tabs }) {
 
     if (newFolderName === '') {
       alert('폴더 이름을 입력하세요');
+      reset(e);
+      return;
     }
     if (bookmarks.length === 0) {
       alert('At least one should be checked');
-      setNewFolderName('');
-    } else {
-      e.target.reset();
-
-      setFolder({ bookmark_folder_name: newFolderName, bookmarks: bookmarks });
-
-      setBookmarks([]);
-      setNewFolderName('');
-      alert('저장되었습니다.');
+      reset(e);
+      return;
     }
+
+    setFolder({ bookmark_folder_name: newFolderName, bookmarks: bookmarks });
+    reset(e);
+    alert('저장되었습니다.');
   };
 
-  const handleRadioChange = (e) => {
-    const { checked } = e.target;
-    if (bookmarks.length === 0) {
-      e.preventDefault();
-      alert('At least one should be checked');
-    }
-    console.log(checked);
+  const reset = (e) => {
+    e.target.reset();
+    setBookmarks([]);
+    setNewFolderName('');
   };
 
   const check = () => {
@@ -71,7 +67,7 @@ export default function Scroll({ tabs }) {
   };
 
   return (
-    <SubmitForm onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <LogoRow>
         <LogoImage src={popUpLogo} />
       </LogoRow>
@@ -101,7 +97,6 @@ export default function Scroll({ tabs }) {
           placeholder="Enter new folder name"
         ></Input>
       </InputRow>
-
       <InputRow>
         <Font>Add to</Font>
         <Input
@@ -116,16 +111,6 @@ export default function Scroll({ tabs }) {
           <option value="폴더이름4"></option>
         </datalist>
       </InputRow>
-
-      <ScrollPositionRow>
-        <ScrollPositionLabel htmlFor="scrollPosition" />
-        Remember my last scroll position
-        <ScrollPosition
-          type="radio"
-          id="scrollPosition"
-          onChange={handleRadioChange}
-        />
-      </ScrollPositionRow>
       <ButtonRow>
         <CompleteButton>Save</CompleteButton>
       </ButtonRow>
@@ -133,11 +118,11 @@ export default function Scroll({ tabs }) {
       <button type="button" onClick={check}>
         check
       </button>
-    </SubmitForm>
+    </Form>
   );
 }
 
-const SubmitForm = styled.form`
+const Form = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -182,10 +167,15 @@ const Title = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: 500;
+
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 24px;
+  /* identical to box height */
   letter-spacing: -0.03em;
+  color: #070701;
 
   margin: 3px;
 `;
@@ -236,17 +226,23 @@ const Input = styled.input`
 `;
 const Font = styled.div`
   height: 20px;
-  margin: 10px;
-  font-size: 14px;
-  color: #90a0ad;
 
-  margin-left: 15px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height */
+  letter-spacing: -0.02em;
+  color: #90a0ad;
 `;
 const InputRow = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   margin-top: 20px;
+  margin-left: 20px;
 `;
 const CompleteButton = styled.button`
   all: unset;
@@ -267,9 +263,3 @@ const ButtonRow = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-const ScrollPositionRow = styled.div`
-  display: flex;
-  font-size: 14px;
-`;
-const ScrollPositionLabel = styled.label``;
-const ScrollPosition = styled.input``;

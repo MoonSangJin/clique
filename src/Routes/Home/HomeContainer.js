@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBookmarkRequest } from '../../Store/Bookmark/actions';
 
 import HomePresenter from './HomePresenter';
 
@@ -45,8 +47,12 @@ const mock_data = [
     favorite: false,
   },
 ];
+
 const HomeScreenContainer = () => {
+  const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
+  const dispatch = useDispatch();
   const [data, setData] = useState(mock_data);
+
   return <HomePresenter {...{ data }} />;
 };
 export default HomeScreenContainer;
