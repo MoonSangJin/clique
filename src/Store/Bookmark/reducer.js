@@ -1,11 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import {
-  fetchBookmarkSuccess,
   fetchBookmarkFailure,
-  fetchBookmarkFolderSuccess,
   fetchBookmarkFolderFailure,
+  fetchBookmarkFolderSuccess,
+  fetchBookmarkSuccess,
 } from './actions';
+
 
 const initState = {
   bookmarkFolderList: [],
@@ -18,7 +19,6 @@ const bookmarkReducer = createReducer(initState, {
     bookmarkFolderList: action.payload.bookmarkFolderList,
   }),
   [fetchBookmarkFolderFailure]: (state) => state,
-
   [fetchBookmarkSuccess]: (state, action) => ({
     ...state,
     bookmarkList: action.payload.bookmarkList,
