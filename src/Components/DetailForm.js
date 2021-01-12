@@ -6,14 +6,13 @@ import DetailWhiteButton from './DetailWhiteButton';
 import DetailPurpleButton from './DetailPurpleButton';
 import OptionIcon from './OptionIcon';
 
-
 const BookmarkItem = ({ detailData }) => {
-  const { favIconUrl, title, url } = detailData;
+  const { favicon_url, title, url } = detailData;
 
   return (
     <ExternalLink href={url} target={'_blank'}>
       <UrlRow>
-        <UrlImage src={favIconUrl} />
+        <UrlImage src={favicon_url} />
         <UrlTitle>{title}</UrlTitle>
         <Url>{url}</Url>
         <OptionIcon />
@@ -21,7 +20,6 @@ const BookmarkItem = ({ detailData }) => {
     </ExternalLink>
   );
 };
-
 
 export default function DetailForm({ folder_data, detailDataList }) {
   const { folder_title } = folder_data;
@@ -48,11 +46,9 @@ export default function DetailForm({ folder_data, detailDataList }) {
       </TitleRow>
       <GrayHorizontail />
       <UrlListWrapper>
-        {
-          detailDataList.map((detailData) => {
-            return <BookmarkItem key={detailData.id} {...{ detailData }} />;
-          })
-        }
+        {detailDataList.map((detailData) => {
+          return <BookmarkItem key={detailData.id} {...{ detailData }} />;
+        })}
       </UrlListWrapper>
     </Container>
   );
@@ -121,7 +117,7 @@ const UrlRow = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  
+
   margin-top: 20px;
 `;
 
