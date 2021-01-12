@@ -5,14 +5,14 @@ import Popover from '../../Components/Popover';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 
-const DropdownMenu = ({ isOpen, closeHandler, anchorEl, sharedText }) => {
+const DropdownMenu = ({ isOpen, closeHandler, anchorEl, sharedText, shareTextSuccessHandler }) => {
   return (
     <Popover isOpen={isOpen} closeHandler={closeHandler} anchorEl={anchorEl} position={'hover'}>
       <MenuWrapper>
         <MenuItem>Add to favorites</MenuItem>
         <CopyToClipboard
           text={sharedText}
-          onCopy={closeHandler}
+          onCopy={shareTextSuccessHandler}
         >
           <MenuItem>Share</MenuItem>
         </CopyToClipboard>
