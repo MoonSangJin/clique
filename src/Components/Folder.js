@@ -22,7 +22,8 @@ export default function Folder({ folder_data }) {
     setProfileElementHolder(dotMenuRef.current);
   }, [dotMenuRef]);
 
-  const openDropdownMenu = () => {
+  const openDropdownMenu = e => {
+    e.preventDefault();
     setIsOpenDropdownMenu(true);
   };
 
@@ -31,43 +32,46 @@ export default function Folder({ folder_data }) {
   };
 
   return (
-    <StyledLink to={`/detail/${folder_data.id}`}>
-      <Container>
-        <FolderImage /> {/* 폴더 이미지 들어갈 곳*/}
-        <ContentsWrapper>
-          <TitleWrapper>
-            <TextRow>
-              <FolderName>{folder_data.name}</FolderName>
-              <FolderTime>
-                {/*현재 서버에서 time 정보는 보내주지 않는다*/}
-              </FolderTime>
-            </TextRow>
-            {folder_data.is_favorite ? <FavoriteIcon src={FavoriteIconSrc} /> : null}
-          </TitleWrapper>
-          <MenuWrapper>
-            <FaviconWrapper>
-              <FaviconFolder src={folder} alt={folder} />
-              <VerticalLine src={verticalLine} />
-              <FavIcon src={folder} />
-              <FavIcon src={folder} />
-              <FavIcon src={folder} />
-              <FavIcon src={folder} />
-              <FavIcon src={folder} />
-              <FavIcon src={folder} />
-            </FaviconWrapper>
-            <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
-              <OptionIcon />
-            </PopoverController>
-            <DropdownMenu
-              isOpen={isOpenDropdownMenu}
-              closeHandler={closeDropdownMenu}
-              anchorEl={profileElementHolder}
-              sharedText={mockedTextForShare}
-            />
-          </MenuWrapper>
-        </ContentsWrapper>
-      </Container>
-    </StyledLink>
+    <>
+      <StyledLink to={`/detail/${folder_data.id}`}>
+        <Container>
+          <FolderImage /> {/* 폴더 이미지 들어갈 곳*/}
+          <ContentsWrapper>
+            <TitleWrapper>
+              <TextRow>
+                <FolderName>{folder_data.name}</FolderName>
+                <FolderTime>
+                  {/*현재 서버에서 time 정보는 보내주지 않는다*/}
+                </FolderTime>
+              </TextRow>
+              {folder_data.is_favorite ? <FavoriteIcon src={FavoriteIconSrc} /> : null}
+            </TitleWrapper>
+            <MenuWrapper>
+              <FaviconWrapper>
+                <FaviconFolder src={folder} alt={folder} />
+                <VerticalLine src={verticalLine} />
+                <FavIcon src={folder} />
+                <FavIcon src={folder} />
+                <FavIcon src={folder} />
+                <FavIcon src={folder} />
+                <FavIcon src={folder} />
+                <FavIcon src={folder} />
+              </FaviconWrapper>
+              <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
+                <OptionIcon />
+              </PopoverController>
+
+            </MenuWrapper>
+          </ContentsWrapper>
+        </Container>
+      </StyledLink>
+      <DropdownMenu
+        isOpen={isOpenDropdownMenu}
+        closeHandler={closeDropdownMenu}
+        anchorEl={profileElementHolder}
+        sharedText={mockedTextForShare}
+      />
+    </>
   );
 }
 
