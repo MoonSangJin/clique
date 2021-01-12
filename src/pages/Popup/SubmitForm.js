@@ -53,9 +53,9 @@ export default function SubmitForm({ tabs, postServer }) {
       bookmarks: bookmarks,
     };
     postServer(postData);
-
     reset(e);
     alert('저장되었습니다.');
+    window.close();
   };
 
   const reset = (e) => {
