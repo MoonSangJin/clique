@@ -70,14 +70,14 @@ const ProfileMenu = ({ isOpen, closeHandler, anchorEl, profileImageSrc, isLogged
 
 
 const MenuWrapper = styled.div`
-  padding: 26px 24px; 
+  padding: 14px 16px 17px 16px; 
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 `;
 
 const Panel = styled.div`
-  width: 182px;
-  padding-bottom: 18px;
+  width: 171px;
+  padding-bottom: 15px;
   border-bottom: solid 1px #DEE3E6;
 `;
 
@@ -91,8 +91,8 @@ const Information = styled.div`
 `;
 
 const Username = styled.div`
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 12px;
+  line-height: 18px;
   letter-spacing: -0.02em;
   color: #070701;
 `;
@@ -100,8 +100,8 @@ const Username = styled.div`
 const EditProfile = styled.div`
   margin-top: 2px;
   
-  font-size: 14px;
-  line-height: 21px;
+  font-size: 10px;
+  line-height: 15px;
   letter-spacing: -0.02em;
   color: #7785FF;
 `;
@@ -112,9 +112,9 @@ const ProfileImage = styled.img`
 `;
 
 const MenuItem = styled.div`
-  margin-top: 18px;
-  font-size: 16px;
-  line-height: 24px;
+  margin-top: 14px;
+  font-size: 12px;
+  line-height: 18px;
   letter-spacing: -0.02em;
   color: #90A0AD;
   
