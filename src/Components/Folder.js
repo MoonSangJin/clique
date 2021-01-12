@@ -9,11 +9,13 @@ import FavoriteIconSrc from '../assets/img/isFavorite.svg';
 import PopoverController from './Popover/PopoverController';
 import DropdownMenu from '../Modules/Folder/DropdownMenu';
 import OptionIcon from './OptionIcon';
+import { useSelector } from 'react-redux';
 
 
 const mockedTextForShare = 'this is text for sharing about bookmarks';
 
 export default function Folder({ folder_data }) {
+  const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
   const [profileElementHolder, setProfileElementHolder] = useState(null);
   const dotMenuRef = React.createRef();
@@ -29,6 +31,12 @@ export default function Folder({ folder_data }) {
 
   const closeDropdownMenu = () => {
     setIsOpenDropdownMenu(false);
+  };
+
+  const getBookmarkList = () => {
+    return bookmarkReducer.bookmarkList.filter((bookmark) => {
+      return Number(bookmark.bookmark_folder_id) === folder_data.id;
+    })
   };
 
   return (
@@ -50,12 +58,11 @@ export default function Folder({ folder_data }) {
               <FaviconWrapper>
                 <FaviconFolder src={folder} alt={folder} />
                 <VerticalLine src={verticalLine} />
-                <FavIcon src={folder} />
-                <FavIcon src={folder} />
-                <FavIcon src={folder} />
-                <FavIcon src={folder} />
-                <FavIcon src={folder} />
-                <FavIcon src={folder} />
+                {
+                  getBookmarkList().map((bookmark) => {
+                    return <FaviconImage key={bookmark.id} src={bookmark.favicon_url} />
+                  })
+                }
               </FaviconWrapper>
               <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
                 <OptionIcon />
@@ -134,6 +141,7 @@ const FolderName = styled.div`
 `;
 
 const FolderTime = styled.div`
+  height: 18px;
   margin-top: 2px;
 
   font-family: Poppins;
@@ -171,7 +179,7 @@ const VerticalLine = styled.img`
   margin-right: 10px;
 `;
 
-const FavIcon = styled.img`
-  width: 21px;
-  height: 21px;
+const FaviconImage = styled.img`
+  width: 14px;
+  height: 14px;
 `;
