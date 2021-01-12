@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import SubmitForm from './SubmitForm';
 
@@ -6,10 +6,10 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 `;
-const PopupPresenter = ({ tabs }) => {
+const PopupPresenter = ({ tabs, postServer }) => {
   return (
     <Container>
-      <SubmitForm {...{ tabs }} />
+      <SubmitForm {...{ tabs, postServer }} />
     </Container>
   );
 };

@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import check from '../../assets/img/check.svg';
 import popUpLogo from '../../assets/img/popUpLogo.svg';
 
-export default function SubmitForm({ tabs }) {
+export default function SubmitForm({ tabs, postServer }) {
   const [bookmarks, setBookmarks] = useState([]);
-  const [folder, setFolder] = useState({});
   const [newFolderName, setNewFolderName] = useState('');
 
   const handleClick = (e) => {
@@ -20,8 +19,8 @@ export default function SubmitForm({ tabs }) {
             {
               title: name,
               url: value,
-              favIconUrl: src,
-              scrollPos: scrollResult, //scroll안했으면 0이 들어가있음
+              scroll_pos: scrollResult, //scroll안했으면 0이 들어가있음
+              favicon_url: src,
             },
           ])
         : setBookmarks((bookmarks) =>
@@ -38,7 +37,6 @@ export default function SubmitForm({ tabs }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (newFolderName === '') {
       alert('폴더 이름을 입력하세요');
       reset(e);
@@ -50,9 +48,14 @@ export default function SubmitForm({ tabs }) {
       return;
     }
 
-    setFolder({ bookmark_folder_name: newFolderName, bookmarks: bookmarks });
+    const postData = {
+      bookmark_folder_name: newFolderName,
+      bookmarks: bookmarks,
+    };
+    postServer(postData);
     reset(e);
     alert('저장되었습니다.');
+    window.close();
   };
 
   const reset = (e) => {
@@ -63,9 +66,7 @@ export default function SubmitForm({ tabs }) {
 
   const check = () => {
     console.log(bookmarks);
-    console.log(folder);
   };
-
   return (
     <Form onSubmit={handleSubmit}>
       <LogoRow>
@@ -96,20 +97,6 @@ export default function SubmitForm({ tabs }) {
           onChange={changeInputNewFolder}
           placeholder="Enter new folder name"
         ></Input>
-      </InputRow>
-      <InputRow>
-        <Font>Add to</Font>
-        <Input
-          type="text"
-          placeholder="Enter existing folder name"
-          list="folderList"
-        />
-        <datalist id="folderList">
-          <option value="폴더이름1"></option>
-          <option value="폴더이름2"></option>
-          <option value="폴더이름3"></option>
-          <option value="폴더이름4"></option>
-        </datalist>
       </InputRow>
       <ButtonRow>
         <CompleteButton>Save</CompleteButton>
