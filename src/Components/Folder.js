@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -9,16 +10,18 @@ import FavoriteIconSrc from '../assets/img/isFavorite.svg';
 import PopoverController from './Popover/PopoverController';
 import DropdownMenu from '../Modules/Folder/DropdownMenu';
 import OptionIcon from './OptionIcon';
-import { useSelector } from 'react-redux';
+import Modal from './Modal';
+import CheckGraySrc from '../assets/img/checkGray.png';
 
-
-const mockedTextForShare = 'this is text for sharing about bookmarks';
 
 export default function Folder({ folder_data }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
+
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
   const [profileElementHolder, setProfileElementHolder] = useState(null);
   const dotMenuRef = React.createRef();
+
+  const [isOpenShareSuccessModal, setIsOpenShareSuccessModal] = useState(false);
 
   useEffect(() => {
     setProfileElementHolder(dotMenuRef.current);
@@ -37,6 +40,22 @@ export default function Folder({ folder_data }) {
     return bookmarkReducer.bookmarkList.filter((bookmark) => {
       return Number(bookmark.bookmark_folder_id) === folder_data.id;
     })
+  };
+
+  const getSharedText = () => {
+    let sharedText = 'This bookmarks are shared by Clique\n';
+    sharedText += `Folder name: ${folder_data.name}\n\n`;
+
+    getBookmarkList().forEach((bookmark) => {
+      sharedText += `${bookmark.title}\n${bookmark.url}\n\n`;
+    });
+
+    return sharedText;
+  };
+
+  const handleShareTextSuccess = () => {
+    closeDropdownMenu();
+    setIsOpenShareSuccessModal(true);
   };
 
   return (
@@ -72,12 +91,37 @@ export default function Folder({ folder_data }) {
           </ContentsWrapper>
         </Container>
       </StyledLink>
+
       <DropdownMenu
         isOpen={isOpenDropdownMenu}
         closeHandler={closeDropdownMenu}
         anchorEl={profileElementHolder}
-        sharedText={mockedTextForShare}
+        sharedText={getSharedText()}
+        shareTextSuccessHandler={handleShareTextSuccess}
       />
+
+      <Modal
+        isOpen={isOpenShareSuccessModal}
+        closeHandler={() => setIsOpenShareSuccessModal(false)}
+      >
+        <ModalContentsWrapper>
+          <CheckGrayImage src={CheckGraySrc} />
+          <PhrasesWrapper>
+            <ModalTitle>
+              Success!
+            </ModalTitle>
+            <ModalPhrases>
+              Bookmark links have been copied to clipboard.
+            </ModalPhrases>
+          </PhrasesWrapper>
+          <ModalButtonWrapper>
+            <ModalButton onClick={() => setIsOpenShareSuccessModal(false)}>
+              OK
+            </ModalButton>
+          </ModalButtonWrapper>
+
+        </ModalContentsWrapper>
+      </Modal>
     </>
   );
 }
@@ -182,4 +226,57 @@ const VerticalLine = styled.img`
 const FaviconImage = styled.img`
   width: 14px;
   height: 14px;
+`;
+
+const ModalContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const CheckGrayImage = styled.img`
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+`;
+
+const PhrasesWrapper = styled.div`
+  margin-left: 9px;
+  width: 334px;
+`;
+
+const ModalTitle = styled.div`
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  
+  color: #000000;
+`;
+
+const ModalPhrases = styled.div`
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+  color: #90A0AD;
+`;
+
+const ModalButtonWrapper = styled.div`
+  width: 72px;
+`;
+
+const ModalButton = styled.button`
+  all: unset;
+  width: 100%;
+  height: 33px;
+  background: #7785ff;
+  border-radius: 3px;
+  &:hover {
+    cursor: pointer;
+  }
+  
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
 `;
