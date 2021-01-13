@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Example from '../assets/img/example.jpg';
 import folder from '../assets/img/folder.svg';
 import verticalLine from '../assets/img/verticalLine.svg';
-import FavoriteIconSrc from '../assets/img/isFavorite.svg';
+import FavoriteIconSrc from '../assets/img/isFavorite.png';
 import PopoverController from './Popover/PopoverController';
 import DropdownMenu from '../Modules/Folder/DropdownMenu';
 import OptionIcon from './OptionIcon';
@@ -68,7 +68,7 @@ export default function Folder({ folder_data }) {
               <TextRow>
                 <FolderName>{folder_data.name}</FolderName>
                 <FolderTime>
-                  {/*현재 서버에서 time 정보는 보내주지 않는다*/}
+                  Last updated 3 mins ago
                 </FolderTime>
               </TextRow>
               {folder_data.is_favorite ? <FavoriteIcon src={FavoriteIconSrc} /> : null}
@@ -165,16 +165,16 @@ const TextRow = styled.div`
 
 const FavoriteIcon = styled.img`
   width: 24px;
-  height: 37px;
+  height: 44px;
 `;
 
 const FolderName = styled.div`
-  width: 200px;
+  width: 185px;
   display: block;
   font-family: Poppins;
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 21px;
   letter-spacing: -0.02em;
 
@@ -224,8 +224,7 @@ const VerticalLine = styled.img`
 `;
 
 const FaviconImage = styled.img`
-  width: 14px;
-  height: 14px;
+  height: 16px;
   margin-right: 10px;
 `;
 
@@ -254,7 +253,7 @@ const ModalTitle = styled.div`
 `;
 
 const ModalPhrases = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   line-height: 18px;
   letter-spacing: -0.02em;
   color: #90A0AD;
