@@ -85,15 +85,22 @@ export default function SubmitForm({ tabs, postServer }) {
     window.close();
   };
 
-  const checkAll = () => {
-    console.log(bookmarks);
+  const handleCheckAll = () => {
+    setBookmarks((respondedBookmarks) => {
+      return respondedBookmarks.map((bookmark) => {
+        return {
+          ...bookmark,
+          isChecked: true,
+        }
+      });
+    })
   };
 
   return (
     <Form onSubmit={handleSubmit}>
       <LogoRow>
         <LogoImage src={popUpLogo} />
-        <CheckAll>
+        <CheckAll onClick={handleCheckAll}>
           Check all
         </CheckAll>
       </LogoRow>
