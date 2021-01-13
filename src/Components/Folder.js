@@ -226,6 +226,7 @@ const VerticalLine = styled.img`
 const FaviconImage = styled.img`
   width: 14px;
   height: 14px;
+  margin-right: 10px;
 `;
 
 const ModalContentsWrapper = styled.div`

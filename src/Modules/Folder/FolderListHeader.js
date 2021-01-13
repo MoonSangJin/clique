@@ -69,6 +69,7 @@ const SortTypeContents = styled.span`
 const DownArrowImage = styled.img`
   width: 20px;
   height: 20px;
+  margin-left: 10px;
 `;
 
 export default FolderListHeader;

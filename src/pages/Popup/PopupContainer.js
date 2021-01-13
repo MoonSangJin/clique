@@ -35,6 +35,6 @@ const PopupContainer = () => {
     searchUrl();
   }, []);
 
-  return <PopupPresenter {...{ tabs, postServer }}></PopupPresenter>;
+  return <PopupPresenter {...{ tabs, postServer }} />;
 };
 export default PopupContainer;
