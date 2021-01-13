@@ -28,10 +28,11 @@ const Container = styled.div`
 const SearchRow = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 37px;
 `;
 
 const FolderRowWrapper = styled.div`
-  margin-top: 47px;
+  margin-top: 42px;
 `;
 
 export default HomeScreenPresenter;
