@@ -2,21 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 import Folder from '../Components/Folder';
 import ListFolder from '../Components/ListFolder';
+import FolderListHeader from '../Modules/Folder/FolderListHeader';
 
 
 export default function FolderRow({ bookmarkFolderList, type }) {
   return (
-    <Container>
-      {
-        type === 'card' ?
-          bookmarkFolderList.map((folder_data, index) => {
-            return <Folder key={index} {...{ folder_data }} />;
-          }) :
-          bookmarkFolderList.map((folder_data, index) => {
-            return <ListFolder key={index} {...{ folder_data }} />;
-          })
-      }
-    </Container>
+    <>
+      <FolderListHeader />
+      <Container>
+
+        {
+          type === 'card' ?
+            bookmarkFolderList.map((folder_data, index) => {
+              return <Folder key={index} {...{ folder_data }} />;
+            }) :
+            bookmarkFolderList.map((folder_data, index) => {
+              return <ListFolder key={index} {...{ folder_data }} />;
+            })
+        }
+      </Container>
+    </>
   );
 }
 
