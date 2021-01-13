@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import check from '../../assets/img/check.png';
 import popUpLogo from '../../assets/img/popUpLogo.svg';
 
+
 export default function SubmitForm({ tabs, postServer }) {
   const [bookmarks, setBookmarks] = useState([]);
   const [newFolderName, setNewFolderName] = useState('');
@@ -64,13 +65,16 @@ export default function SubmitForm({ tabs, postServer }) {
     setNewFolderName('');
   };
 
-  const check = () => {
+  const checkAll = () => {
     console.log(bookmarks);
   };
   return (
     <Form onSubmit={handleSubmit}>
       <LogoRow>
         <LogoImage src={popUpLogo} />
+        <CheckAll>
+          Check all
+        </CheckAll>
       </LogoRow>
       <List>
         {tabs.map(({ favIconUrl, title, url }, index) => (
@@ -85,7 +89,7 @@ export default function SubmitForm({ tabs, postServer }) {
             />
               <CheckLabel htmlFor={index} />
             <Image src={favIconUrl} />
-            <Title> {title}</Title>
+            <Title>{title}</Title>
           </ListRow>
         ))}
       </List>
@@ -101,28 +105,43 @@ export default function SubmitForm({ tabs, postServer }) {
       <ButtonRow>
         <CompleteButton>Save</CompleteButton>
       </ButtonRow>
-
-      <button type="button" onClick={check}>
-        check
-      </button>
     </Form>
   );
 }
 
 const Form = styled.form`
-  width: 100%;
   display: flex;
   flex-direction: column;
+  padding: 20px 21px 25px 23px;
 `;
-const LogoRow = styled.div``;
-const LogoImage = styled.img`
-  width: 70px;
-  height: 33px;
 
-  margin: 15px;
+const LogoRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
+
+const LogoImage = styled.img`
+  width: 51px;
+  height: 24px;
+`;
+
+const CheckAll = styled.div`
+  font-family: Poppins;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #7785FF;
+  
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const List = styled.div`
-  height: 200px;
+  max-height: 200px;
+  margin-top: 37px;
   overflow: auto;
 
   ::-webkit-scrollbar {
@@ -133,47 +152,22 @@ const List = styled.div`
     border-radius: 5px;
     background-color: rgba(144, 160, 173, 0.5);
   }
-
-  margin: 10px;
 `;
+
 const ListRow = styled.div`
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  margin: 5px;
-`;
-const Image = styled.img`
-  width: 19px;
-  height: 19px;
-
-  margin: 5px;
-`;
-const Title = styled.div`
-  display: flex;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  /* identical to box height */
-  letter-spacing: -0.03em;
-  color: #070701;
-
-  margin: 3px;
+  height: 18px;
+  margin-bottom: 22px;
 `;
 
 const CheckLabel = styled.label`
-  width: 28px;
-  height: 23px;
+  width: 17px;
+  height: 17px;
   border-radius: 5px;
   border: 1.5px solid #d7dde2;
   box-sizing: border-box;
-  margin: 5px;
+
   &:hover {
     cursor: pointer;
   }
@@ -181,72 +175,91 @@ const CheckLabel = styled.label`
 
 const CheckBox = styled.input`
   display: none;
+
   &:checked + ${CheckLabel} {
-    background: #7785ff;
     background-image: url(${check});
     background-size: 100% 100%;
   }
 `;
 
+const Image = styled.img`
+  height: 14px;
+  margin-left: 14px;
+`;
+
+const Title = styled.div`
+  display: block;
+  max-width: 175px;
+  margin-right: 35px;
+  margin-left: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-family: Poppins;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.03em;
+  color: #070701;
+`;
+
+const InputRow = styled.div`
+  display: flex;
+  margin-top: 22px;
+  align-items: center;
+`;
+
+const Font = styled.div`
+  font-family: Poppins;
+  font-size: 10px;
+  line-height: 15px;
+  letter-spacing: -0.02em;
+  color: #90a0ad;
+`;
+
 const Input = styled.input`
   all: unset;
-  width: 238px;
-  height: 40px;
-  background: #f5f7f8;
+  width: 204px;
+  height: 30px;
+  margin-left: 26px;
+  background-color: #f5f7f8;
   border: 1px solid #dee3e6;
   box-sizing: border-box;
-  border-radius: 10px;
-  text-indent: 10px;
+  border-radius: 8px;
+  text-indent: 12px;
+
   ::placeholder {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 20px;
     color: #b5bdc2;
     letter-spacing: -0.02em;
   }
   ::-webkit-calendar-picker-indicator {
     color: #90a0ad;
-
-    margin-right: 10px;
   }
-
-  margin-right: 10px;
 `;
-const Font = styled.div`
-  height: 20px;
 
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 21px;
-  /* identical to box height */
-  letter-spacing: -0.02em;
-  color: #90a0ad;
-`;
-const InputRow = styled.div`
+const ButtonRow = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-top: 20px;
-  margin-left: 20px;
+  justify-content: flex-end;
 `;
+
 const CompleteButton = styled.button`
   all: unset;
-  width: 86px;
-  height: 36px;
-  font-weight: bold;
-  font-size: 14px;
+  width: 64px;
+  height: 27px;
+  margin-top: 20px;
   background: #7785ff;
   border-radius: 3px;
+
+  font-family: Poppins;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 15px;
   color: #ffffff;
   text-align: center;
 
   &:hover {
     cursor: pointer;
   }
-`;
-const ButtonRow = styled.div`
-  display: flex;
-  justify-content: flex-end;
 `;
