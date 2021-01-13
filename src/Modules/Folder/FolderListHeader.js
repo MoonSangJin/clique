@@ -29,24 +29,25 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   
-  border: solid 1px black;
-  height: 40px;
+  height: 29px;
 `;
 
 const ListTypeButtonWrapper = styled.div`
 `;
 
 const ListTypeButton = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 29px;
+  height: 29px;
   
-  margin-right: 10px;
+  margin-right: 8px;
 `;
 
 const SortTypeSelectorWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 
 const SortTitle = styled.div`

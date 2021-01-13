@@ -10,7 +10,6 @@ export default function FolderRow({ bookmarkFolderList, type }) {
     <>
       <FolderListHeader />
       <Container>
-
         {
           type === 'card' ?
             bookmarkFolderList.map((folder_data, index) => {
@@ -30,5 +29,5 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin: 0 auto;
+  margin: 20px auto 0 auto;
 `;
