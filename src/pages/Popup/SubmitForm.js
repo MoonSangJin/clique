@@ -42,28 +42,11 @@ export default function SubmitForm({ tabs, postServer }) {
           bookmark;
       });
     })
-    // const { name, value, src, checked } = e.target;
-    // alert('changed');
-    // console.log(e.target);
-    // chrome.storage.local.get([`${name}`], (result) => {
-    //   const scrollResult = result[name].scroll;
-    //
-    //   checked
-    //     ? setBookmarks((bookmarks) => [
-    //         ...bookmarks,
-    //         {
-    //           title: name,
-    //           url: value,
-    //           scroll_pos: scrollResult, //scroll안했으면 0이 들어가있음
-    //           favicon_url: src,
-    //         },
-    //       ])
-    //     : setBookmarks((bookmarks) =>
-    //         bookmarks.filter((i) => i.title !== name)
-    //       );
-    // });
   };
 
+  const getCheckedBookmarks = () => {
+    return bookmarks.filter((bookmark) => bookmark.isChecked);
+  };
 
   const changeInputNewFolder = (e) => {
     const { value } = e.target;
@@ -74,30 +57,32 @@ export default function SubmitForm({ tabs, postServer }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newFolderName === '') {
-      alert('폴더 이름을 입력하세요');
-      reset(e);
+      alert('Please Enter folder name');
       return;
     }
-    if (bookmarks.length === 0) {
+
+    const bookmarksForPayload = getCheckedBookmarks().map((bookmark) => {
+      return {
+        title: bookmark.title,
+        url: bookmark.url,
+        // Todo(maitracle): scroll position을 세팅하는 로직을 추가한다.
+        scroll_pos: 0,
+        favicon_url: bookmark.favIconUrl,
+      };
+    });
+
+    if (bookmarksForPayload.length === 0) {
       alert('At least one should be checked');
-      reset(e);
       return;
     }
 
     const postData = {
       bookmark_folder_name: newFolderName,
-      bookmarks: bookmarks,
+      bookmarks: bookmarksForPayload,
     };
     postServer(postData);
-    reset(e);
-    alert('저장되었습니다.');
+    alert('Bookmarks are saved successfully!');
     window.close();
-  };
-
-  const reset = (e) => {
-    e.target.reset();
-    setBookmarks([]);
-    setNewFolderName('');
   };
 
   const checkAll = () => {
