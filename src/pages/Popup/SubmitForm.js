@@ -1,34 +1,69 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import check from '../../assets/img/check.png';
+import notChecked from '../../assets/img/notChecked.png';
 import popUpLogo from '../../assets/img/popUpLogo.svg';
+
+
+const ListRowItem = ({ index, favIconUrl, title, isChecked, handleClick }) => {
+  return (
+    <ListRow key={index} onClick={handleClick}>
+      <CheckBox src={isChecked ? check : notChecked} />
+      <Image src={favIconUrl} />
+      <Title>{title}</Title>
+    </ListRow>
+  );
+};
 
 
 export default function SubmitForm({ tabs, postServer }) {
   const [bookmarks, setBookmarks] = useState([]);
   const [newFolderName, setNewFolderName] = useState('');
 
-  const handleClick = (e) => {
-    const { name, value, src, checked } = e.target;
-    console.log(e.target);
-    chrome.storage.local.get([`${name}`], (result) => {
-      const scrollResult = result[name].scroll;
+  useEffect(() => {
+    setBookmarks(tabs.map((tab) => {
+      return {
+        title: tab.title,
+        url: tab.url,
+        favIconUrl: tab.favIconUrl,
+        isChecked: tab.active,
+      };
+    }));
+  }, [tabs]);
 
-      checked
-        ? setBookmarks((bookmarks) => [
-            ...bookmarks,
-            {
-              title: name,
-              url: value,
-              scroll_pos: scrollResult, //scroll안했으면 0이 들어가있음
-              favicon_url: src,
-            },
-          ])
-        : setBookmarks((bookmarks) =>
-            bookmarks.filter((i) => i.title !== name)
-          );
-    });
+  const handleClick = (clickedBookmarkIndex) => {
+    setBookmarks((respondedBookmarks) => {
+      return respondedBookmarks.map((bookmark, index) => {
+        return index === clickedBookmarkIndex ?
+          {
+            ...bookmark,
+            isChecked: !bookmark.isChecked
+          } :
+          bookmark;
+      });
+    })
+    // const { name, value, src, checked } = e.target;
+    // alert('changed');
+    // console.log(e.target);
+    // chrome.storage.local.get([`${name}`], (result) => {
+    //   const scrollResult = result[name].scroll;
+    //
+    //   checked
+    //     ? setBookmarks((bookmarks) => [
+    //         ...bookmarks,
+    //         {
+    //           title: name,
+    //           url: value,
+    //           scroll_pos: scrollResult, //scroll안했으면 0이 들어가있음
+    //           favicon_url: src,
+    //         },
+    //       ])
+    //     : setBookmarks((bookmarks) =>
+    //         bookmarks.filter((i) => i.title !== name)
+    //       );
+    // });
   };
+
 
   const changeInputNewFolder = (e) => {
     const { value } = e.target;
@@ -68,6 +103,7 @@ export default function SubmitForm({ tabs, postServer }) {
   const checkAll = () => {
     console.log(bookmarks);
   };
+
   return (
     <Form onSubmit={handleSubmit}>
       <LogoRow>
@@ -77,20 +113,16 @@ export default function SubmitForm({ tabs, postServer }) {
         </CheckAll>
       </LogoRow>
       <List>
-        {tabs.map(({ favIconUrl, title, url }, index) => (
-          <ListRow key={index}>
-            <CheckBox
-              id={index}
-              name={title}
-              value={url}
-              src={favIconUrl}
-              onClick={handleClick}
-              type="checkbox"
-            />
-              <CheckLabel htmlFor={index} />
-            <Image src={favIconUrl} />
-            <Title>{title}</Title>
-          </ListRow>
+        {bookmarks.map(({ favIconUrl, title, url, isChecked }, index) => (
+          <ListRowItem
+            key={index}
+            index={index}
+            favIconUrl={favIconUrl}
+            title={title}
+            url={url}
+            isChecked={isChecked}
+            handleClick={() => handleClick(index)}
+          />
         ))}
       </List>
       <InputRow>
@@ -161,25 +193,9 @@ const ListRow = styled.div`
   margin-bottom: 22px;
 `;
 
-const CheckLabel = styled.label`
+const CheckBox = styled.img`
   width: 17px;
   height: 17px;
-  border-radius: 5px;
-  border: 1.5px solid #d7dde2;
-  box-sizing: border-box;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const CheckBox = styled.input`
-  display: none;
-
-  &:checked + ${CheckLabel} {
-    background-image: url(${check});
-    background-size: 100% 100%;
-  }
 `;
 
 const Image = styled.img`
