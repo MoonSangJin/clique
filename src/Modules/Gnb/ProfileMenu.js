@@ -91,7 +91,7 @@ const Information = styled.div`
 `;
 
 const Username = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   line-height: 18px;
   letter-spacing: -0.02em;
   color: #070701;
@@ -100,7 +100,7 @@ const Username = styled.div`
 const EditProfile = styled.div`
   margin-top: 2px;
   
-  font-size: 10px;
+  font-size: 12px;
   line-height: 15px;
   letter-spacing: -0.02em;
   color: #7785FF;
@@ -113,7 +113,7 @@ const ProfileImage = styled.img`
 
 const MenuItem = styled.div`
   margin-top: 14px;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 18px;
   letter-spacing: -0.02em;
   color: #90A0AD;
