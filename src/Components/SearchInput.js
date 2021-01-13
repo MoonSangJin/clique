@@ -58,7 +58,7 @@ export default function SearchInput() {
         <img
           src={handGlass}
           alt={`handglass`}
-          style={{ marginLeft: '20px', marginRight: '20px' }}
+          style={{ marginLeft: '20px', marginRight: '8px', width: '20px', height: '20px'}}
         />
         <Form onSubmit={submitHandler}>
           <BookmarkInput
@@ -71,7 +71,9 @@ export default function SearchInput() {
             googleEngine={googleEngine}
             onFocus={initBookMarkSearch}
             onBlur={endBookMarkSearch}
-          />
+          >
+            Search bookmark, folder, keyword, or URL
+          </BookmarkInput>
         </Form>
         <VerticalLine
           googleEngine={googleEngine}
@@ -88,39 +90,58 @@ export default function SearchInput() {
             bookMarkEngine={bookMarkEngine}
             onFocus={initGoogleSearch}
             onBlur={endGoogleSearch}
-          />
+          >
+            or google
+          </GoogleInput>
         </Form>
       </InputRow>
     </Container>
   );
 }
 const Container = styled.div``;
+
 const Form = styled.form`
   display: flex;
   align-items: center;
 `;
+
 const InputRow = styled.div`
   display: flex;
-  width: 577px;
-  height: 66px;
+  width: 470px;
+  height: 54px;
   background: #f5f7f8;
   border-radius: 50px;
   align-items: center;
 `;
-const BookmarkInput = styled.input`
-  all: unset;
-  ${({ googleEngine }) => googleEngine && `display:none;`}
-  width: 300px;
+
+const BookmarkInput = styled.div`
+  // all: unset;
+  // ${({ googleEngine }) => googleEngine && `display:none;`}
+  margin-right: 44px;
+  
+  font-family: Poppins;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+  color: #B5BDC2;
 `;
-const GoogleInput = styled.input`
+
+const GoogleInput = styled.div`
   all: unset;
   ${({ bookMarkEngine }) => bookMarkEngine && `display:none;`}
-  width: 300px;
+  
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 15px;
+  color: #90A0AD;
 `;
+
 const VerticalLine = styled.div`
   border: 1px solid rgba(144, 160, 173, 0.3);
-  height: 50px;
-  margin-right: 10px;
+  height: 28px;
+  margin-right: 12px;
   ${({ googleEngine }) => googleEngine && `display:none;`}
   ${({ bookMarkEngine }) => bookMarkEngine && `display:none;`}
 `;

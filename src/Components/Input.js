@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const ValidationMessage = styled.div`
   color: #FF4545;
   margin-left: 20px;
-  height: 22px;
+  height: 15px;
 `;
 
 const InputContainer = styled.input`
