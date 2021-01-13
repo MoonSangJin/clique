@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import check from '../../assets/img/check.svg';
+import check from '../../assets/img/check.png';
 import popUpLogo from '../../assets/img/popUpLogo.svg';
 
 export default function SubmitForm({ tabs, postServer }) {
@@ -83,7 +83,7 @@ export default function SubmitForm({ tabs, postServer }) {
               onClick={handleClick}
               type="checkbox"
             />
-            <CheckLabel htmlFor={index}></CheckLabel>
+              <CheckLabel htmlFor={index} />
             <Image src={favIconUrl} />
             <Title> {title}</Title>
           </ListRow>
@@ -96,7 +96,7 @@ export default function SubmitForm({ tabs, postServer }) {
           value={newFolderName}
           onChange={changeInputNewFolder}
           placeholder="Enter new folder name"
-        ></Input>
+        />
       </InputRow>
       <ButtonRow>
         <CompleteButton>Save</CompleteButton>
@@ -166,13 +166,13 @@ const Title = styled.div`
 
   margin: 3px;
 `;
+
 const CheckLabel = styled.label`
   width: 28px;
   height: 23px;
   border-radius: 5px;
   border: 1.5px solid #d7dde2;
   box-sizing: border-box;
-  border-radius: 5px;
   margin: 5px;
   &:hover {
     cursor: pointer;
