@@ -10,8 +10,8 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 65px;
-  height: 27px;
+  width: 74px;
+  height: 30px;
   border: 1px solid #7785ff;
   box-sizing: border-box;
   border-radius: 3px;
@@ -19,7 +19,7 @@ const Container = styled.div`
   font-family: Poppins;
   font-style: normal;
   font-weight: bold;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 15px;
   letter-spacing: -0.02em;
   color: #7785ff;
