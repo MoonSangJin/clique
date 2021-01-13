@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   background-image: url(${Background});
   background-size: cover;
   border-radius: 10px;
-  margin: 53px auto 0 auto;
+  margin: 50px auto 0 auto;
 `;
 
 export default function background() {

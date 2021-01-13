@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Input from '../../Components/Input';
@@ -40,15 +39,17 @@ const SignUpPagePresenter = ({
           onFocus={() => setEmailValidationMessage('')}
           onBlur={isValidEmail}
         />
-        <Input
-          value={password}
-          placeholder={'password'}
-          validationMessage={passwordValidationMessage}
-          onChange={passwordChangeHandler}
-          onFocus={() => setPasswordValidationMessage('')}
-          onBlur={isValidPassword}
-          type={'password'}
-        />
+        <PasswordInputWrapper>
+          <Input
+            value={password}
+            placeholder={'password'}
+            validationMessage={passwordValidationMessage}
+            onChange={passwordChangeHandler}
+            onFocus={() => setPasswordValidationMessage('')}
+            onBlur={isValidPassword}
+            type={'password'}
+          />
+        </PasswordInputWrapper>
       </InputRow>
 
       <ButtonWrapper>
@@ -76,14 +77,18 @@ const InputRow = styled.div`
   margin-top: 48px;
 `;
 
+const PasswordInputWrapper = styled.div`
+  margin-top: 7px;
+`;
+
 const ButtonWrapper = styled.div`
   width: 100%;
-  margin-top: 28px;
+  margin-top: 70px;
 `;
 
 const PolicyDescription = styled.div`
   display: flex;
-  margin-top: 144px;
+  margin-top: 109px;
   
   font-size: 12px;
   line-height: 18px;

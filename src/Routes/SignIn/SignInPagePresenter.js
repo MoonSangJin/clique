@@ -35,15 +35,17 @@ const SignInPagePresenter = ({
           onFocus={() => setEmailValidationMessage('')}
           onBlur={isValidEmail}
         />
-        <Input
-          value={password}
-          placeholder={'password'}
-          validationMessage={passwordValidationMessage}
-          onChange={passwordChangeHandler}
-          onFocus={() => setPasswordValidationMessage('')}
-          onBlur={isValidPassword}
-          type={'password'}
-        />
+        <PasswordInputWrapper>
+          <Input
+            value={password}
+            placeholder={'password'}
+            validationMessage={passwordValidationMessage}
+            onChange={passwordChangeHandler}
+            onFocus={() => setPasswordValidationMessage('')}
+            onBlur={isValidPassword}
+            type={'password'}
+          />
+        </PasswordInputWrapper>
       </InputRow>
 
       <SignUpLinkWrapper>
@@ -69,13 +71,17 @@ const SignInPagePresenter = ({
 
 const InputRow = styled.div`
   width: 100%;
-  margin-top: 46px;
+  margin-top: 70px;
+`;
+
+const PasswordInputWrapper = styled.div`
+  margin-top: 7px;
 `;
 
 const SignUpLinkWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 2px;
+  margin-top: 3px;
 `;
 
 const StyledLink = styled(Link)`
@@ -90,7 +96,7 @@ const ButtonWrapper = styled.div`
 
 const PolicyDescription = styled.div`
   display: flex;
-  margin-top: 144px;
+  margin-top: 109px;
   
   font-size: 12px;
   line-height: 18px;

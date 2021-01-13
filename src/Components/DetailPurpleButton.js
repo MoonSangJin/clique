@@ -8,15 +8,15 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 65px;
-  height: 27px;
+  width: 74px;
+  height: 30px;
   background: #7785ff;
   border-radius: 3px;
 
   font-family: Poppins;
   font-style: normal;
   font-weight: bold;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 15px;
   text-align: center;
   letter-spacing: -0.02em;
