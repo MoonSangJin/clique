@@ -1,48 +1,25 @@
 import React, { useEffect, useState } from 'react';
+
 import styled from 'styled-components';
-import check from '../../assets/img/check.png';
-import notChecked from '../../assets/img/notChecked.png';
 import popUpLogo from '../../assets/img/popUpLogo.svg';
-
-
-const ListRowItem = ({ index, favIconUrl, title, isChecked, handleClick }) => {
-  return (
-    <ListRow key={index} onClick={handleClick}>
-      <CheckBox src={isChecked ? check : notChecked} />
-      <Image src={favIconUrl} />
-      <Title>{title}</Title>
-    </ListRow>
-  );
-};
-
+import ListRowItem from './ListRowItem';
 
 export default function SubmitForm({ tabs, postServer }) {
   const [bookmarks, setBookmarks] = useState([]);
   const [newFolderName, setNewFolderName] = useState('');
 
   useEffect(() => {
-    setBookmarks(tabs.map((tab) => {
-      return {
-        title: tab.title,
-        url: tab.url,
-        favIconUrl: tab.favIconUrl,
-        isChecked: tab.active,
-      };
-    }));
+    setBookmarks(
+      tabs.map((tab) => {
+        return {
+          title: tab.title,
+          url: tab.url,
+          favIconUrl: tab.favIconUrl,
+          isChecked: tab.active,
+        };
+      })
+    );
   }, [tabs]);
-
-  const handleClick = (clickedBookmarkIndex) => {
-    setBookmarks((respondedBookmarks) => {
-      return respondedBookmarks.map((bookmark, index) => {
-        return index === clickedBookmarkIndex ?
-          {
-            ...bookmark,
-            isChecked: !bookmark.isChecked
-          } :
-          bookmark;
-      });
-    })
-  };
 
   const getCheckedBookmarks = () => {
     return bookmarks.filter((bookmark) => bookmark.isChecked);
@@ -91,28 +68,35 @@ export default function SubmitForm({ tabs, postServer }) {
         return {
           ...bookmark,
           isChecked: true,
-        }
+        };
       });
-    })
+    });
+  };
+
+  const handleClick = (clickedBookmarkIndex) => {
+    setBookmarks((respondedBookmarks) => {
+      return respondedBookmarks.map((bookmark, index) => {
+        return index === clickedBookmarkIndex
+          ? {
+              ...bookmark,
+              isChecked: !bookmark.isChecked,
+            }
+          : bookmark;
+      });
+    });
   };
 
   return (
     <Form onSubmit={handleSubmit}>
       <LogoRow>
         <LogoImage src={popUpLogo} />
-        <CheckAll onClick={handleCheckAll}>
-          Check all
-        </CheckAll>
+        <CheckAll onClick={handleCheckAll}>Check all</CheckAll>
       </LogoRow>
       <List>
         {bookmarks.map(({ favIconUrl, title, url, isChecked }, index) => (
           <ListRowItem
             key={index}
-            index={index}
-            favIconUrl={favIconUrl}
-            title={title}
-            url={url}
-            isChecked={isChecked}
+            {...{ index, favIconUrl, title, url, isChecked }}
             handleClick={() => handleClick(index)}
           />
         ))}
@@ -156,8 +140,8 @@ const CheckAll = styled.div`
   line-height: 18px;
   text-align: center;
   letter-spacing: -0.02em;
-  color: #7785FF;
-  
+  color: #7785ff;
+
   &:hover {
     cursor: pointer;
   }
@@ -176,39 +160,6 @@ const List = styled.div`
     border-radius: 5px;
     background-color: rgba(144, 160, 173, 0.5);
   }
-`;
-
-const ListRow = styled.div`
-  display: flex;
-  align-items: center;
-  height: 18px;
-  margin-bottom: 22px;
-`;
-
-const CheckBox = styled.img`
-  width: 17px;
-  height: 17px;
-`;
-
-const Image = styled.img`
-  height: 14px;
-  margin-left: 14px;
-`;
-
-const Title = styled.div`
-  display: block;
-  max-width: 175px;
-  margin-right: 35px;
-  margin-left: 11px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  font-family: Poppins;
-  font-size: 12px;
-  line-height: 18px;
-  letter-spacing: -0.03em;
-  color: #070701;
 `;
 
 const InputRow = styled.div`
