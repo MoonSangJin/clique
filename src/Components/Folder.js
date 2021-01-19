@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-import Example from '../assets/img/example.jpg';
 import folder from '../assets/img/folder.svg';
 import verticalLine from '../assets/img/verticalLine.svg';
 import FavoriteIconSrc from '../assets/img/isFavorite.png';
@@ -12,9 +10,10 @@ import DropdownMenu from '../Modules/Folder/DropdownMenu';
 import OptionIcon from './OptionIcon';
 import Modal from './Modal';
 import CheckGraySrc from '../assets/img/checkGray.png';
+import DefaultImageSrc from '../assets/img/FolderItemImages/1.png';
 
 
-export default function Folder({ folder_data }) {
+export default function Folder({ folder_data, folderCoverImageSrc }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
 
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
@@ -62,13 +61,13 @@ export default function Folder({ folder_data }) {
     <>
       <StyledLink to={`/detail/${folder_data.id}`}>
         <Container>
-          <FolderImage /> {/* 폴더 이미지 들어갈 곳*/}
+          <FolderImage src={folderCoverImageSrc || DefaultImageSrc} /> {/* 폴더 이미지 들어갈 곳*/}
           <ContentsWrapper>
             <TitleWrapper>
               <TextRow>
                 <FolderName>{folder_data.name}</FolderName>
                 <FolderTime>
-                  Last updated 3 mins ago
+                  Last updated 1 day ago
                 </FolderTime>
               </TextRow>
               {folder_data.is_favorite ? <FavoriteIcon src={FavoriteIconSrc} /> : null}
@@ -143,7 +142,7 @@ const Container = styled.div`
 const FolderImage = styled.div`
   width: 100%;
   height: 210px;
-  background-image: url(${({ favIconUrl }) => favIconUrl || Example});
+  background-image: url(${({ src }) => src});
   background-size: cover;
   border-radius: 8px 8px 0 0;
 `;
@@ -185,7 +184,6 @@ const FolderName = styled.div`
 `;
 
 const FolderTime = styled.div`
-  height: 18px;
   margin-top: 2px;
 
   font-family: Poppins;

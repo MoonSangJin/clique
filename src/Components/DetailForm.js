@@ -23,7 +23,7 @@ const BookmarkItem = ({ detailData }) => {
 
 export default function DetailForm({ folder_data, detailDataList }) {
   const openAllBookmarks = () => {
-    detailDataList.map((detailData) => {
+    detailDataList.forEach((detailData) => {
       window.open(detailData.url, '_blank');
     });
   };
@@ -118,7 +118,6 @@ const UrlListWrapper = styled.div`
 
 const UrlRow = styled.div`
   display: flex;
-  width: 100%;
   align-items: center;
   height: 44px;
 
@@ -132,7 +131,7 @@ const UrlRow = styled.div`
 const UrlImage = styled.img`
   width: 16px;
   height: 16px;
-  margin 0 17px 0 16px;
+  margin: 0 17px 0 16px;
   flex-shrink: 0;
 `;
 
@@ -155,7 +154,7 @@ const UrlTitle = styled.div`
 `;
 
 const Url = styled.div`
-  flex: 0 0 178px;
+  width: 178px;
   display: block;
   overflow: hidden;
   height: 21px;
