@@ -99,8 +99,6 @@ export default function SubmitForm({ tabs, postServer }) {
     };
 
     postServer(postData);
-    alert('Bookmarks are saved successfully!');
-    window.close();
   };
 
   const handleCheckAll = () => {
