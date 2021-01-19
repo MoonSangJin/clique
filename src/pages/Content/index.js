@@ -1,10 +1,3 @@
-import { printLine } from './modules/print';
-
-console.log('Content script works!');
-console.log('Must reload extension for modifications to take effect.');
-printLine("Using the 'printLine' function from the Print Module");
-
-
 let last_known_scroll_position = 0;
 let contentTitle = document.title;
 
@@ -12,10 +5,8 @@ let init = {
   title: contentTitle,
   scrollHeight: last_known_scroll_position,
 };
-chrome.runtime.sendMessage(init, (response) => {
-  console.log('content에서 처음 보냄');
-  console.log(response.farewell);
-});
+
+chrome.runtime.sendMessage(init);
 
 const onScroll = () => {
   last_known_scroll_position = window.scrollY;
@@ -23,10 +14,7 @@ const onScroll = () => {
     title: contentTitle,
     scrollHeight: last_known_scroll_position / document.body.offsetHeight,
   };
-  chrome.runtime.sendMessage(items, (response) => {
-    console.log('content에서 보냄');
-    console.log(response.farewell);
-  });
+  chrome.runtime.sendMessage(items);
 };
 
 function throttle(fn, wait) {
