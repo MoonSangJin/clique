@@ -21,7 +21,7 @@ const onScroll = () => {
   last_known_scroll_position = window.scrollY;
   let items = {
     title: contentTitle,
-    scrollHeight: last_known_scroll_position,
+    scrollHeight: last_known_scroll_position / document.body.offsetHeight,
   };
   chrome.runtime.sendMessage(items, (response) => {
     console.log('content에서 보냄');
