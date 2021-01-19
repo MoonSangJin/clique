@@ -17,12 +17,13 @@ const FolderListHeader = () => {
         <SortTitle>
           Sort by:
         </SortTitle>
-        <SortTypeContents>Created</SortTypeContents>
+        <SortTypeContents>Date Created</SortTypeContents>
         <DownArrowImage src={DownArrowSrc} />
       </SortTypeSelectorWrapper>
     </Wrapper>
   )
 };
+
 
 
 const Wrapper = styled.div`
