@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PopupPresenter from './PopupPresenter';
 import axios from 'axios';
+import { HOST } from '../../Constants/requests';
 
 let token;
 const searchToken = () => {
@@ -19,7 +20,7 @@ const PopupContainer = () => {
   const postServer = async (state) => {
     try {
       const data = await axios.post(
-        'http://ec2-52-78-239-231.ap-northeast-2.compute.amazonaws.com/bookmark',
+        HOST + '/bookmark/',
         state,
         { headers: { Authorization: `Bearer ${token}` } }
       );
