@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import check from '../../assets/img/check.png';
 import notChecked from '../../assets/img/notChecked.png';
 import popUpLogo from '../../assets/img/popUpLogo.svg';
+import { isValidUrl, refineUrl } from '../../Utils/urlHandler';
 
 
 const ListRowItem = ({ index, favIconUrl, title, isChecked, handleClick }) => {
@@ -37,16 +38,16 @@ export default function SubmitForm({ tabs, postServer }) {
         return index === clickedBookmarkIndex ?
           {
             ...bookmark,
-            isChecked: !bookmark.isChecked
+            isChecked: !bookmark.isChecked,
           } :
           bookmark;
       });
     })
   };
 
-  const getCheckedBookmarks = () => {
-    return bookmarks.filter((bookmark) => bookmark.isChecked);
-  };
+  const getCheckedBookmarks = (originBookmarks) => originBookmarks.filter((bookmark) => bookmark.isChecked);
+
+  const getValidBookmarks = (originBookmarks) => originBookmarks.filter((bookmark) => isValidUrl(bookmark.url));
 
   const changeInputNewFolder = (e) => {
     const { value } = e.target;
@@ -54,17 +55,16 @@ export default function SubmitForm({ tabs, postServer }) {
     console.log(`폴더 이름 ${value}`);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     if (newFolderName === '') {
       alert('Please Enter folder name');
       return;
     }
 
-    const bookmarksForPayload = getCheckedBookmarks().map((bookmark) => {
+    const bookmarksForPayload = getValidBookmarks(getCheckedBookmarks(bookmarks)).map((bookmark) => {
       return {
         title: bookmark.title,
-        url: bookmark.url,
+        url: refineUrl(bookmark.url),
         // Todo(maitracle): scroll position을 세팅하는 로직을 추가한다.
         scroll_pos: 0,
         favicon_url: bookmark.favIconUrl,
@@ -97,7 +97,7 @@ export default function SubmitForm({ tabs, postServer }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <FormWrapper>
       <LogoRow>
         <LogoImage src={popUpLogo} />
         <CheckAll onClick={handleCheckAll}>
@@ -127,13 +127,13 @@ export default function SubmitForm({ tabs, postServer }) {
         />
       </InputRow>
       <ButtonRow>
-        <CompleteButton>Save</CompleteButton>
+        <CompleteButton onClick={handleSubmit}>Save</CompleteButton>
       </ButtonRow>
-    </Form>
+    </FormWrapper>
   );
 }
 
-const Form = styled.form`
+const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px 21px 25px 23px;
