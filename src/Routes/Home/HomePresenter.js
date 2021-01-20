@@ -5,7 +5,7 @@ import Background from '../../Components/Background';
 import FolderRow from '../../Components/FolderRow';
 import SearchInput from '../../Components/SearchInput';
 
-const HomeScreenPresenter = ({ bookmarkFolderList }) => {
+const HomeScreenPresenter = ({ bookmarkFolderList, isLoggedIn }) => {
   return (
     <Container>
       <Background />
@@ -15,7 +15,7 @@ const HomeScreenPresenter = ({ bookmarkFolderList }) => {
       </SearchRow>
 
       <FolderRowWrapper>
-        <FolderRow {...{ bookmarkFolderList, type: 'card' }} />
+        <FolderRow {...{ bookmarkFolderList, isLoggedIn, type: 'card' }} />
       </FolderRowWrapper>
     </Container>
   );

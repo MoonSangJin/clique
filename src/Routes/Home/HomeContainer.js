@@ -17,7 +17,10 @@ const HomeScreenContainer = () => {
     }
   }, [dispatch, userReducer.user.isLoggedIn]);
 
-  return <HomePresenter {...{ bookmarkFolderList: bookmarkReducer.bookmarkFolderList }} />;
+  return <HomePresenter {...{
+    bookmarkFolderList: bookmarkReducer.bookmarkFolderList,
+    isLoggedIn: userReducer.user.isLoggedIn,
+  }} />;
 };
 
 export default HomeScreenContainer;
