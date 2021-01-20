@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Background from '../assets/img/background.svg';
+import Background from '../assets/img/background.png';
 
 const Wrapper = styled.div`
   width: 100%;

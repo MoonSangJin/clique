@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 import popUpLogo from '../../assets/img/popUpLogo.svg';
+import { isValidUrl, refineUrl } from '../../Utils/urlHandler';
 import ListRowItem from './ListRowItem';
 
 export default function SubmitForm({ tabs, postServer }) {
@@ -9,41 +10,68 @@ export default function SubmitForm({ tabs, postServer }) {
   const [newFolderName, setNewFolderName] = useState('');
 
   useEffect(() => {
-    setBookmarks(
-      tabs.map((tab) => {
+    let activeTabTitle = '';
+
+    tabs.forEach((tab) => {
+      if (tab.active) {
+        activeTabTitle = tab.title;
+      }
+    });
+
+    chrome.storage.local.get([activeTabTitle], (result) => {
+      setBookmarks(tabs.map((tab) => {
         return {
           title: tab.title,
           url: tab.url,
           favIconUrl: tab.favIconUrl,
           isChecked: tab.active,
+          scrollPos: tab.title === activeTabTitle ? result[activeTabTitle]?.scroll : 0.0,
         };
-      })
-    );
+      }));
+    });
+
   }, [tabs]);
 
-  const getCheckedBookmarks = () => {
-    return bookmarks.filter((bookmark) => bookmark.isChecked);
+  const handleClick = (clickedBookmarkIndex) => {
+    const pageTitle = bookmarks[clickedBookmarkIndex].title;
+
+    chrome.storage.local.get([pageTitle], (result) => {
+      const scrollResult = result[pageTitle]?.scroll;
+
+      setBookmarks((respondedBookmarks) => {
+        return respondedBookmarks.map((bookmark, index) => {
+          return index === clickedBookmarkIndex ?
+            {
+              ...bookmark,
+              isChecked: !bookmark.isChecked,
+              scrollPos: scrollResult,
+            } :
+            bookmark;
+        });
+      });
+    });
   };
+
+  const getCheckedBookmarks = (originBookmarks) => originBookmarks.filter((bookmark) => bookmark.isChecked);
+
+  const getValidBookmarks = (originBookmarks) => originBookmarks.filter((bookmark) => isValidUrl(bookmark.url));
 
   const changeInputNewFolder = (e) => {
     const { value } = e.target;
     setNewFolderName(value);
-    console.log(`폴더 이름 ${value}`);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     if (newFolderName === '') {
       alert('Please Enter folder name');
       return;
     }
 
-    const bookmarksForPayload = getCheckedBookmarks().map((bookmark) => {
+    const bookmarksForPayload = getValidBookmarks(getCheckedBookmarks(bookmarks)).map((bookmark) => {
       return {
         title: bookmark.title,
-        url: bookmark.url,
-        // Todo(maitracle): scroll position을 세팅하는 로직을 추가한다.
-        scroll_pos: 0,
+        url: refineUrl(bookmark.url),
+        scroll_pos: bookmark.scrollPos || 0.0,
         favicon_url: bookmark.favIconUrl,
       };
     });
@@ -57,40 +85,33 @@ export default function SubmitForm({ tabs, postServer }) {
       bookmark_folder_name: newFolderName,
       bookmarks: bookmarksForPayload,
     };
+
     postServer(postData);
-    alert('Bookmarks are saved successfully!');
-    window.close();
   };
 
   const handleCheckAll = () => {
-    setBookmarks((respondedBookmarks) => {
-      return respondedBookmarks.map((bookmark) => {
-        return {
-          ...bookmark,
-          isChecked: true,
-        };
-      });
-    });
-  };
+    const bookmarkTitleList = bookmarks.map((bookmark) => bookmark.title);
 
-  const handleClick = (clickedBookmarkIndex) => {
-    setBookmarks((respondedBookmarks) => {
-      return respondedBookmarks.map((bookmark, index) => {
-        return index === clickedBookmarkIndex
-          ? {
-              ...bookmark,
-              isChecked: !bookmark.isChecked,
-            }
-          : bookmark;
-      });
+    chrome.storage.local.get(bookmarkTitleList, (result) => {
+      setBookmarks((respondedBookmarks) => {
+        return respondedBookmarks.map((bookmark) => {
+          return {
+            ...bookmark,
+            scrollPos: result[bookmark.title]?.scroll || 0.0,
+            isChecked: true,
+          }
+        });
+      })
     });
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <FormWrapper>
       <LogoRow>
         <LogoImage src={popUpLogo} />
-        <CheckAll onClick={handleCheckAll}>Check all</CheckAll>
+        <CheckAll onClick={handleCheckAll}>
+          Check all
+        </CheckAll>
       </LogoRow>
       <List>
         {bookmarks.map(({ favIconUrl, title, url, isChecked }, index) => (
@@ -111,13 +132,13 @@ export default function SubmitForm({ tabs, postServer }) {
         />
       </InputRow>
       <ButtonRow>
-        <CompleteButton>Save</CompleteButton>
+        <CompleteButton onClick={handleSubmit}>Save</CompleteButton>
       </ButtonRow>
-    </Form>
+    </FormWrapper>
   );
 }
 
-const Form = styled.form`
+const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px 21px 25px 23px;
