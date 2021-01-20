@@ -9,3 +9,15 @@ export const getAccessToken = async () => {
     }
   });
 };
+
+export const removeAccessToken = async () => {
+  return new Promise((resolve, reject) => {
+    try {
+      chrome.storage.sync.remove(['access'], () => {
+        resolve();
+      });
+    } catch (ex) {
+      reject(ex);
+    }
+  });
+};

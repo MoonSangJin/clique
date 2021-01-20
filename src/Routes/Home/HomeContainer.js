@@ -7,14 +7,20 @@ import HomePresenter from './HomePresenter';
 
 const HomeScreenContainer = () => {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
+  const userReducer = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchBookmarkRequest());
-    dispatch(fetchBookmarkFolderRequest());
-  }, [dispatch]);
+    if (userReducer.user.isLoggedIn) {
+      dispatch(fetchBookmarkRequest());
+      dispatch(fetchBookmarkFolderRequest());
+    }
+  }, [dispatch, userReducer.user.isLoggedIn]);
 
-  return <HomePresenter {...{ bookmarkFolderList: bookmarkReducer.bookmarkFolderList }} />;
+  return <HomePresenter {...{
+    bookmarkFolderList: bookmarkReducer.bookmarkFolderList,
+    isLoggedIn: userReducer.user.isLoggedIn,
+  }} />;
 };
 
 export default HomeScreenContainer;

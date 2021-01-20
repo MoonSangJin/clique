@@ -8,7 +8,7 @@ import defaultImage from '../assets/img/defaultImage';
 import PopoverController from './Popover/PopoverController';
 import ProfileMenu from '../Modules/Gnb/ProfileMenu';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfo } from '../Store/User/actions';
+import { fetchUserRequest, setUserInfo } from '../Store/User/actions';
 
 
 export default function Gnb() {
@@ -22,6 +22,12 @@ export default function Gnb() {
   useEffect(() => {
     setProfileElementHolder(ref.current);
   }, [ref]);
+
+  useEffect(() => {
+    if (userReducer.user.isLoggedIn) {
+      dispatch(fetchUserRequest());
+    }
+  }, [dispatch, userReducer.user.isLoggedIn]);
 
   useEffect(() => {
     chrome.storage.sync.get(['access'], function(result) {
@@ -58,6 +64,7 @@ export default function Gnb() {
       </Wrapper>
       <ProfileMenu
         isOpen={isOpenDropdownMenu}
+        email={userReducer.user.email}
         closeHandler={closeDropdownMenu}
         anchorEl={profileElementHolder}
         profileImageSrc={defaultImage}

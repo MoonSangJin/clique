@@ -5,9 +5,10 @@ import { useDispatch } from 'react-redux';
 import Popover from '../../Components/Popover';
 import { removeUserInfo } from '../../Store/User/actions';
 import { Link } from 'react-router-dom';
+import { removeAccessToken } from '../../Utils/tokenHandler';
 
 
-const ProfileMenu = ({ isOpen, closeHandler, anchorEl, profileImageSrc, isLoggedIn }) => {
+const ProfileMenu = ({ isOpen, closeHandler, anchorEl, email, profileImageSrc, isLoggedIn }) => {
   const dispatch = useDispatch();
 
   const profileMenuInfo = [
@@ -22,7 +23,7 @@ const ProfileMenu = ({ isOpen, closeHandler, anchorEl, profileImageSrc, isLogged
     {
       menuName: 'Sign Out',
       onClickFunction: () => {
-        chrome.storage.sync.remove(['access'], () => {
+        removeAccessToken().then(() => {
           dispatch(removeUserInfo());
         });
       },
@@ -47,7 +48,7 @@ const ProfileMenu = ({ isOpen, closeHandler, anchorEl, profileImageSrc, isLogged
           <ProfilePanel>
             <Information>
               <Username>
-                Username
+                {email ? email.split('@')[0] : ''}
               </Username>
               <EditProfile>
                 Edit Profile
