@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PopupPresenter from './PopupPresenter';
 import axios from 'axios';
 import { HOST } from '../../Constants/requests';
+import NotSignInPage from './NotSignInPage';
+
 
 let token;
 const searchToken = () => {
-  chrome.storage.sync.get(['access'], function (result) {
+  chrome.storage.sync.get(['access'], function(result) {
     token = result.access;
   });
 };
@@ -13,6 +15,7 @@ searchToken();
 
 const PopupContainer = () => {
   const [tabs, setTabs] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const searchUrl = () => {
     chrome.tabs.query({ lastFocusedWindow: true }, (tabs) => setTabs(tabs));
   };
@@ -35,6 +38,10 @@ const PopupContainer = () => {
     searchUrl();
   }, []);
 
-  return <PopupPresenter {...{ tabs, postServer }} />;
+  return (
+    isLoggedIn ?
+      <PopupPresenter {...{ tabs, postServer }} /> :
+      <NotSignInPage />
+  );
 };
 export default PopupContainer;
