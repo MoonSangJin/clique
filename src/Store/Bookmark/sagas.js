@@ -47,12 +47,19 @@ function* fetchBookmarkAsync() {
   }
 }
 
-function* deleteBookmarkFolderAsync() {
+const deleteBookmarkFolderApi = (token, folderId) =>
+  axios.delete(HOST + '/bookmark-folder/' + folderId, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+function* deleteBookmarkFolderAsync({ payload }) {
   try {
-    yield console.log('지웠니?');
-    // yield put(deleteBookmarkFolderSuccess({ bookmarkFolderList: res.data }));
+    console.log(payload.folderId);
+    const folderId = payload.folderId;
+    const token = yield call(getAccessToken);
+    yield call(deleteBookmarkFolderApi, token, folderId);
+    yield put(deleteBookmarkFolderSuccess({ bookmarkFolderList: folderId }));
   } catch (e) {
-    yield put(fetchBookmarkFolderFailure());
+    yield put(deleteBookmarkFolderFailure());
   }
 }
 

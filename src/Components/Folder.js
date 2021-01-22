@@ -65,7 +65,10 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
     closeDropdownMenu();
     setIsOpenDeleteFolderModal(true);
   };
-
+  const dispatchDeleteFolder = () => {
+    dispatch(deleteBookmarkFolderRequest({ folderId: folder_data.id }));
+    setIsOpenDeleteFolderModal(false);
+  };
   return (
     <>
       <StyledLink to={`/detail/${folder_data.id}`}>
@@ -143,16 +146,7 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
             <ModalPhrases>진짜 지울거냐고</ModalPhrases>
           </PhrasesWrapper>
           <ModalButtonWrapper>
-            <ModalButton
-              onClick={() =>
-                dispatch(
-                  deleteBookmarkFolderRequest(),
-                  setIsOpenDeleteFolderModal(false)
-                )
-              }
-            >
-              OK
-            </ModalButton>
+            <ModalButton onClick={dispatchDeleteFolder}>OK</ModalButton>
             <ModalButton onClick={() => setIsOpenDeleteFolderModal(false)}>
               NO
             </ModalButton>
