@@ -3,20 +3,22 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { HOST } from '../../Constants/requests';
 import {
-  fetchBookmarkFailure,
-  fetchBookmarkFolderFailure,
   fetchBookmarkFolderRequest,
   fetchBookmarkFolderSuccess,
+  fetchBookmarkFolderFailure,
   fetchBookmarkRequest,
   fetchBookmarkSuccess,
+  fetchBookmarkFailure,
+  deleteBookmarkFolderRequest,
+  deleteBookmarkFolderSuccess,
+  deleteBookmarkFolderFailure,
 } from './actions';
 import { getAccessToken } from '../../Utils/tokenHandler';
 
-
-const fetchBookmarkFolderApi = (token) => axios.get(
-  HOST + '/bookmark-folder',
-  { headers: { Authorization: `Bearer ${token}` } },
-);
+const fetchBookmarkFolderApi = (token) =>
+  axios.get(HOST + '/bookmark-folder', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
 function* fetchBookmarkFolderAsync() {
   try {
@@ -29,11 +31,10 @@ function* fetchBookmarkFolderAsync() {
   }
 }
 
-
-const fetchBookmarkApi = (token) => axios.get(
-  HOST + '/bookmark',
-  { headers: { Authorization: `Bearer ${token}` } },
-);
+const fetchBookmarkApi = (token) =>
+  axios.get(HOST + '/bookmark', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
 function* fetchBookmarkAsync() {
   try {
@@ -46,7 +47,17 @@ function* fetchBookmarkAsync() {
   }
 }
 
+function* deleteBookmarkFolderAsync() {
+  try {
+    yield console.log('지웠니?');
+    // yield put(deleteBookmarkFolderSuccess({ bookmarkFolderList: res.data }));
+  } catch (e) {
+    yield put(fetchBookmarkFolderFailure());
+  }
+}
+
 export function* watchBookmark() {
   yield takeEvery(fetchBookmarkFolderRequest, fetchBookmarkFolderAsync);
   yield takeEvery(fetchBookmarkRequest, fetchBookmarkAsync);
+  yield takeEvery(deleteBookmarkFolderRequest, deleteBookmarkFolderAsync);
 }
