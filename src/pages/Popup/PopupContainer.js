@@ -3,19 +3,12 @@ import PopupPresenter from './PopupPresenter';
 import axios from 'axios';
 import { HOST } from '../../Constants/requests';
 import NotSignInPage from './NotSignInPage';
+import { getAccessToken } from '../../Utils/tokenHandler';
 
-
-let token;
-const searchToken = () => {
-  chrome.storage.sync.get(['access'], function(result) {
-    token = result.access;
-  });
-};
-searchToken();
 
 const PopupContainer = () => {
   const [tabs, setTabs] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState('');
   const searchUrl = () => {
     chrome.tabs.query({ lastFocusedWindow: true }, (tabs) => setTabs(tabs));
   };
@@ -38,8 +31,18 @@ const PopupContainer = () => {
     searchUrl();
   }, []);
 
+  useEffect(() => {
+    getAccessToken().then((res) => {
+      if (res) {
+        setToken(res);
+      } else {
+        setToken('');
+      }
+    })
+  }, []);
+
   return (
-    isLoggedIn ?
+    token ?
       <PopupPresenter {...{ tabs, postServer }} /> :
       <NotSignInPage />
   );
