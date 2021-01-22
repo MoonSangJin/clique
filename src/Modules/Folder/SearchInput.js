@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import handGlassSrc from '../assets/img/handGlass';
+import handGlassSrc from '../../assets/img/handGlass';
+import SearchResultList from './SearchResultList';
 
 
 const mapSearchEngineToSearchMethod = {
   clique: () => console.log('searching clique'),
   google: (e) => {
     e.preventDefault();
-    // eslint-disable-next-line no-restricted-globals
-    location.href = 'https://www.google.co.kr/search?q=' + 'not implemented keyword';
+    window.location.href = 'https://www.google.co.kr/search?q=' + 'not implemented keyword';
   },
 };
 
@@ -16,6 +16,7 @@ const mapSearchEngineToSearchMethod = {
 export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchEngine, _setSearchEngine] = useState('clique');
+  const searchInputRef = React.createRef();
 
   const handleSearchInputChanged = (e) => {
     setSearchKeyword(e.target.value);
@@ -26,38 +27,41 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
     bookmarkFolderList.filter((folder) => folder.name.includes(searchKeyword))
     : [];
 
+  const getSearchedBookmarkList = () => searchKeyword ?
+    bookmarkList.filter((bookmark) => bookmark.title.includes(searchKeyword))
+    : [];
+
   return (
-    <>
-      <Container>
-        <InputRow>
-          <HandGlass
-            src={handGlassSrc}
-            alt={`hand glass`}
-          />
-          <Input
-            type="text"
-            name="bookmark"
-            value={searchKeyword}
-            onChange={(e) => handleSearchInputChanged(e)}
-            placeholder="Search bookmark, folder, keyword or URL"
-            autoComplete="off"
-          />
-          <VerticalLine
-            googleEngine={true}
-            bookMarkEngine={false}
-          />
-        </InputRow>
-      </Container>
-      <div>
+    <Container>
+      <InputRow ref={searchInputRef}>
+        <HandGlass
+          src={handGlassSrc}
+          alt={`hand glass`}
+        />
+        <Input
+          type="text"
+          name="bookmark"
+          value={searchKeyword}
+          onChange={(e) => handleSearchInputChanged(e)}
+          placeholder="Search bookmark, folder, keyword or URL"
+          autoComplete="off"
+        />
+        <VerticalLine
+          googleEngine={true}
+          bookMarkEngine={false}
+        />
+      </InputRow>
+      <SearchResult>
         {
           searchEngine === 'clique' && searchKeyword ?
-            <div>
-              {getSearchedBookmarkFolderList().map((folder) => <div key={folder.name}>{folder.name}</div>)}
-            </div>
+            <SearchResultList
+              bookmarkSearchResult={getSearchedBookmarkFolderList().slice(0, 5)}
+              bookmarkFolderSearchResult={getSearchedBookmarkList().slice(0, 200)}
+            />
             : null
         }
-      </div>
-    </>
+      </SearchResult>
+    </Container>
   );
 }
 
@@ -97,4 +101,9 @@ const VerticalLine = styled.div`
   margin-right: 12px;
   ${({ googleEngine }) => googleEngine && `display:none;`}
   ${({ bookMarkEngine }) => bookMarkEngine && `display:none;`}
+`;
+
+const SearchResult = styled.div`
+  position: absolute;
+  z-index: 100;
 `;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Background from '../../Components/Background';
 import FolderRow from '../../Components/FolderRow';
-import SearchInput from '../../Components/SearchInput';
+import SearchInput from '../../Modules/Folder/SearchInput';
 
 
 const HomeScreenPresenter = ({ bookmarkFolderList, bookmarkList, isLoggedIn }) => {
