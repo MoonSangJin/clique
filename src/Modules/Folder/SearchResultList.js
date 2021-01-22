@@ -34,9 +34,7 @@ const ResultWrapper = styled.div`
 
 const Divider = styled.div`
   width: 520px;
-  height: 0;
-  margin: 0 auto;
-  padding: 15px 0;
+  margin: 10px auto;
   border-bottom: 1px solid rgba(222, 227, 230, 0.8);
 `;
 

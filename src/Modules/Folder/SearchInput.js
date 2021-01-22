@@ -4,23 +4,24 @@ import handGlassSrc from '../../assets/img/handGlass';
 import SearchResultList from './SearchResultList';
 
 
-const mapSearchEngineToSearchMethod = {
-  clique: () => console.log('searching clique'),
-  google: (e) => {
-    e.preventDefault();
-    window.location.href = 'https://www.google.co.kr/search?q=' + 'not implemented keyword';
-  },
+const mapSearchEngineToInputPlaceholder = {
+  clique: 'Search bookmark, folder, keyword or URL',
+  google: 'or google',
 };
 
 
 export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [searchEngine, _setSearchEngine] = useState('clique');
+  const [searchEngine, setSearchEngine] = useState('clique');
   const searchInputRef = React.createRef();
 
   const handleSearchInputChanged = (e) => {
     setSearchKeyword(e.target.value);
-    mapSearchEngineToSearchMethod[searchEngine]();
+  };
+
+  const handleBlurred = () => {
+    setSearchEngine('clique');
+    setSearchKeyword('');
   };
 
   const getSearchedBookmarkFolderList = () => searchKeyword ?
@@ -43,13 +44,13 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
           name="bookmark"
           value={searchKeyword}
           onChange={(e) => handleSearchInputChanged(e)}
-          placeholder="Search bookmark, folder, keyword or URL"
+          placeholder={mapSearchEngineToInputPlaceholder[searchEngine]}
           autoComplete="off"
+          onBlur={handleBlurred}
         />
-        <VerticalLine
-          googleEngine={true}
-          bookMarkEngine={false}
-        />
+        <OrGoogleButton onClick={() => setSearchEngine('google')}>
+          or google
+        </OrGoogleButton>
       </InputRow>
       <SearchResult>
         {
@@ -84,26 +85,21 @@ const InputRow = styled.div`
 `;
 
 const Input = styled.input`
-  // all: unset;
-  // ${({ googleEngine }) => googleEngine && `display:none;`}
-  //margin-right: 44px;
-  //
-  //font-family: Poppins;
-  //font-size: 14px;
-  //line-height: 18px;
-  //letter-spacing: -0.02em;
-  //color: #B5BDC2;
-`;
-
-const VerticalLine = styled.div`
-  border: 1px solid rgba(144, 160, 173, 0.3);
-  height: 28px;
-  margin-right: 12px;
-  ${({ googleEngine }) => googleEngine && `display:none;`}
-  ${({ bookMarkEngine }) => bookMarkEngine && `display:none;`}
+  width: 279px;
 `;
 
 const SearchResult = styled.div`
   position: absolute;
   z-index: 100;
+`;
+
+const OrGoogleButton = styled.div`
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding-left: 12px;
+  border-left: 1px solid rgba(144, 160, 173, 0.3);
+  font-size: 12px;
+  line-height: 15px;
+  color: #90A0AD;
 `;
