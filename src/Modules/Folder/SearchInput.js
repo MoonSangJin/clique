@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { createRef, useState } from 'react';
 import styled from 'styled-components';
 import handGlassSrc from '../../assets/img/handGlass';
 import SearchResultList from './SearchResultList';
@@ -13,15 +13,26 @@ const mapSearchEngineToInputPlaceholder = {
 export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchEngine, setSearchEngine] = useState('clique');
-  const searchInputRef = React.createRef();
+  let inputRef = createRef();
 
-  const handleSearchInputChanged = (e) => {
+  const handleSearchInputChange = (e) => {
     setSearchKeyword(e.target.value);
   };
 
-  const handleBlurred = () => {
+  const handleBlur = () => {
     setSearchEngine('clique');
     setSearchKeyword('');
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && searchEngine === 'google') {
+      window.location.href = `https://www.google.co.kr/search?q=${searchKeyword}`;
+    }
+  };
+
+  const changeSearchEngineToGoogle = () => {
+    setSearchEngine('google');
+    inputRef.current.focus();
   };
 
   const getSearchedBookmarkFolderList = () => searchKeyword ?
@@ -34,7 +45,7 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
 
   return (
     <Container>
-      <InputRow ref={searchInputRef}>
+      <InputRow>
         <HandGlass
           src={handGlassSrc}
           alt={`hand glass`}
@@ -43,12 +54,14 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
           type="text"
           name="bookmark"
           value={searchKeyword}
-          onChange={(e) => handleSearchInputChanged(e)}
+          onChange={(e) => handleSearchInputChange(e)}
           placeholder={mapSearchEngineToInputPlaceholder[searchEngine]}
           autoComplete="off"
-          onBlur={handleBlurred}
+          onBlur={handleBlur}
+          onKeyPress={handleKeyPress}
+          ref={inputRef}
         />
-        <OrGoogleButton onClick={() => setSearchEngine('google')}>
+        <OrGoogleButton onClick={changeSearchEngineToGoogle}>
           or google
         </OrGoogleButton>
       </InputRow>
