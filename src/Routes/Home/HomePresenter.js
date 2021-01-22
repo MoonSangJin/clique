@@ -6,13 +6,13 @@ import FolderRow from '../../Components/FolderRow';
 import SearchInput from '../../Components/SearchInput';
 
 
-const HomeScreenPresenter = ({ bookmarkFolderList, isLoggedIn }) => {
+const HomeScreenPresenter = ({ bookmarkFolderList, bookmarkList, isLoggedIn }) => {
   return (
     <Container>
       <Background />
 
       <SearchRow>
-        <SearchInput />
+        <SearchInput {...{ bookmarkFolderList, bookmarkList }} />
       </SearchRow>
 
       <FolderRowWrapper>

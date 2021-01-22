@@ -13,14 +13,18 @@ const mapSearchEngineToSearchMethod = {
 };
 
 
-export default function SearchInput() {
+export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [searchEngine, setSearchEngine] = useState('clique');
+  const [searchEngine, _setSearchEngine] = useState('clique');
 
   const handleSearchInputChanged = (e) => {
     setSearchKeyword(e.target.value);
     mapSearchEngineToSearchMethod[searchEngine]();
   };
+
+  const getSearchedBookmarkFolderList = () => searchKeyword ?
+    bookmarkFolderList.filter((folder) => folder.name.includes(searchKeyword))
+    : [];
 
   return (
     <>
@@ -30,12 +34,12 @@ export default function SearchInput() {
             src={handGlassSrc}
             alt={`hand glass`}
           />
-          <BookmarkInput
+          <Input
             type="text"
             name="bookmark"
             value={searchKeyword}
             onChange={(e) => handleSearchInputChanged(e)}
-            placeholder="Search bookmark,folder,keyword or URL"
+            placeholder="Search bookmark, folder, keyword or URL"
             autoComplete="off"
           />
           <VerticalLine
@@ -48,10 +52,9 @@ export default function SearchInput() {
         {
           searchEngine === 'clique' && searchKeyword ?
             <div>
-              {searchKeyword}
+              {getSearchedBookmarkFolderList().map((folder) => <div key={folder.name}>{folder.name}</div>)}
             </div>
-            :
-            null
+            : null
         }
       </div>
     </>
@@ -76,7 +79,7 @@ const InputRow = styled.div`
   align-items: center;
 `;
 
-const BookmarkInput = styled.input`
+const Input = styled.input`
   // all: unset;
   // ${({ googleEngine }) => googleEngine && `display:none;`}
   //margin-right: 44px;
