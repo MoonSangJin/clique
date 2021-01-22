@@ -5,6 +5,7 @@ import Background from '../../Components/Background';
 import FolderRow from '../../Components/FolderRow';
 import SearchInput from '../../Components/SearchInput';
 
+
 const HomeScreenPresenter = ({ bookmarkFolderList, isLoggedIn }) => {
   return (
     <Container>
@@ -20,6 +21,7 @@ const HomeScreenPresenter = ({ bookmarkFolderList, isLoggedIn }) => {
     </Container>
   );
 };
+
 const Container = styled.div`
   max-width: 1185px;
   margin: 0 auto;

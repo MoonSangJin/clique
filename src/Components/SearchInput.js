@@ -1,108 +1,70 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import handGlass from '../assets/img/handGlass';
+import handGlassSrc from '../assets/img/handGlass';
+
+
+const mapSearchEngineToSearchMethod = {
+  clique: () => console.log('searching clique'),
+  google: (e) => {
+    e.preventDefault();
+    // eslint-disable-next-line no-restricted-globals
+    location.href = 'https://www.google.co.kr/search?q=' + 'not implemented keyword';
+  },
+};
 
 
 export default function SearchInput() {
-  const [bookMark, setBookMark] = useState('');
-  const [keyWord, setKeyWord] = useState('');
-  const [engine, setEngine] = useState('');
-  const [bookMarkEngine, setBookMarkEngine] = useState(false);
-  const [googleEngine, setGoogleEngine] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchEngine, setSearchEngine] = useState('clique');
 
-  const bookMarkSearch = (e) => {
-    setBookMark(e.target.value);
-    console.log(`${bookMark} 검색중`);
-    setEngine(e.target.getAttribute('name'));
-    console.log(`검색은 ${engine}에서`);
-  };
-  const googleSearch = (e) => {
-    setKeyWord(e.target.value);
-    console.log(`${keyWord} 검색중`);
-    setEngine(e.target.getAttribute('name'));
-    console.log(`검색은 ${engine}에서`);
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    if (engine === 'google') {
-      // eslint-disable-next-line no-restricted-globals
-      location.href = 'https://www.google.co.kr/search?q=' + keyWord;
-      setGoogleEngine(false);
-    } else {
-      console.log('북마크 검색기능 만드느중');
-      setBookMarkEngine(false);
-    }
-    setKeyWord('');
-    setBookMark('');
-  };
-
-  const initBookMarkSearch = () => {
-    setBookMarkEngine(true);
-  };
-  const endBookMarkSearch = () => {
-    setBookMarkEngine(false);
-    setBookMark('');
-  };
-  const initGoogleSearch = () => {
-    setGoogleEngine(true);
-  };
-  const endGoogleSearch = () => {
-    setGoogleEngine(false);
-    setKeyWord('');
+  const handleSearchInputChanged = (e) => {
+    setSearchKeyword(e.target.value);
+    mapSearchEngineToSearchMethod[searchEngine]();
   };
 
   return (
-    <Container>
-      <InputRow>
-        <img
-          src={handGlass}
-          alt={`handglass`}
-          style={{ marginLeft: '20px', marginRight: '8px', width: '20px', height: '20px'}}
-        />
-        <Form onSubmit={submitHandler}>
+    <>
+      <Container>
+        <InputRow>
+          <HandGlass
+            src={handGlassSrc}
+            alt={`hand glass`}
+          />
           <BookmarkInput
             type="text"
             name="bookmark"
-            value={bookMark}
-            onChange={bookMarkSearch}
+            value={searchKeyword}
+            onChange={(e) => handleSearchInputChanged(e)}
             placeholder="Search bookmark,folder,keyword or URL"
             autoComplete="off"
-            googleEngine={googleEngine}
-            onFocus={initBookMarkSearch}
-            onBlur={endBookMarkSearch}
-          >
-            Search bookmark, folder, keyword, or URL
-          </BookmarkInput>
-        </Form>
-        <VerticalLine
-          googleEngine={googleEngine}
-          bookMarkEngine={bookMarkEngine}
-        />
-        <Form onSubmit={submitHandler}>
-          <GoogleInput
-            type="text"
-            name="google"
-            value={keyWord}
-            onChange={googleSearch}
-            placeholder="or google"
-            autoComplete="off"
-            bookMarkEngine={bookMarkEngine}
-            onFocus={initGoogleSearch}
-            onBlur={endGoogleSearch}
-          >
-            or google
-          </GoogleInput>
-        </Form>
-      </InputRow>
-    </Container>
+          />
+          <VerticalLine
+            googleEngine={true}
+            bookMarkEngine={false}
+          />
+        </InputRow>
+      </Container>
+      <div>
+        {
+          searchEngine === 'clique' && searchKeyword ?
+            <div>
+              {searchKeyword}
+            </div>
+            :
+            null
+        }
+      </div>
+    </>
   );
 }
+
 const Container = styled.div``;
 
-const Form = styled.form`
-  display: flex;
-  align-items: center;
+const HandGlass = styled.img`
+  margin-left: 20px;
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
 `;
 
 const InputRow = styled.div`
@@ -114,28 +76,16 @@ const InputRow = styled.div`
   align-items: center;
 `;
 
-const BookmarkInput = styled.div`
+const BookmarkInput = styled.input`
   // all: unset;
   // ${({ googleEngine }) => googleEngine && `display:none;`}
-  margin-right: 44px;
-  
-  font-family: Poppins;
-  font-size: 14px;
-  line-height: 18px;
-  letter-spacing: -0.02em;
-  color: #B5BDC2;
-`;
-
-const GoogleInput = styled.div`
-  all: unset;
-  ${({ bookMarkEngine }) => bookMarkEngine && `display:none;`}
-  
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 15px;
-  color: #90A0AD;
+  //margin-right: 44px;
+  //
+  //font-family: Poppins;
+  //font-size: 14px;
+  //line-height: 18px;
+  //letter-spacing: -0.02em;
+  //color: #B5BDC2;
 `;
 
 const VerticalLine = styled.div`
