@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import folder from '../assets/img/folder.svg';
@@ -12,8 +12,11 @@ import Modal from './Modal';
 import CheckGraySrc from '../assets/img/checkGray.png';
 import DefaultImageSrc from '../assets/img/FolderItemImages/1.png';
 
+import { deleteBookmarkFolderRequest } from '../Store/Bookmark/actions';
 
 export default function Folder({ folder_data, folderCoverImageSrc }) {
+  const dispatch = useDispatch();
+
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
 
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
@@ -21,12 +24,13 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
   const dotMenuRef = React.createRef();
 
   const [isOpenShareSuccessModal, setIsOpenShareSuccessModal] = useState(false);
+  const [isOpenDeleteFolderModal, setIsOpenDeleteFolderModal] = useState(false);
 
   useEffect(() => {
     setProfileElementHolder(dotMenuRef.current);
   }, [dotMenuRef]);
 
-  const openDropdownMenu = e => {
+  const openDropdownMenu = (e) => {
     e.preventDefault();
     setIsOpenDropdownMenu(true);
   };
@@ -38,7 +42,7 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
   const getBookmarkList = () => {
     return bookmarkReducer.bookmarkList.filter((bookmark) => {
       return Number(bookmark.bookmark_folder_id) === folder_data.id;
-    })
+    });
   };
 
   const getSharedText = () => {
@@ -57,35 +61,43 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
     setIsOpenShareSuccessModal(true);
   };
 
+  const handleDeleteFolder = () => {
+    closeDropdownMenu();
+    setIsOpenDeleteFolderModal(true);
+  };
+
   return (
     <>
       <StyledLink to={`/detail/${folder_data.id}`}>
         <Container>
-          <FolderImage src={folderCoverImageSrc || DefaultImageSrc} /> {/* 폴더 이미지 들어갈 곳*/}
+          <FolderImage src={folderCoverImageSrc || DefaultImageSrc} />
+          {/* 폴더 이미지 들어갈 곳*/}
           <ContentsWrapper>
             <TitleWrapper>
               <TextRow>
                 <FolderName>{folder_data.name}</FolderName>
-                <FolderTime>
-                  Last updated 1 day ago
-                </FolderTime>
+                <FolderTime>Last updated 1 day ago</FolderTime>
               </TextRow>
-              {folder_data.is_favorite ? <FavoriteIcon src={FavoriteIconSrc} /> : null}
+              {folder_data.is_favorite ? (
+                <FavoriteIcon src={FavoriteIconSrc} />
+              ) : null}
             </TitleWrapper>
             <MenuWrapper>
               <FaviconWrapper>
                 <FaviconFolder src={folder} alt={folder} />
                 <VerticalLine src={verticalLine} />
-                {
-                  getBookmarkList().map((bookmark) => {
-                    return <FaviconImage key={bookmark.id} src={bookmark.favicon_url} />
-                  })
-                }
+                {getBookmarkList().map((bookmark) => {
+                  return (
+                    <FaviconImage
+                      key={bookmark.id}
+                      src={bookmark.favicon_url}
+                    />
+                  );
+                })}
               </FaviconWrapper>
               <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
                 <OptionIcon />
               </PopoverController>
-
             </MenuWrapper>
           </ContentsWrapper>
         </Container>
@@ -97,6 +109,7 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
         anchorEl={profileElementHolder}
         sharedText={getSharedText()}
         shareTextSuccessHandler={handleShareTextSuccess}
+        {...{ handleDeleteFolder }}
       />
 
       <Modal
@@ -106,9 +119,7 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
         <ModalContentsWrapper>
           <CheckGrayImage src={CheckGraySrc} />
           <PhrasesWrapper>
-            <ModalTitle>
-              Success!
-            </ModalTitle>
+            <ModalTitle>Success!</ModalTitle>
             <ModalPhrases>
               Bookmark links have been copied to clipboard.
             </ModalPhrases>
@@ -118,7 +129,34 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
               OK
             </ModalButton>
           </ModalButtonWrapper>
+        </ModalContentsWrapper>
+      </Modal>
 
+      <Modal
+        isOpen={isOpenDeleteFolderModal}
+        closeHandler={() => setIsOpenDeleteFolderModal(false)}
+      >
+        <ModalContentsWrapper>
+          <CheckGrayImage src={CheckGraySrc} />
+          <PhrasesWrapper>
+            <ModalTitle>지우시겠습니까?</ModalTitle>
+            <ModalPhrases>진짜 지울거냐고</ModalPhrases>
+          </PhrasesWrapper>
+          <ModalButtonWrapper>
+            <ModalButton
+              onClick={() =>
+                dispatch(
+                  deleteBookmarkFolderRequest(),
+                  setIsOpenDeleteFolderModal(false)
+                )
+              }
+            >
+              OK
+            </ModalButton>
+            <ModalButton onClick={() => setIsOpenDeleteFolderModal(false)}>
+              NO
+            </ModalButton>
+          </ModalButtonWrapper>
         </ModalContentsWrapper>
       </Modal>
     </>
@@ -246,7 +284,7 @@ const ModalTitle = styled.div`
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.02em;
-  
+
   color: #000000;
 `;
 
@@ -254,7 +292,7 @@ const ModalPhrases = styled.div`
   font-size: 14px;
   line-height: 18px;
   letter-spacing: -0.02em;
-  color: #90A0AD;
+  color: #90a0ad;
 `;
 
 const ModalButtonWrapper = styled.div`
@@ -270,11 +308,11 @@ const ModalButton = styled.button`
   &:hover {
     cursor: pointer;
   }
-  
+
   font-weight: bold;
   font-size: 10px;
   line-height: 15px;
   text-align: center;
   letter-spacing: -0.02em;
-  color: #FFFFFF;
+  color: #ffffff;
 `;

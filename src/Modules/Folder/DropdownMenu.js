@@ -4,25 +4,32 @@ import styled from 'styled-components';
 import Popover from '../../Components/Popover';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-
-const DropdownMenu = ({ isOpen, closeHandler, anchorEl, sharedText, shareTextSuccessHandler }) => {
+const DropdownMenu = ({
+  isOpen,
+  closeHandler,
+  anchorEl,
+  sharedText,
+  shareTextSuccessHandler,
+  handleDeleteFolder,
+}) => {
   return (
-    <Popover isOpen={isOpen} closeHandler={closeHandler} anchorEl={anchorEl} position={'hover'}>
+    <Popover
+      isOpen={isOpen}
+      closeHandler={closeHandler}
+      anchorEl={anchorEl}
+      position={'hover'}
+    >
       <MenuWrapper>
         <MenuItem>Add to favorites</MenuItem>
-        <CopyToClipboard
-          text={sharedText}
-          onCopy={shareTextSuccessHandler}
-        >
+        <CopyToClipboard text={sharedText} onCopy={shareTextSuccessHandler}>
           <MenuItem>Share</MenuItem>
         </CopyToClipboard>
         <MenuItem>Rename</MenuItem>
-        <MenuItem>Delete folder</MenuItem>
+        <MenuItem onClick={handleDeleteFolder}>Delete folder</MenuItem>
       </MenuWrapper>
     </Popover>
   );
 };
-
 
 const MenuWrapper = styled.div`
   padding: 17px 0;
@@ -41,10 +48,10 @@ const MenuItem = styled.div`
   line-height: 24px;
   letter-spacing: -0.02em;
   color: #070701;
-  
+
   &:hover {
     cursor: pointer;
-    background-color: #F5F7F8;
+    background-color: #f5f7f8;
   }
 `;
 
