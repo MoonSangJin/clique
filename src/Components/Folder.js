@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import folder from '../assets/img/folder.svg';
@@ -12,7 +12,11 @@ import Modal from './Modal';
 import CheckGraySrc from '../assets/img/checkGray.png';
 import DefaultImageSrc from '../assets/img/FolderItemImages/1.png';
 
+import { deleteBookmarkFolderRequest } from '../Store/Bookmark/actions';
+
 export default function Folder({ folderData, folderCoverImageSrc }) {
+  const dispatch = useDispatch();
+
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
 
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
@@ -20,6 +24,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
   const dotMenuRef = React.createRef();
 
   const [isOpenShareSuccessModal, setIsOpenShareSuccessModal] = useState(false);
+  const [isOpenDeleteFolderModal, setIsOpenDeleteFolderModal] = useState(false);
 
   useEffect(() => {
     setProfileElementHolder(dotMenuRef.current);
@@ -56,12 +61,20 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
     setIsOpenShareSuccessModal(true);
   };
 
+  const openDeleteFolderModal = () => {
+    closeDropdownMenu();
+    setIsOpenDeleteFolderModal(true);
+  };
+  const handleDeleteFolder = () => {
+    dispatch(deleteBookmarkFolderRequest({ folderId: folderData.id }));
+    setIsOpenDeleteFolderModal(false);
+  };
+
   return (
     <>
       <StyledLink to={`/detail/${folderData.id}`}>
         <Container>
           <FolderImage src={folderCoverImageSrc || DefaultImageSrc} />
-          {/* 폴더 이미지 들어갈 곳*/}
           <ContentsWrapper>
             <TitleWrapper>
               <TextRow>
@@ -96,6 +109,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
         anchorEl={profileElementHolder}
         sharedText={getSharedText()}
         shareTextSuccessHandler={handleShareTextSuccess}
+        {...{ openDeleteFolderModal }}
       />
 
       <Modal
@@ -116,6 +130,26 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
             </ModalButton>
           </ModalButtonWrapper>
         </ModalContentsWrapper>
+      </Modal>
+
+      <Modal
+        isOpen={isOpenDeleteFolderModal}
+        closeHandler={() => setIsOpenDeleteFolderModal(false)}
+      >
+        <ModalContentsWrapper>
+          <CheckGrayImage src={CheckGraySrc} />
+          <PhrasesWrapper>
+            <ModalTitle>
+              Are you sure you want to delete this folder?
+            </ModalTitle>
+          </PhrasesWrapper>
+        </ModalContentsWrapper>
+        <ModalButtonWrapper>
+          <ModalWhiteButton onClick={() => setIsOpenDeleteFolderModal(false)}>
+            Cancel
+          </ModalWhiteButton>
+          <ModalButton onClick={handleDeleteFolder}>Yes</ModalButton>
+        </ModalButtonWrapper>
       </Modal>
     </>
   );
@@ -254,12 +288,14 @@ const ModalPhrases = styled.div`
 `;
 
 const ModalButtonWrapper = styled.div`
-  width: 72px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 39px;
 `;
 
 const ModalButton = styled.button`
   all: unset;
-  width: 100%;
+  width: 72px;
   height: 33px;
   background: #7785ff;
   border-radius: 3px;
@@ -273,4 +309,25 @@ const ModalButton = styled.button`
   text-align: center;
   letter-spacing: -0.02em;
   color: #ffffff;
+  border: 1px solid #7785ff;
+  margin-left: 8px;
+`;
+
+const ModalWhiteButton = styled.button`
+  all: unset;
+  width: 72px;
+  height: 33px;
+  border-radius: 3px;
+  background: #ffffff;
+  &:hover {
+    cursor: pointer;
+  }
+
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #7785ff;
+  border: 1px solid #7785ff;
 `;
