@@ -28,12 +28,12 @@ export default function FolderRow({ bookmarkFolderList, isLoggedIn, type }) {
           <Container>
             {
               type === 'card' ?
-                bookmarkFolderList.map((folder_data, index) => {
-                  return <Folder key={index} {...{ folder_data }}
+                bookmarkFolderList.map((folderData, index) => {
+                  return <Folder key={index} {...{ folderData }}
                                  folderCoverImageSrc={mapIndexToImageSrc[index % 4]} />;
                 }) :
-                bookmarkFolderList.map((folder_data, index) => {
-                  return <ListFolder key={index} {...{ folder_data }} />;
+                bookmarkFolderList.map((folderData, index) => {
+                  return <ListFolder key={index} {...{ folderData }} />;
                 })
             }
           </Container> :

@@ -13,7 +13,7 @@ import CheckGraySrc from '../assets/img/checkGray.png';
 import DefaultImageSrc from '../assets/img/FolderItemImages/1.png';
 
 
-export default function Folder({ folder_data, folderCoverImageSrc }) {
+export default function Folder({ folderData, folderCoverImageSrc }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
 
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
@@ -37,13 +37,13 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
 
   const getBookmarkList = () => {
     return bookmarkReducer.bookmarkList.filter((bookmark) => {
-      return Number(bookmark.bookmark_folder_id) === folder_data.id;
+      return folderData.id === Number(bookmark.bookmarkFolderId);
     })
   };
 
   const getSharedText = () => {
     let sharedText = 'This bookmarks are shared by Clique\n';
-    sharedText += `Folder name: ${folder_data.name}\n\n`;
+    sharedText += `Folder name: ${folderData.name}\n\n`;
 
     getBookmarkList().forEach((bookmark) => {
       sharedText += `${bookmark.title}\n${bookmark.url}\n\n`;
@@ -59,18 +59,18 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
 
   return (
     <>
-      <StyledLink to={`/detail/${folder_data.id}`}>
+      <StyledLink to={`/detail/${folderData.id}`}>
         <Container>
           <FolderImage src={folderCoverImageSrc || DefaultImageSrc} /> {/* 폴더 이미지 들어갈 곳*/}
           <ContentsWrapper>
             <TitleWrapper>
               <TextRow>
-                <FolderName>{folder_data.name}</FolderName>
+                <FolderName>{folderData.name}</FolderName>
                 <FolderTime>
                   Last updated 1 day ago
                 </FolderTime>
               </TextRow>
-              {folder_data.is_favorite ? <FavoriteIcon src={FavoriteIconSrc} /> : null}
+              {folderData.isFavorite ? <FavoriteIcon src={FavoriteIconSrc} /> : null}
             </TitleWrapper>
             <MenuWrapper>
               <FaviconWrapper>
@@ -78,7 +78,7 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
                 <VerticalLine src={verticalLine} />
                 {
                   getBookmarkList().map((bookmark) => {
-                    return <FaviconImage key={bookmark.id} src={bookmark.favicon_url} />
+                    return <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} />
                   })
                 }
               </FaviconWrapper>
