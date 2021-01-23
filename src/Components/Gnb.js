@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserRequest } from '../Store/User/actions';
 import { getAccessToken } from '../Utils/tokenHandler';
 
-
 export default function Gnb() {
   const userReducer = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();

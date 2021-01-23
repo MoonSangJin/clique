@@ -80,7 +80,9 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
             <TitleWrapper>
               <TextRow>
                 <FolderName>{folderData.name}</FolderName>
-                <FolderTime>Created {getTimeDeltaString(new Date(), folderData.createdAt)}</FolderTime>
+                <FolderTime>
+                  Created {getTimeDeltaString(new Date(), folderData.createdAt)}
+                </FolderTime>
               </TextRow>
               {folderData.isFavorite ? (
                 <FavoriteIcon src={FavoriteIconSrc} />
