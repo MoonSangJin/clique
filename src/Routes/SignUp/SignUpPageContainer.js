@@ -61,7 +61,7 @@ const SignUpPageContainer = () => {
     const isValid = checkValidation();
 
     if (isValid) {
-      dispatch(signUpRequest({ email, password, profile_image_url: '' }));
+      dispatch(signUpRequest({ email, password, profileImageUrl: '' }));
     }
   };
 

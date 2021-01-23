@@ -12,11 +12,11 @@ const SearchedItem = ({ info, type }) => {
 
   if (type === 'FOLDER') {
     name = info.name;
-    iconSrc = info.is_favorite ? FavoriteFolderSrc : FolderSrc;
+    iconSrc = info.isFavorite ? FavoriteFolderSrc : FolderSrc;
     onClickHandler = () => window.location.href = `/newtab.html#/detail/${info.id}`;
   } else if (type === 'BOOKMARK') {
     name = info.title;
-    iconSrc = info.favicon_url || '';
+    iconSrc = info.faviconUrl || '';
     onClickHandler = () => window.location.href = info.url;
   }
 
