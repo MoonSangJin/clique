@@ -14,7 +14,7 @@ import DefaultImageSrc from '../assets/img/FolderItemImages/1.png';
 
 import { deleteBookmarkFolderRequest } from '../Store/Bookmark/actions';
 
-export default function Folder({ folder_data, folderCoverImageSrc }) {
+export default function Folder({ folderData, folderCoverImageSrc }) {
   const dispatch = useDispatch();
 
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
@@ -41,13 +41,13 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
 
   const getBookmarkList = () => {
     return bookmarkReducer.bookmarkList.filter((bookmark) => {
-      return Number(bookmark.bookmark_folder_id) === folder_data.id;
+      return folderData.id === Number(bookmark.bookmarkFolderId);
     });
   };
 
   const getSharedText = () => {
     let sharedText = 'This bookmarks are shared by Clique\n';
-    sharedText += `Folder name: ${folder_data.name}\n\n`;
+    sharedText += `Folder name: ${folderData.name}\n\n`;
 
     getBookmarkList().forEach((bookmark) => {
       sharedText += `${bookmark.title}\n${bookmark.url}\n\n`;
@@ -66,22 +66,22 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
     setIsOpenDeleteFolderModal(true);
   };
   const handleDeleteFolder = () => {
-    dispatch(deleteBookmarkFolderRequest({ folderId: folder_data.id }));
+    dispatch(deleteBookmarkFolderRequest({ folderId: folderData.id }));
     setIsOpenDeleteFolderModal(false);
   };
 
   return (
     <>
-      <StyledLink to={`/detail/${folder_data.id}`}>
+      <StyledLink to={`/detail/${folderData.id}`}>
         <Container>
           <FolderImage src={folderCoverImageSrc || DefaultImageSrc} />
           <ContentsWrapper>
             <TitleWrapper>
               <TextRow>
-                <FolderName>{folder_data.name}</FolderName>
+                <FolderName>{folderData.name}</FolderName>
                 <FolderTime>Last updated 1 day ago</FolderTime>
               </TextRow>
-              {folder_data.is_favorite ? (
+              {folderData.is_favorite ? (
                 <FavoriteIcon src={FavoriteIconSrc} />
               ) : null}
             </TitleWrapper>

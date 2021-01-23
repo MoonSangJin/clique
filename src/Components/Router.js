@@ -6,7 +6,6 @@ import SignIn from '../Routes/SignIn';
 import SignUp from '../Routes/SignUp';
 import Gnb from './Gnb';
 
-
 const RootRouter = () => (
   <Router>
     <Gnb />

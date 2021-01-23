@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import SignUpPagePresenter from './SignUpPagePresenter';
 import { signUpRequest } from '../../Store/SignUp/actions';
 
-
 const SignUpPageContainer = () => {
   const signUpReducer = useSelector((state) => state.signUpReducer);
   const dispatch = useDispatch();
@@ -14,7 +13,7 @@ const SignUpPageContainer = () => {
   const [password, setPassword] = useState('');
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
   const [passwordValidationMessage, setPasswordValidationMessage] = useState(
-    '',
+    ''
   );
 
   const emailChangeHandler = (e) => {
@@ -61,7 +60,7 @@ const SignUpPageContainer = () => {
     const isValid = checkValidation();
 
     if (isValid) {
-      dispatch(signUpRequest({ email, password, profile_image_url: '' }));
+      dispatch(signUpRequest({ email, password, profileImageUrl: '' }));
     }
   };
 
@@ -82,11 +81,9 @@ const SignUpPageContainer = () => {
           isValidPassword,
         }}
       />
-      {
-        signUpReducer.signUpResult.result === 'success' ?
-          <Redirect to='/' />
-          : null
-      }
+      {signUpReducer.signUpResult.result === 'success' ? (
+        <Redirect to="/" />
+      ) : null}
     </>
   );
 };

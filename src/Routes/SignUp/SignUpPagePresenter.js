@@ -7,7 +7,6 @@ import GrayText from '../../Components/GrayText';
 import AuthContainer from '../../Components/AuthContainer';
 import LargeText from '../../Components/LargeText';
 
-
 const SignUpPagePresenter = ({
   email,
   password,
@@ -89,19 +88,19 @@ const ButtonWrapper = styled.div`
 const PolicyDescription = styled.div`
   display: flex;
   margin-top: 109px;
-  
+
   font-size: 12px;
   line-height: 18px;
   letter-spacing: -0.02em;
-  color: #90A0AD;
+  color: #90a0ad;
 `;
 
 const ExternalLink = styled.a`
   all: unset;
   display: inline;
-  
-  color: #7785FF;
-  
+
+  color: #7785ff;
+
   &:hover {
     cursor: pointer;
   }

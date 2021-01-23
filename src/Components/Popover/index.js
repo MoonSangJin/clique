@@ -1,7 +1,6 @@
 import React from 'react';
 import Popover from '@material-ui/core/Popover';
 
-
 const positionSettings = {
   hover: {
     anchorOrigin: {
@@ -25,8 +24,13 @@ const positionSettings = {
   },
 };
 
-
-const WrappedPopover = ({ isOpen, closeHandler, anchorEl, children, position = 'hover' }) => {
+const WrappedPopover = ({
+  isOpen,
+  closeHandler,
+  anchorEl,
+  children,
+  position = 'hover',
+}) => {
   return !!anchorEl && isOpen ? (
     <Popover
       open={isOpen}

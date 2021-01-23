@@ -1,7 +1,4 @@
-import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
-
-import { HOST } from '../../Constants/requests';
 import {
   fetchBookmarkFolderRequest,
   fetchBookmarkFolderSuccess,
@@ -14,9 +11,12 @@ import {
   deleteBookmarkFolderFailure,
 } from './actions';
 import { getAccessToken } from '../../Utils/tokenHandler';
+import { request } from '../../Utils/request';
 
 const fetchBookmarkFolderApi = (token) =>
-  axios.get(HOST + '/bookmark-folder', {
+  request({
+    url: '/bookmark-folder',
+    method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -32,7 +32,9 @@ function* fetchBookmarkFolderAsync() {
 }
 
 const fetchBookmarkApi = (token) =>
-  axios.get(HOST + '/bookmark', {
+  request({
+    url: '/bookmark',
+    method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -48,7 +50,9 @@ function* fetchBookmarkAsync() {
 }
 
 const deleteBookmarkFolderApi = (token, folderId) =>
-  axios.delete(HOST + '/bookmark-folder/' + folderId, {
+  request({
+    url: '/bookmark-folder/' + folderId,
+    method: 'DELETE',
     headers: { Authorization: `Bearer ${token}` },
   });
 function* deleteBookmarkFolderAsync({ payload }) {

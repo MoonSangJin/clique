@@ -1,16 +1,19 @@
-import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
-
-import { HOST } from '../../Constants/requests';
 import {
   fetchUserRequest,
   removeUserInfo,
   setUserInfo,
   signInRequest,
 } from './actions';
-import { getAccessToken, removeAccessToken } from '../../Utils/tokenHandler';
+import { getAccessToken } from '../../Utils/tokenHandler';
+import { request } from '../../Utils/request';
 
-const signInApi = (payload) => axios.post(HOST + '/token/', payload);
+const signInApi = (payload) =>
+  request({
+    url: '/token/',
+    method: 'POST',
+    data: payload,
+  });
 
 function* signInAsync({ payload }) {
   try {
@@ -28,7 +31,9 @@ function* signInAsync({ payload }) {
 }
 
 const fetchUserApi = (token) =>
-  axios.get(HOST + '/user', {
+  request({
+    url: '/user/my-profile',
+    method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -39,7 +44,6 @@ function* fetchUserAsync() {
 
     yield put(setUserInfo(res.data));
   } catch (e) {
-    yield call(removeAccessToken);
     yield put(removeUserInfo());
   }
 }

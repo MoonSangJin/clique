@@ -7,8 +7,14 @@ import { removeUserInfo } from '../../Store/User/actions';
 import { Link } from 'react-router-dom';
 import { removeAccessToken } from '../../Utils/tokenHandler';
 
-
-const ProfileMenu = ({ isOpen, closeHandler, anchorEl, email, profileImageSrc, isLoggedIn }) => {
+const ProfileMenu = ({
+  isOpen,
+  closeHandler,
+  anchorEl,
+  email,
+  profileImageSrc,
+  isLoggedIn,
+}) => {
   const dispatch = useDispatch();
 
   const profileMenuInfo = [
@@ -42,36 +48,40 @@ const ProfileMenu = ({ isOpen, closeHandler, anchorEl, email, profileImageSrc, i
   ];
 
   return (
-    <Popover isOpen={isOpen} closeHandler={closeHandler} anchorEl={anchorEl} position={'hover'}>
+    <Popover
+      isOpen={isOpen}
+      closeHandler={closeHandler}
+      anchorEl={anchorEl}
+      position={'hover'}
+    >
       <MenuWrapper>
         <Panel>
           <ProfilePanel>
             <Information>
-              <Username>
-                {email ? email.split('@')[0] : ''}
-              </Username>
-              <EditProfile>
-                Edit Profile
-              </EditProfile>
+              <Username>{email ? email.split('@')[0] : ''}</Username>
+              <EditProfile>Edit Profile</EditProfile>
             </Information>
             <ProfileImage src={profileImageSrc} />
           </ProfilePanel>
         </Panel>
-        {
-          isLoggedIn ?
-            profileMenuInfo.map((info) =>
-              <MenuItem key={info.menuName} onClick={info.onClickFunction}>{info.menuName}</MenuItem>) :
-            notLoggedInMenu.map((info) =>
-              <MenuItem key={info.menuName}><StyledLink to={info.linkSrc}>{info.menuName}</StyledLink></MenuItem>)
-        }
+        {isLoggedIn
+          ? profileMenuInfo.map((info) => (
+              <MenuItem key={info.menuName} onClick={info.onClickFunction}>
+                {info.menuName}
+              </MenuItem>
+            ))
+          : notLoggedInMenu.map((info) => (
+              <MenuItem key={info.menuName}>
+                <StyledLink to={info.linkSrc}>{info.menuName}</StyledLink>
+              </MenuItem>
+            ))}
       </MenuWrapper>
     </Popover>
   );
 };
 
-
 const MenuWrapper = styled.div`
-  padding: 14px 16px 17px 16px; 
+  padding: 14px 16px 17px 16px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 `;
@@ -79,7 +89,7 @@ const MenuWrapper = styled.div`
 const Panel = styled.div`
   width: 171px;
   padding-bottom: 15px;
-  border-bottom: solid 1px #DEE3E6;
+  border-bottom: solid 1px #dee3e6;
 `;
 
 const ProfilePanel = styled.div`
@@ -88,8 +98,7 @@ const ProfilePanel = styled.div`
   justify-content: space-between;
 `;
 
-const Information = styled.div`
-`;
+const Information = styled.div``;
 
 const Username = styled.div`
   font-size: 14px;
@@ -100,11 +109,11 @@ const Username = styled.div`
 
 const EditProfile = styled.div`
   margin-top: 2px;
-  
+
   font-size: 12px;
   line-height: 15px;
   letter-spacing: -0.02em;
-  color: #7785FF;
+  color: #7785ff;
 `;
 
 const ProfileImage = styled.img`
@@ -117,8 +126,8 @@ const MenuItem = styled.div`
   font-size: 14px;
   line-height: 18px;
   letter-spacing: -0.02em;
-  color: #90A0AD;
-  
+  color: #90a0ad;
+
   &:hover {
     cursor: pointer;
   }
