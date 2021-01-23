@@ -28,11 +28,13 @@ export default function DetailForm({ folderData, detailDataList }) {
     });
   };
 
+  const goBack = () => window.history.back();
+
   return (
     <Container>
       <TitleRow>
         <Left>
-          <BackSpace src={backSpace} />
+          <BackSpace onClick={goBack} src={backSpace} />
           <Title>{folderData.name}</Title>
         </Left>
         <Right>
@@ -80,8 +82,9 @@ const TitleRow = styled.div`
 const BackSpace = styled.img`
   width: 24px;
   height: 24px;
-
   margin-right: 12px;
+  
+  cursor: pointer;
 `;
 
 const Title = styled.div`
