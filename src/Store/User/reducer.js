@@ -20,7 +20,7 @@ const userReducer = createReducer(initState, {
       isLoggedIn: true,
       id: action.payload.id,
       email: action.payload.email,
-      profileImageUrl: action.payload.profileImageUrl ? action.payload.profileImageUrl : '',
+      profileImageUrl: action.payload.profileImageUrl,
     },
   }),
   [removeUserInfo]: (state) => ({
