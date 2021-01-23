@@ -111,7 +111,7 @@ const GrayHorizontail = styled.div`
 
 const UrlListWrapper = styled.div`
   margin-top: 20px;
-  
+
   max-height: 500px;
   overflow: scroll;
 `;
@@ -122,9 +122,9 @@ const UrlRow = styled.div`
   height: 44px;
 
   box-sizing: border-box;
-  
+
   :hover {
-    background-color: #F5F7F8;
+    background-color: #f5f7f8;
   }
 `;
 

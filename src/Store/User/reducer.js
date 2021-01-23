@@ -2,7 +2,6 @@ import { createReducer } from '@reduxjs/toolkit';
 
 import { removeUserInfo, setUserInfo } from './actions';
 
-
 const initState = {
   user: {
     isLoggedIn: false,
@@ -11,7 +10,6 @@ const initState = {
     profileImageUrl: '',
   },
 };
-
 
 const userReducer = createReducer(initState, {
   [setUserInfo]: (state, action) => ({

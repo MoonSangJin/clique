@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Folder from '../../Components/Folder';
 import DetailForm from '../../Components/DetailForm';
 
-
 const DetailPresenter = ({ data, detailDataList }) => {
   const folderData = data;
   return (
@@ -17,7 +16,6 @@ const DetailPresenter = ({ data, detailDataList }) => {
         <BookmarksWrapper>
           <DetailForm {...{ folderData, detailDataList }} />
         </BookmarksWrapper>
-
       </Wrapper>
     </>
   );

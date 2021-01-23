@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ValidationMessage = styled.div`
-  color: #FF4545;
+  color: #ff4545;
   margin-left: 20px;
   height: 15px;
 `;
@@ -12,7 +12,7 @@ const InputContainer = styled.input`
   width: 100%;
   height: 45px;
   background: #f5f7f8;
-  border: 1.4px solid ${({ isValid }) => isValid ? '#F5F7F8' : '#FF4545'};
+  border: 1.4px solid ${({ isValid }) => (isValid ? '#F5F7F8' : '#FF4545')};
   border-radius: 50px;
   text-indent: 23px;
 
@@ -26,9 +26,9 @@ const InputContainer = styled.input`
 
     color: rgba(144, 160, 173, 0.8);
   }
-  
+
   :focus {
-    border: 1.4px solid #7785FF;
+    border: 1.4px solid #7785ff;
   }
 `;
 

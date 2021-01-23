@@ -11,7 +11,6 @@ import FourthImageSrc from '../assets/img/FolderItemImages/4.png';
 import BlankListFolderSrc from '../assets/img/blankListFolder.png';
 import { Link } from 'react-router-dom';
 
-
 const mapIndexToImageSrc = {
   0: FirstImageSrc,
   1: SecondImageSrc,
@@ -23,32 +22,33 @@ export default function FolderRow({ bookmarkFolderList, isLoggedIn, type }) {
   return (
     <>
       <FolderListHeader />
-      {
-        isLoggedIn ?
-          <Container>
-            {
-              type === 'card' ?
-                bookmarkFolderList.map((folderData, index) => {
-                  return <Folder key={index} {...{ folderData }}
-                                 folderCoverImageSrc={mapIndexToImageSrc[index % 4]} />;
-                }) :
-                bookmarkFolderList.map((folderData, index) => {
-                  return <ListFolder key={index} {...{ folderData }} />;
-                })
-            }
-          </Container> :
-          <NotLoggedInWrapper>
-            <Image src={BlankListFolderSrc} />
-            <Description>
-              Sign in Clique and manage yout bookmarks
-            </Description>
-            <StyledLink to={'/sign-in'}>
-              <ToSignInButton>
-                Sign in&nbsp;<Bold>Clique</Bold>
-              </ToSignInButton>
-            </StyledLink>
-          </NotLoggedInWrapper>
-      }
+      {isLoggedIn ? (
+        <Container>
+          {type === 'card'
+            ? bookmarkFolderList.map((folderData, index) => {
+                return (
+                  <Folder
+                    key={index}
+                    {...{ folderData }}
+                    folderCoverImageSrc={mapIndexToImageSrc[index % 4]}
+                  />
+                );
+              })
+            : bookmarkFolderList.map((folderData, index) => {
+                return <ListFolder key={index} {...{ folderData }} />;
+              })}
+        </Container>
+      ) : (
+        <NotLoggedInWrapper>
+          <Image src={BlankListFolderSrc} />
+          <Description>Sign in Clique and manage yout bookmarks</Description>
+          <StyledLink to={'/sign-in'}>
+            <ToSignInButton>
+              Sign in&nbsp;<Bold>Clique</Bold>
+            </ToSignInButton>
+          </StyledLink>
+        </NotLoggedInWrapper>
+      )}
     </>
   );
 }
@@ -61,8 +61,7 @@ const Container = styled.div`
   margin: 20px auto 0 auto;
 `;
 
-const NotLoggedInWrapper = styled.div`
-`;
+const NotLoggedInWrapper = styled.div``;
 
 const Image = styled.img`
   display: block;
@@ -76,7 +75,7 @@ const Description = styled.div`
   line-height: 21px;
   text-align: center;
   letter-spacing: -0.02em;
-  
+
   color: #070701;
 `;
 
@@ -89,17 +88,17 @@ const ToSignInButton = styled.button`
   width: 223px;
   height: 43px;
   margin: 6px auto 200px auto;
-  background: #7785FF;
+  background: #7785ff;
   border-radius: 3px;
   border: none;
   align-items: center;
-  
+
   font-weight: 500;
   font-size: 12px;
   line-height: 18px;
   text-align: center;
   letter-spacing: -0.02em;
-  color: #FFFFFF;
+  color: #ffffff;
 `;
 
 const Bold = styled.span`

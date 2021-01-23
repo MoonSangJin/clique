@@ -4,7 +4,6 @@ import { camelizeKeys, decamelize, decamelizeKeys } from 'humps';
 import { HOST } from '../Constants/requests';
 import { removeAccessToken } from './tokenHandler';
 
-
 axios.interceptors.response.use(
   (response) => {
     return response;
@@ -21,7 +20,7 @@ axios.interceptors.response.use(
     }
 
     return Promise.reject(error.response);
-  },
+  }
 );
 
 axios.defaults.timeout = 5000;
@@ -44,7 +43,7 @@ const decamelizeThatDontBreaksFile = (object) => {
           ...acc,
           [decamelize(next)]: decamelizeThatDontBreaksFile(object[next]),
         }),
-        {},
+        {}
       );
     }
   }
@@ -58,9 +57,15 @@ export function request(config) {
   };
 
   config.baseURL = HOST;
-  config.transformResponse = [...axios.defaults.transformResponse, (data) => camelizeKeys(data)];
-  config.transformRequest = [decamelizeThatDontBreaksFile, ...axios.defaults.transformRequest];
-  config.paramsSerializer = function(params) {
+  config.transformResponse = [
+    ...axios.defaults.transformResponse,
+    (data) => camelizeKeys(data),
+  ];
+  config.transformRequest = [
+    decamelizeThatDontBreaksFile,
+    ...axios.defaults.transformRequest,
+  ];
+  config.paramsSerializer = function (params) {
     return stringify(decamelizeKeys(params));
   };
   return axios(config);

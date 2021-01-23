@@ -5,7 +5,6 @@ import { HOST } from '../../Constants/requests';
 import NotSignInPage from './NotSignInPage';
 import { getAccessToken } from '../../Utils/tokenHandler';
 
-
 const PopupContainer = () => {
   const [tabs, setTabs] = useState([]);
   const [token, setToken] = useState('');
@@ -15,11 +14,9 @@ const PopupContainer = () => {
 
   const postServer = async (state) => {
     try {
-      await axios.post(
-        HOST + '/bookmark',
-        state,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      await axios.post(HOST + '/bookmark', state, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       alert('Bookmarks are saved successfully!');
       window.close();
     } catch (error) {
@@ -38,13 +35,13 @@ const PopupContainer = () => {
       } else {
         setToken('');
       }
-    })
+    });
   }, []);
 
-  return (
-    token ?
-      <PopupPresenter {...{ tabs, postServer }} /> :
-      <NotSignInPage />
+  return token ? (
+    <PopupPresenter {...{ tabs, postServer }} />
+  ) : (
+    <NotSignInPage />
   );
 };
 export default PopupContainer;

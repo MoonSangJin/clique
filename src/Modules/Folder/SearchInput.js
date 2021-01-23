@@ -3,12 +3,10 @@ import styled from 'styled-components';
 import handGlassSrc from '../../assets/img/handGlass';
 import SearchResultList from './SearchResultList';
 
-
 const mapSearchEngineToInputPlaceholder = {
   clique: 'Search bookmark, folder, keyword or URL',
   google: 'or google',
 };
-
 
 export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -35,21 +33,24 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
     inputRef.current.focus();
   };
 
-  const getSearchedBookmarkFolderList = () => searchKeyword ?
-    bookmarkFolderList.filter((folder) => folder.name.includes(searchKeyword))
-    : [];
+  const getSearchedBookmarkFolderList = () =>
+    searchKeyword
+      ? bookmarkFolderList.filter((folder) =>
+          folder.name.includes(searchKeyword)
+        )
+      : [];
 
-  const getSearchedBookmarkList = () => searchKeyword ?
-    bookmarkList.filter((bookmark) => bookmark.title.includes(searchKeyword))
-    : [];
+  const getSearchedBookmarkList = () =>
+    searchKeyword
+      ? bookmarkList.filter((bookmark) =>
+          bookmark.title.includes(searchKeyword)
+        )
+      : [];
 
   return (
     <Container>
       <InputRow>
-        <HandGlass
-          src={handGlassSrc}
-          alt={`hand glass`}
-        />
+        <HandGlass src={handGlassSrc} alt={`hand glass`} />
         <Input
           type="text"
           name="bookmark"
@@ -66,14 +67,12 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
         </OrGoogleButton>
       </InputRow>
       <SearchResult>
-        {
-          searchEngine === 'clique' && searchKeyword ?
-            <SearchResultList
-              bookmarkSearchResult={getSearchedBookmarkFolderList().slice(0, 5)}
-              bookmarkFolderSearchResult={getSearchedBookmarkList().slice(0, 200)}
-            />
-            : null
-        }
+        {searchEngine === 'clique' && searchKeyword ? (
+          <SearchResultList
+            bookmarkSearchResult={getSearchedBookmarkFolderList().slice(0, 5)}
+            bookmarkFolderSearchResult={getSearchedBookmarkList().slice(0, 200)}
+          />
+        ) : null}
       </SearchResult>
     </Container>
   );
@@ -114,5 +113,5 @@ const OrGoogleButton = styled.div`
   border-left: 1px solid rgba(144, 160, 173, 0.3);
   font-size: 12px;
   line-height: 15px;
-  color: #90A0AD;
+  color: #90a0ad;
 `;

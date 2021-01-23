@@ -7,7 +7,6 @@ import {
   fetchBookmarkSuccess,
 } from './actions';
 
-
 const initState = {
   bookmarkFolderList: [],
   bookmarkList: [],

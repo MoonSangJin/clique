@@ -12,7 +12,6 @@ import Modal from './Modal';
 import CheckGraySrc from '../assets/img/checkGray.png';
 import DefaultImageSrc from '../assets/img/FolderItemImages/1.png';
 
-
 export default function Folder({ folderData, folderCoverImageSrc }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
 
@@ -26,7 +25,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
     setProfileElementHolder(dotMenuRef.current);
   }, [dotMenuRef]);
 
-  const openDropdownMenu = e => {
+  const openDropdownMenu = (e) => {
     e.preventDefault();
     setIsOpenDropdownMenu(true);
   };
@@ -38,7 +37,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
   const getBookmarkList = () => {
     return bookmarkReducer.bookmarkList.filter((bookmark) => {
       return folderData.id === Number(bookmark.bookmarkFolderId);
-    })
+    });
   };
 
   const getSharedText = () => {
@@ -61,31 +60,31 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
     <>
       <StyledLink to={`/detail/${folderData.id}`}>
         <Container>
-          <FolderImage src={folderCoverImageSrc || DefaultImageSrc} /> {/* 폴더 이미지 들어갈 곳*/}
+          <FolderImage src={folderCoverImageSrc || DefaultImageSrc} />
+          {/* 폴더 이미지 들어갈 곳*/}
           <ContentsWrapper>
             <TitleWrapper>
               <TextRow>
                 <FolderName>{folderData.name}</FolderName>
-                <FolderTime>
-                  Last updated 1 day ago
-                </FolderTime>
+                <FolderTime>Last updated 1 day ago</FolderTime>
               </TextRow>
-              {folderData.isFavorite ? <FavoriteIcon src={FavoriteIconSrc} /> : null}
+              {folderData.isFavorite ? (
+                <FavoriteIcon src={FavoriteIconSrc} />
+              ) : null}
             </TitleWrapper>
             <MenuWrapper>
               <FaviconWrapper>
                 <FaviconFolder src={folder} alt={folder} />
                 <VerticalLine src={verticalLine} />
-                {
-                  getBookmarkList().map((bookmark) => {
-                    return <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} />
-                  })
-                }
+                {getBookmarkList().map((bookmark) => {
+                  return (
+                    <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} />
+                  );
+                })}
               </FaviconWrapper>
               <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
                 <OptionIcon />
               </PopoverController>
-
             </MenuWrapper>
           </ContentsWrapper>
         </Container>
@@ -106,9 +105,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
         <ModalContentsWrapper>
           <CheckGrayImage src={CheckGraySrc} />
           <PhrasesWrapper>
-            <ModalTitle>
-              Success!
-            </ModalTitle>
+            <ModalTitle>Success!</ModalTitle>
             <ModalPhrases>
               Bookmark links have been copied to clipboard.
             </ModalPhrases>
@@ -118,7 +115,6 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
               OK
             </ModalButton>
           </ModalButtonWrapper>
-
         </ModalContentsWrapper>
       </Modal>
     </>
@@ -246,7 +242,7 @@ const ModalTitle = styled.div`
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.02em;
-  
+
   color: #000000;
 `;
 
@@ -254,7 +250,7 @@ const ModalPhrases = styled.div`
   font-size: 14px;
   line-height: 18px;
   letter-spacing: -0.02em;
-  color: #90A0AD;
+  color: #90a0ad;
 `;
 
 const ModalButtonWrapper = styled.div`
@@ -270,11 +266,11 @@ const ModalButton = styled.button`
   &:hover {
     cursor: pointer;
   }
-  
+
   font-weight: bold;
   font-size: 10px;
   line-height: 15px;
   text-align: center;
   letter-spacing: -0.02em;
-  color: #FFFFFF;
+  color: #ffffff;
 `;

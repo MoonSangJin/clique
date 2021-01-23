@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
-const Container = styled.div`
-`;
+const Container = styled.div``;
 
 const PupleBorder = styled.div`
   max-width: 476px;
@@ -14,9 +12,9 @@ const PupleBorder = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding: 43px 34px; 
+  padding: 43px 34px;
   max-width: 476px;
-  
+
   height: 550px;
   margin: 0 auto;
   display: flex;

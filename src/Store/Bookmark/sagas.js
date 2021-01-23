@@ -10,12 +10,12 @@ import {
 import { getAccessToken } from '../../Utils/tokenHandler';
 import { request } from '../../Utils/request';
 
-
-const fetchBookmarkFolderApi = (token) => request({
-  url: '/bookmark-folder',
-  method: 'GET',
-  headers: { Authorization: `Bearer ${token}` },
-});
+const fetchBookmarkFolderApi = (token) =>
+  request({
+    url: '/bookmark-folder',
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
 function* fetchBookmarkFolderAsync() {
   try {
@@ -28,12 +28,12 @@ function* fetchBookmarkFolderAsync() {
   }
 }
 
-
-const fetchBookmarkApi = (token) => request({
-  url: '/bookmark',
-  method: 'GET',
-  headers: { Authorization: `Bearer ${token}` },
-});
+const fetchBookmarkApi = (token) =>
+  request({
+    url: '/bookmark',
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
 function* fetchBookmarkAsync() {
   try {

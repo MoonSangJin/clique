@@ -14,7 +14,7 @@ export default function OptionIcon() {
 const Container = styled.img`
   width: 24px;
   height: 24px;
-  
+
   &:hover {
     cursor: pointer;
   }

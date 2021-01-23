@@ -19,17 +19,21 @@ export default function SubmitForm({ tabs, postServer }) {
     });
 
     chrome.storage.local.get([activeTabTitle], (result) => {
-      setBookmarks(tabs.map((tab) => {
-        return {
-          title: tab.title,
-          url: tab.url,
-          favIconUrl: tab.favIconUrl,
-          isChecked: tab.active,
-          scrollPos: tab.title === activeTabTitle ? result[activeTabTitle]?.scroll : 0.0,
-        };
-      }));
+      setBookmarks(
+        tabs.map((tab) => {
+          return {
+            title: tab.title,
+            url: tab.url,
+            favIconUrl: tab.favIconUrl,
+            isChecked: tab.active,
+            scrollPos:
+              tab.title === activeTabTitle
+                ? result[activeTabTitle]?.scroll
+                : 0.0,
+          };
+        })
+      );
     });
-
   }, [tabs]);
 
   const handleClick = (clickedBookmarkIndex) => {
@@ -40,21 +44,23 @@ export default function SubmitForm({ tabs, postServer }) {
 
       setBookmarks((respondedBookmarks) => {
         return respondedBookmarks.map((bookmark, index) => {
-          return index === clickedBookmarkIndex ?
-            {
-              ...bookmark,
-              isChecked: !bookmark.isChecked,
-              scrollPos: scrollResult,
-            } :
-            bookmark;
+          return index === clickedBookmarkIndex
+            ? {
+                ...bookmark,
+                isChecked: !bookmark.isChecked,
+                scrollPos: scrollResult,
+              }
+            : bookmark;
         });
       });
     });
   };
 
-  const getCheckedBookmarks = (originBookmarks) => originBookmarks.filter((bookmark) => bookmark.isChecked);
+  const getCheckedBookmarks = (originBookmarks) =>
+    originBookmarks.filter((bookmark) => bookmark.isChecked);
 
-  const getValidBookmarks = (originBookmarks) => originBookmarks.filter((bookmark) => isValidUrl(bookmark.url));
+  const getValidBookmarks = (originBookmarks) =>
+    originBookmarks.filter((bookmark) => isValidUrl(bookmark.url));
 
   const changeInputNewFolder = (e) => {
     const { value } = e.target;
@@ -67,7 +73,9 @@ export default function SubmitForm({ tabs, postServer }) {
       return;
     }
 
-    const bookmarksForPayload = getValidBookmarks(getCheckedBookmarks(bookmarks)).map((bookmark) => {
+    const bookmarksForPayload = getValidBookmarks(
+      getCheckedBookmarks(bookmarks)
+    ).map((bookmark) => {
       return {
         title: bookmark.title,
         url: refineUrl(bookmark.url),
@@ -99,9 +107,9 @@ export default function SubmitForm({ tabs, postServer }) {
             ...bookmark,
             scrollPos: result[bookmark.title]?.scroll || 0.0,
             isChecked: true,
-          }
+          };
         });
-      })
+      });
     });
   };
 
@@ -109,9 +117,7 @@ export default function SubmitForm({ tabs, postServer }) {
     <FormWrapper>
       <LogoRow>
         <LogoImage src={popUpLogo} />
-        <CheckAll onClick={handleCheckAll}>
-          Check all
-        </CheckAll>
+        <CheckAll onClick={handleCheckAll}>Check all</CheckAll>
       </LogoRow>
       <List>
         {bookmarks.map(({ favIconUrl, title, url, isChecked }, index) => (
