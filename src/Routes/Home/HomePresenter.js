@@ -3,15 +3,16 @@ import styled from 'styled-components';
 
 import Background from '../../Components/Background';
 import FolderRow from '../../Components/FolderRow';
-import SearchInput from '../../Components/SearchInput';
+import SearchInput from '../../Modules/Folder/SearchInput';
 
-const HomeScreenPresenter = ({ bookmarkFolderList, isLoggedIn }) => {
+
+const HomeScreenPresenter = ({ bookmarkFolderList, bookmarkList, isLoggedIn }) => {
   return (
     <Container>
       <Background />
 
       <SearchRow>
-        <SearchInput />
+        <SearchInput {...{ bookmarkFolderList, bookmarkList }} />
       </SearchRow>
 
       <FolderRowWrapper>
@@ -20,6 +21,7 @@ const HomeScreenPresenter = ({ bookmarkFolderList, isLoggedIn }) => {
     </Container>
   );
 };
+
 const Container = styled.div`
   max-width: 1185px;
   margin: 0 auto;
