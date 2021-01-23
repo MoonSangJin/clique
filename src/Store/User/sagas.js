@@ -1,18 +1,28 @@
-import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
+import {
+  fetchUserRequest,
+  removeUserInfo,
+  setUserInfo,
+  signInRequest,
+} from './actions';
+import { getAccessToken } from '../../Utils/tokenHandler';
+import { request } from '../../Utils/request';
 
-import { HOST } from '../../Constants/requests';
-import { fetchUserRequest, removeUserInfo, setUserInfo, signInRequest } from './actions';
-import { getAccessToken, removeAccessToken } from '../../Utils/tokenHandler';
-
-
-const signInApi = (payload) => axios.post(HOST + '/token/', payload);
+const signInApi = (payload) =>
+  request({
+    url: '/token/',
+    method: 'POST',
+    data: payload,
+  });
 
 function* signInAsync({ payload }) {
   try {
     const res = yield call(signInApi, payload);
 
-    chrome.storage.sync.set({ access: res.data.access, userId: res.data.user.id });
+    chrome.storage.sync.set({
+      access: res.data.access,
+      userId: res.data.user.id,
+    });
 
     yield put(setUserInfo(res.data.user));
   } catch (e) {
@@ -20,7 +30,12 @@ function* signInAsync({ payload }) {
   }
 }
 
-const fetchUserApi = (token) => axios.get(HOST + '/user/my-profile', { headers: { Authorization: `Bearer ${token}` } });
+const fetchUserApi = (token) =>
+  request({
+    url: '/user/my-profile',
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
 function* fetchUserAsync() {
   try {
@@ -29,7 +44,6 @@ function* fetchUserAsync() {
 
     yield put(setUserInfo(res.data));
   } catch (e) {
-    yield call(removeAccessToken);
     yield put(removeUserInfo());
   }
 }

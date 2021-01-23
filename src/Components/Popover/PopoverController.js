@@ -6,5 +6,4 @@ const PopoverController = React.forwardRef(({ children, onClick }, ref) => (
   </div>
 ));
 
-
 export default PopoverController;

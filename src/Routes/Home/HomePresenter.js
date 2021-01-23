@@ -5,8 +5,11 @@ import Background from '../../Components/Background';
 import FolderRow from '../../Components/FolderRow';
 import SearchInput from '../../Modules/Folder/SearchInput';
 
-
-const HomeScreenPresenter = ({ bookmarkFolderList, bookmarkList, isLoggedIn }) => {
+const HomeScreenPresenter = ({
+  bookmarkFolderList,
+  bookmarkList,
+  isLoggedIn,
+}) => {
   return (
     <Container>
       <Background />

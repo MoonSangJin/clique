@@ -5,7 +5,6 @@ import { Redirect } from 'react-router-dom';
 import SignInPagePresenter from './SignInPagePresenter';
 import { signInRequest } from '../../Store/User/actions';
 
-
 const SignInPageContainer = () => {
   const userReducer = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
@@ -14,7 +13,7 @@ const SignInPageContainer = () => {
   const [password, setPassword] = useState('');
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
   const [passwordValidationMessage, setPasswordValidationMessage] = useState(
-    '',
+    ''
   );
 
   const emailChangeHandler = (e) => {
@@ -83,11 +82,7 @@ const SignInPageContainer = () => {
           isValidPassword,
         }}
       />
-      {
-        userReducer.user.isLoggedIn ?
-          <Redirect to='/' />
-          : null
-      }
+      {userReducer.user.isLoggedIn ? <Redirect to="/" /> : null}
     </>
   );
 };

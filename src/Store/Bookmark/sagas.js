@@ -1,7 +1,4 @@
-import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
-
-import { HOST } from '../../Constants/requests';
 import {
   fetchBookmarkFailure,
   fetchBookmarkFolderFailure,
@@ -11,12 +8,14 @@ import {
   fetchBookmarkSuccess,
 } from './actions';
 import { getAccessToken } from '../../Utils/tokenHandler';
+import { request } from '../../Utils/request';
 
-
-const fetchBookmarkFolderApi = (token) => axios.get(
-  HOST + '/bookmark-folder',
-  { headers: { Authorization: `Bearer ${token}` } },
-);
+const fetchBookmarkFolderApi = (token) =>
+  request({
+    url: '/bookmark-folder',
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
 function* fetchBookmarkFolderAsync() {
   try {
@@ -29,11 +28,12 @@ function* fetchBookmarkFolderAsync() {
   }
 }
 
-
-const fetchBookmarkApi = (token) => axios.get(
-  HOST + '/bookmark',
-  { headers: { Authorization: `Bearer ${token}` } },
-);
+const fetchBookmarkApi = (token) =>
+  request({
+    url: '/bookmark',
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
 function* fetchBookmarkAsync() {
   try {

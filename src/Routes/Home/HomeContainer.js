@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBookmarkFolderRequest, fetchBookmarkRequest } from '../../Store/Bookmark/actions';
+import {
+  fetchBookmarkFolderRequest,
+  fetchBookmarkRequest,
+} from '../../Store/Bookmark/actions';
 
 import HomePresenter from './HomePresenter';
-
 
 const HomeScreenContainer = () => {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
@@ -17,11 +19,15 @@ const HomeScreenContainer = () => {
     }
   }, [dispatch, userReducer.user.isLoggedIn]);
 
-  return <HomePresenter {...{
-    bookmarkFolderList: bookmarkReducer.bookmarkFolderList,
-    bookmarkList: bookmarkReducer.bookmarkList,
-    isLoggedIn: userReducer.user.isLoggedIn,
-  }} />;
+  return (
+    <HomePresenter
+      {...{
+        bookmarkFolderList: bookmarkReducer.bookmarkFolderList,
+        bookmarkList: bookmarkReducer.bookmarkList,
+        isLoggedIn: userReducer.user.isLoggedIn,
+      }}
+    />
+  );
 };
 
 export default HomeScreenContainer;

@@ -10,7 +10,6 @@ import ProfileMenu from '../Modules/Gnb/ProfileMenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserRequest, setUserInfo } from '../Store/User/actions';
 
-
 export default function Gnb() {
   const userReducer = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
@@ -30,14 +29,15 @@ export default function Gnb() {
   }, [dispatch, userReducer.user.isLoggedIn]);
 
   useEffect(() => {
-    chrome.storage.sync.get(['access'], function(result) {
+    chrome.storage.sync.get(['access'], function (result) {
       if (result.access) {
         // Todo(maitracle): access token이 있을 경우 profile 정보를 받아서 store에 함께 저장한다.
-        dispatch(setUserInfo({
+        dispatch(
+          setUserInfo({
             id: -1,
             email: '',
             profileImageUrl: '',
-          }),
+          })
         );
       }
     });
@@ -73,7 +73,6 @@ export default function Gnb() {
     </>
   );
 }
-
 
 const Wrapper = styled.div`
   display: flex;

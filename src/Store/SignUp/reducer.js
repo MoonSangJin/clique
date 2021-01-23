@@ -1,13 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { signUpFailure, signUpSuccess } from './actions';
 
-
 const initState = {
   signUpResult: {
     result: '',
   },
 };
-
 
 const signUpReducer = createReducer(initState, {
   [signUpSuccess]: (state) => ({
