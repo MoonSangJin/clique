@@ -12,7 +12,7 @@ axios.interceptors.response.use(
     switch (error.response?.status) {
       case 401:
         removeAccessToken().then(() => {
-          window.location.assign('/');
+          window.location.assign('/newtab.html#/sign-in');
         });
         break;
       default:

@@ -8,7 +8,8 @@ import defaultImage from '../assets/img/defaultImage';
 import PopoverController from './Popover/PopoverController';
 import ProfileMenu from '../Modules/Gnb/ProfileMenu';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserRequest, setUserInfo } from '../Store/User/actions';
+import { fetchUserRequest } from '../Store/User/actions';
+import { getAccessToken } from '../Utils/tokenHandler';
 
 export default function Gnb() {
   const userReducer = useSelector((state) => state.userReducer);
@@ -23,25 +24,18 @@ export default function Gnb() {
   }, [ref]);
 
   useEffect(() => {
-    if (userReducer.user.isLoggedIn) {
-      dispatch(fetchUserRequest());
-    }
-  }, [dispatch, userReducer.user.isLoggedIn]);
-
-  useEffect(() => {
-    chrome.storage.sync.get(['access'], function (result) {
-      if (result.access) {
-        // Todo(maitracle): access token이 있을 경우 profile 정보를 받아서 store에 함께 저장한다.
-        dispatch(
-          setUserInfo({
-            id: -1,
-            email: '',
-            profileImageUrl: '',
-          })
-        );
+    const autoSignIn = () => {
+      if (!userReducer.user.isLoggedIn) {
+        getAccessToken().then((res) => {
+          if (res) {
+            dispatch(fetchUserRequest());
+          }
+        });
       }
-    });
-  }, [dispatch]);
+    };
+
+    autoSignIn();
+  }, [dispatch, userReducer.user.isLoggedIn]);
 
   const openDropdownMenu = () => {
     setIsOpenDropdownMenu(true);
