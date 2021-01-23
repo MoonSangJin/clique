@@ -10,7 +10,7 @@ const DropdownMenu = ({
   anchorEl,
   sharedText,
   shareTextSuccessHandler,
-  handleDeleteFolder,
+  openDeleteFolderModal,
 }) => {
   return (
     <Popover
@@ -25,7 +25,7 @@ const DropdownMenu = ({
           <MenuItem>Share</MenuItem>
         </CopyToClipboard>
         <MenuItem>Rename</MenuItem>
-        <MenuItem onClick={handleDeleteFolder}>Delete folder</MenuItem>
+        <MenuItem onClick={openDeleteFolderModal}>Delete folder</MenuItem>
       </MenuWrapper>
     </Popover>
   );

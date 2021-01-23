@@ -61,20 +61,20 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
     setIsOpenShareSuccessModal(true);
   };
 
-  const handleDeleteFolder = () => {
+  const openDeleteFolderModal = () => {
     closeDropdownMenu();
     setIsOpenDeleteFolderModal(true);
   };
-  const dispatchDeleteFolder = () => {
+  const handleDeleteFolder = () => {
     dispatch(deleteBookmarkFolderRequest({ folderId: folder_data.id }));
     setIsOpenDeleteFolderModal(false);
   };
+
   return (
     <>
       <StyledLink to={`/detail/${folder_data.id}`}>
         <Container>
           <FolderImage src={folderCoverImageSrc || DefaultImageSrc} />
-          {/* 폴더 이미지 들어갈 곳*/}
           <ContentsWrapper>
             <TitleWrapper>
               <TextRow>
@@ -112,7 +112,7 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
         anchorEl={profileElementHolder}
         sharedText={getSharedText()}
         shareTextSuccessHandler={handleShareTextSuccess}
-        {...{ handleDeleteFolder }}
+        {...{ openDeleteFolderModal }}
       />
 
       <Modal
@@ -142,16 +142,17 @@ export default function Folder({ folder_data, folderCoverImageSrc }) {
         <ModalContentsWrapper>
           <CheckGrayImage src={CheckGraySrc} />
           <PhrasesWrapper>
-            <ModalTitle>지우시겠습니까?</ModalTitle>
-            <ModalPhrases>진짜 지울거냐고</ModalPhrases>
+            <ModalTitle>
+              Are you sure you want to delete this folder?
+            </ModalTitle>
           </PhrasesWrapper>
-          <ModalButtonWrapper>
-            <ModalButton onClick={dispatchDeleteFolder}>OK</ModalButton>
-            <ModalButton onClick={() => setIsOpenDeleteFolderModal(false)}>
-              NO
-            </ModalButton>
-          </ModalButtonWrapper>
         </ModalContentsWrapper>
+        <ModalButtonWrapper>
+          <ModalWhiteButton onClick={() => setIsOpenDeleteFolderModal(false)}>
+            Cancel
+          </ModalWhiteButton>
+          <ModalButton onClick={handleDeleteFolder}>Yes</ModalButton>
+        </ModalButtonWrapper>
       </Modal>
     </>
   );
@@ -290,12 +291,14 @@ const ModalPhrases = styled.div`
 `;
 
 const ModalButtonWrapper = styled.div`
-  width: 72px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 39px;
 `;
 
 const ModalButton = styled.button`
   all: unset;
-  width: 100%;
+  width: 72px;
   height: 33px;
   background: #7785ff;
   border-radius: 3px;
@@ -309,4 +312,25 @@ const ModalButton = styled.button`
   text-align: center;
   letter-spacing: -0.02em;
   color: #ffffff;
+  border: 1px solid #7785ff;
+  margin-left: 8px;
+`;
+
+const ModalWhiteButton = styled.button`
+  all: unset;
+  width: 72px;
+  height: 33px;
+  border-radius: 3px;
+  background: #ffffff;
+  &:hover {
+    cursor: pointer;
+  }
+
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #7785ff;
+  border: 1px solid #7785ff;
 `;

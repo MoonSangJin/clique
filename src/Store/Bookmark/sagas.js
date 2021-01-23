@@ -53,11 +53,12 @@ const deleteBookmarkFolderApi = (token, folderId) =>
   });
 function* deleteBookmarkFolderAsync({ payload }) {
   try {
-    console.log(payload.folderId);
     const folderId = payload.folderId;
     const token = yield call(getAccessToken);
     yield call(deleteBookmarkFolderApi, token, folderId);
-    yield put(deleteBookmarkFolderSuccess({ bookmarkFolderList: folderId }));
+    yield put(
+      deleteBookmarkFolderSuccess({ deletedBookmarkFolderId: folderId })
+    );
   } catch (e) {
     yield put(deleteBookmarkFolderFailure());
   }
