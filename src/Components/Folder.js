@@ -81,7 +81,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
                 <FolderName>{folderData.name}</FolderName>
                 <FolderTime>Last updated 1 day ago</FolderTime>
               </TextRow>
-              {folderData.is_favorite ? (
+              {folderData.isFavorite ? (
                 <FavoriteIcon src={FavoriteIconSrc} />
               ) : null}
             </TitleWrapper>
@@ -91,10 +91,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
                 <VerticalLine src={verticalLine} />
                 {getBookmarkList().map((bookmark) => {
                   return (
-                    <FaviconImage
-                      key={bookmark.id}
-                      src={bookmark.favicon_url}
-                    />
+                    <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} />
                   );
                 })}
               </FaviconWrapper>

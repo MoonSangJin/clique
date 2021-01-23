@@ -25,12 +25,11 @@ const bookmarkReducer = createReducer(initState, {
     bookmarkList: action.payload.bookmarkList,
   }),
   [fetchBookmarkFailure]: (state) => state,
-
   [deleteBookmarkFolderSuccess]: (state, action) => ({
     ...state,
     bookmarkFolderList: state.filter((bookmarkFolder) => {
       return (
-        bookmarkFolder.bookmark_folder_id !== action.payload.bookmark_folder_id
+        bookmarkFolder.bookmarkFolderId !== action.payload.bookmarkFolderId
       );
     }),
   }),

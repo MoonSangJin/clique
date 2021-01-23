@@ -51,7 +51,7 @@ function* fetchBookmarkAsync() {
 
 const deleteBookmarkFolderApi = (token, folderId) =>
   request({
-    url: '/bookmark-folder/' + folderId,
+    url: `bookmark-folder/${folderId}`,
     method: 'DELETE',
     headers: { Authorization: `Bearer ${token}` },
   });
