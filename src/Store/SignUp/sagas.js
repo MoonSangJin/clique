@@ -1,12 +1,15 @@
-import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { signUpFailure, signUpRequest, signUpSuccess } from './actions';
-import { HOST } from '../../Constants/requests';
 import { setUserInfo } from '../User/actions';
+import { request } from '../../Utils/request';
 
 
-const signUpAsyncApi = (payload) => axios.post(HOST + '/user', payload);
+const signUpAsyncApi = (payload) => request({
+  url: '/user',
+  method: 'POST',
+  data: payload,
+});
 
 function* signUpAsync({ payload }) {
   try {
