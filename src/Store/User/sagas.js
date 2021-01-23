@@ -33,7 +33,7 @@ function* signInAsync({ payload }) {
 const fetchUserApi = (token) =>
   request({
     url: '/user/my-profile',
-    method: 'POST',
+    method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
   });
 
