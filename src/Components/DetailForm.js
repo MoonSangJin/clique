@@ -7,12 +7,12 @@ import DetailPurpleButton from './DetailPurpleButton';
 import OptionIcon from './OptionIcon';
 
 const BookmarkItem = ({ detailData }) => {
-  const { favicon_url, title, url } = detailData;
+  const { faviconUrl, title, url } = detailData;
 
   return (
     <ExternalLink href={url} target={'_blank'}>
       <UrlRow>
-        <UrlImage src={favicon_url} />
+        <UrlImage src={faviconUrl} />
         <UrlTitle>{title}</UrlTitle>
         <Url>{url}</Url>
         <OptionIcon />
@@ -21,7 +21,7 @@ const BookmarkItem = ({ detailData }) => {
   );
 };
 
-export default function DetailForm({ folder_data, detailDataList }) {
+export default function DetailForm({ folderData, detailDataList }) {
   const openAllBookmarks = () => {
     detailDataList.forEach((detailData) => {
       window.open(detailData.url, '_blank');
@@ -33,7 +33,7 @@ export default function DetailForm({ folder_data, detailDataList }) {
       <TitleRow>
         <Left>
           <BackSpace src={backSpace} />
-          <Title>{folder_data.name}</Title>
+          <Title>{folderData.name}</Title>
         </Left>
         <Right>
           <DetailWhiteButton onClick={openAllBookmarks} />

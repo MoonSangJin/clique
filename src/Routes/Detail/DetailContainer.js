@@ -18,7 +18,7 @@ const DetailContainer = ({ match }) => {
       id: -1,
       user: -1,
       name: '',
-      is_favorite: false,
+      isFavorite: false,
     };
 
     return foundBookmarkFolder.length >= 1 ? foundBookmarkFolder[0] : notFoundBookmarkFolder;
@@ -26,7 +26,7 @@ const DetailContainer = ({ match }) => {
 
   const filterBookmarkList = () => {
     return bookmarkReducer.bookmarkList.filter((bookmark) => {
-      return bookmark.bookmark_folder_id === Number(folderId);
+      return bookmark.bookmarkFolderId === Number(folderId);
     });
   };
 

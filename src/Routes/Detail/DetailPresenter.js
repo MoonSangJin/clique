@@ -6,16 +6,16 @@ import DetailForm from '../../Components/DetailForm';
 
 
 const DetailPresenter = ({ data, detailDataList }) => {
-  const folder_data = data;
+  const folderData = data;
   return (
     <>
       <Wrapper>
         <FolderWrapper>
-          <Folder {...{ folder_data }} />
+          <Folder {...{ folderData }} />
         </FolderWrapper>
 
         <BookmarksWrapper>
-          <DetailForm {...{ folder_data, detailDataList }} />
+          <DetailForm {...{ folderData, detailDataList }} />
         </BookmarksWrapper>
 
       </Wrapper>
