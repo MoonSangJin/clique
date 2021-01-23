@@ -13,6 +13,7 @@ import CheckGraySrc from '../assets/img/checkGray.png';
 import DefaultImageSrc from '../assets/img/FolderItemImages/1.png';
 
 import { deleteBookmarkFolderRequest } from '../Store/Bookmark/actions';
+import { getTimeDeltaString } from '../Utils/datetimeHandler';
 
 export default function Folder({ folderData, folderCoverImageSrc }) {
   const dispatch = useDispatch();
@@ -79,7 +80,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
             <TitleWrapper>
               <TextRow>
                 <FolderName>{folderData.name}</FolderName>
-                <FolderTime>Last updated 1 day ago</FolderTime>
+                <FolderTime>Created {getTimeDeltaString(new Date(), folderData.createdAt)}</FolderTime>
               </TextRow>
               {folderData.isFavorite ? (
                 <FavoriteIcon src={FavoriteIconSrc} />
