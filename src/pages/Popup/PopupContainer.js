@@ -14,7 +14,7 @@ const PopupContainer = () => {
 
   const postServer = async (state) => {
     try {
-      await axios.post(HOST + '/bookmark', state, {
+      await axios.post(HOST + '/bookmark-folder', state, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert('Bookmarks are saved successfully!');
