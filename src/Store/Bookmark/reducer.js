@@ -29,7 +29,8 @@ const bookmarkReducer = createReducer(initState, {
     ...state,
     bookmarkFolderList: state.filter((bookmarkFolder) => {
       return (
-        bookmarkFolder.bookmarkFolderId !== action.payload.bookmarkFolderId
+        bookmarkFolder.bookmarkFolderId !==
+        action.payload.deletedBookmarkFolderId
       );
     }),
   }),

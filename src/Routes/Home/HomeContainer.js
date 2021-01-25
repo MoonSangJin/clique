@@ -17,7 +17,11 @@ const HomeScreenContainer = () => {
       dispatch(fetchBookmarkRequest());
       dispatch(fetchBookmarkFolderRequest());
     }
-  }, [dispatch, userReducer.user.isLoggedIn]);
+  }, [
+    dispatch,
+    userReducer.user.isLoggedIn,
+    bookmarkReducer.bookmarkFolderList,
+  ]);
 
   return (
     <HomePresenter
