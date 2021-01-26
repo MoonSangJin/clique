@@ -9,8 +9,11 @@ import PopoverController from './Popover/PopoverController';
 import DropdownMenu from '../Modules/Folder/DropdownMenu';
 import OptionIcon from './OptionIcon';
 import Modal from './Modal';
+
 import CheckGraySrc from '../assets/img/checkGray.png';
+import deleteModalImage from '../assets/img/deleteModalImage';
 import DefaultImageSrc from '../assets/img/FolderItemImages/1.png';
+import blankListFolder from '../assets/img/blankListFolder.png';
 
 import { deleteBookmarkFolderRequest } from '../Store/Bookmark/actions';
 import { renameBookmarkFolderRequest } from '../Store/Bookmark/actions';
@@ -139,7 +142,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
         closeHandler={() => setIsOpenShareSuccessModal(false)}
       >
         <ModalContentsWrapper>
-          <CheckGrayImage src={CheckGraySrc} />
+          <ModalImage src={CheckGraySrc} />
           <PhrasesWrapper>
             <ModalTitle>Success!</ModalTitle>
             <ModalPhrases>
@@ -159,7 +162,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
         closeHandler={() => setIsOpenDeleteFolderModal(false)}
       >
         <ModalContentsWrapper>
-          <CheckGrayImage src={CheckGraySrc} />
+          <ModalImage src={deleteModalImage} />
           <PhrasesWrapper>
             <ModalTitle>
               Are you sure you want to delete this folder?
@@ -179,7 +182,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
         closeHandler={() => setIsOpenRenameFolderModal(false)}
       >
         <ModalContentsWrapper>
-          <CheckGrayImage src={CheckGraySrc} />
+          <ModalImage src={blankListFolder} />
           <PhrasesWrapper>
             <ModalTitle>Rename Bookmark Folder</ModalTitle>
           </PhrasesWrapper>
@@ -302,7 +305,7 @@ const ModalContentsWrapper = styled.div`
   flex-direction: row;
 `;
 
-const CheckGrayImage = styled.img`
+const ModalImage = styled.img`
   width: 22px;
   height: 22px;
   margin-top: 1px;
