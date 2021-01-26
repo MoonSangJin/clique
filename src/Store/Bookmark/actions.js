@@ -14,6 +14,13 @@ const DELETE_BOOKMARK_FOLDER_SUCCESS =
 const DELETE_BOOKMARK_FOLDER_FAILURE =
   'bookmarks/DELETE_BOOKMARK_FOLDER_FAILURE';
 
+const RENAME_BOOKMARK_FOLDER_REQUEST =
+  'bookmarks/RENAME_BOOKMARK_FOLDER_REQUEST';
+const RENAME_BOOKMARK_FOLDER_SUCCESS =
+  'bookmarks/RENAME_BOOKMARK_FOLDER_SUCCESS';
+const RENAME_BOOKMARK_FOLDER_FAILURE =
+  'bookmarks/RENAME_BOOKMARK_FOLDER_FAILURE';
+
 export const fetchBookmarkFolderRequest = createAction(
   FETCH_BOOKMARK_FOLDER_REQUEST
 );
@@ -35,6 +42,16 @@ export const deleteBookmarkFolderSuccess = createAction(
 );
 export const deleteBookmarkFolderFailure = createAction(
   DELETE_BOOKMARK_FOLDER_FAILURE
+);
+
+export const renameBookmarkFolderRequest = createAction(
+  RENAME_BOOKMARK_FOLDER_REQUEST
+);
+export const renameBookmarkFolderSuccess = createAction(
+  RENAME_BOOKMARK_FOLDER_SUCCESS
+);
+export const renameBookmarkFolderFailure = createAction(
+  RENAME_BOOKMARK_FOLDER_FAILURE
 );
 
 //서버로부터 북마크,북마크 정보 폴더 받아오는 기능

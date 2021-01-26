@@ -7,6 +7,8 @@ import {
   fetchBookmarkFailure,
   deleteBookmarkFolderSuccess,
   deleteBookmarkFolderFailure,
+  renameBookmarkFolderSuccess,
+  renameBookmarkFolderFailure,
 } from './actions';
 
 const initState = {
@@ -34,6 +36,11 @@ const bookmarkReducer = createReducer(initState, {
     }),
   }),
   [deleteBookmarkFolderFailure]: (state) => state,
+  [renameBookmarkFolderSuccess]: (state, action) => ({
+    ...state,
+    //bookmarkFolderList: state.filter
+  }),
+  [renameBookmarkFolderFailure]: (state) => state,
 });
 
 export default bookmarkReducer;

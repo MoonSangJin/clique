@@ -11,6 +11,7 @@ const DropdownMenu = ({
   sharedText,
   shareTextSuccessHandler,
   openDeleteFolderModal,
+  openRenameFolderModal,
 }) => {
   return (
     <Popover
@@ -24,7 +25,7 @@ const DropdownMenu = ({
         <CopyToClipboard text={sharedText} onCopy={shareTextSuccessHandler}>
           <MenuItem>Share</MenuItem>
         </CopyToClipboard>
-        <MenuItem>Rename</MenuItem>
+        <MenuItem onClick={openRenameFolderModal}>Rename</MenuItem>
         <MenuItem onClick={openDeleteFolderModal}>Delete folder</MenuItem>
       </MenuWrapper>
     </Popover>
