@@ -17,7 +17,6 @@ import {
 import { getAccessToken } from '../../Utils/tokenHandler';
 import { request } from '../../Utils/request';
 
-
 const fetchBookmarkFolderApi = (token) =>
   request({
     url: '/bookmark-folder',
@@ -50,10 +49,7 @@ function* renameBookmarkFolderAsync({ payload }) {
     const name = payload.name;
     const token = yield call(getAccessToken);
     yield call(renameBookmarkFolderApi, token, folderId, name);
-    yield put(renameBookmarkFolderSuccess({ renamedBookmarkname: name }));
-
-    // const res = yield call(fetchBookmarkFolderApi, token);
-    // yield put(fetchBookmarkFolderSuccess({ bookmarkFolderList: res.data }));
+    yield put(fetchBookmarkFolderRequest());
   } catch (e) {
     yield put(renameBookmarkFolderFailure());
   }
@@ -71,14 +67,11 @@ function* deleteBookmarkFolderAsync({ payload }) {
     const folderId = payload.folderId;
     const token = yield call(getAccessToken);
     yield call(deleteBookmarkFolderApi, token, folderId);
-    yield put(
-      fetchBookmarkFolderRequest(),
-    );
+    yield put(fetchBookmarkFolderRequest());
   } catch (e) {
     yield put(deleteBookmarkFolderFailure());
   }
 }
-
 
 const fetchBookmarkApi = (token) =>
   request({
@@ -112,9 +105,9 @@ function* createBookmarkAsync({ payload }) {
     yield call(createBookmarkApi, token, payload);
 
     yield put(fetchBookmarkRequest());
-  } catch (e) {
-  }
+  } catch (e) {}
 }
+
 
 const renameBookmarkApi = async (token, bookmarkId, data) => request({
   url: `/bookmark/${bookmarkId}`,

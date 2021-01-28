@@ -11,7 +11,6 @@ import {
   renameBookmarkFolderSuccess,
 } from './actions';
 
-
 const initState = {
   bookmarkFolderList: [],
   bookmarkList: [],
@@ -25,6 +24,7 @@ const bookmarkReducer = createReducer(initState, {
     bookmarkFolderList: action.payload.bookmarkFolderList,
     isInitializedBookmarkFolderList: true,
   }),
+
   [fetchBookmarkFolderFailure]: (state) => ({
     ...state,
     isInitializedBookmarkFolderList: false,
