@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import backSpace from '../assets/img/backSpace';
@@ -6,7 +6,7 @@ import DetailWhiteButton from './DetailWhiteButton';
 import DetailPurpleButton from './DetailPurpleButton';
 import OptionIcon from './OptionIcon';
 import Modal from './Modal';
-import {Input as MInput} from '@material-ui/core/';
+import { Input as MInput } from '@material-ui/core/';
 
 
 const BookmarkItem = ({ detailData }) => {
@@ -35,10 +35,6 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
     faviconUrl: 'https://www.naver.com/favicon.ico',
   });
 
-  useEffect(() => {
-    console.log(newBookmarkInfo.url);
-  }, [newBookmarkInfo.url]);
-
   const openAllBookmarks = () => {
     detailDataList.forEach((detailData) => {
       window.open(detailData.url, '_blank');
@@ -46,6 +42,11 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
   };
 
   const goBack = () => window.history.back();
+
+  const addBookmarkAndCloseModal = () => {
+    handleAddBookmark(newBookmarkInfo);
+    setIsOpenAddBookmarkModal(false);
+  };
 
   return (
     <>
@@ -83,7 +84,7 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
           <MInput value={newBookmarkInfo.title} onBlur={() => console.log('blur')} />
         </div>
         <div>
-          <button onClick={handleAddBookmark}>추가</button>
+          <button onClick={addBookmarkAndCloseModal}>추가</button>
         </div>
       </Modal>
     </>

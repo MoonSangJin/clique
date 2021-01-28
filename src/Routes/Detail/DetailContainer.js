@@ -1,15 +1,17 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import DetailPresenter from './DetailPresenter';
-import { useSelector } from 'react-redux';
+import { createBookmarkRequest } from '../../Store/Bookmark/actions';
 
 
 const DetailContainer = ({ match }) => {
   const { folderId } = match.params;
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
+  const dispatch = useDispatch();
 
-  const handleAddBookmark = () => {
-    console.log('add bookmark dispatch!!!');
+  const handleAddBookmark = (payload) => {
+    dispatch(createBookmarkRequest(payload));
   };
 
   const findBookmarkFolder = () => {
