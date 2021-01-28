@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import {
   fetchUserRequest,
-  removeUserInfo,
+  removeUserInfo, setSignInErrorMessage,
   setUserInfo,
   signInRequest,
 } from './actions';
@@ -27,6 +27,7 @@ function* signInAsync({ payload }) {
     yield put(setUserInfo(res.data.user));
   } catch (e) {
     yield put(removeUserInfo());
+    yield put(setSignInErrorMessage('Email or password is invalid'));
   }
 }
 
