@@ -17,9 +17,8 @@ const DropdownMenu = ({
       position={'hover'}
     >
       <MenuWrapper>
-        <MenuItem>menu asdf</MenuItem>
-        <MenuItem>menu asdf</MenuItem>
-        <MenuItem>menu asdf</MenuItem>
+        <MenuItem>Rename</MenuItem>
+        <MenuItem>Delete bookmark</MenuItem>
       </MenuWrapper>
     </Popover>
   );
