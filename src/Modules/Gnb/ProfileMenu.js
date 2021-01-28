@@ -7,6 +7,7 @@ import { removeUserInfo } from '../../Store/User/actions';
 import { Link } from 'react-router-dom';
 import { removeAccessToken } from '../../Utils/tokenHandler';
 
+
 const ProfileMenu = ({
   isOpen,
   closeHandler,
@@ -55,25 +56,31 @@ const ProfileMenu = ({
       position={'hover'}
     >
       <MenuWrapper>
+
         <Panel>
           <ProfilePanel>
             <Information>
-              <Username>{email ? email.split('@')[0] : ''}</Username>
-              <EditProfile>Edit Profile</EditProfile>
+              {isLoggedIn ?
+                <>
+                  <Username>{email ? email.split('@')[0] : ''}</Username>
+                  <EditProfile>Edit Profile</EditProfile>
+                </>
+                : null
+              }
             </Information>
             <ProfileImage src={profileImageSrc} />
           </ProfilePanel>
         </Panel>
         {isLoggedIn
           ? profileMenuInfo.map((info) => (
-              <MenuItem key={info.menuName} onClick={info.onClickFunction}>
-                {info.menuName}
-              </MenuItem>
-            ))
+            <MenuItem key={info.menuName} onClick={info.onClickFunction}>
+              {info.menuName}
+            </MenuItem>
+          ))
           : notLoggedInMenu.map((info) => (
-              <MenuItem key={info.menuName}>
-                <StyledLink to={info.linkSrc}>{info.menuName}</StyledLink>
-              </MenuItem>
+            <MenuItem key={info.menuName}>
+              <StyledLink to={info.linkSrc}>{info.menuName}</StyledLink>
+            </MenuItem>
             ))}
       </MenuWrapper>
     </Popover>
