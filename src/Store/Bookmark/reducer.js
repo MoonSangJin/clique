@@ -1,13 +1,14 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import {
+  deleteBookmarkFolderFailure,
+  deleteBookmarkFolderSuccess,
+  fetchBookmarkFailure,
   fetchBookmarkFolderFailure,
   fetchBookmarkFolderSuccess,
   fetchBookmarkSuccess,
-  fetchBookmarkFailure,
-  deleteBookmarkFolderSuccess,
-  deleteBookmarkFolderFailure,
 } from './actions';
+
 
 const initState = {
   bookmarkFolderList: [],
@@ -25,15 +26,11 @@ const bookmarkReducer = createReducer(initState, {
     bookmarkList: action.payload.bookmarkList,
   }),
   [fetchBookmarkFailure]: (state) => state,
-  [deleteBookmarkFolderSuccess]: (state, action) => ({
-    ...state,
-    bookmarkFolderList: state.filter((bookmarkFolder) => {
-      return (
-        bookmarkFolder.bookmarkFolderId !==
-        action.payload.deletedBookmarkFolderId
-      );
-    }),
-  }),
+  [deleteBookmarkFolderSuccess]: (state) => {
+    // Todo(maitracle): reducer action 내부의 state에서 bookmarkList에 접근이 안되어 deleteBookmarkFolderSuccess 로직을 넣을 수 없다.
+    //                  현재는 saga에서 delete에 성공했을 때 deleteBookmarkFolderSuccess 대신 fetchBookmarkFolderRequest를 dispatch 한다.
+    return state;
+  },
   [deleteBookmarkFolderFailure]: (state) => state,
 });
 
