@@ -9,6 +9,7 @@ import PurpleText from '../../Components/PurpleText';
 import AuthContainer from '../../Components/AuthContainer';
 import LargeText from '../../Components/LargeText';
 
+
 const SignInPagePresenter = ({
   email,
   password,
@@ -16,12 +17,24 @@ const SignInPagePresenter = ({
   setEmailValidationMessage,
   passwordValidationMessage,
   setPasswordValidationMessage,
+  signInValidationMessage,
+  eraseSignInValidationMessage,
   handleSignIn,
   emailChangeHandler,
   passwordChangeHandler,
   isValidEmail,
   isValidPassword,
 }) => {
+  const eraseEmailValidationMessage = () => {
+    setEmailValidationMessage('');
+    eraseSignInValidationMessage();
+  };
+
+  const erasePasswordValidationMessage = () => {
+    setPasswordValidationMessage('');
+    eraseSignInValidationMessage();
+  };
+
   return (
     <AuthContainer>
       <LargeText text={'Welcome to Clique'} />
@@ -31,7 +44,7 @@ const SignInPagePresenter = ({
           placeholder={'Email'}
           validationMessage={emailValidationMessage}
           onChange={emailChangeHandler}
-          onFocus={() => setEmailValidationMessage('')}
+          onFocus={eraseEmailValidationMessage}
           onBlur={isValidEmail}
         />
         <PasswordInputWrapper>
@@ -40,7 +53,7 @@ const SignInPagePresenter = ({
             placeholder={'password'}
             validationMessage={passwordValidationMessage}
             onChange={passwordChangeHandler}
-            onFocus={() => setPasswordValidationMessage('')}
+            onFocus={erasePasswordValidationMessage}
             onBlur={isValidPassword}
             type={'password'}
           />
@@ -56,6 +69,9 @@ const SignInPagePresenter = ({
 
       <ButtonWrapper>
         <PurpleButton onClick={handleSignIn} text={'Sign In'} />
+        <SignInValidationWrapper>
+          {signInValidationMessage}
+        </SignInValidationWrapper>
       </ButtonWrapper>
 
       <PolicyDescription>
@@ -93,9 +109,20 @@ const ButtonWrapper = styled.div`
   margin-top: 49px;
 `;
 
+const SignInValidationWrapper = styled.div`
+  margin-top: 22px;
+  height: 21px;
+  
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  color: #FF4545;
+  text-align: center;
+`;
+
 const PolicyDescription = styled.div`
   display: flex;
-  margin-top: 109px;
+  margin-top: 66px;
 
   font-size: 12px;
   line-height: 18px;
