@@ -25,7 +25,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
 
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
-  const [profileElementHolder, setProfileElementHolder] = useState(null);
+  const [dotMenuElementHolder, setDotMenuElementHolder] = useState(null);
   const dotMenuRef = React.createRef();
 
   const [isOpenShareSuccessModal, setIsOpenShareSuccessModal] = useState(false);
@@ -35,7 +35,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
   const [newFolderName, setNewFolderName] = useState('');
 
   useEffect(() => {
-    setProfileElementHolder(dotMenuRef.current);
+    setDotMenuElementHolder(dotMenuRef.current);
   }, [dotMenuRef]);
 
   const openDropdownMenu = (e) => {
@@ -132,7 +132,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
       <DropdownMenu
         isOpen={isOpenDropdownMenu}
         closeHandler={closeDropdownMenu}
-        anchorEl={profileElementHolder}
+        anchorEl={dotMenuElementHolder}
         sharedText={getSharedText()}
         shareTextSuccessHandler={handleShareTextSuccess}
         {...{ openDeleteFolderModal, openRenameFolderModal }}
