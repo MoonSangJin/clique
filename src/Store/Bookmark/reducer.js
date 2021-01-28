@@ -11,7 +11,6 @@ import {
   renameBookmarkFolderSuccess,
 } from './actions';
 
-
 const initState = {
   bookmarkFolderList: [],
   bookmarkList: [],
@@ -23,10 +22,12 @@ const bookmarkReducer = createReducer(initState, {
     bookmarkFolderList: action.payload.bookmarkFolderList,
   }),
   [fetchBookmarkFolderFailure]: (state) => state,
-  [renameBookmarkFolderSuccess]: (state, action) => ({
-    ...state,
-    //bookmarkFolderList: state.filter
-  }),
+  [renameBookmarkFolderSuccess]: (state) => {
+    // Todo(MoonSangJin): reducer action 내부의 state에서 bookmarkList에 접근이 안되어 renameBookmarkFolderSuccess 로직을 넣을 수 없다.
+    //                  현재는 saga에서 delete에 성공했을 때 deleteBookmarkFolderSuccess 대신 fetchBookmarkFolderRequest를 dispatch 한다.
+
+    return state;
+  },
   [renameBookmarkFolderFailure]: (state) => state,
   [deleteBookmarkFolderSuccess]: (state) => {
     // Todo(maitracle): reducer action 내부의 state에서 bookmarkList에 접근이 안되어 deleteBookmarkFolderSuccess 로직을 넣을 수 없다.
