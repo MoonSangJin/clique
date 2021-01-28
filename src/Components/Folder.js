@@ -9,10 +9,14 @@ import PopoverController from './Popover/PopoverController';
 import DropdownMenu from '../Modules/Folder/DropdownMenu';
 import OptionIcon from './OptionIcon';
 import Modal from './Modal';
+
 import CheckGraySrc from '../assets/img/checkGray.png';
+import deleteModalImage from '../assets/img/deleteModalImage';
 import DefaultImageSrc from '../assets/img/FolderItemImages/1.png';
+import blankListFolder from '../assets/img/blankListFolder.png';
 
 import { deleteBookmarkFolderRequest } from '../Store/Bookmark/actions';
+import { renameBookmarkFolderRequest } from '../Store/Bookmark/actions';
 import { getTimeDeltaString } from '../Utils/datetimeHandler';
 
 export default function Folder({ folderData, folderCoverImageSrc }) {
@@ -26,6 +30,9 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
 
   const [isOpenShareSuccessModal, setIsOpenShareSuccessModal] = useState(false);
   const [isOpenDeleteFolderModal, setIsOpenDeleteFolderModal] = useState(false);
+  const [isOpenRenameFolderModal, setIsOpenRenameFolderModal] = useState(false);
+
+  const [newFolderName, setNewFolderName] = useState('');
 
   useEffect(() => {
     setProfileElementHolder(dotMenuRef.current);
@@ -71,6 +78,23 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
     setIsOpenDeleteFolderModal(false);
   };
 
+  const openRenameFolderModal = () => {
+    closeDropdownMenu();
+    setIsOpenRenameFolderModal(true);
+  };
+  const handleRenameFolder = () => {
+    dispatch(
+      renameBookmarkFolderRequest({
+        folderId: folderData.id,
+        name: newFolderName,
+      })
+    );
+    setIsOpenRenameFolderModal(false);
+  };
+  const handleNewFolderName = (e) => {
+    setNewFolderName(e.target.value);
+  };
+
   return (
     <>
       <StyledLink to={`/detail/${folderData.id}`}>
@@ -105,22 +129,20 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
           </ContentsWrapper>
         </Container>
       </StyledLink>
-
       <DropdownMenu
         isOpen={isOpenDropdownMenu}
         closeHandler={closeDropdownMenu}
         anchorEl={profileElementHolder}
         sharedText={getSharedText()}
         shareTextSuccessHandler={handleShareTextSuccess}
-        {...{ openDeleteFolderModal }}
+        {...{ openDeleteFolderModal, openRenameFolderModal }}
       />
-
       <Modal
         isOpen={isOpenShareSuccessModal}
         closeHandler={() => setIsOpenShareSuccessModal(false)}
       >
         <ModalContentsWrapper>
-          <CheckGrayImage src={CheckGraySrc} />
+          <ModalImage src={CheckGraySrc} />
           <PhrasesWrapper>
             <ModalTitle>Success!</ModalTitle>
             <ModalPhrases>
@@ -140,7 +162,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
         closeHandler={() => setIsOpenDeleteFolderModal(false)}
       >
         <ModalContentsWrapper>
-          <CheckGrayImage src={CheckGraySrc} />
+          <ModalImage src={deleteModalImage} />
           <PhrasesWrapper>
             <ModalTitle>
               Are you sure you want to delete this folder?
@@ -152,6 +174,25 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
             Cancel
           </ModalWhiteButton>
           <ModalButton onClick={handleDeleteFolder}>Yes</ModalButton>
+        </ModalButtonWrapper>
+      </Modal>
+
+      <Modal
+        isOpen={isOpenRenameFolderModal}
+        closeHandler={() => setIsOpenRenameFolderModal(false)}
+      >
+        <ModalContentsWrapper>
+          <ModalImage src={blankListFolder} />
+          <PhrasesWrapper>
+            <ModalTitle>Rename Bookmark Folder</ModalTitle>
+          </PhrasesWrapper>
+        </ModalContentsWrapper>
+        <ModalInput onChange={handleNewFolderName} />
+        <ModalButtonWrapper>
+          <ModalWhiteButton onClick={() => setIsOpenRenameFolderModal(false)}>
+            Cancel
+          </ModalWhiteButton>
+          <ModalButton onClick={handleRenameFolder}>Save</ModalButton>
         </ModalButtonWrapper>
       </Modal>
     </>
@@ -262,7 +303,7 @@ const ModalContentsWrapper = styled.div`
   flex-direction: row;
 `;
 
-const CheckGrayImage = styled.img`
+const ModalImage = styled.img`
   width: 22px;
   height: 22px;
   margin-top: 1px;
@@ -331,4 +372,14 @@ const ModalWhiteButton = styled.button`
   letter-spacing: -0.02em;
   color: #7785ff;
   border: 1px solid #7785ff;
+`;
+
+const ModalInput = styled.input`
+  all: unset;
+  width: 500px;
+  height: 45px;
+  background: #f5f7f8;
+  border-radius: 50px;
+  margin-top: 21px;
+  text-indent: 23px;
 `;
