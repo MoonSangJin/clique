@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import backSpace from '../assets/img/backSpace';
@@ -8,9 +8,15 @@ import Modal from './Modal';
 import { crawlPage } from '../Utils/crawlHandler';
 import Input from './Input';
 import BookmarkItem from '../Modules/Bookmark/BookmarkItem';
+import { fetchBookmarkFolderRequest, fetchBookmarkRequest } from '../Store/Bookmark/actions';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 
 export default function DetailForm({ folderData, detailDataList, handleAddBookmark }) {
+  const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
+  const dispatch = useDispatch();
+
   const [isOpenAddBookmarkModal, setIsOpenAddBookmarkModal] = useState(false);
   const [newBookmarkInfo, setNewBookmarkInfo] = useState({
     bookmarkFolderId: folderData.id,
@@ -19,6 +25,18 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
     scrollPos: 0,
     faviconUrl: '',
   });
+
+  useEffect(() => {
+    if (!bookmarkReducer.isInitializedBookmarkFolderList) {
+      dispatch(fetchBookmarkFolderRequest());
+    }
+  }, [bookmarkReducer.isInitializedBookmarkFolderList, dispatch]);
+
+  useEffect(() => {
+    if (!bookmarkReducer.isInitializedBookmarkList) {
+      dispatch(fetchBookmarkRequest());
+    }
+  }, [bookmarkReducer.isInitializedBookmarkList, dispatch]);
 
   const changeUrl = (e) => {
     setNewBookmarkInfo((bookmarkInfo) => ({ ...bookmarkInfo, url: e.target.value }));

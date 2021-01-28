@@ -15,14 +15,13 @@ import deleteModalImage from '../assets/img/deleteModalImage';
 import DefaultImageSrc from '../assets/img/FolderItemImages/1.png';
 import blankListFolder from '../assets/img/blankListFolder.png';
 
-import { deleteBookmarkFolderRequest } from '../Store/Bookmark/actions';
-import { renameBookmarkFolderRequest } from '../Store/Bookmark/actions';
+import { deleteBookmarkFolderRequest, renameBookmarkFolderRequest } from '../Store/Bookmark/actions';
 import { getTimeDeltaString } from '../Utils/datetimeHandler';
 
-export default function Folder({ folderData, folderCoverImageSrc }) {
-  const dispatch = useDispatch();
 
+export default function Folder({ folderData, folderCoverImageSrc }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
+  const dispatch = useDispatch();
 
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
   const [dotMenuElementHolder, setDotMenuElementHolder] = useState(null);
