@@ -1,17 +1,18 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import {
+  createBookmarkRequest,
+  deleteBookmarkFolderFailure,
+  deleteBookmarkFolderRequest,
+  fetchBookmarkFailure,
+  fetchBookmarkFolderFailure,
   fetchBookmarkFolderRequest,
   fetchBookmarkFolderSuccess,
-  fetchBookmarkFolderFailure,
   fetchBookmarkRequest,
   fetchBookmarkSuccess,
-  fetchBookmarkFailure,
-  deleteBookmarkFolderRequest,
-  deleteBookmarkFolderSuccess,
-  deleteBookmarkFolderFailure, createBookmarkRequest,
 } from './actions';
 import { getAccessToken } from '../../Utils/tokenHandler';
 import { request } from '../../Utils/request';
+
 
 const fetchBookmarkFolderApi = (token) =>
   request({
@@ -44,7 +45,7 @@ function* deleteBookmarkFolderAsync({ payload }) {
     const token = yield call(getAccessToken);
     yield call(deleteBookmarkFolderApi, token, folderId);
     yield put(
-      deleteBookmarkFolderSuccess({ deletedBookmarkFolderId: folderId })
+      fetchBookmarkFolderRequest(),
     );
   } catch (e) {
     yield put(deleteBookmarkFolderFailure());
