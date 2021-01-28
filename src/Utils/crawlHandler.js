@@ -22,7 +22,7 @@ const _getInfoFromHtml = (html) => {
 
   return {
     title: cheerData('title').text(),
-    faviconUrl: cheerData('link[rel="shortcut iconddd"]').attr('href'),
+    faviconUrl: cheerData('link[rel="shortcut icon"]').attr('href'),
   };
 };
 

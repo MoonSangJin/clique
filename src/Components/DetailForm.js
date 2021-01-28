@@ -29,11 +29,15 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
   const [isOpenAddBookmarkModal, setIsOpenAddBookmarkModal] = useState(false);
   const [newBookmarkInfo, setNewBookmarkInfo] = useState({
     bookmarkFolderId: folderData.id,
-    url: 'https://www.naver.com/',
-    title: '네이버!!!',
+    url: '',
+    title: '',
     scrollPos: 0,
-    faviconUrl: 'https://www.naver.com/favicon.ico',
+    faviconUrl: '',
   });
+
+  const changeUrl = (e) => {
+    setNewBookmarkInfo((bookmarkInfo) => ({...bookmarkInfo, url: e.target.value}))
+  };
 
   const goBack = () => window.history.back();
 
@@ -43,10 +47,11 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
     });
   };
 
-  const fetchPageInfoFromUrl = () => {
+  const fetchPageInfoFromUrl = async () => {
+    const crawledInfo = await crawlPage(newBookmarkInfo.url);
     setNewBookmarkInfo((bookmarkInfo) => ({
       ...bookmarkInfo,
-      ...crawlPage('naver.com'),
+      ...crawledInfo,
     }));
   };
 
@@ -96,7 +101,7 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
           Add to <span>{folderData.name}</span>
         </div>
         <div>
-          <MInput value={newBookmarkInfo.url} onBlur={fetchPageInfoFromUrl} />
+          <MInput value={newBookmarkInfo.url} onChange={changeUrl} onBlur={fetchPageInfoFromUrl} />
         </div>
         <div>
           <MInput value={newBookmarkInfo.title} onBlur={() => console.log('blur')} />
