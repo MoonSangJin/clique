@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserRequest } from '../Store/User/actions';
 import { getAccessToken } from '../Utils/tokenHandler';
 
+
 export default function Gnb() {
   const userReducer = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
@@ -52,9 +53,16 @@ export default function Gnb() {
           <Logo />
         </StyledLink>
 
-        <PopoverController onClick={openDropdownMenu} ref={ref}>
-          <Profile profileImageSrc={defaultImage} />
-        </PopoverController>
+        {
+          userReducer.user.isLoggedIn ?
+            <PopoverController onClick={openDropdownMenu} ref={ref}>
+              <Profile profileImageSrc={defaultImage} />
+            </PopoverController>
+            :
+            <StyledLink to={'/sign-in/'}>
+              <Profile profileImageSrc={defaultImage} />
+            </StyledLink>
+        }
       </Wrapper>
       <ProfileMenu
         isOpen={isOpenDropdownMenu}
