@@ -6,8 +6,8 @@ import DetailWhiteButton from './DetailWhiteButton';
 import DetailPurpleButton from './DetailPurpleButton';
 import OptionIcon from './OptionIcon';
 import Modal from './Modal';
-import { Input as MInput } from '@material-ui/core/';
 import { crawlPage } from '../Utils/crawlHandler';
+import Input from './Input';
 
 
 const BookmarkItem = ({ detailData }) => {
@@ -36,7 +36,11 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
   });
 
   const changeUrl = (e) => {
-    setNewBookmarkInfo((bookmarkInfo) => ({...bookmarkInfo, url: e.target.value}))
+    setNewBookmarkInfo((bookmarkInfo) => ({ ...bookmarkInfo, url: e.target.value }));
+  };
+
+  const changeTitle = (e) => {
+    setNewBookmarkInfo((bookmarkInfo) => ({ ...bookmarkInfo, title: e.target.value }));
   };
 
   const goBack = () => window.history.back();
@@ -97,18 +101,20 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
         isOpen={isOpenAddBookmarkModal}
         closeHandler={closeModalAndClearBookmarkInfo}
       >
-        <div>
+        <ModalContentsWrapper>
           Add to <span>{folderData.name}</span>
-        </div>
-        <div>
-          <MInput value={newBookmarkInfo.url} onChange={changeUrl} onBlur={fetchPageInfoFromUrl} />
-        </div>
-        <div>
-          <MInput value={newBookmarkInfo.title} onBlur={() => console.log('blur')} />
-        </div>
-        <div>
-          <button onClick={addBookmarkAndCloseModal}>추가</button>
-        </div>
+          <ModalInputWrapper>
+            <Input value={newBookmarkInfo.url} onChange={changeUrl} validationMessage={''}
+                   onBlur={fetchPageInfoFromUrl} />
+          </ModalInputWrapper>
+          <div>
+            <Input value={newBookmarkInfo.title} onChange={changeTitle} validationMessage={''} />
+          </div>
+          <ModalButtonWrapper>
+            <ModalCancelButton onClick={closeModalAndClearBookmarkInfo}>Cancel</ModalCancelButton>
+            <ModalSaveButton onClick={addBookmarkAndCloseModal}>Save</ModalSaveButton>
+          </ModalButtonWrapper>
+        </ModalContentsWrapper>
       </Modal>
     </>
   );
@@ -242,4 +248,48 @@ const Left = styled.div`
 const Right = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const ModalContentsWrapper = styled.div`
+  width: 500px;
+`;
+
+const ModalInputWrapper = styled.div`
+  margin-top: 31px;
+  width: 100%;
+`;
+
+const ModalButtonWrapper = styled.div`
+  display: flex;
+`;
+
+const ModalCancelButton = styled.button`
+  margin-left: auto;
+  width: 72px;
+  height: 33px;
+  border: 1px solid #7785FF;
+  border-radius: 3px;
+  background-color: white;
+  box-sizing: border-box;
+  
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 15px;
+  letter-spacing: -0.02em;
+  color: #7785FF;
+`;
+
+const ModalSaveButton = styled.button`
+  width: 72px;
+  height: 33px;
+  background: #7785FF;
+  border: 0;
+  border-radius: 3px;
+  margin-left: 8px;
+  
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 15px;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
 `;
