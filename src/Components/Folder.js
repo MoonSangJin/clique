@@ -15,17 +15,16 @@ import deleteFolderModalImage from '../assets/img/deleteModalImage';
 import defaultImage from '../assets/img/FolderItemImages/1.png';
 import blankListFolder from '../assets/img/blankListFolder.png';
 
-import { deleteBookmarkFolderRequest } from '../Store/Bookmark/actions';
-import { renameBookmarkFolderRequest } from '../Store/Bookmark/actions';
+import { deleteBookmarkFolderRequest, renameBookmarkFolderRequest } from '../Store/Bookmark/actions';
 import { getTimeDeltaString } from '../Utils/datetimeHandler';
 
+
 export default function Folder({ folderData, folderCoverImageSrc }) {
+  const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
   const dispatch = useDispatch();
 
-  const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
-
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
-  const [profileElementHolder, setProfileElementHolder] = useState(null);
+  const [dotMenuElementHolder, setDotMenuElementHolder] = useState(null);
   const dotMenuRef = React.createRef();
 
   const [isOpenShareSuccessModal, setIsOpenShareSuccessModal] = useState(false);
@@ -35,7 +34,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
   const [newFolderName, setNewFolderName] = useState('');
 
   useEffect(() => {
-    setProfileElementHolder(dotMenuRef.current);
+    setDotMenuElementHolder(dotMenuRef.current);
   }, [dotMenuRef]);
 
   const openDropdownMenu = (e) => {
@@ -132,7 +131,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
       <DropdownMenu
         isOpen={isOpenDropdownMenu}
         closeHandler={closeDropdownMenu}
-        anchorEl={profileElementHolder}
+        anchorEl={dotMenuElementHolder}
         sharedText={getSharedText()}
         shareTextSuccessHandler={handleShareTextSuccess}
         {...{ openDeleteFolderModal, openRenameFolderModal }}

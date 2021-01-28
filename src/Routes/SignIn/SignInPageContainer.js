@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import SignInPagePresenter from './SignInPagePresenter';
-import { signInRequest } from '../../Store/User/actions';
+import { setSignInErrorMessage, signInRequest } from '../../Store/User/actions';
+
 
 const SignInPageContainer = () => {
   const userReducer = useSelector((state) => state.userReducer);
@@ -65,6 +66,10 @@ const SignInPageContainer = () => {
     }
   };
 
+  const eraseSignInValidationMessage = () => {
+    dispatch(setSignInErrorMessage(''))
+  };
+
   return (
     <>
       <SignInPagePresenter
@@ -75,6 +80,8 @@ const SignInPageContainer = () => {
           setEmailValidationMessage,
           passwordValidationMessage,
           setPasswordValidationMessage,
+          signInValidationMessage: userReducer.signInErrorMessage,
+          eraseSignInValidationMessage,
           handleSignIn,
           emailChangeHandler,
           passwordChangeHandler,

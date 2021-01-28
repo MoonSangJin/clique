@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { removeUserInfo, setUserInfo } from './actions';
+import { removeUserInfo, setSignInErrorMessage, setUserInfo } from './actions';
+
 
 const initState = {
   user: {
@@ -9,6 +10,7 @@ const initState = {
     email: '',
     profileImageUrl: '',
   },
+  signInErrorMessage: '',
 };
 
 const userReducer = createReducer(initState, {
@@ -29,6 +31,10 @@ const userReducer = createReducer(initState, {
       email: '',
       profileImageUrl: '',
     },
+  }),
+  [setSignInErrorMessage]: (state, action) => ({
+    ...state,
+    signInErrorMessage: action.payload,
   }),
 });
 

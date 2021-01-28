@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 
 import Popover from '../../Components/Popover';
 import { removeUserInfo } from '../../Store/User/actions';
-import { Link } from 'react-router-dom';
 import { removeAccessToken } from '../../Utils/tokenHandler';
+
 
 const ProfileMenu = ({
   isOpen,
@@ -13,7 +13,6 @@ const ProfileMenu = ({
   anchorEl,
   email,
   profileImageSrc,
-  isLoggedIn,
 }) => {
   const dispatch = useDispatch();
 
@@ -31,19 +30,9 @@ const ProfileMenu = ({
       onClickFunction: () => {
         removeAccessToken().then(() => {
           dispatch(removeUserInfo());
+          closeHandler();
         });
       },
-    },
-  ];
-
-  const notLoggedInMenu = [
-    {
-      menuName: 'Sign In',
-      linkSrc: '/sign-in/',
-    },
-    {
-      menuName: 'Sign up',
-      linkSrc: '/sign-up/',
     },
   ];
 
@@ -55,6 +44,7 @@ const ProfileMenu = ({
       position={'hover'}
     >
       <MenuWrapper>
+
         <Panel>
           <ProfilePanel>
             <Information>
@@ -64,17 +54,13 @@ const ProfileMenu = ({
             <ProfileImage src={profileImageSrc} />
           </ProfilePanel>
         </Panel>
-        {isLoggedIn
-          ? profileMenuInfo.map((info) => (
-              <MenuItem key={info.menuName} onClick={info.onClickFunction}>
-                {info.menuName}
-              </MenuItem>
-            ))
-          : notLoggedInMenu.map((info) => (
-              <MenuItem key={info.menuName}>
-                <StyledLink to={info.linkSrc}>{info.menuName}</StyledLink>
-              </MenuItem>
-            ))}
+        {
+          profileMenuInfo.map((info) => (
+            <MenuItem key={info.menuName} onClick={info.onClickFunction}>
+              {info.menuName}
+            </MenuItem>
+          ))
+        }
       </MenuWrapper>
     </Popover>
   );
@@ -131,10 +117,6 @@ const MenuItem = styled.div`
   &:hover {
     cursor: pointer;
   }
-`;
-
-const StyledLink = styled(Link)`
-  all: unset;
 `;
 
 export default ProfileMenu;
