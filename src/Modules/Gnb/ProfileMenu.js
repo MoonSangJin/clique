@@ -30,6 +30,7 @@ const ProfileMenu = ({
       onClickFunction: () => {
         removeAccessToken().then(() => {
           dispatch(removeUserInfo());
+          closeHandler();
         });
       },
     },
