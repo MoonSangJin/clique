@@ -5,7 +5,7 @@ import DropdownMenu from './DropdownMenu';
 import PopoverController from '../../Components/Popover/PopoverController';
 import { useDispatch } from 'react-redux';
 import Modal from '../../Components/Modal';
-import { renameBookmarkRequest } from '../../Store/Bookmark/actions';
+import { deleteBookmarkRequest, renameBookmarkRequest } from '../../Store/Bookmark/actions';
 
 
 const BookmarkItem = ({ detailData }) => {
@@ -37,8 +37,8 @@ const BookmarkItem = ({ detailData }) => {
     setIsOpenRenameBookmarkModal(false);
   };
 
-  const deleteBookmarkModal = () => {
-    dispatch();
+  const deleteBookmark = () => {
+    dispatch(deleteBookmarkRequest({bookmarkId: id}));
     setIsOpenDropdownMenu(false);
   };
 
@@ -60,7 +60,7 @@ const BookmarkItem = ({ detailData }) => {
         closeHandler={() => setIsOpenDropdownMenu(false)}
         anchorEl={dotMenuElementHolder}
         openRenameBookmarkModal={openRenameModalAndFillInputBox}
-        openDeleteBookmarkModal={deleteBookmarkModal}
+        deleteBookmark={deleteBookmark}
       />
 
       <Modal

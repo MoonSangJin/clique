@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import {
   createBookmarkRequest,
   deleteBookmarkFolderFailure,
-  deleteBookmarkFolderRequest,
+  deleteBookmarkFolderRequest, deleteBookmarkRequest,
   fetchBookmarkFailure,
   fetchBookmarkFolderFailure,
   fetchBookmarkFolderRequest,
@@ -134,6 +134,23 @@ function* renameBookmarkAsync({ payload }) {
   }
 }
 
+const deleteBookmarkApi = async (token, bookmarkId) => request({
+  url: `/bookmark/${bookmarkId}`,
+  method: 'DELETE',
+  headers: { Authorization: `Bearer ${token}` },
+});
+
+
+function* deleteBookmarkAsync({ payload }) {
+  try {
+    const token = yield call(getAccessToken);
+    yield call(deleteBookmarkApi, token, payload.bookmarkId);
+
+    yield put(fetchBookmarkRequest());
+  } catch (e) {
+  }
+}
+
 
 export function* watchBookmark() {
   yield takeEvery(fetchBookmarkFolderRequest, fetchBookmarkFolderAsync);
@@ -142,4 +159,5 @@ export function* watchBookmark() {
   yield takeEvery(fetchBookmarkRequest, fetchBookmarkAsync);
   yield takeEvery(createBookmarkRequest, createBookmarkAsync);
   yield takeEvery(renameBookmarkRequest, renameBookmarkAsync);
+  yield takeEvery(deleteBookmarkRequest, deleteBookmarkAsync);
 }

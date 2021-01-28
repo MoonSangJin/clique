@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Popover from '../../Components/Popover';
 
 
-const DropdownMenu = ({ isOpen, closeHandler, anchorEl, openRenameBookmarkModal, deleteBookmarkModal }) => {
+const DropdownMenu = ({ isOpen, closeHandler, anchorEl, openRenameBookmarkModal, deleteBookmark }) => {
   return (
     <Popover
       isOpen={isOpen}
@@ -14,7 +14,7 @@ const DropdownMenu = ({ isOpen, closeHandler, anchorEl, openRenameBookmarkModal,
     >
       <MenuWrapper>
         <MenuItem onClick={openRenameBookmarkModal}>Rename</MenuItem>
-        <MenuItem onClick={deleteBookmarkModal}>Delete bookmark</MenuItem>
+        <MenuItem onClick={deleteBookmark}>Delete bookmark</MenuItem>
       </MenuWrapper>
     </Popover>
   );

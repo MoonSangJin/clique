@@ -1,5 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
+
 const FETCH_BOOKMARK_FOLDER_REQUEST = 'bookmarks/FETCH_BOOKMARK_FOLDER_REQUEST';
 const FETCH_BOOKMARK_FOLDER_SUCCESS = 'bookmarks/FETCH_BOOKMARK_FOLDER_SUCCESS';
 const FETCH_BOOKMARK_FOLDER_FAILURE = 'bookmarks/FETCH_BOOKMARK_FOLDER_FAILURE';
@@ -29,6 +30,10 @@ const CREATE_BOOKMARK_FAILURE = 'bookmarks/CREATE_BOOKMARK_FAILURE';
 const RENAME_BOOKMARK_REQUEST = 'bookmarks/RENAME_BOOKMARK_REQUEST';
 const RENAME_BOOKMARK_SUCCESS = 'bookmarks/RENAME_BOOKMARK_SUCCESS';
 const RENAME_BOOKMARK_FAILURE = 'bookmarks/RENAME_BOOKMARK_FAILURE';
+
+const DELETE_BOOKMARK_REQUEST = 'bookmarks/DELETE_BOOKMARK_REQUEST';
+const DELETE_BOOKMARK_SUCCESS = 'bookmarks/DELETE_BOOKMARK_SUCCESS';
+const DELETE_BOOKMARK_FAILURE = 'bookmarks/DELETE_BOOKMARK_FAILURE';
 
 export const fetchBookmarkFolderRequest = createAction(
   FETCH_BOOKMARK_FOLDER_REQUEST
@@ -71,6 +76,10 @@ export const createBookmarkFailure = createAction(CREATE_BOOKMARK_FAILURE);
 export const renameBookmarkRequest = createAction(RENAME_BOOKMARK_REQUEST);
 export const renameBookmarkSuccess = createAction(RENAME_BOOKMARK_SUCCESS);
 export const renameBookmarkFailure = createAction(RENAME_BOOKMARK_FAILURE);
+
+export const deleteBookmarkRequest = createAction(DELETE_BOOKMARK_REQUEST);
+export const deleteBookmarkSuccess = createAction(DELETE_BOOKMARK_SUCCESS);
+export const deleteBookmarkFailure = createAction(DELETE_BOOKMARK_FAILURE);
 
 
 
