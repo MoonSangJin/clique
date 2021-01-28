@@ -3,17 +3,38 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DropdownMenu from './DropdownMenu';
 import PopoverController from '../../Components/Popover/PopoverController';
+import { useDispatch } from 'react-redux';
+import Modal from '../../Components/Modal';
 
 
 const BookmarkItem = ({ detailData }) => {
   const { faviconUrl, title, url } = detailData;
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
+  const [isOpenRenameBookmarkModal, setIsOpenRenameBookmarkModal] = useState(false);
+  const [newBookmarkName, setNewBookmarkName] = useState('');
   const [dotMenuElementHolder, setDotMenuElementHolder] = useState(null);
   const dotMenuRef = React.createRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setDotMenuElementHolder(dotMenuRef.current);
   }, [dotMenuRef]);
+
+  const openRenameModalAndFillInputBox = () => {
+    setNewBookmarkName(title);
+    setIsOpenDropdownMenu(false);
+    setIsOpenRenameBookmarkModal(true);
+  };
+
+  const closeModalAndClearBookmarkInfo = () => {
+    setIsOpenRenameBookmarkModal(false);
+    setNewBookmarkName('');
+  };
+
+  const deleteBookmarkModal = () => {
+    dispatch();
+    setIsOpenDropdownMenu(false);
+  };
 
   return (
     <>
@@ -32,7 +53,25 @@ const BookmarkItem = ({ detailData }) => {
         isOpen={isOpenDropdownMenu}
         closeHandler={() => setIsOpenDropdownMenu(false)}
         anchorEl={dotMenuElementHolder}
+        openRenameBookmarkModal={openRenameModalAndFillInputBox}
+        openDeleteBookmarkModal={deleteBookmarkModal}
       />
+
+      <Modal
+        isOpen={isOpenRenameBookmarkModal}
+        closeHandler={closeModalAndClearBookmarkInfo}
+      >
+        <ModalContentsWrapper>
+          <ModalTitle>Rename Bookmark</ModalTitle>
+          <ModalInput onChange={(e) => setNewBookmarkName(e.target.value)} value={newBookmarkName} />
+          <ModalButtonWrapper>
+            <ModalCancelButton onClick={closeModalAndClearBookmarkInfo}>
+              Cancel
+            </ModalCancelButton>
+            <ModalSaveButton onClick={() => null}>Save</ModalSaveButton>
+          </ModalButtonWrapper>
+        </ModalContentsWrapper>
+      </Modal>
     </>
   );
 };
@@ -99,5 +138,73 @@ const Url = styled.div`
   text-decoration-line: underline;
   color: #90a0ad;
 `;
+
+const ModalContentsWrapper = styled.div`
+
+`;
+
+const ModalTitle = styled.div`
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+
+  color: #000000;
+`;
+
+const ModalInput = styled.input`
+  all: unset;
+  width: 500px;
+  height: 45px;
+  background: #f5f7f8;
+  border-radius: 50px;
+  margin-top: 21px;
+  text-indent: 23px;
+`;
+
+const ModalButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 39px;
+`;
+
+const ModalCancelButton = styled.button`
+  all: unset;
+  width: 72px;
+  height: 33px;
+  border-radius: 3px;
+  background: #ffffff;
+  &:hover {
+    cursor: pointer;
+  }
+
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #7785ff;
+  border: 1px solid #7785ff;
+`;
+
+const ModalSaveButton = styled.button`
+  all: unset;
+  width: 72px;
+  height: 33px;
+  background: #7785ff;
+  border-radius: 3px;
+  &:hover {
+    cursor: pointer;
+  }
+
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  border: 1px solid #7785ff;
+  margin-left: 8px;
+`;
+
 
 export default BookmarkItem;

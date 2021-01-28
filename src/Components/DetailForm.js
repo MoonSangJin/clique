@@ -218,10 +218,10 @@ const ModalInputWrapper = styled.div`
 
 const ModalButtonWrapper = styled.div`
   display: flex;
+  justify-content: flex-end;
 `;
 
 const ModalCancelButton = styled.button`
-  margin-left: auto;
   width: 72px;
   height: 33px;
   border: 1px solid #7785FF;
