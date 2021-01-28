@@ -164,7 +164,6 @@ const Title = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  font-family: Poppins;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -220,7 +219,6 @@ const UrlTitle = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  font-family: Poppins;
   font-size: 14px;
   line-height: 21px;
   letter-spacing: -0.02em;
@@ -237,7 +235,6 @@ const Url = styled.div`
   text-align: right;
   white-space: nowrap;
 
-  font-family: Poppins;
   font-size: 12px;
   line-height: 17px;
   letter-spacing: -0.02em;

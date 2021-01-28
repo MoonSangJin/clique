@@ -203,7 +203,6 @@ const FavoriteIcon = styled.img`
 const FolderName = styled.div`
   width: 185px;
   display: block;
-  font-family: Poppins;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -219,7 +218,6 @@ const FolderName = styled.div`
 const FolderTime = styled.div`
   margin-top: 2px;
 
-  font-family: Poppins;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;

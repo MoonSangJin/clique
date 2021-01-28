@@ -75,7 +75,6 @@ const Folder = styled.img.attrs(({ favorite }) =>
 
 const Text = styled.div`
   display: block;
-  font-family: Poppins;
   font-style: normal;
   font-weight: normal;
   font-size: 20px;

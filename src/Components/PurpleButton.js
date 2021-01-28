@@ -14,7 +14,6 @@ const Container = styled.button`
 `;
 
 const Text = styled.span`
-  font-family: Poppins;
   font-style: normal;
   font-weight: bold;
   font-size: 12px;
