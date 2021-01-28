@@ -46,7 +46,7 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
   const fetchPageInfoFromUrl = () => {
     setNewBookmarkInfo((bookmarkInfo) => ({
       ...bookmarkInfo,
-      ...crawlPage(newBookmarkInfo.url),
+      ...crawlPage('naver.com'),
     }));
   };
 
