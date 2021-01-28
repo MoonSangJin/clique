@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import backSpace from '../assets/img/backSpace';
 import DetailWhiteButton from './DetailWhiteButton';
 import DetailPurpleButton from './DetailPurpleButton';
 import OptionIcon from './OptionIcon';
+import Modal from './Modal';
+import { crawlPage } from '../Utils/crawlHandler';
+import Input from './Input';
+
 
 const BookmarkItem = ({ detailData }) => {
   const { faviconUrl, title, url } = detailData;
@@ -21,36 +25,103 @@ const BookmarkItem = ({ detailData }) => {
   );
 };
 
-export default function DetailForm({ folderData, detailDataList }) {
+export default function DetailForm({ folderData, detailDataList, handleAddBookmark }) {
+  const [isOpenAddBookmarkModal, setIsOpenAddBookmarkModal] = useState(false);
+  const [newBookmarkInfo, setNewBookmarkInfo] = useState({
+    bookmarkFolderId: folderData.id,
+    url: '',
+    title: '',
+    scrollPos: 0,
+    faviconUrl: '',
+  });
+
+  const changeUrl = (e) => {
+    setNewBookmarkInfo((bookmarkInfo) => ({ ...bookmarkInfo, url: e.target.value }));
+  };
+
+  const changeTitle = (e) => {
+    setNewBookmarkInfo((bookmarkInfo) => ({ ...bookmarkInfo, title: e.target.value }));
+  };
+
+  const goBack = () => window.history.back();
+
   const openAllBookmarks = () => {
     detailDataList.forEach((detailData) => {
       window.open(detailData.url, '_blank');
     });
   };
 
-  const goBack = () => window.history.back();
+  const fetchPageInfoFromUrl = async () => {
+    const crawledInfo = await crawlPage(newBookmarkInfo.url);
+    setNewBookmarkInfo((bookmarkInfo) => ({
+      ...bookmarkInfo,
+      ...crawledInfo,
+    }));
+  };
+
+  const closeModalAndClearBookmarkInfo = () => {
+    setNewBookmarkInfo({
+      bookmarkFolderId: folderData.id,
+      url: '',
+      title: '',
+      scrollPos: 0,
+      faviconUrl: '',
+    });
+    setIsOpenAddBookmarkModal(false);
+  };
+
+  const addBookmarkAndCloseModal = () => {
+    handleAddBookmark(newBookmarkInfo);
+    closeModalAndClearBookmarkInfo();
+  };
 
   return (
-    <Container>
-      <TitleRow>
-        <Left>
-          <BackSpace onClick={goBack} src={backSpace} />
-          <Title>{folderData.name}</Title>
-        </Left>
-        <Right>
-          <DetailWhiteButton onClick={openAllBookmarks} />
-          <DetailPurpleButtonWrapper>
-            <DetailPurpleButton />
-          </DetailPurpleButtonWrapper>
-        </Right>
-      </TitleRow>
-      <GrayHorizontail />
-      <UrlListWrapper>
-        {detailDataList.map((detailData) => {
-          return <BookmarkItem key={detailData.id} {...{ detailData }} />;
-        })}
-      </UrlListWrapper>
-    </Container>
+    <>
+      <Container>
+        <TitleRow>
+          <Left>
+            <BackSpace onClick={goBack} src={backSpace} />
+            <Title>{folderData.name}</Title>
+          </Left>
+          <Right>
+            <DetailWhiteButton onClick={openAllBookmarks} />
+            <DetailPurpleButtonWrapper>
+              <DetailPurpleButton onClick={() => setIsOpenAddBookmarkModal(true)} />
+            </DetailPurpleButtonWrapper>
+          </Right>
+        </TitleRow>
+        <GrayHorizontail />
+        <UrlListWrapper>
+          {detailDataList.map((detailData) => {
+            return <BookmarkItem key={detailData.id} {...{ detailData }} />;
+          })}
+        </UrlListWrapper>
+      </Container>
+      <Modal
+        isOpen={isOpenAddBookmarkModal}
+        closeHandler={closeModalAndClearBookmarkInfo}
+      >
+        <ModalContentsWrapper>
+          <ModalTitle>
+            Add to <ModalFolderName>{folderData.name}</ModalFolderName>
+          </ModalTitle>
+
+          <ModalInputWrapper>
+            <Input value={newBookmarkInfo.url} onChange={changeUrl} validationMessage={''}
+                   onBlur={fetchPageInfoFromUrl} />
+          </ModalInputWrapper>
+
+          <div>
+            <Input value={newBookmarkInfo.title} onChange={changeTitle} validationMessage={''} />
+          </div>
+
+          <ModalButtonWrapper>
+            <ModalCancelButton onClick={closeModalAndClearBookmarkInfo}>Cancel</ModalCancelButton>
+            <ModalSaveButton onClick={addBookmarkAndCloseModal}>Save</ModalSaveButton>
+          </ModalButtonWrapper>
+        </ModalContentsWrapper>
+      </Modal>
+    </>
   );
 }
 
@@ -182,4 +253,61 @@ const Left = styled.div`
 const Right = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const ModalContentsWrapper = styled.div`
+  width: 500px;
+`;
+
+const ModalTitle = styled.div`
+  font-size: 16px;
+  line-height: 24px;
+  align-items: center;
+  letter-spacing: -0.02em;
+  color: #000000;
+`;
+
+const ModalFolderName = styled.span`
+  color: #7785FF;
+  font-weight: 600;
+`;
+
+const ModalInputWrapper = styled.div`
+  margin-top: 31px;
+  width: 100%;
+`;
+
+const ModalButtonWrapper = styled.div`
+  display: flex;
+`;
+
+const ModalCancelButton = styled.button`
+  margin-left: auto;
+  width: 72px;
+  height: 33px;
+  border: 1px solid #7785FF;
+  border-radius: 3px;
+  background-color: white;
+  box-sizing: border-box;
+  
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 15px;
+  letter-spacing: -0.02em;
+  color: #7785FF;
+`;
+
+const ModalSaveButton = styled.button`
+  width: 72px;
+  height: 33px;
+  background: #7785FF;
+  border: 0;
+  border-radius: 3px;
+  margin-left: 8px;
+  
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 15px;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
 `;
