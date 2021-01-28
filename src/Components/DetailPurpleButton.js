@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-export default function DetailPurpleButton() {
-  return <Container>Add</Container>;
+
+
+export default function DetailPurpleButton({ onClick }) {
+  return <Container onClick={onClick}>Add</Container>;
 }
 
 const Container = styled.div`

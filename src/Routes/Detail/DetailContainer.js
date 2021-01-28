@@ -3,15 +3,20 @@ import React from 'react';
 import DetailPresenter from './DetailPresenter';
 import { useSelector } from 'react-redux';
 
+
 const DetailContainer = ({ match }) => {
   const { folderId } = match.params;
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
+
+  const handleAddBookmark = () => {
+    console.log('add bookmark dispatch!!!');
+  };
 
   const findBookmarkFolder = () => {
     const foundBookmarkFolder = bookmarkReducer.bookmarkFolderList.filter(
       (bookmarkFolder) => {
         return bookmarkFolder.id === Number(folderId);
-      }
+      },
     );
 
     const notFoundBookmarkFolder = {
@@ -34,7 +39,7 @@ const DetailContainer = ({ match }) => {
 
   return (
     <DetailPresenter
-      {...{ data: findBookmarkFolder(), detailDataList: filterBookmarkList() }}
+      {...{ data: findBookmarkFolder(), detailDataList: filterBookmarkList(), handleAddBookmark }}
     />
   );
 };

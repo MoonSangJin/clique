@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import backSpace from '../assets/img/backSpace';
 import DetailWhiteButton from './DetailWhiteButton';
 import DetailPurpleButton from './DetailPurpleButton';
 import OptionIcon from './OptionIcon';
+import Modal from './Modal';
+import {Input as MInput} from '@material-ui/core/';
+
 
 const BookmarkItem = ({ detailData }) => {
   const { faviconUrl, title, url } = detailData;
@@ -21,7 +24,21 @@ const BookmarkItem = ({ detailData }) => {
   );
 };
 
-export default function DetailForm({ folderData, detailDataList }) {
+export default function DetailForm({ folderData, detailDataList, handleAddBookmark }) {
+  const [isOpenAddBookmarkModal, setIsOpenAddBookmarkModal] = useState(false);
+
+  const [newBookmarkInfo, setNewBookmarkInfo] = useState({
+    bookmarkFolderId: folderData.id,
+    url: 'https://www.naver.com/',
+    title: '네이버!!!',
+    scrollPos: 0,
+    faviconUrl: 'https://www.naver.com/favicon.ico',
+  });
+
+  useEffect(() => {
+    console.log(newBookmarkInfo.url);
+  }, [newBookmarkInfo.url]);
+
   const openAllBookmarks = () => {
     detailDataList.forEach((detailData) => {
       window.open(detailData.url, '_blank');
@@ -31,26 +48,45 @@ export default function DetailForm({ folderData, detailDataList }) {
   const goBack = () => window.history.back();
 
   return (
-    <Container>
-      <TitleRow>
-        <Left>
-          <BackSpace onClick={goBack} src={backSpace} />
-          <Title>{folderData.name}</Title>
-        </Left>
-        <Right>
-          <DetailWhiteButton onClick={openAllBookmarks} />
-          <DetailPurpleButtonWrapper>
-            <DetailPurpleButton />
-          </DetailPurpleButtonWrapper>
-        </Right>
-      </TitleRow>
-      <GrayHorizontail />
-      <UrlListWrapper>
-        {detailDataList.map((detailData) => {
-          return <BookmarkItem key={detailData.id} {...{ detailData }} />;
-        })}
-      </UrlListWrapper>
-    </Container>
+    <>
+      <Container>
+        <TitleRow>
+          <Left>
+            <BackSpace onClick={goBack} src={backSpace} />
+            <Title>{folderData.name}</Title>
+          </Left>
+          <Right>
+            <DetailWhiteButton onClick={openAllBookmarks} />
+            <DetailPurpleButtonWrapper>
+              <DetailPurpleButton onClick={() => setIsOpenAddBookmarkModal(true)} />
+            </DetailPurpleButtonWrapper>
+          </Right>
+        </TitleRow>
+        <GrayHorizontail />
+        <UrlListWrapper>
+          {detailDataList.map((detailData) => {
+            return <BookmarkItem key={detailData.id} {...{ detailData }} />;
+          })}
+        </UrlListWrapper>
+      </Container>
+      <Modal
+        isOpen={isOpenAddBookmarkModal}
+        closeHandler={() => setIsOpenAddBookmarkModal(false)}
+      >
+        <div>
+          Add to <span>{folderData.name}</span>
+        </div>
+        <div>
+          <MInput value={newBookmarkInfo.url} onBlur={() => console.log('blur')} />
+        </div>
+        <div>
+          <MInput value={newBookmarkInfo.title} onBlur={() => console.log('blur')} />
+        </div>
+        <div>
+          <button onClick={handleAddBookmark}>추가</button>
+        </div>
+      </Modal>
+    </>
   );
 }
 
