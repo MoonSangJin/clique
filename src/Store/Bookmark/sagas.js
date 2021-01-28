@@ -12,6 +12,7 @@ import {
   renameBookmarkFolderFailure,
   renameBookmarkFolderRequest,
   renameBookmarkFolderSuccess,
+  renameBookmarkRequest,
 } from './actions';
 import { getAccessToken } from '../../Utils/tokenHandler';
 import { request } from '../../Utils/request';
@@ -115,6 +116,24 @@ function* createBookmarkAsync({ payload }) {
   }
 }
 
+const renameBookmarkApi = async (token, bookmarkId, data) => request({
+  url: `/bookmark/${bookmarkId}`,
+  method: 'PATCH',
+  data: data,
+  headers: { Authorization: `Bearer ${token}` },
+});
+
+
+function* renameBookmarkAsync({ payload }) {
+  try {
+    const token = yield call(getAccessToken);
+    yield call(renameBookmarkApi, token, payload.bookmarkId, { title: payload.title });
+
+    yield put(fetchBookmarkRequest());
+  } catch (e) {
+  }
+}
+
 
 export function* watchBookmark() {
   yield takeEvery(fetchBookmarkFolderRequest, fetchBookmarkFolderAsync);
@@ -122,4 +141,5 @@ export function* watchBookmark() {
   yield takeEvery(deleteBookmarkFolderRequest, deleteBookmarkFolderAsync);
   yield takeEvery(fetchBookmarkRequest, fetchBookmarkAsync);
   yield takeEvery(createBookmarkRequest, createBookmarkAsync);
+  yield takeEvery(renameBookmarkRequest, renameBookmarkAsync);
 }

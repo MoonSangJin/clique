@@ -5,13 +5,14 @@ import DropdownMenu from './DropdownMenu';
 import PopoverController from '../../Components/Popover/PopoverController';
 import { useDispatch } from 'react-redux';
 import Modal from '../../Components/Modal';
+import { renameBookmarkRequest } from '../../Store/Bookmark/actions';
 
 
 const BookmarkItem = ({ detailData }) => {
-  const { faviconUrl, title, url } = detailData;
+  const { faviconUrl, title, url, id } = detailData;
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
   const [isOpenRenameBookmarkModal, setIsOpenRenameBookmarkModal] = useState(false);
-  const [newBookmarkName, setNewBookmarkName] = useState('');
+  const [newBookmarkTitle, setNewBookmarkTitle] = useState('');
   const [dotMenuElementHolder, setDotMenuElementHolder] = useState(null);
   const dotMenuRef = React.createRef();
   const dispatch = useDispatch();
@@ -21,14 +22,19 @@ const BookmarkItem = ({ detailData }) => {
   }, [dotMenuRef]);
 
   const openRenameModalAndFillInputBox = () => {
-    setNewBookmarkName(title);
+    setNewBookmarkTitle(title);
     setIsOpenDropdownMenu(false);
     setIsOpenRenameBookmarkModal(true);
   };
 
   const closeModalAndClearBookmarkInfo = () => {
     setIsOpenRenameBookmarkModal(false);
-    setNewBookmarkName('');
+    setNewBookmarkTitle('');
+  };
+
+  const renameBookmark = () => {
+    dispatch(renameBookmarkRequest({bookmarkId: id, title: newBookmarkTitle}));
+    setIsOpenRenameBookmarkModal(false);
   };
 
   const deleteBookmarkModal = () => {
@@ -63,12 +69,12 @@ const BookmarkItem = ({ detailData }) => {
       >
         <ModalContentsWrapper>
           <ModalTitle>Rename Bookmark</ModalTitle>
-          <ModalInput onChange={(e) => setNewBookmarkName(e.target.value)} value={newBookmarkName} />
+          <ModalInput onChange={(e) => setNewBookmarkTitle(e.target.value)} value={newBookmarkTitle} />
           <ModalButtonWrapper>
             <ModalCancelButton onClick={closeModalAndClearBookmarkInfo}>
               Cancel
             </ModalCancelButton>
-            <ModalSaveButton onClick={() => null}>Save</ModalSaveButton>
+            <ModalSaveButton onClick={renameBookmark}>Save</ModalSaveButton>
           </ModalButtonWrapper>
         </ModalContentsWrapper>
       </Modal>

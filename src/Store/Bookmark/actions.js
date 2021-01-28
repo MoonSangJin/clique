@@ -26,6 +26,10 @@ const CREATE_BOOKMARK_REQUEST = 'bookmarks/CREATE_BOOKMARK_REQUEST';
 const CREATE_BOOKMARK_SUCCESS = 'bookmarks/CREATE_BOOKMARK_SUCCESS';
 const CREATE_BOOKMARK_FAILURE = 'bookmarks/CREATE_BOOKMARK_FAILURE';
 
+const RENAME_BOOKMARK_REQUEST = 'bookmarks/RENAME_BOOKMARK_REQUEST';
+const RENAME_BOOKMARK_SUCCESS = 'bookmarks/RENAME_BOOKMARK_SUCCESS';
+const RENAME_BOOKMARK_FAILURE = 'bookmarks/RENAME_BOOKMARK_FAILURE';
+
 export const fetchBookmarkFolderRequest = createAction(
   FETCH_BOOKMARK_FOLDER_REQUEST
 );
@@ -63,6 +67,10 @@ export const fetchBookmarkFailure = createAction(FETCH_BOOKMARK_FAILURE);
 export const createBookmarkRequest = createAction(CREATE_BOOKMARK_REQUEST);
 export const createBookmarkSuccess = createAction(CREATE_BOOKMARK_SUCCESS);
 export const createBookmarkFailure = createAction(CREATE_BOOKMARK_FAILURE);
+
+export const renameBookmarkRequest = createAction(RENAME_BOOKMARK_REQUEST);
+export const renameBookmarkSuccess = createAction(RENAME_BOOKMARK_SUCCESS);
+export const renameBookmarkFailure = createAction(RENAME_BOOKMARK_FAILURE);
 
 
 
