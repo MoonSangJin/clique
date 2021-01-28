@@ -46,7 +46,6 @@ const SortTypeSelectorWrapper = styled.div`
 `;
 
 const SortTitle = styled.div`
-  font-family: Poppins;
   font-size: 12px;
   line-height: 18px;
   letter-spacing: -0.02em;
@@ -55,7 +54,6 @@ const SortTitle = styled.div`
 
 const SortTypeContents = styled.span`
   margin-left: 10px;
-  font-family: Poppins;
   font-size: 14px;
   line-height: 21px;
   letter-spacing: -0.02em;

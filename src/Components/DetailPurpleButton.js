@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-export default function DetailPurpleButton() {
-  return <Container>Add</Container>;
+
+
+export default function DetailPurpleButton({ onClick }) {
+  return <Container onClick={onClick}>Add</Container>;
 }
 
 const Container = styled.div`
@@ -13,7 +15,6 @@ const Container = styled.div`
   background: #7785ff;
   border-radius: 3px;
 
-  font-family: Poppins;
   font-style: normal;
   font-weight: bold;
   font-size: 12px;

@@ -1,20 +1,21 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import {
+  createBookmarkRequest,
+  deleteBookmarkFolderFailure,
+  deleteBookmarkFolderRequest,
+  fetchBookmarkFailure,
+  fetchBookmarkFolderFailure,
   fetchBookmarkFolderRequest,
   fetchBookmarkFolderSuccess,
-  fetchBookmarkFolderFailure,
   fetchBookmarkRequest,
   fetchBookmarkSuccess,
-  fetchBookmarkFailure,
-  deleteBookmarkFolderRequest,
-  deleteBookmarkFolderSuccess,
-  deleteBookmarkFolderFailure,
+  renameBookmarkFolderFailure,
   renameBookmarkFolderRequest,
   renameBookmarkFolderSuccess,
-  renameBookmarkFolderFailure,
 } from './actions';
 import { getAccessToken } from '../../Utils/tokenHandler';
 import { request } from '../../Utils/request';
+
 
 const fetchBookmarkFolderApi = (token) =>
   request({
@@ -34,6 +35,50 @@ function* fetchBookmarkFolderAsync() {
   }
 }
 
+const renameBookmarkFolderApi = (token, folderId, name) =>
+  request({
+    url: `bookmark-folder/${folderId}`,
+    method: 'PATCH',
+    headers: { Authorization: `Bearer ${token}` },
+    data: { name: name },
+  });
+
+function* renameBookmarkFolderAsync({ payload }) {
+  try {
+    const folderId = payload.folderId;
+    const name = payload.name;
+    const token = yield call(getAccessToken);
+    yield call(renameBookmarkFolderApi, token, folderId, name);
+    yield put(renameBookmarkFolderSuccess({ renamedBookmarkname: name }));
+
+    // const res = yield call(fetchBookmarkFolderApi, token);
+    // yield put(fetchBookmarkFolderSuccess({ bookmarkFolderList: res.data }));
+  } catch (e) {
+    yield put(renameBookmarkFolderFailure());
+  }
+}
+
+const deleteBookmarkFolderApi = (token, folderId) =>
+  request({
+    url: `bookmark-folder/${folderId}`,
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+function* deleteBookmarkFolderAsync({ payload }) {
+  try {
+    const folderId = payload.folderId;
+    const token = yield call(getAccessToken);
+    yield call(deleteBookmarkFolderApi, token, folderId);
+    yield put(
+      fetchBookmarkFolderRequest(),
+    );
+  } catch (e) {
+    yield put(deleteBookmarkFolderFailure());
+  }
+}
+
+
 const fetchBookmarkApi = (token) =>
   request({
     url: '/bookmark',
@@ -52,50 +97,29 @@ function* fetchBookmarkAsync() {
   }
 }
 
-const deleteBookmarkFolderApi = (token, folderId) =>
+const createBookmarkApi = (token, payload) =>
   request({
-    url: `bookmark-folder/${folderId}`,
-    method: 'DELETE',
+    url: '/bookmark',
+    method: 'POST',
+    data: payload,
     headers: { Authorization: `Bearer ${token}` },
   });
-function* deleteBookmarkFolderAsync({ payload }) {
+
+function* createBookmarkAsync({ payload }) {
   try {
-    const folderId = payload.folderId;
     const token = yield call(getAccessToken);
-    yield call(deleteBookmarkFolderApi, token, folderId);
-    yield put(
-      deleteBookmarkFolderSuccess({ deletedBookmarkFolderId: folderId })
-    );
+    yield call(createBookmarkApi, token, payload);
+
+    yield put(fetchBookmarkRequest());
   } catch (e) {
-    yield put(deleteBookmarkFolderFailure());
   }
 }
 
-const renameBookmarkFolderApi = (token, folderId, name) =>
-  request({
-    url: `bookmark-folder/${folderId}`,
-    method: 'PATCH',
-    headers: { Authorization: `Bearer ${token}` },
-    data: { name: name },
-  });
-function* renameBookmarkFolderAsync({ payload }) {
-  try {
-    const folderId = payload.folderId;
-    const name = payload.name;
-    const token = yield call(getAccessToken);
-    yield call(renameBookmarkFolderApi, token, folderId, name);
-    yield put(renameBookmarkFolderSuccess({ renamedBookmarkname: name }));
-
-    // const res = yield call(fetchBookmarkFolderApi, token);
-    // yield put(fetchBookmarkFolderSuccess({ bookmarkFolderList: res.data }));
-  } catch (e) {
-    yield put(renameBookmarkFolderFailure());
-  }
-}
 
 export function* watchBookmark() {
   yield takeEvery(fetchBookmarkFolderRequest, fetchBookmarkFolderAsync);
-  yield takeEvery(fetchBookmarkRequest, fetchBookmarkAsync);
-  yield takeEvery(deleteBookmarkFolderRequest, deleteBookmarkFolderAsync);
   yield takeEvery(renameBookmarkFolderRequest, renameBookmarkFolderAsync);
+  yield takeEvery(deleteBookmarkFolderRequest, deleteBookmarkFolderAsync);
+  yield takeEvery(fetchBookmarkRequest, fetchBookmarkAsync);
+  yield takeEvery(createBookmarkRequest, createBookmarkAsync);
 }

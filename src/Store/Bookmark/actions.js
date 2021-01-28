@@ -3,9 +3,13 @@ import { createAction } from '@reduxjs/toolkit';
 const FETCH_BOOKMARK_FOLDER_REQUEST = 'bookmarks/FETCH_BOOKMARK_FOLDER_REQUEST';
 const FETCH_BOOKMARK_FOLDER_SUCCESS = 'bookmarks/FETCH_BOOKMARK_FOLDER_SUCCESS';
 const FETCH_BOOKMARK_FOLDER_FAILURE = 'bookmarks/FETCH_BOOKMARK_FOLDER_FAILURE';
-const FETCH_BOOKMARK_REQUEST = 'bookmarks/FETCH_BOOKMARK_REQUEST';
-const FETCH_BOOKMARK_SUCCESS = 'bookmarks/FETCH_BOOKMARK_SUCCESS';
-const FETCH_BOOKMARK_FAILURE = 'bookmarks/FETCH_BOOKMARK_FAILURE';
+
+const RENAME_BOOKMARK_FOLDER_REQUEST =
+  'bookmarks/RENAME_BOOKMARK_FOLDER_REQUEST';
+const RENAME_BOOKMARK_FOLDER_SUCCESS =
+  'bookmarks/RENAME_BOOKMARK_FOLDER_SUCCESS';
+const RENAME_BOOKMARK_FOLDER_FAILURE =
+  'bookmarks/RENAME_BOOKMARK_FOLDER_FAILURE';
 
 const DELETE_BOOKMARK_FOLDER_REQUEST =
   'bookmarks/DELETE_BOOKMARK_FOLDER_REQUEST';
@@ -14,12 +18,13 @@ const DELETE_BOOKMARK_FOLDER_SUCCESS =
 const DELETE_BOOKMARK_FOLDER_FAILURE =
   'bookmarks/DELETE_BOOKMARK_FOLDER_FAILURE';
 
-const RENAME_BOOKMARK_FOLDER_REQUEST =
-  'bookmarks/RENAME_BOOKMARK_FOLDER_REQUEST';
-const RENAME_BOOKMARK_FOLDER_SUCCESS =
-  'bookmarks/RENAME_BOOKMARK_FOLDER_SUCCESS';
-const RENAME_BOOKMARK_FOLDER_FAILURE =
-  'bookmarks/RENAME_BOOKMARK_FOLDER_FAILURE';
+const FETCH_BOOKMARK_REQUEST = 'bookmarks/FETCH_BOOKMARK_REQUEST';
+const FETCH_BOOKMARK_SUCCESS = 'bookmarks/FETCH_BOOKMARK_SUCCESS';
+const FETCH_BOOKMARK_FAILURE = 'bookmarks/FETCH_BOOKMARK_FAILURE';
+
+const CREATE_BOOKMARK_REQUEST = 'bookmarks/CREATE_BOOKMARK_REQUEST';
+const CREATE_BOOKMARK_SUCCESS = 'bookmarks/CREATE_BOOKMARK_SUCCESS';
+const CREATE_BOOKMARK_FAILURE = 'bookmarks/CREATE_BOOKMARK_FAILURE';
 
 export const fetchBookmarkFolderRequest = createAction(
   FETCH_BOOKMARK_FOLDER_REQUEST
@@ -29,19 +34,6 @@ export const fetchBookmarkFolderSuccess = createAction(
 );
 export const fetchBookmarkFolderFailure = createAction(
   FETCH_BOOKMARK_FOLDER_FAILURE
-);
-export const fetchBookmarkRequest = createAction(FETCH_BOOKMARK_REQUEST);
-export const fetchBookmarkSuccess = createAction(FETCH_BOOKMARK_SUCCESS);
-export const fetchBookmarkFailure = createAction(FETCH_BOOKMARK_FAILURE);
-
-export const deleteBookmarkFolderRequest = createAction(
-  DELETE_BOOKMARK_FOLDER_REQUEST
-);
-export const deleteBookmarkFolderSuccess = createAction(
-  DELETE_BOOKMARK_FOLDER_SUCCESS
-);
-export const deleteBookmarkFolderFailure = createAction(
-  DELETE_BOOKMARK_FOLDER_FAILURE
 );
 
 export const renameBookmarkFolderRequest = createAction(
@@ -54,5 +46,23 @@ export const renameBookmarkFolderFailure = createAction(
   RENAME_BOOKMARK_FOLDER_FAILURE
 );
 
-//서버로부터 북마크,북마크 정보 폴더 받아오는 기능
-//북마크,북마크 폴더 정보 담을 store 만들어야한다.
+export const deleteBookmarkFolderRequest = createAction(
+  DELETE_BOOKMARK_FOLDER_REQUEST
+);
+export const deleteBookmarkFolderSuccess = createAction(
+  DELETE_BOOKMARK_FOLDER_SUCCESS
+);
+export const deleteBookmarkFolderFailure = createAction(
+  DELETE_BOOKMARK_FOLDER_FAILURE
+);
+
+export const fetchBookmarkRequest = createAction(FETCH_BOOKMARK_REQUEST);
+export const fetchBookmarkSuccess = createAction(FETCH_BOOKMARK_SUCCESS);
+export const fetchBookmarkFailure = createAction(FETCH_BOOKMARK_FAILURE);
+
+export const createBookmarkRequest = createAction(CREATE_BOOKMARK_REQUEST);
+export const createBookmarkSuccess = createAction(CREATE_BOOKMARK_SUCCESS);
+export const createBookmarkFailure = createAction(CREATE_BOOKMARK_FAILURE);
+
+
+

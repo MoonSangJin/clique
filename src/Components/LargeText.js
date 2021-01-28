@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  font-family: Poppins;
   font-style: normal;
   font-weight: ${({ fontWeight }) => fontWeight};
   font-size: 20px;

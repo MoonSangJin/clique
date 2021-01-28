@@ -15,7 +15,6 @@ const Container = styled.div`
   box-sizing: border-box;
   border-radius: 3px;
 
-  font-family: Poppins;
   font-style: normal;
   font-weight: bold;
   font-size: 12px;

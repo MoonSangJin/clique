@@ -27,11 +27,14 @@ export default function FolderRow({ bookmarkFolderList, isLoggedIn, type }) {
           {type === 'card'
             ? bookmarkFolderList.map((folderData, index) => {
                 return (
-                  <Folder
+                  <FolderWrapper
                     key={index}
-                    {...{ folderData }}
-                    folderCoverImageSrc={mapIndexToImageSrc[index % 4]}
-                  />
+                  >
+                    <Folder
+                      {...{ folderData }}
+                      folderCoverImageSrc={mapIndexToImageSrc[index % 4]}
+                    />
+                  </FolderWrapper>
                 );
               })
             : bookmarkFolderList.map((folderData, index) => {
@@ -56,9 +59,16 @@ export default function FolderRow({ bookmarkFolderList, isLoggedIn, type }) {
 const Container = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
   margin: 20px auto 0 auto;
+`;
+
+const FolderWrapper = styled.div`
+  margin-right: 19px;
+  
+  &:nth-child(4) {
+    margin-right: 0;
+  }
 `;
 
 const NotLoggedInWrapper = styled.div``;
