@@ -7,6 +7,7 @@ import DetailPurpleButton from './DetailPurpleButton';
 import OptionIcon from './OptionIcon';
 import Modal from './Modal';
 import { Input as MInput } from '@material-ui/core/';
+import { crawlPage } from '../Utils/crawlHandler';
 
 
 const BookmarkItem = ({ detailData }) => {
@@ -26,7 +27,6 @@ const BookmarkItem = ({ detailData }) => {
 
 export default function DetailForm({ folderData, detailDataList, handleAddBookmark }) {
   const [isOpenAddBookmarkModal, setIsOpenAddBookmarkModal] = useState(false);
-
   const [newBookmarkInfo, setNewBookmarkInfo] = useState({
     bookmarkFolderId: folderData.id,
     url: 'https://www.naver.com/',
@@ -35,17 +35,35 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
     faviconUrl: 'https://www.naver.com/favicon.ico',
   });
 
+  const goBack = () => window.history.back();
+
   const openAllBookmarks = () => {
     detailDataList.forEach((detailData) => {
       window.open(detailData.url, '_blank');
     });
   };
 
-  const goBack = () => window.history.back();
+  const fetchPageInfoFromUrl = () => {
+    setNewBookmarkInfo((bookmarkInfo) => ({
+      ...bookmarkInfo,
+      ...crawlPage(newBookmarkInfo.url),
+    }));
+  };
+
+  const closeModalAndClearBookmarkInfo = () => {
+    setNewBookmarkInfo({
+      bookmarkFolderId: folderData.id,
+      url: '',
+      title: '',
+      scrollPos: 0,
+      faviconUrl: '',
+    });
+    setIsOpenAddBookmarkModal(false);
+  };
 
   const addBookmarkAndCloseModal = () => {
     handleAddBookmark(newBookmarkInfo);
-    setIsOpenAddBookmarkModal(false);
+    closeModalAndClearBookmarkInfo();
   };
 
   return (
@@ -72,13 +90,13 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
       </Container>
       <Modal
         isOpen={isOpenAddBookmarkModal}
-        closeHandler={() => setIsOpenAddBookmarkModal(false)}
+        closeHandler={closeModalAndClearBookmarkInfo}
       >
         <div>
           Add to <span>{folderData.name}</span>
         </div>
         <div>
-          <MInput value={newBookmarkInfo.url} onBlur={() => console.log('blur')} />
+          <MInput value={newBookmarkInfo.url} onBlur={fetchPageInfoFromUrl} />
         </div>
         <div>
           <MInput value={newBookmarkInfo.title} onBlur={() => console.log('blur')} />
