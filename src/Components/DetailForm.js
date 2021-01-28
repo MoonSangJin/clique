@@ -102,14 +102,19 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
         closeHandler={closeModalAndClearBookmarkInfo}
       >
         <ModalContentsWrapper>
-          Add to <span>{folderData.name}</span>
+          <ModalTitle>
+            Add to <ModalFolderName>{folderData.name}</ModalFolderName>
+          </ModalTitle>
+
           <ModalInputWrapper>
             <Input value={newBookmarkInfo.url} onChange={changeUrl} validationMessage={''}
                    onBlur={fetchPageInfoFromUrl} />
           </ModalInputWrapper>
+
           <div>
             <Input value={newBookmarkInfo.title} onChange={changeTitle} validationMessage={''} />
           </div>
+
           <ModalButtonWrapper>
             <ModalCancelButton onClick={closeModalAndClearBookmarkInfo}>Cancel</ModalCancelButton>
             <ModalSaveButton onClick={addBookmarkAndCloseModal}>Save</ModalSaveButton>
@@ -252,6 +257,19 @@ const Right = styled.div`
 
 const ModalContentsWrapper = styled.div`
   width: 500px;
+`;
+
+const ModalTitle = styled.div`
+  font-size: 16px;
+  line-height: 24px;
+  align-items: center;
+  letter-spacing: -0.02em;
+  color: #000000;
+`;
+
+const ModalFolderName = styled.span`
+  color: #7785FF;
+  font-weight: 600;
 `;
 
 const ModalInputWrapper = styled.div`
