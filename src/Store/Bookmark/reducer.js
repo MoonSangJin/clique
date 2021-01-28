@@ -15,17 +15,22 @@ import {
 const initState = {
   bookmarkFolderList: [],
   bookmarkList: [],
+  isInitializedBookmarkFolderList: false,
+  isInitializedBookmarkList: false,
 };
 
 const bookmarkReducer = createReducer(initState, {
   [fetchBookmarkFolderSuccess]: (state, action) => ({
     ...state,
     bookmarkFolderList: action.payload.bookmarkFolderList,
+    isInitializedBookmarkFolderList: true,
   }),
-  [fetchBookmarkFolderFailure]: (state) => state,
-  [renameBookmarkFolderSuccess]: (state, action) => ({
+  [fetchBookmarkFolderFailure]: (state) => ({
     ...state,
-    //bookmarkFolderList: state.filter
+    isInitializedBookmarkFolderList: false,
+  }),
+  [renameBookmarkFolderSuccess]: (state) => ({
+    ...state,
   }),
   [renameBookmarkFolderFailure]: (state) => state,
   [deleteBookmarkFolderSuccess]: (state) => {
@@ -37,8 +42,12 @@ const bookmarkReducer = createReducer(initState, {
   [fetchBookmarkSuccess]: (state, action) => ({
     ...state,
     bookmarkList: action.payload.bookmarkList,
+    isInitializedBookmarkList: true,
   }),
-  [fetchBookmarkFailure]: (state) => state,
+  [fetchBookmarkFailure]: (state) => ({
+    ...state,
+    isInitializedBookmarkList: false,
+  }),
 });
 
 export default bookmarkReducer;
