@@ -20,8 +20,6 @@ const HomeScreenContainer = () => {
     userReducer.user.isLoggedIn,
   ]);
 
-  console.log('asdf');
-
   return (
     <HomePresenter
       bookmarkFolderList={bookmarkReducer.bookmarkFolderList}

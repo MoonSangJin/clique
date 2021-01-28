@@ -26,7 +26,7 @@ const HomeScreenPresenter = ({
 };
 
 const Container = styled.div`
-  max-width: 1185px;
+  width: 1185px;
   margin: 0 auto;
 `;
 
