@@ -10,9 +10,9 @@ import DropdownMenu from '../Modules/Folder/DropdownMenu';
 import OptionIcon from './OptionIcon';
 import Modal from './Modal';
 
-import CheckGraySrc from '../assets/img/checkGray.png';
-import deleteModalImage from '../assets/img/deleteModalImage';
-import DefaultImageSrc from '../assets/img/FolderItemImages/1.png';
+import checkGray from '../assets/img/checkGray.png';
+import deleteFolderModalImage from '../assets/img/deleteModalImage';
+import defaultImage from '../assets/img/FolderItemImages/1.png';
 import blankListFolder from '../assets/img/blankListFolder.png';
 
 import { deleteBookmarkFolderRequest } from '../Store/Bookmark/actions';
@@ -99,7 +99,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
     <>
       <StyledLink to={`/detail/${folderData.id}`}>
         <Container>
-          <FolderImage src={folderCoverImageSrc || DefaultImageSrc} />
+          <FolderImage src={folderCoverImageSrc || defaultImage} />
           <ContentsWrapper>
             <TitleWrapper>
               <TextRow>
@@ -142,7 +142,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
         closeHandler={() => setIsOpenShareSuccessModal(false)}
       >
         <ModalContentsWrapper>
-          <ModalImage src={CheckGraySrc} />
+          <ModalImage src={checkGray} />
           <PhrasesWrapper>
             <ModalTitle>Success!</ModalTitle>
             <ModalPhrases>
@@ -162,7 +162,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
         closeHandler={() => setIsOpenDeleteFolderModal(false)}
       >
         <ModalContentsWrapper>
-          <ModalImage src={deleteModalImage} />
+          <ModalImage src={deleteFolderModalImage} />
           <PhrasesWrapper>
             <ModalTitle>
               Are you sure you want to delete this folder?
