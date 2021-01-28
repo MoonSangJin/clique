@@ -5,9 +5,9 @@ import createSagaMiddleware from 'redux-saga';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 import NewTab from './Newtab';
-import './index.css';
 import rootReducer from '../../Store';
 import { rootSaga } from '../../Store/rootSaga';
+import GlobalStyle from './globalStyles';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -20,6 +20,7 @@ sagaMiddleware.run(rootSaga);
 
 render(
   <Provider store={store}>
+    <GlobalStyle />
     <NewTab />
   </Provider>,
   window.document.querySelector('#app-container')

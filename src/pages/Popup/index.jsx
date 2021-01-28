@@ -2,6 +2,16 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import PopupContainer from './PopupContainer';
-import './index.css';
+import GlobalStyle from './globalStyles';
 
-render(<PopupContainer />, window.document.querySelector('#app-container'));
+
+const WithGlobalState = () => {
+  return (
+    <>
+      <GlobalStyle />
+      <PopupContainer />
+    </>
+  );
+};
+
+render(<WithGlobalState />, window.document.querySelector('#app-container'));

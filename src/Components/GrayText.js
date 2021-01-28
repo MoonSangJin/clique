@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  font-family: Poppins;
   font-size: 12px;
   line-height: 18px;
   letter-spacing: -0.02em;

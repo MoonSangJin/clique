@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import check from '../../assets/img/check.png';
 import notChecked from '../../assets/img/notChecked.png';
+
 
 export default function ListRowItem({
   index,
@@ -45,7 +46,6 @@ const Title = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  font-family: Poppins;
   font-size: 12px;
   line-height: 18px;
   letter-spacing: -0.03em;

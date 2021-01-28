@@ -162,7 +162,6 @@ const LogoImage = styled.img`
 `;
 
 const CheckAll = styled.div`
-  font-family: Poppins;
   font-size: 12px;
   line-height: 18px;
   text-align: center;
@@ -196,7 +195,6 @@ const InputRow = styled.div`
 `;
 
 const Font = styled.div`
-  font-family: Poppins;
   font-size: 10px;
   line-height: 15px;
   letter-spacing: -0.02em;
@@ -238,7 +236,6 @@ const CompleteButton = styled.button`
   background: #7785ff;
   border-radius: 3px;
 
-  font-family: Poppins;
   font-weight: bold;
   font-size: 10px;
   line-height: 15px;
