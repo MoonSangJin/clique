@@ -4,28 +4,14 @@ import styled from 'styled-components';
 import backSpace from '../assets/img/backSpace';
 import DetailWhiteButton from './DetailWhiteButton';
 import DetailPurpleButton from './DetailPurpleButton';
-import OptionIcon from './OptionIcon';
 import Modal from './Modal';
 import { crawlPage } from '../Utils/crawlHandler';
 import Input from './Input';
+import BookmarkItem from '../Modules/Bookmark/BookmarkItem';
 import { fetchBookmarkFolderRequest, fetchBookmarkRequest } from '../Store/Bookmark/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-const BookmarkItem = ({ detailData }) => {
-  const { faviconUrl, title, url } = detailData;
-
-  return (
-    <ExternalLink href={url} target={'_blank'}>
-      <UrlRow>
-        <UrlImage src={faviconUrl} />
-        <UrlTitle>{title}</UrlTitle>
-        <Url>{url}</Url>
-        <OptionIcon />
-      </UrlRow>
-    </ExternalLink>
-  );
-};
 
 export default function DetailForm({ folderData, detailDataList, handleAddBookmark }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
@@ -142,14 +128,6 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
   );
 }
 
-const ExternalLink = styled.a`
-  all: unset;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 const Container = styled.div`
   min-height: calc(100vh - 122px);
   width: 100%;
@@ -206,59 +184,6 @@ const UrlListWrapper = styled.div`
   overflow: scroll;
 `;
 
-const UrlRow = styled.div`
-  display: flex;
-  align-items: center;
-  height: 44px;
-
-  box-sizing: border-box;
-
-  :hover {
-    background-color: #f5f7f8;
-  }
-`;
-
-const UrlImage = styled.img`
-  width: 16px;
-  height: 16px;
-  margin: 0 17px 0 16px;
-  flex-shrink: 0;
-`;
-
-const UrlTitle = styled.div`
-  // Todo(maitracle): 이유는 모르지만 width값을 부여해야만 flex 속성이 작용하여 적절한 가로크기를 찾아간다.
-  //                  이유를 찾아 width 속성 없이 해결한다.
-  width: 10px;
-  margin-right: 76px;
-  flex: 1 1 10px;
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  font-size: 14px;
-  line-height: 21px;
-  letter-spacing: -0.02em;
-  color: #000000;
-`;
-
-const Url = styled.div`
-  width: 178px;
-  display: block;
-  overflow: hidden;
-  height: 21px;
-  margin-right: 14px;
-  text-overflow: ellipsis;
-  text-align: right;
-  white-space: nowrap;
-
-  font-size: 12px;
-  line-height: 17px;
-  letter-spacing: -0.02em;
-  text-decoration-line: underline;
-  color: #90a0ad;
-`;
-
 const Left = styled.div`
   display: flex;
   align-items: center;
@@ -293,10 +218,10 @@ const ModalInputWrapper = styled.div`
 
 const ModalButtonWrapper = styled.div`
   display: flex;
+  justify-content: flex-end;
 `;
 
 const ModalCancelButton = styled.button`
-  margin-left: auto;
   width: 72px;
   height: 33px;
   border: 1px solid #7785FF;
