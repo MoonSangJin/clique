@@ -2,7 +2,8 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import {
   createBookmarkRequest,
   deleteBookmarkFolderFailure,
-  deleteBookmarkFolderRequest, deleteBookmarkRequest,
+  deleteBookmarkFolderRequest,
+  deleteBookmarkRequest,
   fetchBookmarkFailure,
   fetchBookmarkFolderFailure,
   fetchBookmarkFolderRequest,
@@ -11,11 +12,11 @@ import {
   fetchBookmarkSuccess,
   renameBookmarkFolderFailure,
   renameBookmarkFolderRequest,
-  renameBookmarkFolderSuccess,
   renameBookmarkRequest,
 } from './actions';
 import { getAccessToken } from '../../Utils/tokenHandler';
 import { request } from '../../Utils/request';
+
 
 const fetchBookmarkFolderApi = (token) =>
   request({
@@ -28,6 +29,8 @@ function* fetchBookmarkFolderAsync() {
   try {
     const token = yield call(getAccessToken);
     const res = yield call(fetchBookmarkFolderApi, token);
+
+    chrome.storage.sync.set({ bookmarkFolderList: res.data });
 
     yield put(fetchBookmarkFolderSuccess({ bookmarkFolderList: res.data }));
   } catch (e) {
@@ -84,6 +87,8 @@ function* fetchBookmarkAsync() {
   try {
     const token = yield call(getAccessToken);
     const res = yield call(fetchBookmarkApi, token);
+
+    chrome.storage.sync.set({ bookmarkList: res.data });
 
     yield put(fetchBookmarkSuccess({ bookmarkList: res.data }));
   } catch (e) {
