@@ -13,6 +13,7 @@ const Overlay = styled.div`
   border: 1px solid black;
 
   background-color: rgba(0, 0, 0, 0.16);
+  z-index: 9998;
 `;
 
 const ModalWrapper = styled.div`
@@ -24,6 +25,7 @@ const ModalWrapper = styled.div`
   padding: 27px 34px;
   border-radius: 8px;
   background-color: white;
+  z-index: 9999;
 `;
 
 export default function Modal({ isOpen, closeHandler, children }) {
