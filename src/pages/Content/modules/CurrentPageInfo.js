@@ -18,7 +18,7 @@ export class CurrentPageInfo {
     chrome.storage.sync.get(['bookmarkList'], function(result) {
       let foundBookmark = result.bookmarkList.find((bookmark) => bookmark.url.includes(window.location.href));
 
-      if (foundBookmark && foundBookmark.scrollPos >= 0) {
+      if (foundBookmark) {
         this.isBookmarkedPage = true;
         this.pageInfoForClique = {
           id: foundBookmark.id,
@@ -28,48 +28,41 @@ export class CurrentPageInfo {
           scrollPos: foundBookmark.scrollPos,
           faviconUrl: foundBookmark.faviconUrl,
         };
+
+        if (this.pageInfoForClique.scrollPos > 0) {
+          let modal = getNewModal(this.pageInfoForClique.scrollPos * document.body.offsetHeight);
+          document.body.appendChild(modal);
+        }
       }
     });
   }
 
   setInfoAtChromeRuntime() {
+    let documentHeight = document.body.offsetHeight;
+
     chrome.runtime.sendMessage({
       title: this.pageTitle,
-      scrollHeight: this.scrollPosition,
+      scrollHeight: this.scrollPosition / documentHeight,
     });
   }
 
   setInfoAtClique() {
-    // axios.patch()
+    // Todo(maitracle): scroll 위치를 업데이트하는 코드 추가해야 함.
   }
 
   handlePageLoadEvent() {
     this.setInfoAtChromeRuntime();
-
-    if (this.pageInfoForClique && this.pageInfoForClique.scrollPos > 0) {
-    // if (true) {
-
-      let modal = getNewModal();
-      document.body.appendChild(modal);
-    }
   }
 
   handleScrollEvent(self) {
-    return () => {
-      let currentY = window.scrollY;
-      let documentHeight = document.body.offsetHeight;
+    let currentY = window.scrollY;
+    let documentHeight = document.body.offsetHeight;
 
-      let onePercent = 0.01;
+    let onePercent = 0.01;
 
-      if ((currentY / documentHeight) - (self.scrollPosition / documentHeight) >= onePercent) {
-        self.scrollPosition = currentY;
-        self.setInfoAtChromeRuntime();
-
-        if (self.isBookmarkedPage) {
-          // patch bookmark info to clique server
-          this.setInfoAtClique();
-        }
-      }
-    };
+    if ((currentY / documentHeight) - (self.scrollPosition / documentHeight) >= onePercent) {
+      self.scrollPosition = currentY;
+      self.setInfoAtChromeRuntime();
+    }
   }
 }
