@@ -15,9 +15,11 @@ import deleteFolderModalImage from '../assets/img/deleteModalImage';
 import defaultImage from '../assets/img/FolderItemImages/1.png';
 import blankListFolder from '../assets/img/blankListFolder.png';
 
-import { deleteBookmarkFolderRequest, renameBookmarkFolderRequest } from '../Store/Bookmark/actions';
+import {
+  deleteBookmarkFolderRequest,
+  renameBookmarkFolderRequest,
+} from '../Store/Bookmark/actions';
 import { getTimeDeltaString } from '../Utils/datetimeHandler';
-
 
 export default function Folder({ folderData, folderCoverImageSrc }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
@@ -210,6 +212,21 @@ const Container = styled.div`
   margin-bottom: 20px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
+
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+
+  &:hover {
+    cursor: pointer;
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
 `;
 
 const FolderImage = styled.div`
