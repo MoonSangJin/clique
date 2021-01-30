@@ -1,12 +1,8 @@
 {
-  "name": "lorbit",
-  "version": "3.2.1",
-  "description": "A chrome extension boilerplate built with React 17 and Webpack 5",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lxieyang/chrome-extension-boilerplate-react.git"
-  },
+  "name": "clique",
+  "version": "0.1.0",
+  "description": "smart bookmark extension",
+  "private": true,
   "scripts": {
     "build": "node utils/build.js",
     "start": "node utils/webserver.js",
