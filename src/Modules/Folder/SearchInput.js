@@ -49,7 +49,7 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
 
   return (
     <Container>
-      <InputRow>
+      <InputWrapper>
         <HandGlass src={handGlassSrc} alt={`hand glass`} />
         <Input
           type="text"
@@ -62,10 +62,11 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
           onKeyPress={handleKeyPress}
           ref={inputRef}
         />
-        <OrGoogleButton onClick={changeSearchEngineToGoogle}>
-          or google
-        </OrGoogleButton>
-      </InputRow>
+        {/*Todo(maitracle): or google 기능을 추가할 때 주석을 해제한다*/}
+        {/*<OrGoogleButton onClick={changeSearchEngineToGoogle}>*/}
+        {/*  or google*/}
+        {/*</OrGoogleButton>*/}
+      </InputWrapper>
       <SearchResult>
         {searchEngine === 'clique' && searchKeyword ? (
           <SearchResultList
@@ -78,7 +79,17 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
   );
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 458px;
+  height: 49px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+`;
 
 const HandGlass = styled.img`
   margin-left: 20px;
@@ -87,17 +98,16 @@ const HandGlass = styled.img`
   height: 20px;
 `;
 
-const InputRow = styled.div`
-  display: flex;
-  width: 470px;
-  height: 54px;
-  background: #f5f7f8;
-  border-radius: 50px;
-  align-items: center;
-`;
-
 const Input = styled.input`
-  width: 279px;
+  all: unset;
+  width: 389px;
+  
+  &::placeholder {
+    font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.5);
+  }
 `;
 
 const SearchResult = styled.div`
@@ -105,13 +115,14 @@ const SearchResult = styled.div`
   z-index: 100;
 `;
 
-const OrGoogleButton = styled.div`
-  display: flex;
-  align-items: center;
-  height: 28px;
-  padding-left: 12px;
-  border-left: 1px solid rgba(144, 160, 173, 0.3);
-  font-size: 12px;
-  line-height: 15px;
-  color: #90a0ad;
-`;
+// Todo(maitracle): or google 기능을 추가할 때 주석을 해제한다
+// const OrGoogleButton = styled.div`
+//   display: flex;
+//   align-items: center;
+//   height: 28px;
+//   padding-left: 12px;
+//   border-left: 1px solid rgba(144, 160, 173, 0.3);
+//   font-size: 12px;
+//   line-height: 15px;
+//   color: #90a0ad;
+// `;
