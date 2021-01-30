@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Background from '../../Components/Background';
 import FolderRow from '../../Components/FolderRow';
 import SearchInput from '../../Modules/Folder/SearchInput';
+import searchInputBackgroundSrc from '../../assets/img/searchInputBackground';
 
 const HomeScreenPresenter = ({
   bookmarkFolderList,
@@ -12,11 +12,9 @@ const HomeScreenPresenter = ({
 }) => {
   return (
     <Container>
-      <Background />
-
-      <SearchRow>
+      <SearchInputWrapper>
         <SearchInput {...{ bookmarkFolderList, bookmarkList }} />
-      </SearchRow>
+      </SearchInputWrapper>
 
       <FolderRowWrapper>
         <FolderRow {...{ bookmarkFolderList, isLoggedIn, type: 'card' }} />
@@ -25,19 +23,19 @@ const HomeScreenPresenter = ({
   );
 };
 
-const Container = styled.div`
-  width: 1185px;
-  margin: 0 auto;
-`;
+const Container = styled.div``;
 
-const SearchRow = styled.div`
+const SearchInputWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 37px;
+  padding: 76px 0;
+  background-image: url(${searchInputBackgroundSrc});
+  background-size: cover;
 `;
 
 const FolderRowWrapper = styled.div`
-  margin-top: 42px;
+  width: 1185px;
+  margin: 50px auto 0 auto;
 `;
 
 export default HomeScreenPresenter;
