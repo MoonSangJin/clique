@@ -12,7 +12,8 @@ import {
   fetchBookmarkSuccess,
   renameBookmarkFolderFailure,
   renameBookmarkFolderRequest,
-  renameBookmarkRequest, updateIsFavoriteBookmarkFolderRequest,
+  renameBookmarkRequest,
+  updateIsFavoriteBookmarkFolderRequest,
 } from './actions';
 import { getAccessToken } from '../../Utils/tokenHandler';
 import { request } from '../../Utils/request';

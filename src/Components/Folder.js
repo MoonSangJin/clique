@@ -17,9 +17,11 @@ import blankListFolder from '../assets/img/blankListFolder.png';
 
 import {
   deleteBookmarkFolderRequest,
-  renameBookmarkFolderRequest, updateIsFavoriteBookmarkFolderRequest,
+  renameBookmarkFolderRequest,
+  updateIsFavoriteBookmarkFolderRequest,
 } from '../Store/Bookmark/actions';
 import { getTimeDeltaString } from '../Utils/datetimeHandler';
+
 
 export default function Folder({ folderData, folderCoverImageSrc }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
