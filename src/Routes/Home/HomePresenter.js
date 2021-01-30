@@ -5,6 +5,7 @@ import FolderRow from '../../Components/FolderRow';
 import SearchInput from '../../Modules/Folder/SearchInput';
 import searchInputBackgroundSrc from '../../assets/img/searchInputBackground';
 
+
 const HomeScreenPresenter = ({
   bookmarkFolderList,
   bookmarkList,
@@ -23,6 +24,7 @@ const HomeScreenPresenter = ({
   );
 };
 
+
 const Container = styled.div``;
 
 const SearchInputWrapper = styled.div`
@@ -37,5 +39,6 @@ const FolderRowWrapper = styled.div`
   width: 1185px;
   margin: 50px auto 0 auto;
 `;
+
 
 export default HomeScreenPresenter;
