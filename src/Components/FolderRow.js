@@ -66,7 +66,7 @@ const Container = styled.div`
 const FolderWrapper = styled.div`
   margin-right: 19px;
   
-  &:nth-child(4) {
+  &:nth-child(4n) {
     margin-right: 0;
   }
 `;
