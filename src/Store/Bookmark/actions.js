@@ -12,6 +12,13 @@ const RENAME_BOOKMARK_FOLDER_SUCCESS =
 const RENAME_BOOKMARK_FOLDER_FAILURE =
   'bookmarks/RENAME_BOOKMARK_FOLDER_FAILURE';
 
+const UPDATE_IS_FAVORITE_BOOKMARK_FOLDER_REQUEST =
+  'bookmarks/UPDATE_IS_FAVORITE_BOOKMARK_FOLDER_REQUEST';
+const UPDATE_IS_FAVORITE_BOOKMARK_FOLDER_SUCCESS =
+  'bookmarks/UPDATE_IS_FAVORITE_BOOKMARK_FOLDER_SUCCESS';
+const UPDATE_IS_FAVORITE_BOOKMARK_FOLDER_FAILURE =
+  'bookmarks/UPDATE_IS_FAVORITE_BOOKMARK_FOLDER_FAILURE';
+
 const DELETE_BOOKMARK_FOLDER_REQUEST =
   'bookmarks/DELETE_BOOKMARK_FOLDER_REQUEST';
 const DELETE_BOOKMARK_FOLDER_SUCCESS =
@@ -53,6 +60,16 @@ export const renameBookmarkFolderSuccess = createAction(
 );
 export const renameBookmarkFolderFailure = createAction(
   RENAME_BOOKMARK_FOLDER_FAILURE
+);
+
+export const updateIsFavoriteBookmarkFolderRequest = createAction(
+  UPDATE_IS_FAVORITE_BOOKMARK_FOLDER_REQUEST
+);
+export const updateIsFavoriteBookmarkFolderSuccess = createAction(
+  UPDATE_IS_FAVORITE_BOOKMARK_FOLDER_SUCCESS
+);
+export const updateIsFavoriteBookmarkFolderFailure = createAction(
+  UPDATE_IS_FAVORITE_BOOKMARK_FOLDER_FAILURE
 );
 
 export const deleteBookmarkFolderRequest = createAction(
