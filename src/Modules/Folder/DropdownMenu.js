@@ -9,6 +9,8 @@ const DropdownMenu = ({
   isOpen,
   closeHandler,
   anchorEl,
+  isFavorite,
+  handleUpdateIsFavorite,
   sharedText,
   shareTextSuccessHandler,
   openDeleteFolderModal,
@@ -22,7 +24,7 @@ const DropdownMenu = ({
       position={'hover'}
     >
       <MenuWrapper>
-        <MenuItem>Add to favorites</MenuItem>
+        <MenuItem onClick={handleUpdateIsFavorite}>{isFavorite ? 'Undo Favorites': 'Add to favorites'}</MenuItem>
         <CopyToClipboard text={sharedText} onCopy={shareTextSuccessHandler}>
           <MenuItem>Share</MenuItem>
         </CopyToClipboard>

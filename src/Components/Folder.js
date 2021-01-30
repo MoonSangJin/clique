@@ -18,8 +18,10 @@ import blankListFolder from '../assets/img/blankListFolder.png';
 import {
   deleteBookmarkFolderRequest,
   renameBookmarkFolderRequest,
+  updateIsFavoriteBookmarkFolderRequest,
 } from '../Store/Bookmark/actions';
 import { getTimeDeltaString } from '../Utils/datetimeHandler';
+
 
 export default function Folder({ folderData, folderCoverImageSrc }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
@@ -63,6 +65,11 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
     });
 
     return sharedText;
+  };
+
+  const handleUpdateIsFavorite = () => {
+    closeDropdownMenu();
+    dispatch(updateIsFavoriteBookmarkFolderRequest({folderId: folderData.id, isFavorite: !folderData.isFavorite}));
   };
 
   const handleShareTextSuccess = () => {
@@ -130,12 +137,15 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
           </ContentsWrapper>
         </Container>
       </StyledLink>
+
       <DropdownMenu
         isOpen={isOpenDropdownMenu}
         closeHandler={closeDropdownMenu}
         anchorEl={dotMenuElementHolder}
         sharedText={getSharedText()}
         shareTextSuccessHandler={handleShareTextSuccess}
+        isFavorite={folderData.isFavorite}
+        handleUpdateIsFavorite={handleUpdateIsFavorite}
         {...{ openDeleteFolderModal, openRenameFolderModal }}
       />
       <Modal
