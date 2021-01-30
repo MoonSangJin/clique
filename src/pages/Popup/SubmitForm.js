@@ -5,6 +5,7 @@ import popUpLogo from '../../assets/img/popUpLogo.svg';
 import { isValidUrl, refineUrl } from '../../Utils/urlHandler';
 import ListRowItem from './ListRowItem';
 
+
 export default function SubmitForm({ tabs, postServer }) {
   const [bookmarks, setBookmarks] = useState([]);
   const [newFolderName, setNewFolderName] = useState('');
@@ -99,6 +100,7 @@ export default function SubmitForm({ tabs, postServer }) {
 
   const handleCheckAll = () => {
     const bookmarkTitleList = bookmarks.map((bookmark) => bookmark.title);
+    const isCheckedAllResult = isCheckedAll();
 
     chrome.storage.local.get(bookmarkTitleList, (result) => {
       setBookmarks((respondedBookmarks) => {
@@ -106,18 +108,20 @@ export default function SubmitForm({ tabs, postServer }) {
           return {
             ...bookmark,
             scrollPos: result[bookmark.title]?.scroll || 0.0,
-            isChecked: true,
+            isChecked: !isCheckedAllResult,
           };
         });
       });
     });
   };
 
+  const isCheckedAll = () => bookmarks.findIndex((bookmark) => bookmark.isChecked === false) === -1;
+
   return (
     <FormWrapper>
       <LogoRow>
         <LogoImage src={popUpLogo} />
-        <CheckAll onClick={handleCheckAll}>Check all</CheckAll>
+        <CheckAll onClick={handleCheckAll}>{isCheckedAll() ? 'Uncheck all' : 'Check all'}</CheckAll>
       </LogoRow>
       <List>
         {bookmarks.map(({ favIconUrl, title, url, isChecked }, index) => (
