@@ -43,7 +43,7 @@ const SignUpPagePresenter = ({
         <PasswordInputWrapper>
           <Input
             value={password}
-            placeholder={'password'}
+            placeholder={'Password'}
             validationMessage={passwordValidationMessage}
             onChange={passwordChangeHandler}
             onFocus={() => setPasswordValidationMessage('')}
