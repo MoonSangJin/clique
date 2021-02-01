@@ -19,6 +19,7 @@ const SignUpPagePresenter = ({
   passwordChangeHandler,
   isValidEmail,
   isValidPassword,
+  handleOnKeyUp,
 }) => {
   return (
     <AuthContainer>
@@ -37,6 +38,7 @@ const SignUpPagePresenter = ({
           onChange={emailChangeHandler}
           onFocus={() => setEmailValidationMessage('')}
           onBlur={isValidEmail}
+          onKeyUp={handleOnKeyUp}
         />
         <PasswordInputWrapper>
           <Input
@@ -46,6 +48,7 @@ const SignUpPagePresenter = ({
             onChange={passwordChangeHandler}
             onFocus={() => setPasswordValidationMessage('')}
             onBlur={isValidPassword}
+            onKeyUp={handleOnKeyUp}
             type={'password'}
           />
         </PasswordInputWrapper>

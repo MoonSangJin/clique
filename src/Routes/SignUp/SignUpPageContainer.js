@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import SignUpPagePresenter from './SignUpPagePresenter';
 import { signUpRequest } from '../../Store/SignUp/actions';
 
+
 const SignUpPageContainer = () => {
   const signUpReducer = useSelector((state) => state.signUpReducer);
   const dispatch = useDispatch();
@@ -37,9 +38,9 @@ const SignUpPageContainer = () => {
   };
 
   const isValidPassword = () => {
-    if (password.length <= 8) {
+    if (password.length < 8) {
       setPasswordValidationMessage(
-        'please enter a password of at least 8 characters'
+        'please enter a password of at least 8 characters',
       );
 
       return false;
@@ -64,6 +65,14 @@ const SignUpPageContainer = () => {
     }
   };
 
+  const handleOnKeyUp = (e) => {
+    const enterKeyCode = 13;
+
+    if (e.keyCode === enterKeyCode) {
+      handleSignUp();
+    }
+  };
+
   return (
     <>
       <SignUpPagePresenter
@@ -79,6 +88,7 @@ const SignUpPageContainer = () => {
           passwordChangeHandler,
           isValidEmail,
           isValidPassword,
+          handleOnKeyUp
         }}
       />
       {signUpReducer.signUpResult.result === 'success' ? (

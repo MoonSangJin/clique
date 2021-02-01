@@ -20,6 +20,7 @@ const SignInPagePresenter = ({
   signInValidationMessage,
   eraseSignInValidationMessage,
   handleSignIn,
+  handleOnKeyUp,
   emailChangeHandler,
   passwordChangeHandler,
   isValidEmail,
@@ -46,6 +47,7 @@ const SignInPagePresenter = ({
           onChange={emailChangeHandler}
           onFocus={eraseEmailValidationMessage}
           onBlur={isValidEmail}
+          onKeyUp={handleOnKeyUp}
         />
         <PasswordInputWrapper>
           <Input
@@ -55,6 +57,7 @@ const SignInPagePresenter = ({
             onChange={passwordChangeHandler}
             onFocus={erasePasswordValidationMessage}
             onBlur={isValidPassword}
+            onKeyUp={handleOnKeyUp}
             type={'password'}
           />
         </PasswordInputWrapper>

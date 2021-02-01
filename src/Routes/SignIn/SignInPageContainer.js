@@ -66,6 +66,14 @@ const SignInPageContainer = () => {
     }
   };
 
+  const handleOnKeyUp = (e) => {
+    const enterKeyCode = 13;
+
+    if (e.keyCode === enterKeyCode) {
+      handleSignIn();
+    }
+  };
+
   const eraseSignInValidationMessage = () => {
     dispatch(setSignInErrorMessage(''))
   };
@@ -81,6 +89,7 @@ const SignInPageContainer = () => {
           passwordValidationMessage,
           setPasswordValidationMessage,
           signInValidationMessage: userReducer.signInErrorMessage,
+          handleOnKeyUp,
           eraseSignInValidationMessage,
           handleSignIn,
           emailChangeHandler,

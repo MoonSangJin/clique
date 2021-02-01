@@ -35,6 +35,7 @@ export default function Input({
   onChange,
   onFocus,
   onBlur,
+  onKeyUp,
   placeholder,
   validationMessage,
   type = 'text',
@@ -47,6 +48,7 @@ export default function Input({
         placeholder={placeholder}
         onFocus={onFocus}
         onBlur={onBlur}
+        onKeyUp={onKeyUp}
         type={type}
         isValid={validationMessage === ''}
       />
