@@ -42,6 +42,8 @@ const DELETE_BOOKMARK_REQUEST = 'bookmarks/DELETE_BOOKMARK_REQUEST';
 const DELETE_BOOKMARK_SUCCESS = 'bookmarks/DELETE_BOOKMARK_SUCCESS';
 const DELETE_BOOKMARK_FAILURE = 'bookmarks/DELETE_BOOKMARK_FAILURE';
 
+const REMOVE_BOOKMARK_INFO = 'bookmarks/REMOVE_BOOKMARK_INFO';
+
 export const fetchBookmarkFolderRequest = createAction(
   FETCH_BOOKMARK_FOLDER_REQUEST
 );
@@ -98,5 +100,4 @@ export const deleteBookmarkRequest = createAction(DELETE_BOOKMARK_REQUEST);
 export const deleteBookmarkSuccess = createAction(DELETE_BOOKMARK_SUCCESS);
 export const deleteBookmarkFailure = createAction(DELETE_BOOKMARK_FAILURE);
 
-
-
+export const removeBookmarkInfo = createAction(REMOVE_BOOKMARK_INFO);

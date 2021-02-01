@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import Popover from '../../Components/Popover';
 import { removeUserInfo } from '../../Store/User/actions';
 import { removeAccessToken } from '../../Utils/tokenHandler';
+import { removeBookmarkInfo } from '../../Store/Bookmark/actions';
 
 
 const ProfileMenu = ({
@@ -30,6 +31,7 @@ const ProfileMenu = ({
       onClickFunction: () => {
         removeAccessToken().then(() => {
           dispatch(removeUserInfo());
+          dispatch(removeBookmarkInfo());
           closeHandler();
         });
       },
