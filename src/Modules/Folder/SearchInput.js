@@ -19,7 +19,6 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
 
   const handleBlur = () => {
     setSearchEngine('clique');
-    setSearchKeyword('');
   };
 
   const handleKeyPress = (e) => {

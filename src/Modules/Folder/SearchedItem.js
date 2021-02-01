@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
 import FavoriteFolderSrc from '../../assets/img/favoriteFolder.svg';
 import FolderSrc from '../../assets/img/folder.svg';
 
 const SearchedItem = ({ info, type }) => {
+  const history = useHistory();
   let name = '';
   let iconSrc = '';
   let onClickHandler;
@@ -12,8 +14,9 @@ const SearchedItem = ({ info, type }) => {
   if (type === 'FOLDER') {
     name = info.name;
     iconSrc = info.isFavorite ? FavoriteFolderSrc : FolderSrc;
-    onClickHandler = () =>
-      (window.location.href = `/newtab.html#/detail/${info.id}`);
+    onClickHandler = () => {
+      history.push(`/detail/${info.id}`);
+    }
   } else if (type === 'BOOKMARK') {
     name = info.title;
     iconSrc = info.faviconUrl || '';
