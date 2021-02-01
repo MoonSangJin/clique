@@ -45,10 +45,10 @@ const MenuWrapper = styled.div`
 const MenuItem = styled.div`
   display: flex;
   align-items: center;
-  height: 47px;
+  height: 40px;
   padding-left: 28px;
 
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
   letter-spacing: -0.02em;
   color: #070701;

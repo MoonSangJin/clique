@@ -278,7 +278,6 @@ const FolderName = styled.div`
   font-size: 16px;
   line-height: 21px;
   letter-spacing: -0.02em;
-
   color: #070701;
   overflow: hidden;
   text-overflow: ellipsis;

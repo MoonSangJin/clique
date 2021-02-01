@@ -4,12 +4,12 @@ import Popover from '@material-ui/core/Popover';
 const positionSettings = {
   hover: {
     anchorOrigin: {
-      vertical: 'top',
-      horizontal: 'right',
+      vertical: 'bottom',
+      horizontal: 'left',
     },
     transformOrigin: {
-      vertical: 'top',
-      horizontal: 'right',
+      vertical: 'bottom',
+      horizontal: 'left',
     },
   },
   bottom: {
