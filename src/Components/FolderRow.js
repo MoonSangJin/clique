@@ -11,6 +11,7 @@ import FourthImageSrc from '../assets/img/FolderItemImages/4.png';
 import BlankListFolderSrc from '../assets/img/blankListFolder.png';
 import { Link } from 'react-router-dom';
 
+
 const mapIndexToImageSrc = {
   0: FirstImageSrc,
   1: SecondImageSrc,
@@ -23,9 +24,24 @@ export default function FolderRow({ bookmarkFolderList, isLoggedIn, type }) {
     <>
       <FolderListHeader />
       {isLoggedIn ? (
-        <Container>
-          {type === 'card'
-            ? bookmarkFolderList.map((folderData, index) => {
+        <>
+          {
+            bookmarkFolderList.length === 0 ?
+              <EmptyListWrapper>
+                <Image src={BlankListFolderSrc} />
+                <Description>You have not yet created a Bookmark Folder with Clique.</Description>
+                <AdditionalDescription>Folders appears here once created.</AdditionalDescription>
+                <StyledLink to={'#'}>
+                  <ToSignInButton>
+                    Learn how to use&nbsp;<Bold>Clique!</Bold>
+                  </ToSignInButton>
+                </StyledLink>
+              </EmptyListWrapper>
+              : null
+          }
+          <Container>
+            {type === 'card'
+              ? bookmarkFolderList.map((folderData, index) => {
                 return (
                   <FolderWrapper
                     key={index}
@@ -37,20 +53,21 @@ export default function FolderRow({ bookmarkFolderList, isLoggedIn, type }) {
                   </FolderWrapper>
                 );
               })
-            : bookmarkFolderList.map((folderData, index) => {
+              : bookmarkFolderList.map((folderData, index) => {
                 return <ListFolder key={index} {...{ folderData }} />;
               })}
-        </Container>
+          </Container>
+        </>
       ) : (
-        <NotLoggedInWrapper>
+        <EmptyListWrapper>
           <Image src={BlankListFolderSrc} />
-          <Description>Sign in Clique and manage yout bookmarks</Description>
+          <Description>Sign in Clique and manage your bookmarks</Description>
           <StyledLink to={'/sign-in'}>
             <ToSignInButton>
               Sign in&nbsp;<Bold>Clique</Bold>
             </ToSignInButton>
           </StyledLink>
-        </NotLoggedInWrapper>
+        </EmptyListWrapper>
       )}
     </>
   );
@@ -71,7 +88,7 @@ const FolderWrapper = styled.div`
   }
 `;
 
-const NotLoggedInWrapper = styled.div``;
+const EmptyListWrapper = styled.div``;
 
 const Image = styled.img`
   display: block;
@@ -81,12 +98,23 @@ const Image = styled.img`
 `;
 
 const Description = styled.div`
+  margin-top: 14px;
+  
   font-size: 14px;
   line-height: 21px;
   text-align: center;
   letter-spacing: -0.02em;
-
   color: #070701;
+`;
+
+const AdditionalDescription = styled.div`
+  margin-top: 5px;
+
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #90A0AD;
 `;
 
 const StyledLink = styled(Link)`
@@ -97,7 +125,7 @@ const ToSignInButton = styled.button`
   display: block;
   width: 223px;
   height: 43px;
-  margin: 6px auto 200px auto;
+  margin: 58px auto 200px auto;
   background: #7785ff;
   border-radius: 3px;
   border: none;
@@ -109,6 +137,8 @@ const ToSignInButton = styled.button`
   text-align: center;
   letter-spacing: -0.02em;
   color: #ffffff;
+  
+  cursor: pointer;
 `;
 
 const Bold = styled.span`
