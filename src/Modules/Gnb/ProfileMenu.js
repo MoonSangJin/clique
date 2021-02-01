@@ -49,7 +49,7 @@ const ProfileMenu = ({
           <ProfilePanel>
             <Information>
               <Username>{email ? email.split('@')[0] : ''}</Username>
-              <EditProfile>Edit Profile</EditProfile>
+              {/*<EditProfile>Edit Profile</EditProfile>*/}
             </Information>
             <ProfileImage src={profileImageSrc} />
           </ProfilePanel>
@@ -84,9 +84,14 @@ const ProfilePanel = styled.div`
   justify-content: space-between;
 `;
 
-const Information = styled.div``;
+const Information = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const Username = styled.div`
+  margin-left: 5px;
+
   font-size: 14px;
   line-height: 18px;
   letter-spacing: -0.02em;
