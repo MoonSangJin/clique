@@ -111,7 +111,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
           <ContentsWrapper>
             <TitleWrapper>
               <TextRow>
-                <FolderName>{folderData.name}</FolderName>
+                <FolderName isFavorite={folderData.isFavorite}>{folderData.name}</FolderName>
                 <FolderTime>
                   Created {getTimeDeltaString(new Date(), folderData.createdAt)}
                 </FolderTime>
@@ -270,8 +270,9 @@ const FavoriteIcon = styled.img`
 `;
 
 const FolderName = styled.div`
-  width: 185px;
+  ${(props) => props.isFavorite ? 'width: 185px' : 'width: 230px'};
   display: block;
+
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
