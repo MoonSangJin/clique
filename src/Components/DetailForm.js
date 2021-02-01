@@ -153,6 +153,7 @@ const BackSpace = styled.img`
 `;
 
 const Title = styled.div`
+  max-width: 640px;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
