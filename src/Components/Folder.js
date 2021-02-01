@@ -35,7 +35,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
   const [isOpenDeleteFolderModal, setIsOpenDeleteFolderModal] = useState(false);
   const [isOpenRenameFolderModal, setIsOpenRenameFolderModal] = useState(false);
 
-  const [newFolderName, setNewFolderName] = useState('');
+  const [newFolderName, setNewFolderName] = useState(folderData.name);
 
   useEffect(() => {
     setDotMenuElementHolder(dotMenuRef.current);
@@ -111,7 +111,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
           <ContentsWrapper>
             <TitleWrapper>
               <TextRow>
-                <FolderName>{folderData.name}</FolderName>
+                <FolderName isFavorite={folderData.isFavorite}>{folderData.name}</FolderName>
                 <FolderTime>
                   Created {getTimeDeltaString(new Date(), folderData.createdAt)}
                 </FolderTime>
@@ -198,7 +198,9 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
             <ModalTitle>Rename Bookmark Folder</ModalTitle>
           </PhrasesWrapper>
         </ModalContentsWrapper>
-        <ModalInput onChange={handleNewFolderName} />
+
+        <ModalInput onChange={handleNewFolderName} value={newFolderName} />
+
         <ModalButtonWrapper>
           <ModalWhiteButton onClick={() => setIsOpenRenameFolderModal(false)}>
             Cancel
@@ -268,14 +270,14 @@ const FavoriteIcon = styled.img`
 `;
 
 const FolderName = styled.div`
-  width: 185px;
+  ${(props) => props.isFavorite ? 'width: 185px' : 'width: 230px'};
   display: block;
+
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 21px;
   letter-spacing: -0.02em;
-
   color: #070701;
   overflow: hidden;
   text-overflow: ellipsis;

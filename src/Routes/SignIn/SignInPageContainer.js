@@ -26,7 +26,7 @@ const SignInPageContainer = () => {
   };
 
   const isValidEmail = () => {
-    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (!emailRegex.test(email)) {
       setEmailValidationMessage('please enter a valid email.');
@@ -66,6 +66,14 @@ const SignInPageContainer = () => {
     }
   };
 
+  const handleOnKeyUp = (e) => {
+    const enterKeyCode = 13;
+
+    if (e.keyCode === enterKeyCode) {
+      handleSignIn();
+    }
+  };
+
   const eraseSignInValidationMessage = () => {
     dispatch(setSignInErrorMessage(''))
   };
@@ -81,6 +89,7 @@ const SignInPageContainer = () => {
           passwordValidationMessage,
           setPasswordValidationMessage,
           signInValidationMessage: userReducer.signInErrorMessage,
+          handleOnKeyUp,
           eraseSignInValidationMessage,
           handleSignIn,
           emailChangeHandler,

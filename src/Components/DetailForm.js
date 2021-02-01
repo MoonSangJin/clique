@@ -12,7 +12,6 @@ import { fetchBookmarkFolderRequest, fetchBookmarkRequest } from '../Store/Bookm
 import { useDispatch, useSelector } from 'react-redux';
 
 
-
 export default function DetailForm({ folderData, detailDataList, handleAddBookmark }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
   const dispatch = useDispatch();
@@ -110,12 +109,12 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
           </ModalTitle>
 
           <ModalInputWrapper>
-            <Input value={newBookmarkInfo.url} onChange={changeUrl} validationMessage={''}
+            <Input value={newBookmarkInfo.url} onChange={changeUrl} placeholder={'https://'} validationMessage={''}
                    onBlur={fetchPageInfoFromUrl} />
           </ModalInputWrapper>
 
           <div>
-            <Input value={newBookmarkInfo.title} onChange={changeTitle} validationMessage={''} />
+            <Input value={newBookmarkInfo.title} onChange={changeTitle} placeholder={'Enter bookmark name'} validationMessage={''} />
           </div>
 
           <ModalButtonWrapper>
@@ -154,6 +153,7 @@ const BackSpace = styled.img`
 `;
 
 const Title = styled.div`
+  max-width: 640px;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;

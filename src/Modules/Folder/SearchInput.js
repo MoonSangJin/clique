@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import handGlassSrc from '../../assets/img/handGlass';
 import SearchResultList from './SearchResultList';
 
+
 const mapSearchEngineToInputPlaceholder = {
   clique: 'Search bookmark, folder, keyword or URL',
   google: 'or google',
@@ -19,7 +20,6 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
 
   const handleBlur = () => {
     setSearchEngine('clique');
-    setSearchKeyword('');
   };
 
   const handleKeyPress = (e) => {
@@ -48,7 +48,10 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
       : [];
 
   return (
-    <Container>
+    <>
+      {
+        searchKeyword !== '' ? <Overlay onClick={() =>  setSearchKeyword('')} /> : null
+      }
       <InputWrapper>
         <HandGlass src={handGlassSrc} alt={`hand glass`} />
         <Input
@@ -70,16 +73,26 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
       <SearchResult>
         {searchEngine === 'clique' && searchKeyword ? (
           <SearchResultList
-            bookmarkSearchResult={getSearchedBookmarkFolderList().slice(0, 5)}
-            bookmarkFolderSearchResult={getSearchedBookmarkList().slice(0, 200)}
+            bookmarkSearchResult={getSearchedBookmarkFolderList()}
+            bookmarkFolderSearchResult={getSearchedBookmarkList()}
           />
         ) : null}
       </SearchResult>
-    </Container>
+    </>
   );
 }
 
-const Container = styled.div`
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  width: 100vw;
+  height: 100vh;
+  
+  z-index: 100;
 `;
 
 const InputWrapper = styled.div`
@@ -89,6 +102,7 @@ const InputWrapper = styled.div`
   height: 49px;
   background: rgba(255, 255, 255, 0.3);
   border-radius: 10px;
+  z-index: 1000;
 `;
 
 const HandGlass = styled.img`
@@ -112,7 +126,8 @@ const Input = styled.input`
 
 const SearchResult = styled.div`
   position: absolute;
-  z-index: 100;
+  z-index: 1000;
+  margin-top: 55px;
 `;
 
 // Todo(maitracle): or google 기능을 추가할 때 주석을 해제한다

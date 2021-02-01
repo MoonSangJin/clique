@@ -17,13 +17,11 @@ const InputContainer = styled.input`
   text-indent: 23px;
 
   ::placeholder {
-    font-family: Noto Sans KR;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
     line-height: 18px;
     letter-spacing: -0.02em;
-
     color: rgba(144, 160, 173, 0.8);
   }
 
@@ -37,6 +35,7 @@ export default function Input({
   onChange,
   onFocus,
   onBlur,
+  onKeyUp,
   placeholder,
   validationMessage,
   type = 'text',
@@ -49,6 +48,7 @@ export default function Input({
         placeholder={placeholder}
         onFocus={onFocus}
         onBlur={onBlur}
+        onKeyUp={onKeyUp}
         type={type}
         isValid={validationMessage === ''}
       />
