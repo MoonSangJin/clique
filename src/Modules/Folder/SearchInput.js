@@ -69,8 +69,8 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
       <SearchResult>
         {searchEngine === 'clique' && searchKeyword ? (
           <SearchResultList
-            bookmarkSearchResult={getSearchedBookmarkFolderList().slice(0, 5)}
-            bookmarkFolderSearchResult={getSearchedBookmarkList().slice(0, 200)}
+            bookmarkSearchResult={getSearchedBookmarkFolderList()}
+            bookmarkFolderSearchResult={getSearchedBookmarkList()}
           />
         ) : null}
       </SearchResult>
