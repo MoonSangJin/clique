@@ -34,7 +34,7 @@ const SearchedItem = ({ info, type }) => {
 const ItemWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  height: 47px;
+  height: 42px;
   padding: 0 28px;
   align-items: center;
 
@@ -53,7 +53,7 @@ const Name = styled.div`
   max-width: 300px;
   max-height: 24px;
 
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
   letter-spacing: -0.02em;
   color: #070701;

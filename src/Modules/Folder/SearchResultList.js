@@ -21,8 +21,8 @@ const SearchResultList = ({
 };
 
 const ResultWrapper = styled.div`
-  width: 578px;
-  padding: 28px 0;
+  width: 458px;
+  padding: 12px 0;
   box-sizing: border-box;
   background: #ffffff;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.06);
@@ -32,7 +32,7 @@ const ResultWrapper = styled.div`
 `;
 
 const Divider = styled.div`
-  width: 520px;
+  width: 418px;
   margin: 10px auto;
   border-bottom: 1px solid rgba(222, 227, 230, 0.8);
 `;
