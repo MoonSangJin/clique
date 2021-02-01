@@ -35,7 +35,7 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
   const [isOpenDeleteFolderModal, setIsOpenDeleteFolderModal] = useState(false);
   const [isOpenRenameFolderModal, setIsOpenRenameFolderModal] = useState(false);
 
-  const [newFolderName, setNewFolderName] = useState('');
+  const [newFolderName, setNewFolderName] = useState(folderData.name);
 
   useEffect(() => {
     setDotMenuElementHolder(dotMenuRef.current);
@@ -198,7 +198,9 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
             <ModalTitle>Rename Bookmark Folder</ModalTitle>
           </PhrasesWrapper>
         </ModalContentsWrapper>
-        <ModalInput onChange={handleNewFolderName} />
+
+        <ModalInput onChange={handleNewFolderName} value={newFolderName} />
+
         <ModalButtonWrapper>
           <ModalWhiteButton onClick={() => setIsOpenRenameFolderModal(false)}>
             Cancel
