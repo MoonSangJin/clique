@@ -10,6 +10,7 @@ const HomeScreenPresenter = ({
   bookmarkFolderList,
   bookmarkList,
   isLoggedIn,
+  listType,
 }) => {
   return (
     <Container>
@@ -18,7 +19,7 @@ const HomeScreenPresenter = ({
       </SearchInputWrapper>
 
       <FolderRowWrapper>
-        <FolderRow {...{ bookmarkFolderList, isLoggedIn, type: 'card' }} />
+        <FolderRow {...{ bookmarkFolderList, isLoggedIn, type: listType }} />
       </FolderRowWrapper>
     </Container>
   );

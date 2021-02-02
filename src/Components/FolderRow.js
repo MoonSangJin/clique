@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Folder from '../Components/Folder';
-import ListFolder from '../Components/ListFolder';
 import FolderListHeader from '../Modules/Folder/FolderListHeader';
 import FirstImageSrc from '../assets/img/FolderItemImages/1.png';
 import SecondImageSrc from '../assets/img/FolderItemImages/2.png';
@@ -40,22 +39,22 @@ export default function FolderRow({ bookmarkFolderList, isLoggedIn, type }) {
               : null
           }
           <Container>
-            {type === 'card'
-              ? bookmarkFolderList.map((folderData, index) => {
+            {
+              bookmarkFolderList.map((folderData, index) => {
                 return (
                   <FolderWrapper
                     key={index}
+                    type={type}
                   >
                     <Folder
                       {...{ folderData }}
                       folderCoverImageSrc={mapIndexToImageSrc[index % 4]}
+                      type={type}
                     />
                   </FolderWrapper>
                 );
               })
-              : bookmarkFolderList.map((folderData, index) => {
-                return <ListFolder key={index} {...{ folderData }} />;
-              })}
+            }
           </Container>
         </>
       ) : (
@@ -83,7 +82,7 @@ const Container = styled.div`
 const FolderWrapper = styled.div`
   margin-right: 19px;
   
-  &:nth-child(4n) {
+  &:nth-child(${props => props.type === 'card' ? '4n' : '2n'}) {
     margin-right: 0;
   }
 `;
