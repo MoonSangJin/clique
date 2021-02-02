@@ -6,6 +6,7 @@ import PurpleButton from '../../Components/PurpleButton';
 import GrayText from '../../Components/GrayText';
 import AuthContainer from '../../Components/AuthContainer';
 import LargeText from '../../Components/LargeText';
+import { mapPageToUrl } from '../../Constants/operationPageUrls';
 
 const SignUpPagePresenter = ({
   email,
@@ -60,9 +61,9 @@ const SignUpPagePresenter = ({
 
       <PolicyDescription>
         By joining Clique you agree to our
-        <ExternalLink href={'#'}>&nbsp;Privacy Policy&nbsp;</ExternalLink>
+        <ExternalLink href={mapPageToUrl.privacy} target="_blank">&nbsp;Privacy Policy&nbsp;</ExternalLink>
         and
-        <ExternalLink href={'#'}>&nbsp;Terms of Service</ExternalLink>
+        <ExternalLink href={mapPageToUrl.terms} target="_blank">&nbsp;Terms of Service</ExternalLink>
       </PolicyDescription>
     </AuthContainer>
   );

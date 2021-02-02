@@ -6,6 +6,7 @@ import Popover from '../../Components/Popover';
 import { removeUserInfo } from '../../Store/User/actions';
 import { removeAccessToken } from '../../Utils/tokenHandler';
 import { removeBookmarkInfo } from '../../Store/Bookmark/actions';
+import { mapPageToUrl } from '../../Constants/operationPageUrls';
 
 
 const ProfileMenu = ({
@@ -20,11 +21,11 @@ const ProfileMenu = ({
   const profileMenuInfo = [
     {
       menuName: 'Help & Support',
-      onClickFunction: () => null,
+      onClickFunction: () => window.open(mapPageToUrl.help, '_blank'),
     },
     {
       menuName: 'Getting Started',
-      onClickFunction: () => null,
+      onClickFunction: () => window.open(mapPageToUrl.gettingStarted, '_blank'),
     },
     {
       menuName: 'Sign Out',
