@@ -286,7 +286,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 282px;
-  height: 366px;
+  height: 290px;
   margin-bottom: 20px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
@@ -309,9 +309,10 @@ const Container = styled.div`
 
 const FolderImage = styled.div`
   width: 100%;
-  height: 210px;
+  height: 170px;
   background-image: url(${({ src }) => src});
   background-size: cover;
+  background-position: center;
   border-radius: 8px 8px 0 0;
 `;
 
@@ -367,7 +368,7 @@ const FolderTime = styled.div`
 const MenuWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 45px;
+  margin-top: 15px;
 `;
 
 const FaviconWrapper = styled.div`
