@@ -1,5 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import {
+  changeCoverBookmarkFolderRequest,
   createBookmarkRequest,
   deleteBookmarkFolderFailure,
   deleteBookmarkFolderRequest,
@@ -36,6 +37,26 @@ function* fetchBookmarkFolderAsync() {
     yield put(fetchBookmarkFolderSuccess({ bookmarkFolderList: res.data }));
   } catch (e) {
     yield put(fetchBookmarkFolderFailure());
+  }
+}
+
+const changeCoverBookmarkFolderApi = (token, folderId, coverUrl) =>
+  request({
+    url: `bookmark-folder/${folderId}`,
+    method: 'PATCH',
+    headers: { Authorization: `Bearer ${token}` },
+    data: { coverImageUrl: coverUrl },
+  });
+
+function* changeCoverBookmarkFolderAsync({ payload }) {
+  try {
+    const folderId = payload.folderId;
+    const coverUrl = payload.coverUrl;
+    const token = yield call(getAccessToken);
+    yield call(changeCoverBookmarkFolderApi, token, folderId, coverUrl);
+    yield put(fetchBookmarkFolderRequest());
+  } catch (e) {
+    yield put(renameBookmarkFolderFailure());
   }
 }
 
@@ -173,6 +194,7 @@ function* deleteBookmarkAsync({ payload }) {
 
 export function* watchBookmark() {
   yield takeEvery(fetchBookmarkFolderRequest, fetchBookmarkFolderAsync);
+  yield takeEvery(changeCoverBookmarkFolderRequest, changeCoverBookmarkFolderAsync);
   yield takeEvery(renameBookmarkFolderRequest, renameBookmarkFolderAsync);
   yield takeEvery(updateIsFavoriteBookmarkFolderRequest, updateIsFavoriteBookmarkFolderAsync);
   yield takeEvery(deleteBookmarkFolderRequest, deleteBookmarkFolderAsync);

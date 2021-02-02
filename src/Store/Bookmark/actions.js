@@ -34,6 +34,10 @@ const CREATE_BOOKMARK_REQUEST = 'bookmarks/CREATE_BOOKMARK_REQUEST';
 const CREATE_BOOKMARK_SUCCESS = 'bookmarks/CREATE_BOOKMARK_SUCCESS';
 const CREATE_BOOKMARK_FAILURE = 'bookmarks/CREATE_BOOKMARK_FAILURE';
 
+const CHANGE_COVER_BOOKMARK_FOLDER_REQUEST = 'bookmarks/CHANGE_COVER_BOOKMARK_REQUEST';
+const CHANGE_COVER_BOOKMARK_FOLDER_SUCCESS = 'bookmarks/CHANGE_COVER_BOOKMARK_SUCCESS';
+const CHANGE_COVER_BOOKMARK_FOLDER_FAILURE = 'bookmarks/CHANGE_COVER_BOOKMARK_FAILURE';
+
 const RENAME_BOOKMARK_REQUEST = 'bookmarks/RENAME_BOOKMARK_REQUEST';
 const RENAME_BOOKMARK_SUCCESS = 'bookmarks/RENAME_BOOKMARK_SUCCESS';
 const RENAME_BOOKMARK_FAILURE = 'bookmarks/RENAME_BOOKMARK_FAILURE';
@@ -52,6 +56,16 @@ export const fetchBookmarkFolderSuccess = createAction(
 );
 export const fetchBookmarkFolderFailure = createAction(
   FETCH_BOOKMARK_FOLDER_FAILURE
+);
+
+export const changeCoverBookmarkFolderRequest = createAction(
+  CHANGE_COVER_BOOKMARK_FOLDER_REQUEST
+);
+export const changeCoverBookmarkFolderSuccess = createAction(
+  CHANGE_COVER_BOOKMARK_FOLDER_SUCCESS
+);
+export const changeCoverBookmarkFolderFailure = createAction(
+  CHANGE_COVER_BOOKMARK_FOLDER_FAILURE
 );
 
 export const renameBookmarkFolderRequest = createAction(
