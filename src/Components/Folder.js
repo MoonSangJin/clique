@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import folder from '../assets/img/folder.svg';
 import favoriteFolder from '../assets/img/favoriteFolder.svg';
+import defaultFolderImage from '../assets/img/deafultFolderCover';
 import verticalLine from '../assets/img/verticalLine.svg';
 import FavoriteIconSrc from '../assets/img/isFavorite.png';
 import PopoverController from './Popover/PopoverController';
@@ -13,7 +14,6 @@ import Modal from './Modal';
 
 import checkGray from '../assets/img/checkGray.png';
 import deleteFolderModalImage from '../assets/img/deleteModalImage';
-import defaultImage from '../assets/img/FolderItemImages/1.png';
 import blankListFolder from '../assets/img/blankListFolder.png';
 
 import {
@@ -110,7 +110,7 @@ export default function Folder({ folderData, folderCoverImageSrc, type }) {
         {
           type === 'card' ?
             <Container>
-              <FolderImage src={folderCoverImageSrc || defaultImage} />
+              <FolderImage src={defaultFolderImage} />
               <ContentsWrapper>
                 <TitleWrapper>
                   <TextRow>
