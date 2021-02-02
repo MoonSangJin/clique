@@ -231,8 +231,6 @@ export default function Folder({ folderData, type }) {
         <ChangeCoverModalContentsWrapper>
           <ChangeCoverModalHeader>
             <ChangeCoverModalTitle>Gallery</ChangeCoverModalTitle>
-            <ModalWhiteButton>cancel</ModalWhiteButton>
-            <ModalButton>save</ModalButton>
           </ChangeCoverModalHeader>
           <Divider />
           <CoverImageList>
@@ -511,6 +509,7 @@ const ChangeCoverModalHeader = styled.div`
 
 const ChangeCoverModalContentsWrapper = styled.div`
   width: 790px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.12);
 `;
 
 const ChangeCoverModalTitle = styled.div`
