@@ -11,6 +11,12 @@ import PopoverController from './Popover/PopoverController';
 import DropdownMenu from '../Modules/Folder/DropdownMenu';
 import OptionIcon from './OptionIcon';
 import Modal from './Modal';
+import ChangeCoverModal from './Modal/ChangeCoverModal';
+
+import coverImageOne from '../assets/img/FolderItemImages/1';
+import coverImageTwo from '../assets/img/FolderItemImages/2';
+import coverImageThree from '../assets/img/FolderItemImages/3';
+import coverImageFour from '../assets/img/FolderItemImages/4';
 
 import checkGray from '../assets/img/checkGray.png';
 import deleteFolderModalImage from '../assets/img/deleteModalImage';
@@ -33,6 +39,7 @@ export default function Folder({ folderData, type }) {
   const dotMenuRef = React.createRef();
 
   const [isOpenShareSuccessModal, setIsOpenShareSuccessModal] = useState(false);
+  const [isOpenChangeCoverModal, setIsOpenChangeCoverModal] = useState(false);
   const [isOpenDeleteFolderModal, setIsOpenDeleteFolderModal] = useState(false);
   const [isOpenRenameFolderModal, setIsOpenRenameFolderModal] = useState(false);
 
@@ -78,10 +85,16 @@ export default function Folder({ folderData, type }) {
     setIsOpenShareSuccessModal(true);
   };
 
+  const openChangeCoverModal = () => {
+    closeDropdownMenu();
+    setIsOpenChangeCoverModal(true);
+  };
+
   const openDeleteFolderModal = () => {
     closeDropdownMenu();
     setIsOpenDeleteFolderModal(true);
   };
+
   const handleDeleteFolder = () => {
     dispatch(deleteBookmarkFolderRequest({ folderId: folderData.id }));
     setIsOpenDeleteFolderModal(false);
@@ -173,7 +186,7 @@ export default function Folder({ folderData, type }) {
         shareTextSuccessHandler={handleShareTextSuccess}
         isFavorite={folderData.isFavorite}
         handleUpdateIsFavorite={handleUpdateIsFavorite}
-        {...{ openDeleteFolderModal, openRenameFolderModal }}
+        {...{ openChangeCoverModal, openDeleteFolderModal, openRenameFolderModal }}
       />
       <Modal
         isOpen={isOpenShareSuccessModal}
@@ -194,6 +207,24 @@ export default function Folder({ folderData, type }) {
           </ModalButtonWrapper>
         </ModalContentsWrapper>
       </Modal>
+
+      <ChangeCoverModal
+        isOpen={isOpenChangeCoverModal}
+        closeHandler={() => setIsOpenChangeCoverModal(false)}
+      >
+        <ChangeCoverModalContentsWrapper>
+          <ChangeCoverModalHeader>
+            <ChangeCoverModalTitle>Gallery</ChangeCoverModalTitle>
+            <ModalWhiteButton>cancel</ModalWhiteButton>
+            <ModalButton>save</ModalButton>
+          </ChangeCoverModalHeader>
+          <Divider />
+          <CoverImageListItem src={coverImageOne} />
+          <CoverImageListItem src={coverImageTwo} />
+          <CoverImageListItem src={coverImageThree} />
+          <CoverImageListItem src={coverImageFour} />
+        </ChangeCoverModalContentsWrapper>
+      </ChangeCoverModal>
 
       <Modal
         isOpen={isOpenDeleteFolderModal}
@@ -439,6 +470,41 @@ const ModalInput = styled.input`
   text-indent: 23px;
 `;
 
+const ChangeCoverModalHeader = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 56px;
+  padding: 0 26px;
+`;
+
+const ChangeCoverModalContentsWrapper = styled.div`
+  width: 790px;
+`;
+
+const ChangeCoverModalTitle = styled.div`
+  flex-grow: 1;
+  
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: #7785FF;
+`;
+
+const Divider = styled.div`
+  margin-bottom: 23px;
+  border-bottom: 1px solid rgba(222, 227, 230, 0.8);
+`;
+
+const CoverImageListItem = styled.div`
+  width: 234px;
+  height: 114px;
+  background-image: url(${props => props.src});
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+`;
 
 const ListCardContainer = styled.div`
   display: flex;
