@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBookmarkFolderRequest, fetchBookmarkRequest } from '../../Store/Bookmark/actions';
 
@@ -9,6 +9,7 @@ const HomeScreenContainer = () => {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
   const userReducer = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
+  const [listType, setListType] = useState('card');
 
   useEffect(() => {
     if (userReducer.user.isLoggedIn) {
@@ -20,11 +21,29 @@ const HomeScreenContainer = () => {
     userReducer.user.isLoggedIn,
   ]);
 
+  useEffect(() => {
+    const savedType = localStorage.getItem('listType');
+    setListType(savedType ? savedType : 'card');
+  }, []);
+
+  const setListToCardType = () => {
+    setListType('card');
+    localStorage.setItem('listType', 'card');
+  };
+
+  const setListToListType = () => {
+    setListType('list');
+    localStorage.setItem('listType', 'list');
+  };
+
   return (
     <HomePresenter
       bookmarkFolderList={bookmarkReducer.bookmarkFolderList}
       bookmarkList={bookmarkReducer.bookmarkList}
       isLoggedIn={userReducer.user.isLoggedIn}
+      listType={listType}
+      setListToCardType={setListToCardType}
+      setListToListType={setListToListType}
     />
   );
 };

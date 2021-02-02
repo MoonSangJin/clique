@@ -1,17 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import CardFolderButtonSelectedSrc from '../../assets/img/cardFolderButtonSelected.png';
 import CardFolderButtonSrc from '../../assets/img/cardFolderButton.png';
+import ListFolderButtonSelectedSrc from '../../assets/img/listFolderButtonSelected.png';
 import ListFolderButtonSrc from '../../assets/img/listFolderButton.png';
 import DownArrowSrc from '../../assets/img/downArrow.png';
 
-const FolderListHeader = () => {
+const FolderListHeader = ({type, setListToCardType, setListToListType}) => {
   return (
     <Wrapper>
       <ListTypeButtonWrapper>
-        <ListTypeButton src={CardFolderButtonSrc} />
-        <ListTypeButton src={ListFolderButtonSrc} />
+        {
+          type === 'card' ?
+            <>
+              <ListTypeButton src={CardFolderButtonSelectedSrc} onClick={setListToCardType} />
+              <ListTypeButton src={ListFolderButtonSrc} onClick={setListToListType} />
+            </>
+            :
+            <>
+              <ListTypeButton src={CardFolderButtonSrc} onClick={setListToCardType} />
+              <ListTypeButton src={ListFolderButtonSelectedSrc} onClick={setListToListType} />
+            </>
+        }
       </ListTypeButtonWrapper>
+
       <SortTypeSelectorWrapper>
         <SortTitle>Sort by:</SortTitle>
         <SortTypeContents>Date Created</SortTypeContents>
@@ -37,6 +50,7 @@ const ListTypeButton = styled.img`
   height: 29px;
 
   margin-right: 8px;
+  cursor: pointer;
 `;
 
 const SortTypeSelectorWrapper = styled.div`

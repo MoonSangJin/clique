@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import folder from '../assets/img/folder.svg';
+import favoriteFolder from '../assets/img/favoriteFolder.svg';
 import verticalLine from '../assets/img/verticalLine.svg';
 import FavoriteIconSrc from '../assets/img/isFavorite.png';
 import PopoverController from './Popover/PopoverController';
@@ -23,7 +24,7 @@ import {
 import { getTimeDeltaString } from '../Utils/datetimeHandler';
 
 
-export default function Folder({ folderData, folderCoverImageSrc }) {
+export default function Folder({ folderData, folderCoverImageSrc, type }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
   const dispatch = useDispatch();
 
@@ -106,36 +107,62 @@ export default function Folder({ folderData, folderCoverImageSrc }) {
   return (
     <>
       <StyledLink to={`/detail/${folderData.id}`}>
-        <Container>
-          <FolderImage src={folderCoverImageSrc || defaultImage} />
-          <ContentsWrapper>
-            <TitleWrapper>
-              <TextRow>
-                <FolderName isFavorite={folderData.isFavorite}>{folderData.name}</FolderName>
-                <FolderTime>
-                  Created {getTimeDeltaString(new Date(), folderData.createdAt)}
-                </FolderTime>
-              </TextRow>
-              {folderData.isFavorite ? (
-                <FavoriteIcon src={FavoriteIconSrc} />
-              ) : null}
-            </TitleWrapper>
-            <MenuWrapper>
-              <FaviconWrapper>
-                <FaviconFolder src={folder} alt={folder} />
-                <VerticalLine src={verticalLine} />
+        {
+          type === 'card' ?
+            <Container>
+              <FolderImage src={folderCoverImageSrc || defaultImage} />
+              <ContentsWrapper>
+                <TitleWrapper>
+                  <TextRow>
+                    <FolderName isFavorite={folderData.isFavorite}>{folderData.name}</FolderName>
+                    <FolderTime>
+                      Created {getTimeDeltaString(new Date(), folderData.createdAt)}
+                    </FolderTime>
+                  </TextRow>
+                  {folderData.isFavorite ? (
+                    <FavoriteIcon src={FavoriteIconSrc} />
+                  ) : null}
+                </TitleWrapper>
+                <MenuWrapper>
+                  <FaviconWrapper>
+                    <FaviconFolder src={folder} alt={folder} />
+                    <VerticalLine src={verticalLine} />
+                    {getBookmarkList().map((bookmark) => {
+                      return (
+                        <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} />
+                      );
+                    })}
+                  </FaviconWrapper>
+                  <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
+                    <OptionIcon />
+                  </PopoverController>
+                </MenuWrapper>
+              </ContentsWrapper>
+            </Container>
+            :
+            <ListCardContainer>
+              {
+                folderData.isFavorite ? <FaviconFolder src={favoriteFolder} alt={folder} /> :
+                  <FaviconFolder src={folder} alt={folder} />
+              }
+              <ListCardTitle>
+                {folderData.name}
+              </ListCardTitle>
+              <ListCardMenuWrapper>
                 {getBookmarkList().map((bookmark) => {
                   return (
                     <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} />
                   );
                 })}
-              </FaviconWrapper>
-              <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
-                <OptionIcon />
-              </PopoverController>
-            </MenuWrapper>
-          </ContentsWrapper>
-        </Container>
+                <ListCardActionWrapper>
+                  <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
+                    <OptionIcon />
+                  </PopoverController>
+                </ListCardActionWrapper>
+
+              </ListCardMenuWrapper>
+            </ListCardContainer>
+        }
       </StyledLink>
 
       <DropdownMenu
@@ -410,4 +437,39 @@ const ModalInput = styled.input`
   border-radius: 50px;
   margin-top: 21px;
   text-indent: 23px;
+`;
+
+
+const ListCardContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 581px;
+  height: 56px;
+  padding: 0 15px 0 24px;
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+`;
+
+const ListCardTitle = styled.span`
+  margin-left: 12px;
+  flex-grow: 1;
+
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  color: #070701;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+`;
+
+const ListCardMenuWrapper = styled.span`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const ListCardActionWrapper = styled.div`
+  margin-left: 25px;
 `;

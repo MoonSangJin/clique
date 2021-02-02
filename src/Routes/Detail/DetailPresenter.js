@@ -10,7 +10,7 @@ const DetailPresenter = ({ data, detailDataList, handleAddBookmark }) => {
     <>
       <Wrapper>
         <FolderWrapper>
-          <Folder {...{ folderData }} />
+          <Folder {...{ folderData }} type={'card'} />
         </FolderWrapper>
 
         <BookmarksWrapper>
