@@ -4,19 +4,34 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import folder from '../assets/img/folder.svg';
 import favoriteFolder from '../assets/img/favoriteFolder.svg';
+import defaultFolderImage from '../assets/img/deafultFolderCover';
 import verticalLine from '../assets/img/verticalLine.svg';
 import FavoriteIconSrc from '../assets/img/isFavorite.png';
 import PopoverController from './Popover/PopoverController';
 import DropdownMenu from '../Modules/Folder/DropdownMenu';
 import OptionIcon from './OptionIcon';
 import Modal from './Modal';
+import ChangeCoverModal from './Modal/ChangeCoverModal';
+
+import coverImageOne from '../assets/img/FolderItemImages/1';
+import coverImageTwo from '../assets/img/FolderItemImages/2';
+import coverImageThree from '../assets/img/FolderItemImages/3';
+import coverImageFour from '../assets/img/FolderItemImages/4';
+import coverImageFive from '../assets/img/FolderItemImages/5';
+import coverImageSix from '../assets/img/FolderItemImages/6';
+import coverImageSeven from '../assets/img/FolderItemImages/7';
+import coverImageEight from '../assets/img/FolderItemImages/8';
+import coverImageNine from '../assets/img/FolderItemImages/9';
+import coverImageTen from '../assets/img/FolderItemImages/10';
+import coverImageEleven from '../assets/img/FolderItemImages/11';
+import coverImageTwelve from '../assets/img/FolderItemImages/12';
 
 import checkGray from '../assets/img/checkGray.png';
 import deleteFolderModalImage from '../assets/img/deleteModalImage';
-import defaultImage from '../assets/img/FolderItemImages/1.png';
 import blankListFolder from '../assets/img/blankListFolder.png';
 
 import {
+  changeCoverBookmarkFolderRequest,
   deleteBookmarkFolderRequest,
   renameBookmarkFolderRequest,
   updateIsFavoriteBookmarkFolderRequest,
@@ -24,7 +39,7 @@ import {
 import { getTimeDeltaString } from '../Utils/datetimeHandler';
 
 
-export default function Folder({ folderData, folderCoverImageSrc, type }) {
+export default function Folder({ folderData, type }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
   const dispatch = useDispatch();
 
@@ -33,6 +48,7 @@ export default function Folder({ folderData, folderCoverImageSrc, type }) {
   const dotMenuRef = React.createRef();
 
   const [isOpenShareSuccessModal, setIsOpenShareSuccessModal] = useState(false);
+  const [isOpenChangeCoverModal, setIsOpenChangeCoverModal] = useState(false);
   const [isOpenDeleteFolderModal, setIsOpenDeleteFolderModal] = useState(false);
   const [isOpenRenameFolderModal, setIsOpenRenameFolderModal] = useState(false);
 
@@ -78,10 +94,21 @@ export default function Folder({ folderData, folderCoverImageSrc, type }) {
     setIsOpenShareSuccessModal(true);
   };
 
+  const openChangeCoverModal = () => {
+    closeDropdownMenu();
+    setIsOpenChangeCoverModal(true);
+  };
+
+  const handleChangeCover = (coverUrl) => () => {
+    dispatch(changeCoverBookmarkFolderRequest({ folderId: folderData.id, coverUrl }));
+    setIsOpenChangeCoverModal(false);
+  };
+
   const openDeleteFolderModal = () => {
     closeDropdownMenu();
     setIsOpenDeleteFolderModal(true);
   };
+
   const handleDeleteFolder = () => {
     dispatch(deleteBookmarkFolderRequest({ folderId: folderData.id }));
     setIsOpenDeleteFolderModal(false);
@@ -91,6 +118,7 @@ export default function Folder({ folderData, folderCoverImageSrc, type }) {
     closeDropdownMenu();
     setIsOpenRenameFolderModal(true);
   };
+
   const handleRenameFolder = () => {
     dispatch(
       renameBookmarkFolderRequest({
@@ -100,6 +128,7 @@ export default function Folder({ folderData, folderCoverImageSrc, type }) {
     );
     setIsOpenRenameFolderModal(false);
   };
+
   const handleNewFolderName = (e) => {
     setNewFolderName(e.target.value);
   };
@@ -110,7 +139,7 @@ export default function Folder({ folderData, folderCoverImageSrc, type }) {
         {
           type === 'card' ?
             <Container>
-              <FolderImage src={folderCoverImageSrc || defaultImage} />
+              <FolderImage src={folderData.coverImageUrl || defaultFolderImage} />
               <ContentsWrapper>
                 <TitleWrapper>
                   <TextRow>
@@ -173,7 +202,7 @@ export default function Folder({ folderData, folderCoverImageSrc, type }) {
         shareTextSuccessHandler={handleShareTextSuccess}
         isFavorite={folderData.isFavorite}
         handleUpdateIsFavorite={handleUpdateIsFavorite}
-        {...{ openDeleteFolderModal, openRenameFolderModal }}
+        {...{ openChangeCoverModal, openDeleteFolderModal, openRenameFolderModal }}
       />
       <Modal
         isOpen={isOpenShareSuccessModal}
@@ -194,6 +223,36 @@ export default function Folder({ folderData, folderCoverImageSrc, type }) {
           </ModalButtonWrapper>
         </ModalContentsWrapper>
       </Modal>
+
+      <ChangeCoverModal
+        isOpen={isOpenChangeCoverModal}
+        closeHandler={() => setIsOpenChangeCoverModal(false)}
+      >
+        <ChangeCoverModalContentsWrapper>
+          <ChangeCoverModalHeader>
+            <ChangeCoverModalTitle>Gallery</ChangeCoverModalTitle>
+          </ChangeCoverModalHeader>
+          <Divider />
+          <CoverImageList>
+            <CoverImageListItem src={coverImageOne} onClick={handleChangeCover(coverImageOne)} />
+            <CoverImageListItem src={coverImageTwo} onClick={handleChangeCover(coverImageTwo)} />
+            <CoverImageListItem src={coverImageThree} onClick={handleChangeCover(coverImageThree)} />
+            <CoverImageListItem src={coverImageFour} onClick={handleChangeCover(coverImageFour)} />
+          </CoverImageList>
+          <CoverImageList>
+            <CoverImageListItem src={coverImageFive} onClick={handleChangeCover(coverImageFive)} />
+            <CoverImageListItem src={coverImageSix} onClick={handleChangeCover(coverImageSix)} />
+            <CoverImageListItem src={coverImageSeven} onClick={handleChangeCover(coverImageSeven)} />
+            <CoverImageListItem src={coverImageEight} onClick={handleChangeCover(coverImageEight)} />
+          </CoverImageList>
+          <CoverImageList>
+            <CoverImageListItem src={coverImageNine} onClick={handleChangeCover(coverImageNine)} />
+            <CoverImageListItem src={coverImageTen} onClick={handleChangeCover(coverImageTen)} />
+            <CoverImageListItem src={coverImageEleven} onClick={handleChangeCover(coverImageEleven)} />
+            <CoverImageListItem src={coverImageTwelve} onClick={handleChangeCover(coverImageTwelve)} />
+          </CoverImageList>
+        </ChangeCoverModalContentsWrapper>
+      </ChangeCoverModal>
 
       <Modal
         isOpen={isOpenDeleteFolderModal}
@@ -247,7 +306,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 282px;
-  height: 366px;
+  height: 290px;
   margin-bottom: 20px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
@@ -270,9 +329,10 @@ const Container = styled.div`
 
 const FolderImage = styled.div`
   width: 100%;
-  height: 210px;
+  height: 170px;
   background-image: url(${({ src }) => src});
   background-size: cover;
+  background-position: center;
   border-radius: 8px 8px 0 0;
 `;
 
@@ -328,7 +388,7 @@ const FolderTime = styled.div`
 const MenuWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 45px;
+  margin-top: 15px;
 `;
 
 const FaviconWrapper = styled.div`
@@ -439,6 +499,55 @@ const ModalInput = styled.input`
   text-indent: 23px;
 `;
 
+const ChangeCoverModalHeader = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 56px;
+  padding: 0 26px;
+`;
+
+const ChangeCoverModalContentsWrapper = styled.div`
+  width: 790px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.12);
+`;
+
+const ChangeCoverModalTitle = styled.div`
+  flex-grow: 1;
+  
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: #7785FF;
+`;
+
+const Divider = styled.div`
+  margin-bottom: 23px;
+  border-bottom: 1px solid rgba(222, 227, 230, 0.8);
+`;
+
+const CoverImageList = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 26px;
+`;
+
+const CoverImageListItem = styled.div`
+  width: 234px;
+  height: 114px;
+  background-image: url(${props => props.src});
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  margin-right: 10px;
+  margin-bottom: 13px;
+  
+  &:nth-child(4n) {
+    margin-right: 0;
+  }
+`;
 
 const ListCardContainer = styled.div`
   display: flex;

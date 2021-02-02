@@ -3,20 +3,9 @@ import styled from 'styled-components';
 
 import Folder from '../Components/Folder';
 import FolderListHeader from '../Modules/Folder/FolderListHeader';
-import FirstImageSrc from '../assets/img/FolderItemImages/1.png';
-import SecondImageSrc from '../assets/img/FolderItemImages/2.png';
-import ThirdImageSrc from '../assets/img/FolderItemImages/3.png';
-import FourthImageSrc from '../assets/img/FolderItemImages/4.png';
 import BlankListFolderSrc from '../assets/img/blankListFolder.png';
 import { Link } from 'react-router-dom';
 
-
-const mapIndexToImageSrc = {
-  0: FirstImageSrc,
-  1: SecondImageSrc,
-  2: ThirdImageSrc,
-  3: FourthImageSrc,
-};
 
 export default function FolderRow({ bookmarkFolderList, isLoggedIn, type, setListToCardType, setListToListType }) {
   return (
@@ -48,7 +37,6 @@ export default function FolderRow({ bookmarkFolderList, isLoggedIn, type, setLis
                   >
                     <Folder
                       {...{ folderData }}
-                      folderCoverImageSrc={mapIndexToImageSrc[index % 4]}
                       type={type}
                     />
                   </FolderWrapper>
