@@ -23,6 +23,7 @@ import deleteFolderModalImage from '../assets/img/deleteModalImage';
 import blankListFolder from '../assets/img/blankListFolder.png';
 
 import {
+  changeCoverBookmarkFolderRequest,
   deleteBookmarkFolderRequest,
   renameBookmarkFolderRequest,
   updateIsFavoriteBookmarkFolderRequest,
@@ -90,6 +91,11 @@ export default function Folder({ folderData, type }) {
     setIsOpenChangeCoverModal(true);
   };
 
+  const handleChangeCover = (coverUrl) => () => {
+    dispatch(changeCoverBookmarkFolderRequest({ folderId: folderData.id, coverUrl }));
+    setIsOpenChangeCoverModal(false);
+  };
+
   const openDeleteFolderModal = () => {
     closeDropdownMenu();
     setIsOpenDeleteFolderModal(true);
@@ -104,6 +110,7 @@ export default function Folder({ folderData, type }) {
     closeDropdownMenu();
     setIsOpenRenameFolderModal(true);
   };
+
   const handleRenameFolder = () => {
     dispatch(
       renameBookmarkFolderRequest({
@@ -113,6 +120,7 @@ export default function Folder({ folderData, type }) {
     );
     setIsOpenRenameFolderModal(false);
   };
+
   const handleNewFolderName = (e) => {
     setNewFolderName(e.target.value);
   };
@@ -219,10 +227,10 @@ export default function Folder({ folderData, type }) {
             <ModalButton>save</ModalButton>
           </ChangeCoverModalHeader>
           <Divider />
-          <CoverImageListItem src={coverImageOne} />
-          <CoverImageListItem src={coverImageTwo} />
-          <CoverImageListItem src={coverImageThree} />
-          <CoverImageListItem src={coverImageFour} />
+          <CoverImageListItem src={coverImageOne} onClick={handleChangeCover(coverImageOne)} />
+          <CoverImageListItem src={coverImageTwo} onClick={handleChangeCover(coverImageTwo)} />
+          <CoverImageListItem src={coverImageThree} onClick={handleChangeCover(coverImageThree)} />
+          <CoverImageListItem src={coverImageFour} onClick={handleChangeCover(coverImageFour)} />
         </ChangeCoverModalContentsWrapper>
       </ChangeCoverModal>
 
