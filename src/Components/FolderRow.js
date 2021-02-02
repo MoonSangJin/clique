@@ -18,10 +18,10 @@ const mapIndexToImageSrc = {
   3: FourthImageSrc,
 };
 
-export default function FolderRow({ bookmarkFolderList, isLoggedIn, type }) {
+export default function FolderRow({ bookmarkFolderList, isLoggedIn, type, setListToCardType, setListToListType }) {
   return (
     <>
-      <FolderListHeader />
+      <FolderListHeader {...{setListToCardType, setListToListType}} />
       {isLoggedIn ? (
         <>
           {

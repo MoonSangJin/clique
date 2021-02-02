@@ -5,12 +5,12 @@ import CardFolderButtonSrc from '../../assets/img/cardFolderButton.png';
 import ListFolderButtonSrc from '../../assets/img/listFolderButton.png';
 import DownArrowSrc from '../../assets/img/downArrow.png';
 
-const FolderListHeader = () => {
+const FolderListHeader = ({setListToCardType, setListToListType}) => {
   return (
     <Wrapper>
       <ListTypeButtonWrapper>
-        <ListTypeButton src={CardFolderButtonSrc} />
-        <ListTypeButton src={ListFolderButtonSrc} />
+        <ListTypeButton src={CardFolderButtonSrc} onClick={setListToCardType} />
+        <ListTypeButton src={ListFolderButtonSrc} onClick={setListToListType} />
       </ListTypeButtonWrapper>
       <SortTypeSelectorWrapper>
         <SortTitle>Sort by:</SortTitle>
@@ -37,6 +37,7 @@ const ListTypeButton = styled.img`
   height: 29px;
 
   margin-right: 8px;
+  cursor: pointer;
 `;
 
 const SortTypeSelectorWrapper = styled.div`

@@ -21,12 +21,18 @@ const HomeScreenContainer = () => {
     userReducer.user.isLoggedIn,
   ]);
 
+  const setListToCardType = () => setListType('card');
+
+  const setListToListType = () => setListType('list');
+
   return (
     <HomePresenter
       bookmarkFolderList={bookmarkReducer.bookmarkFolderList}
       bookmarkList={bookmarkReducer.bookmarkList}
       isLoggedIn={userReducer.user.isLoggedIn}
       listType={listType}
+      setListToCardType={setListToCardType}
+      setListToListType={setListToListType}
     />
   );
 };
