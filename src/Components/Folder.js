@@ -24,7 +24,7 @@ import {
 import { getTimeDeltaString } from '../Utils/datetimeHandler';
 
 
-export default function Folder({ folderData, folderCoverImageSrc, type }) {
+export default function Folder({ folderData, type }) {
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
   const dispatch = useDispatch();
 
@@ -110,7 +110,7 @@ export default function Folder({ folderData, folderCoverImageSrc, type }) {
         {
           type === 'card' ?
             <Container>
-              <FolderImage src={defaultFolderImage} />
+              <FolderImage src={folderData.coverImageUrl || defaultFolderImage} />
               <ContentsWrapper>
                 <TitleWrapper>
                   <TextRow>
