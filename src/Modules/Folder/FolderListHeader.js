@@ -23,8 +23,8 @@ const FolderListHeader = ({type, setListToCardType, setListToListType}) => {
               <ListTypeButton src={ListFolderButtonSelectedSrc} onClick={setListToListType} />
             </>
         }
-
       </ListTypeButtonWrapper>
+
       <SortTypeSelectorWrapper>
         <SortTitle>Sort by:</SortTitle>
         <SortTypeContents>Date Created</SortTypeContents>

@@ -81,7 +81,7 @@ export default function SubmitForm({ tabs, postServer }) {
         title: bookmark.title,
         url: refineUrl(bookmark.url),
         scroll_pos: bookmark.scrollPos || 0.0,
-        favicon_url: bookmark.favIconUrl,
+        favicon_url: bookmark.favIconUrl.includes('http') ? bookmark.favIconUrl : '',
       };
     });
 
