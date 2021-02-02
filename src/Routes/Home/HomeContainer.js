@@ -21,9 +21,20 @@ const HomeScreenContainer = () => {
     userReducer.user.isLoggedIn,
   ]);
 
-  const setListToCardType = () => setListType('card');
+  useEffect(() => {
+    const savedType = localStorage.getItem('listType');
+    setListType(savedType ? savedType : 'card');
+  }, []);
 
-  const setListToListType = () => setListType('list');
+  const setListToCardType = () => {
+    setListType('card');
+    localStorage.setItem('listType', 'card');
+  };
+
+  const setListToListType = () => {
+    setListType('list');
+    localStorage.setItem('listType', 'list');
+  };
 
   return (
     <HomePresenter

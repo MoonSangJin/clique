@@ -21,7 +21,7 @@ const mapIndexToImageSrc = {
 export default function FolderRow({ bookmarkFolderList, isLoggedIn, type, setListToCardType, setListToListType }) {
   return (
     <>
-      <FolderListHeader {...{setListToCardType, setListToListType}} />
+      <FolderListHeader {...{type, setListToCardType, setListToListType}} />
       {isLoggedIn ? (
         <>
           {
