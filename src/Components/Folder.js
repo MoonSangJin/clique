@@ -17,6 +17,14 @@ import coverImageOne from '../assets/img/FolderItemImages/1';
 import coverImageTwo from '../assets/img/FolderItemImages/2';
 import coverImageThree from '../assets/img/FolderItemImages/3';
 import coverImageFour from '../assets/img/FolderItemImages/4';
+import coverImageFive from '../assets/img/FolderItemImages/5';
+import coverImageSix from '../assets/img/FolderItemImages/6';
+import coverImageSeven from '../assets/img/FolderItemImages/7';
+import coverImageEight from '../assets/img/FolderItemImages/8';
+import coverImageNine from '../assets/img/FolderItemImages/9';
+import coverImageTen from '../assets/img/FolderItemImages/10';
+import coverImageEleven from '../assets/img/FolderItemImages/11';
+import coverImageTwelve from '../assets/img/FolderItemImages/12';
 
 import checkGray from '../assets/img/checkGray.png';
 import deleteFolderModalImage from '../assets/img/deleteModalImage';
@@ -227,10 +235,24 @@ export default function Folder({ folderData, type }) {
             <ModalButton>save</ModalButton>
           </ChangeCoverModalHeader>
           <Divider />
-          <CoverImageListItem src={coverImageOne} onClick={handleChangeCover(coverImageOne)} />
-          <CoverImageListItem src={coverImageTwo} onClick={handleChangeCover(coverImageTwo)} />
-          <CoverImageListItem src={coverImageThree} onClick={handleChangeCover(coverImageThree)} />
-          <CoverImageListItem src={coverImageFour} onClick={handleChangeCover(coverImageFour)} />
+          <CoverImageList>
+            <CoverImageListItem src={coverImageOne} onClick={handleChangeCover(coverImageOne)} />
+            <CoverImageListItem src={coverImageTwo} onClick={handleChangeCover(coverImageTwo)} />
+            <CoverImageListItem src={coverImageThree} onClick={handleChangeCover(coverImageThree)} />
+            <CoverImageListItem src={coverImageFour} onClick={handleChangeCover(coverImageFour)} />
+          </CoverImageList>
+          <CoverImageList>
+            <CoverImageListItem src={coverImageFive} onClick={handleChangeCover(coverImageFive)} />
+            <CoverImageListItem src={coverImageSix} onClick={handleChangeCover(coverImageSix)} />
+            <CoverImageListItem src={coverImageSeven} onClick={handleChangeCover(coverImageSeven)} />
+            <CoverImageListItem src={coverImageEight} onClick={handleChangeCover(coverImageEight)} />
+          </CoverImageList>
+          <CoverImageList>
+            <CoverImageListItem src={coverImageNine} onClick={handleChangeCover(coverImageNine)} />
+            <CoverImageListItem src={coverImageTen} onClick={handleChangeCover(coverImageTen)} />
+            <CoverImageListItem src={coverImageEleven} onClick={handleChangeCover(coverImageEleven)} />
+            <CoverImageListItem src={coverImageTwelve} onClick={handleChangeCover(coverImageTwelve)} />
+          </CoverImageList>
         </ChangeCoverModalContentsWrapper>
       </ChangeCoverModal>
 
@@ -506,6 +528,13 @@ const Divider = styled.div`
   border-bottom: 1px solid rgba(222, 227, 230, 0.8);
 `;
 
+const CoverImageList = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 26px;
+`;
+
 const CoverImageListItem = styled.div`
   width: 234px;
   height: 114px;
@@ -513,6 +542,12 @@ const CoverImageListItem = styled.div`
   background-size: cover;
   background-position: center;
   border-radius: 10px;
+  margin-right: 10px;
+  margin-bottom: 13px;
+  
+  &:nth-child(4n) {
+    margin-right: 0;
+  }
 `;
 
 const ListCardContainer = styled.div`
