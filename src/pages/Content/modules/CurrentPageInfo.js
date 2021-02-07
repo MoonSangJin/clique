@@ -55,14 +55,16 @@ export class CurrentPageInfo {
   }
 
   handleScrollEvent(self) {
-    let currentY = window.scrollY;
-    let documentHeight = document.body.offsetHeight;
+    return (() => {
+      let currentY = window.scrollY;
+      let documentHeight = document.body.offsetHeight;
 
-    let onePercent = 0.01;
+      let onePercent = 0.01;
 
-    if ((currentY / documentHeight) - (self.scrollPosition / documentHeight) >= onePercent) {
-      self.scrollPosition = currentY;
-      self.setInfoAtChromeRuntime();
-    }
+      if ((currentY / documentHeight) - (self.scrollPosition / documentHeight) >= onePercent) {
+        self.scrollPosition = currentY;
+        self.setInfoAtChromeRuntime();
+      }
+    })
   }
 }
