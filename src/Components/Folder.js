@@ -47,6 +47,8 @@ export default function Folder({ folderData, type }) {
   const [dotMenuElementHolder, setDotMenuElementHolder] = useState(null);
   const dotMenuRef = React.createRef();
 
+  const [isShowingChangeCoverButton, setIsShowingChangeCoverButton] = useState(false);
+
   const [isOpenShareSuccessModal, setIsOpenShareSuccessModal] = useState(false);
   const [isOpenChangeCoverModal, setIsOpenChangeCoverModal] = useState(false);
   const [isOpenDeleteFolderModal, setIsOpenDeleteFolderModal] = useState(false);
@@ -139,10 +141,18 @@ export default function Folder({ folderData, type }) {
         {
           type === 'card' ?
             <Container>
-              <FolderImage src={folderData.coverImageUrl || defaultFolderImage}>
-                <ChangeCoverButton onClick={openChangeCoverModal}>
-                  Change cover
-                </ChangeCoverButton>
+              <FolderImage
+                src={folderData.coverImageUrl || defaultFolderImage}
+                onMouseEnter={() => setIsShowingChangeCoverButton(true)}
+                onMouseLeave={() => setIsShowingChangeCoverButton(false)}
+              >
+                {
+                  isShowingChangeCoverButton ?
+                    <ChangeCoverButton onClick={openChangeCoverModal}>
+                      Change cover
+                    </ChangeCoverButton>
+                    : null
+                }
               </FolderImage>
               <ContentsWrapper>
                 <TitleWrapper>
@@ -349,6 +359,7 @@ const ChangeCoverButton = styled.button`
   background: rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   border: none;
+  outline: none;
   margin: auto 10px 10px auto;
   
   font-size: 12px;
