@@ -1,6 +1,5 @@
 export const scrollTo = (top) => {
   return `
-  console.log('scroll called');
   window.scrollTo({
     top: ${top},
     behavior: 'smooth',
@@ -15,7 +14,7 @@ export const getNewModal = (topPositionToScroll) => {
     function scrollTo() {
       console.log('scroll called');
       window.scrollTo({
-        top: 30,
+        top: ${topPositionToScroll},
         behavior: 'smooth',
       });
     }
@@ -24,7 +23,7 @@ export const getNewModal = (topPositionToScroll) => {
   div.innerHTML = `
     <div id="clique-modal" style="padding: 20px; border: solid 1px black; position: fixed; top: 0; z-index: 99999; background: white;">
       This page is saved at Clique.\n do you want to scroll to saved position?
-      <button onclick="${scrollTo(topPositionToScroll)}">button!!</button>
+      <button onclick="${scrollTo()}">button!!</button>
     </div>`;
 
   return div;
