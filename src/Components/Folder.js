@@ -332,6 +332,9 @@ const Container = styled.div`
 `;
 
 const FolderImage = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
   width: 100%;
   height: 170px;
   background-image: url(${({ src }) => src});
@@ -341,7 +344,17 @@ const FolderImage = styled.div`
 `;
 
 const ChangeCoverButton = styled.button`
-
+  width: 100px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  border: none;
+  margin: auto 10px 10px auto;
+  
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
 `;
 
 const ContentsWrapper = styled.div`
