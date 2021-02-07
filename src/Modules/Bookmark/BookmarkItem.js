@@ -6,10 +6,11 @@ import PopoverController from '../../Components/Popover/PopoverController';
 import { useDispatch } from 'react-redux';
 import Modal from '../../Components/Modal';
 import { deleteBookmarkRequest, renameBookmarkRequest } from '../../Store/Bookmark/actions';
+import openBookmark from '../../Utils/openBookmark';
 
 
 const BookmarkItem = ({ detailData }) => {
-  const { faviconUrl, title, url, id } = detailData;
+  const { faviconUrl, title, url, id, scrollPos } = detailData;
   const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
   const [isOpenRenameBookmarkModal, setIsOpenRenameBookmarkModal] = useState(false);
   const [newBookmarkTitle, setNewBookmarkTitle] = useState('');
@@ -53,7 +54,7 @@ const BookmarkItem = ({ detailData }) => {
   return (
     <>
       <UrlRow>
-        <ExternalLink href={url} target={'_blank'}>
+        <ExternalLink onClick={() => openBookmark(url, scrollPos)}>
           <UrlImage src={faviconUrl} />
           <UrlTitle>{title}</UrlTitle>
           <Url>{url}</Url>
@@ -95,8 +96,7 @@ const BookmarkItem = ({ detailData }) => {
 };
 
 
-const ExternalLink = styled.a`
-  all: unset;
+const ExternalLink = styled.div`
   display: flex;
   width: 100%;
   flex-direction: row;
