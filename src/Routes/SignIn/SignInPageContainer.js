@@ -38,7 +38,7 @@ const SignInPageContainer = () => {
   };
 
   const isValidPassword = () => {
-    if (password.length <= 8) {
+    if (password.length < 8) {
       setPasswordValidationMessage(
         'please enter a password of at least 8 characters'
       );

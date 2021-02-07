@@ -37,6 +37,7 @@ const ItemWrapper = styled.div`
   height: 42px;
   padding: 0 28px;
   align-items: center;
+  cursor: pointer;
 
   :hover {
     background-color: #f5f7f8;

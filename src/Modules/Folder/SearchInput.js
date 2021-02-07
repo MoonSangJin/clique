@@ -100,7 +100,8 @@ const InputWrapper = styled.div`
   align-items: center;
   width: 458px;
   height: 49px;
-  background: rgba(255, 255, 255, 0.3);
+  background: #F5F7F8;
+  opacity: 0.8;
   border-radius: 10px;
   z-index: 1000;
 `;
@@ -118,9 +119,9 @@ const Input = styled.input`
   
   &::placeholder {
     font-size: 14px;
-  line-height: 21px;
-  letter-spacing: -0.02em;
-  color: rgba(255, 255, 255, 0.5);
+    line-height: 21px;
+    letter-spacing: -0.02em;
+    color: #7A8690;
   }
 `;
 

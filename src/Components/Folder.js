@@ -47,6 +47,8 @@ export default function Folder({ folderData, type }) {
   const [dotMenuElementHolder, setDotMenuElementHolder] = useState(null);
   const dotMenuRef = React.createRef();
 
+  const [isShowingChangeCoverButton, setIsShowingChangeCoverButton] = useState(false);
+
   const [isOpenShareSuccessModal, setIsOpenShareSuccessModal] = useState(false);
   const [isOpenChangeCoverModal, setIsOpenChangeCoverModal] = useState(false);
   const [isOpenDeleteFolderModal, setIsOpenDeleteFolderModal] = useState(false);
@@ -94,8 +96,8 @@ export default function Folder({ folderData, type }) {
     setIsOpenShareSuccessModal(true);
   };
 
-  const openChangeCoverModal = () => {
-    closeDropdownMenu();
+  const openChangeCoverModal = (e) => {
+    e.preventDefault();
     setIsOpenChangeCoverModal(true);
   };
 
@@ -133,13 +135,33 @@ export default function Folder({ folderData, type }) {
     setNewFolderName(e.target.value);
   };
 
+  const changeFolderNameWhenPressUpEnter = (e) => {
+    const enterKeyCode = 13;
+
+    if (e.keyCode === enterKeyCode) {
+      handleRenameFolder()
+    }
+  };
+
   return (
     <>
       <StyledLink to={`/detail/${folderData.id}`}>
         {
           type === 'card' ?
             <Container>
-              <FolderImage src={folderData.coverImageUrl || defaultFolderImage} />
+              <FolderImage
+                src={folderData.coverImageUrl || defaultFolderImage}
+                onMouseEnter={() => setIsShowingChangeCoverButton(true)}
+                onMouseLeave={() => setIsShowingChangeCoverButton(false)}
+              >
+                {
+                  isShowingChangeCoverButton ?
+                    <ChangeCoverButton onClick={openChangeCoverModal}>
+                      Change cover
+                    </ChangeCoverButton>
+                    : null
+                }
+              </FolderImage>
               <ContentsWrapper>
                 <TitleWrapper>
                   <TextRow>
@@ -202,7 +224,7 @@ export default function Folder({ folderData, type }) {
         shareTextSuccessHandler={handleShareTextSuccess}
         isFavorite={folderData.isFavorite}
         handleUpdateIsFavorite={handleUpdateIsFavorite}
-        {...{ openChangeCoverModal, openDeleteFolderModal, openRenameFolderModal }}
+        {...{ openDeleteFolderModal, openRenameFolderModal }}
       />
       <Modal
         isOpen={isOpenShareSuccessModal}
@@ -285,7 +307,7 @@ export default function Folder({ folderData, type }) {
           </PhrasesWrapper>
         </ModalContentsWrapper>
 
-        <ModalInput onChange={handleNewFolderName} value={newFolderName} />
+        <ModalInput onChange={handleNewFolderName} onKeyUp={changeFolderNameWhenPressUpEnter} value={newFolderName} />
 
         <ModalButtonWrapper>
           <ModalWhiteButton onClick={() => setIsOpenRenameFolderModal(false)}>
@@ -328,12 +350,30 @@ const Container = styled.div`
 `;
 
 const FolderImage = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
   width: 100%;
   height: 170px;
   background-image: url(${({ src }) => src});
   background-size: cover;
   background-position: center;
   border-radius: 8px 8px 0 0;
+`;
+
+const ChangeCoverButton = styled.button`
+  width: 100px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  margin: auto 10px 10px auto;
+  
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
 `;
 
 const ContentsWrapper = styled.div`
@@ -564,6 +604,7 @@ const ListCardContainer = styled.div`
 const ListCardTitle = styled.span`
   margin-left: 12px;
   flex-grow: 1;
+  margin-right: 30px;
 
   font-size: 14px;
   line-height: 21px;

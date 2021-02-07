@@ -13,7 +13,6 @@ const DropdownMenu = ({
   handleUpdateIsFavorite,
   sharedText,
   shareTextSuccessHandler,
-  openChangeCoverModal,
   openRenameFolderModal,
   openDeleteFolderModal,
 }) => {
@@ -29,7 +28,6 @@ const DropdownMenu = ({
         <CopyToClipboard text={sharedText} onCopy={shareTextSuccessHandler}>
           <MenuItem>Share</MenuItem>
         </CopyToClipboard>
-        <MenuItem onClick={openChangeCoverModal}>Change cover image</MenuItem>
         <MenuItem onClick={openRenameFolderModal}>Rename</MenuItem>
         <MenuItem onClick={openDeleteFolderModal}>Delete folder</MenuItem>
       </MenuWrapper>
