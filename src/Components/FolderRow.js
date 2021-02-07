@@ -85,7 +85,7 @@ const Image = styled.img`
 `;
 
 const Description = styled.div`
-  margin-top: 14px;
+  margin-top: 3px;
   
   font-size: 14px;
   line-height: 21px;
@@ -112,7 +112,7 @@ const ToSignInButton = styled.button`
   display: block;
   width: 223px;
   height: 43px;
-  margin: 58px auto 200px auto;
+  margin: 40px auto 200px auto;
   background: #7785ff;
   border-radius: 3px;
   border: none;

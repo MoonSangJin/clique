@@ -564,6 +564,7 @@ const ListCardContainer = styled.div`
 const ListCardTitle = styled.span`
   margin-left: 12px;
   flex-grow: 1;
+  margin-right: 30px;
 
   font-size: 14px;
   line-height: 21px;
