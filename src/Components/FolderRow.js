@@ -112,7 +112,7 @@ const ToSignInButton = styled.button`
   display: block;
   width: 223px;
   height: 43px;
-  margin: 40px auto 200px auto;
+  margin: 40px auto 0 auto;
   background: #7785ff;
   border-radius: 3px;
   border: none;

@@ -94,8 +94,8 @@ export default function Folder({ folderData, type }) {
     setIsOpenShareSuccessModal(true);
   };
 
-  const openChangeCoverModal = () => {
-    closeDropdownMenu();
+  const openChangeCoverModal = (e) => {
+    e.preventDefault();
     setIsOpenChangeCoverModal(true);
   };
 
@@ -139,7 +139,11 @@ export default function Folder({ folderData, type }) {
         {
           type === 'card' ?
             <Container>
-              <FolderImage src={folderData.coverImageUrl || defaultFolderImage} />
+              <FolderImage src={folderData.coverImageUrl || defaultFolderImage}>
+                <ChangeCoverButton onClick={openChangeCoverModal}>
+                  Change cover
+                </ChangeCoverButton>
+              </FolderImage>
               <ContentsWrapper>
                 <TitleWrapper>
                   <TextRow>
@@ -202,7 +206,7 @@ export default function Folder({ folderData, type }) {
         shareTextSuccessHandler={handleShareTextSuccess}
         isFavorite={folderData.isFavorite}
         handleUpdateIsFavorite={handleUpdateIsFavorite}
-        {...{ openChangeCoverModal, openDeleteFolderModal, openRenameFolderModal }}
+        {...{ openDeleteFolderModal, openRenameFolderModal }}
       />
       <Modal
         isOpen={isOpenShareSuccessModal}
@@ -334,6 +338,10 @@ const FolderImage = styled.div`
   background-size: cover;
   background-position: center;
   border-radius: 8px 8px 0 0;
+`;
+
+const ChangeCoverButton = styled.button`
+
 `;
 
 const ContentsWrapper = styled.div`
