@@ -37,6 +37,14 @@ const BookmarkItem = ({ detailData }) => {
     setIsOpenRenameBookmarkModal(false);
   };
 
+  const changeBookmarkNameWhenPressUpEnter = (e) => {
+    const enterKeyCode = 13;
+
+    if (e.keyCode === enterKeyCode) {
+      renameBookmark()
+    }
+  };
+
   const deleteBookmark = () => {
     dispatch(deleteBookmarkRequest({bookmarkId: id}));
     setIsOpenDropdownMenu(false);
@@ -69,7 +77,11 @@ const BookmarkItem = ({ detailData }) => {
       >
         <ModalContentsWrapper>
           <ModalTitle>Rename Bookmark</ModalTitle>
-          <ModalInput onChange={(e) => setNewBookmarkTitle(e.target.value)} value={newBookmarkTitle} />
+          <ModalInput
+            onChange={(e) => setNewBookmarkTitle(e.target.value)}
+            value={newBookmarkTitle}
+            onKeyUp={changeBookmarkNameWhenPressUpEnter}
+          />
           <ModalButtonWrapper>
             <ModalCancelButton onClick={closeModalAndClearBookmarkInfo}>
               Cancel

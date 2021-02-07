@@ -135,6 +135,14 @@ export default function Folder({ folderData, type }) {
     setNewFolderName(e.target.value);
   };
 
+  const changeFolderNameWhenPressUpEnter = (e) => {
+    const enterKeyCode = 13;
+
+    if (e.keyCode === enterKeyCode) {
+      handleRenameFolder()
+    }
+  };
+
   return (
     <>
       <StyledLink to={`/detail/${folderData.id}`}>
@@ -299,7 +307,7 @@ export default function Folder({ folderData, type }) {
           </PhrasesWrapper>
         </ModalContentsWrapper>
 
-        <ModalInput onChange={handleNewFolderName} value={newFolderName} />
+        <ModalInput onChange={handleNewFolderName} onKeyUp={changeFolderNameWhenPressUpEnter} value={newFolderName} />
 
         <ModalButtonWrapper>
           <ModalWhiteButton onClick={() => setIsOpenRenameFolderModal(false)}>
