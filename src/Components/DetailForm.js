@@ -10,6 +10,7 @@ import Input from './Input';
 import BookmarkItem from '../Modules/Bookmark/BookmarkItem';
 import { fetchBookmarkFolderRequest, fetchBookmarkRequest } from '../Store/Bookmark/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import openBookmark from '../Utils/openBookmark';
 
 
 export default function DetailForm({ folderData, detailDataList, handleAddBookmark }) {
@@ -49,7 +50,7 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
 
   const openAllBookmarks = () => {
     detailDataList.forEach((detailData) => {
-      window.open(detailData.url, '_blank');
+      openBookmark(detailData.url, detailData.scrollPos, '_blank');
     });
   };
 

@@ -5,12 +5,17 @@ export class CurrentPageInfo {
   constructor(pageTitle, scrollPosition) {
     this.pageTitle = pageTitle;
     this.scrollPosition = scrollPosition;
+    const currentPageUrl = window.location.href;
 
-    chrome.storage.sync.get(['bookmarkList'], function(result) {
-      // if (this.pageInfoForClique.scrollPos > 0) {
-      //   let modal = getNewModal(this.pageInfoForClique.scrollPos * document.body.offsetHeight);
-      //   document.body.appendChild(modal);
-      // }
+    chrome.storage.sync.get([currentPageUrl], function(result) {
+      const savedScrollPosition = result[currentPageUrl];
+
+      if (savedScrollPosition && savedScrollPosition > 0) {
+        let modal = getNewModal(savedScrollPosition * document.body.offsetHeight);
+        document.body.appendChild(modal);
+
+        chrome.storage.sync.remove([currentPageUrl]);
+      }
     });
   }
 
