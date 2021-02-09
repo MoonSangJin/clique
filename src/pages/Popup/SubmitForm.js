@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
-import popUpLogo from '../../assets/img/popUpLogo.svg';
+import logoSrc from '../../assets/img/logo';
 import { isValidUrl, refineUrl } from '../../Utils/urlHandler';
 import ListRowItem from './ListRowItem';
 
@@ -120,7 +120,7 @@ export default function SubmitForm({ tabs, postServer }) {
   return (
     <FormWrapper>
       <LogoRow>
-        <LogoImage src={popUpLogo} />
+        <LogoImage src={logoSrc} />
         <CheckAll onClick={handleCheckAll}>{isCheckedAll() ? 'Uncheck all' : 'Check all'}</CheckAll>
       </LogoRow>
       <List>
@@ -161,8 +161,7 @@ const LogoRow = styled.div`
 `;
 
 const LogoImage = styled.img`
-  width: 51px;
-  height: 24px;
+  height: 20px;
 `;
 
 const CheckAll = styled.div`

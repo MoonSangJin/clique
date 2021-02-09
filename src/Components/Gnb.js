@@ -81,7 +81,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   padding: 0 30px;
   width: 100%;
-  height: 60px;
+  height: 54px;
   box-sizing: border-box;
   align-items: center;
 `;
