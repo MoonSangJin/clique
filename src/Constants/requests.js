@@ -4,4 +4,4 @@ const HostDictionaryByEnv = {
   production: 'http://ec2-15-165-122-206.ap-northeast-2.compute.amazonaws.com',
 };
 
-export const HOST = HostDictionaryByEnv['dev'];
+export const HOST = HostDictionaryByEnv['production'];

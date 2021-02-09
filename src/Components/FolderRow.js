@@ -5,6 +5,7 @@ import Folder from '../Components/Folder';
 import FolderListHeader from '../Modules/Folder/FolderListHeader';
 import BlankListFolderSrc from '../assets/img/blankListFolder.png';
 import { Link } from 'react-router-dom';
+import { mapPageToUrl } from '../Constants/operationPageUrls';
 
 
 export default function FolderRow({ bookmarkFolderList, isLoggedIn, type, setListToCardType, setListToListType }) {
@@ -19,11 +20,11 @@ export default function FolderRow({ bookmarkFolderList, isLoggedIn, type, setLis
                 <Image src={BlankListFolderSrc} />
                 <Description>You have not yet created a Bookmark Folder with Clique.</Description>
                 <AdditionalDescription>Folders appears here once created.</AdditionalDescription>
-                <StyledLink to={'#'}>
+                <ExternalLink href={mapPageToUrl.gettingStarted} target={'_blank'}>
                   <ToSignInButton>
                     Learn how to use&nbsp;<Bold>Clique!</Bold>
                   </ToSignInButton>
-                </StyledLink>
+                </ExternalLink>
               </EmptyListWrapper>
               : null
           }
@@ -105,6 +106,10 @@ const AdditionalDescription = styled.div`
 `;
 
 const StyledLink = styled(Link)`
+  all: unset;
+`;
+
+const ExternalLink = styled.a`
   all: unset;
 `;
 
