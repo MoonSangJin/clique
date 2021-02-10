@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import CardFolderButtonSelectedSrc from '../../assets/img/cardFolderButtonSelected.png';
@@ -7,29 +8,69 @@ import ListFolderButtonSelectedSrc from '../../assets/img/listFolderButtonSelect
 import ListFolderButtonSrc from '../../assets/img/listFolderButton.png';
 import DownArrowSrc from '../../assets/img/downArrow.png';
 
-const FolderListHeader = ({type, setListToCardType, setListToListType}) => {
+import DropdownSort from './DropdownSort';
+import PopoverController from '../../Components/Popover/PopoverController';
+
+const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
+  const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
+  const [dotMenuElementHolder, setDotMenuElementHolder] = useState(null);
+  const dotMenuRef = React.createRef();
+
+  useEffect(() => {
+    setDotMenuElementHolder(dotMenuRef.current);
+  }, [dotMenuRef]);
+
+  const openDropdownMenu = (e) => {
+    e.preventDefault();
+    setIsOpenDropdownMenu(true);
+  };
+
+  const closeDropdownMenu = () => {
+    setIsOpenDropdownMenu(false);
+  };
+
   return (
     <Wrapper>
       <ListTypeButtonWrapper>
-        {
-          type === 'card' ?
-            <>
-              <ListTypeButton src={CardFolderButtonSelectedSrc} onClick={setListToCardType} />
-              <ListTypeButton src={ListFolderButtonSrc} onClick={setListToListType} />
-            </>
-            :
-            <>
-              <ListTypeButton src={CardFolderButtonSrc} onClick={setListToCardType} />
-              <ListTypeButton src={ListFolderButtonSelectedSrc} onClick={setListToListType} />
-            </>
-        }
+        {type === 'card' ? (
+          <>
+            <ListTypeButton
+              src={CardFolderButtonSelectedSrc}
+              onClick={setListToCardType}
+            />
+            <ListTypeButton
+              src={ListFolderButtonSrc}
+              onClick={setListToListType}
+            />
+          </>
+        ) : (
+          <>
+            <ListTypeButton
+              src={CardFolderButtonSrc}
+              onClick={setListToCardType}
+            />
+            <ListTypeButton
+              src={ListFolderButtonSelectedSrc}
+              onClick={setListToListType}
+            />
+          </>
+        )}
       </ListTypeButtonWrapper>
 
       <SortTypeSelectorWrapper>
-        <SortTitle>Sort by:</SortTitle>
+        <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
+          <SortTitle>Sort by:</SortTitle>
+        </PopoverController>
+
         <SortTypeContents>Date Created</SortTypeContents>
         <DownArrowImage src={DownArrowSrc} />
       </SortTypeSelectorWrapper>
+
+      <DropdownSort
+        isOpen={isOpenDropdownMenu}
+        closeHandler={closeDropdownMenu}
+        anchorEl={dotMenuElementHolder}
+      />
     </Wrapper>
   );
 };
