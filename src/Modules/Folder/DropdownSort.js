@@ -2,19 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Popover from '../../Components/Popover';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-const DropdownMenu = ({
-  isOpen,
-  closeHandler,
-  anchorEl,
-  isFavorite,
-  handleUpdateIsFavorite,
-  sharedText,
-  shareTextSuccessHandler,
-  openRenameFolderModal,
-  openDeleteFolderModal,
-}) => {
+const DropdownMenu = ({ isOpen, closeHandler, anchorEl }) => {
   return (
     <Popover
       isOpen={isOpen}
@@ -23,16 +12,9 @@ const DropdownMenu = ({
       position={'hover'}
     >
       <MenuWrapper>
-        <MenuItem onClick={handleUpdateIsFavorite}>
-          {isFavorite ? 'Undo Favorites' : 'Add to favorites'}
-        </MenuItem>
-        <CopyToClipboard text={sharedText} onCopy={shareTextSuccessHandler}>
-          <MenuItem>Share</MenuItem>
-        </CopyToClipboard>
-        <MenuItem onClick={openRenameFolderModal}>
-          Renamedasfdasfsdafds
-        </MenuItem>
-        <MenuItem onClick={openDeleteFolderModal}>Delete fasdfdsolder</MenuItem>
+        <MenuItem>Alphabetical</MenuItem>
+        <MenuItem>Created at</MenuItem>
+        <MenuItem>Modified at</MenuItem>
       </MenuWrapper>
     </Popover>
   );

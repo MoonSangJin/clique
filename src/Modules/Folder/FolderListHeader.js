@@ -105,6 +105,10 @@ const SortTitle = styled.div`
   line-height: 18px;
   letter-spacing: -0.02em;
   color: #b9b9b9;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const SortTypeContents = styled.span`
@@ -119,6 +123,10 @@ const DownArrowImage = styled.img`
   width: 20px;
   height: 20px;
   margin-left: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default FolderListHeader;
