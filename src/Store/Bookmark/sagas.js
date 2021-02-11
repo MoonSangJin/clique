@@ -15,10 +15,10 @@ import {
   renameBookmarkFolderRequest,
   renameBookmarkRequest,
   updateIsFavoriteBookmarkFolderRequest,
+  sortBookmarkFolderRequest,
 } from './actions';
 import { getAccessToken } from '../../Utils/tokenHandler';
 import { request } from '../../Utils/request';
-
 
 const fetchBookmarkFolderApi = (token) =>
   request({
@@ -96,7 +96,28 @@ function* updateIsFavoriteBookmarkFolderAsync({ payload }) {
     yield call(updateIsFavoriteBookmarkFolderApi, token, folderId, isFavorite);
     yield put(fetchBookmarkFolderRequest());
   } catch (e) {
-    yield put(renameBookmarkFolderFailure());
+    yield put(renameBookmarkFolderFailure()); /* 이부분 맞는지 확인 */
+  }
+}
+
+const sortBookmarkFolderApi = (token, name) =>
+  request({
+    url: `bookmark-folder/?order=${name}`,
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+function* sortBookmarkFolderAsync({ payload }) {
+  try {
+    const name = payload.name;
+    console.log(name);
+    const token = yield call(getAccessToken);
+    yield call(sortBookmarkFolderApi, token, name);
+    yield put(fetchBookmarkFolderRequest());
+  } catch (e) {
+    yield put(
+      renameBookmarkFolderFailure()
+    ); /* 이부분도 일단은 이거로 넣어둠 */
   }
 }
 
@@ -155,31 +176,31 @@ function* createBookmarkAsync({ payload }) {
   } catch (e) {}
 }
 
-
-const renameBookmarkApi = async (token, bookmarkId, data) => request({
-  url: `/bookmark/${bookmarkId}`,
-  method: 'PATCH',
-  data: data,
-  headers: { Authorization: `Bearer ${token}` },
-});
-
+const renameBookmarkApi = async (token, bookmarkId, data) =>
+  request({
+    url: `/bookmark/${bookmarkId}`,
+    method: 'PATCH',
+    data: data,
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
 function* renameBookmarkAsync({ payload }) {
   try {
     const token = yield call(getAccessToken);
-    yield call(renameBookmarkApi, token, payload.bookmarkId, { title: payload.title });
+    yield call(renameBookmarkApi, token, payload.bookmarkId, {
+      title: payload.title,
+    });
 
     yield put(fetchBookmarkRequest());
-  } catch (e) {
-  }
+  } catch (e) {}
 }
 
-const deleteBookmarkApi = async (token, bookmarkId) => request({
-  url: `/bookmark/${bookmarkId}`,
-  method: 'DELETE',
-  headers: { Authorization: `Bearer ${token}` },
-});
-
+const deleteBookmarkApi = async (token, bookmarkId) =>
+  request({
+    url: `/bookmark/${bookmarkId}`,
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
 function* deleteBookmarkAsync({ payload }) {
   try {
@@ -187,19 +208,24 @@ function* deleteBookmarkAsync({ payload }) {
     yield call(deleteBookmarkApi, token, payload.bookmarkId);
 
     yield put(fetchBookmarkRequest());
-  } catch (e) {
-  }
+  } catch (e) {}
 }
-
 
 export function* watchBookmark() {
   yield takeEvery(fetchBookmarkFolderRequest, fetchBookmarkFolderAsync);
-  yield takeEvery(changeCoverBookmarkFolderRequest, changeCoverBookmarkFolderAsync);
+  yield takeEvery(
+    changeCoverBookmarkFolderRequest,
+    changeCoverBookmarkFolderAsync
+  );
   yield takeEvery(renameBookmarkFolderRequest, renameBookmarkFolderAsync);
-  yield takeEvery(updateIsFavoriteBookmarkFolderRequest, updateIsFavoriteBookmarkFolderAsync);
+  yield takeEvery(
+    updateIsFavoriteBookmarkFolderRequest,
+    updateIsFavoriteBookmarkFolderAsync
+  );
   yield takeEvery(deleteBookmarkFolderRequest, deleteBookmarkFolderAsync);
   yield takeEvery(fetchBookmarkRequest, fetchBookmarkAsync);
   yield takeEvery(createBookmarkRequest, createBookmarkAsync);
   yield takeEvery(renameBookmarkRequest, renameBookmarkAsync);
   yield takeEvery(deleteBookmarkRequest, deleteBookmarkAsync);
+  yield takeEvery(sortBookmarkFolderRequest, sortBookmarkFolderAsync);
 }
