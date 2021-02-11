@@ -41,7 +41,7 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
     const sortByAlphabeticalBookmarkFolderList =
       bookmarkReducer.bookmarkFolderList;
     const sortName =
-      sortByAlphabeticalBookmarkFolderList[3].name; /*임시로 하나의 이름을 줌 */
+      sortByAlphabeticalBookmarkFolderList[2].name; /*임시로 하나의 이름을 줌 */
     dispatch(
       sortBookmarkFolderRequest({
         name: sortName,
