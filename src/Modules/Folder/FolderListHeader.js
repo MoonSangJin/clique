@@ -11,6 +11,8 @@ import DownArrowSrc from '../../assets/img/downArrow.png';
 import DropdownSort from './DropdownSort';
 import PopoverController from '../../Components/Popover/PopoverController';
 
+import { sortBookmarkFolderRequest } from '../../Store/Bookmark/actions';
+
 const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
   const [isOpenDropdownSort, setIsOpenDropdownSort] = useState(false);
   const [dotMenuElementHolder, setDotMenuElementHolder] = useState(null);
@@ -36,6 +38,15 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
     console.log('let me set alphabetical');
     /* 기존에 가져온 폴더정보 순서를 어케 바꿀까 */
     console.log(bookmarkReducer.bookmarkFolderList);
+    const sortByAlphabeticalBookmarkFolderList =
+      bookmarkReducer.bookmarkFolderList;
+    const sortName =
+      sortByAlphabeticalBookmarkFolderList[3].name; /*임시로 하나의 이름을 줌 */
+    dispatch(
+      sortBookmarkFolderRequest({
+        name: sortName,
+      })
+    );
   };
   return (
     <Wrapper>
