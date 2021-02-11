@@ -3,7 +3,12 @@ import styled from 'styled-components';
 
 import Popover from '../../Components/Popover';
 
-const DropdownMenu = ({ isOpen, closeHandler, anchorEl }) => {
+const DropdownSort = ({
+  isOpen,
+  closeHandler,
+  anchorEl,
+  sortByAlphabetical,
+}) => {
   return (
     <Popover
       isOpen={isOpen}
@@ -12,7 +17,7 @@ const DropdownMenu = ({ isOpen, closeHandler, anchorEl }) => {
       position={'hover'}
     >
       <MenuWrapper>
-        <MenuItem>Alphabetical</MenuItem>
+        <MenuItem onClick={sortByAlphabetical}>Alphabetical</MenuItem>
         <MenuItem>Created at</MenuItem>
         <MenuItem>Modified at</MenuItem>
       </MenuWrapper>
@@ -44,4 +49,4 @@ const MenuItem = styled.div`
   }
 `;
 
-export default DropdownMenu;
+export default DropdownSort;

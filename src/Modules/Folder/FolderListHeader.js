@@ -12,23 +12,31 @@ import DropdownSort from './DropdownSort';
 import PopoverController from '../../Components/Popover/PopoverController';
 
 const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
-  const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
+  const [isOpenDropdownSort, setIsOpenDropdownSort] = useState(false);
   const [dotMenuElementHolder, setDotMenuElementHolder] = useState(null);
   const dotMenuRef = React.createRef();
+
+  const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setDotMenuElementHolder(dotMenuRef.current);
   }, [dotMenuRef]);
 
-  const openDropdownMenu = (e) => {
+  const openDropdownSort = (e) => {
     e.preventDefault();
-    setIsOpenDropdownMenu(true);
+    setIsOpenDropdownSort(true);
   };
 
   const closeDropdownMenu = () => {
-    setIsOpenDropdownMenu(false);
+    setIsOpenDropdownSort(false);
   };
 
+  const sortByAlphabetical = () => {
+    console.log('let me set alphabetical');
+    /* 기존에 가져온 폴더정보 순서를 어케 바꿀까 */
+    console.log(bookmarkReducer.bookmarkFolderList);
+  };
   return (
     <Wrapper>
       <ListTypeButtonWrapper>
@@ -58,7 +66,7 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
       </ListTypeButtonWrapper>
 
       <SortTypeSelectorWrapper>
-        <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
+        <PopoverController ref={dotMenuRef} onClick={openDropdownSort}>
           <SortTitle>Sort by:</SortTitle>
         </PopoverController>
 
@@ -67,9 +75,10 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
       </SortTypeSelectorWrapper>
 
       <DropdownSort
-        isOpen={isOpenDropdownMenu}
+        isOpen={isOpenDropdownSort}
         closeHandler={closeDropdownMenu}
         anchorEl={dotMenuElementHolder}
+        {...{ sortByAlphabetical }}
       />
     </Wrapper>
   );
