@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import CardFolderButtonSelectedSrc from '../../assets/img/cardFolderButtonSelected.png';
@@ -11,15 +10,11 @@ import DownArrowSrc from '../../assets/img/downArrow.png';
 import DropdownSort from './DropdownSort';
 import PopoverController from '../../Components/Popover/PopoverController';
 
-import { sortBookmarkFolderRequest } from '../../Store/Bookmark/actions';
-
 const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
   const [isOpenDropdownSort, setIsOpenDropdownSort] = useState(false);
   const [dotMenuElementHolder, setDotMenuElementHolder] = useState(null);
   const dotMenuRef = React.createRef();
-
-  const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
-  const dispatch = useDispatch();
+  const [ascending, setAscending] = useState(false);
 
   useEffect(() => {
     setDotMenuElementHolder(dotMenuRef.current);
@@ -35,19 +30,40 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
   };
 
   const sortByAlphabetical = () => {
-    console.log('let me set alphabetical');
-    /* 기존에 가져온 폴더정보 순서를 어케 바꿀까 */
-    console.log(bookmarkReducer.bookmarkFolderList);
-    const sortByAlphabeticalBookmarkFolderList =
-      bookmarkReducer.bookmarkFolderList;
-    const sortName =
-      sortByAlphabeticalBookmarkFolderList[2].name; /*임시로 하나의 이름을 줌 */
-    dispatch(
-      sortBookmarkFolderRequest({
-        name: sortName,
-      })
-    );
+    closeDropdownMenu();
+    chrome.storage.sync.set({
+      sortMeasure: 'ALPHABETICAL',
+    });
   };
+
+  const sortByCreatedAt = () => {
+    closeDropdownMenu();
+    chrome.storage.sync.set({
+      sortMeasure: 'CREATED_AT',
+    });
+  };
+
+  const sortByModifiedAt = () => {
+    closeDropdownMenu();
+    chrome.storage.sync.set({
+      sortMeasure: 'MODIFIED_AT',
+    });
+  };
+
+  const sortByArrow = () => {
+    if (ascending) {
+      setAscending(false);
+      chrome.storage.sync.set({
+        ordering: 'DESCENDING',
+      });
+    } else {
+      setAscending(true);
+      chrome.storage.sync.set({
+        ordering: 'ASCENDING',
+      });
+    }
+  };
+
   return (
     <Wrapper>
       <ListTypeButtonWrapper>
@@ -82,14 +98,18 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
         </PopoverController>
 
         <SortTypeContents>Date Created</SortTypeContents>
-        <DownArrowImage src={DownArrowSrc} />
+        <DownArrowImage
+          onClick={sortByArrow}
+          src={DownArrowSrc}
+          ascending={ascending}
+        />
       </SortTypeSelectorWrapper>
 
       <DropdownSort
         isOpen={isOpenDropdownSort}
         closeHandler={closeDropdownMenu}
         anchorEl={dotMenuElementHolder}
-        {...{ sortByAlphabetical }}
+        {...{ sortByAlphabetical, sortByCreatedAt, sortByModifiedAt }}
       />
     </Wrapper>
   );
@@ -147,6 +167,7 @@ const DownArrowImage = styled.img`
   &:hover {
     cursor: pointer;
   }
+  ${(props) => props.ascending && `transform:rotate(180deg)`}
 `;
 
 export default FolderListHeader;

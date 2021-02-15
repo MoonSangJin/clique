@@ -8,6 +8,8 @@ const DropdownSort = ({
   closeHandler,
   anchorEl,
   sortByAlphabetical,
+  sortByCreatedAt,
+  sortByModifiedAt,
 }) => {
   return (
     <Popover
@@ -18,8 +20,8 @@ const DropdownSort = ({
     >
       <MenuWrapper>
         <MenuItem onClick={sortByAlphabetical}>Alphabetical</MenuItem>
-        <MenuItem>Created at</MenuItem>
-        <MenuItem>Modified at</MenuItem>
+        <MenuItem onClick={sortByCreatedAt}>Created at</MenuItem>
+        <MenuItem onClick={sortByModifiedAt}>Modified at</MenuItem>
       </MenuWrapper>
     </Popover>
   );
