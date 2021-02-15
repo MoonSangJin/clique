@@ -50,10 +50,6 @@ const DELETE_BOOKMARK_FAILURE = 'bookmarks/DELETE_BOOKMARK_FAILURE';
 
 const REMOVE_BOOKMARK_INFO = 'bookmarks/REMOVE_BOOKMARK_INFO';
 
-const SORT_BOOKMARK_FOLDER_REQUEST = 'bookmarks/SORT_BOOKMARK_FOLDER_REQUEST';
-const SORT_BOOKMARK_FOLDER_SUCCESS = 'bookmarks/SORT_BOOKMARK_FOLDER_SUCCESS';
-const SORT_BOOKMARK_FOLDER_FAILURE = 'bookmarks/SORT_BOOKMARK_FOLDER_FAILURE';
-
 export const fetchBookmarkFolderRequest = createAction(
   FETCH_BOOKMARK_FOLDER_REQUEST
 );
@@ -102,16 +98,6 @@ export const deleteBookmarkFolderSuccess = createAction(
 );
 export const deleteBookmarkFolderFailure = createAction(
   DELETE_BOOKMARK_FOLDER_FAILURE
-);
-
-export const sortBookmarkFolderRequest = createAction(
-  SORT_BOOKMARK_FOLDER_REQUEST
-);
-export const sortBookmarkFolderSuccess = createAction(
-  SORT_BOOKMARK_FOLDER_SUCCESS
-);
-export const sortBookmarkFolderFailure = createAction(
-  SORT_BOOKMARK_FOLDER_FAILURE
 );
 
 export const fetchBookmarkRequest = createAction(FETCH_BOOKMARK_REQUEST);
