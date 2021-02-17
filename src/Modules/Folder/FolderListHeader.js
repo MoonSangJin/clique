@@ -12,16 +12,17 @@ import PopoverController from '../../Components/Popover/PopoverController';
 
 const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
   const [isOpenDropdownSort, setIsOpenDropdownSort] = useState(false);
-  const [dotMenuElementHolder, setDotMenuElementHolder] = useState(null);
-  const dotMenuRef = React.createRef();
+  const [sortingMenuElementHolder, setsortingMenuElementHolder] = useState(
+    null
+  );
+  const sortingMenuRef = React.createRef();
   const [ascending, setAscending] = useState(false);
 
   useEffect(() => {
-    setDotMenuElementHolder(dotMenuRef.current);
-  }, [dotMenuRef]);
+    setsortingMenuElementHolder(sortingMenuRef.current);
+  }, [sortingMenuRef]);
 
-  const openDropdownSort = (e) => {
-    e.preventDefault();
+  const openDropdownSort = () => {
     setIsOpenDropdownSort(true);
   };
 
@@ -93,7 +94,7 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
       </ListTypeButtonWrapper>
 
       <SortTypeSelectorWrapper>
-        <PopoverController ref={dotMenuRef} onClick={openDropdownSort}>
+        <PopoverController ref={sortingMenuRef} onClick={openDropdownSort}>
           <SortTitle>Sort by:</SortTitle>
         </PopoverController>
 
@@ -108,7 +109,7 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
       <DropdownSort
         isOpen={isOpenDropdownSort}
         closeHandler={closeDropdownMenu}
-        anchorEl={dotMenuElementHolder}
+        anchorEl={sortingMenuElementHolder}
         {...{ sortByAlphabetical, sortByCreatedAt, sortByModifiedAt }}
       />
     </Wrapper>

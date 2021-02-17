@@ -95,7 +95,7 @@ function* updateIsFavoriteBookmarkFolderAsync({ payload }) {
     yield call(updateIsFavoriteBookmarkFolderApi, token, folderId, isFavorite);
     yield put(fetchBookmarkFolderRequest());
   } catch (e) {
-    yield put(renameBookmarkFolderFailure()); /* 이부분 맞는지 확인 */
+    yield put(renameBookmarkFolderFailure());
   }
 }
 
