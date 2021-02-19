@@ -26,43 +26,35 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
     setIsOpenDropdownSort(true);
   };
 
-  const closeDropdownMenu = () => {
+  const closeDropdownSort = () => {
     setIsOpenDropdownSort(false);
   };
 
-  const sortByAlphabetical = () => {
-    closeDropdownMenu();
-    chrome.storage.sync.set({
-      sortMeasure: 'ALPHABETICAL',
-    });
-  };
-
-  const sortByCreatedAt = () => {
-    closeDropdownMenu();
-    chrome.storage.sync.set({
-      sortMeasure: 'CREATED_AT',
-    });
-  };
-
-  const sortByModifiedAt = () => {
-    closeDropdownMenu();
-    chrome.storage.sync.set({
-      sortMeasure: 'MODIFIED_AT',
-    });
-  };
-
-  const sortByArrow = () => {
+  const setOrderDirection = () => {
     if (ascending) {
-      setAscending(false);
       chrome.storage.sync.set({
         ordering: 'DESCENDING',
       });
+      setAscending(false);
     } else {
-      setAscending(true);
       chrome.storage.sync.set({
-        ordering: 'ASCENDING',
+        ordering: 'ASSCENDING',
       });
+      setAscending(true);
     }
+  };
+
+  const setSortMeasure = (sortMeasure) => (_event) => {
+    closeDropdownSort();
+    chrome.storage.sync.set({
+      sortMeasure: sortMeasure,
+    });
+  };
+
+  const check = () => {
+    closeDropdownSort();
+    chrome.storage.sync.get(['sortMeasure'], (result) => console.log(result));
+    chrome.storage.sync.get(['ordering'], (result) => console.log(result));
   };
 
   return (
@@ -100,7 +92,7 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
 
         <SortTypeContents>Date Created</SortTypeContents>
         <DownArrowImage
-          onClick={sortByArrow}
+          onClick={setOrderDirection}
           src={DownArrowSrc}
           ascending={ascending}
         />
@@ -108,9 +100,12 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
 
       <DropdownSort
         isOpen={isOpenDropdownSort}
-        closeHandler={closeDropdownMenu}
+        closeHandler={closeDropdownSort}
         anchorEl={sortingMenuElementHolder}
-        {...{ sortByAlphabetical, sortByCreatedAt, sortByModifiedAt }}
+        {...{
+          setSortMeasure,
+          check,
+        }}
       />
     </Wrapper>
   );

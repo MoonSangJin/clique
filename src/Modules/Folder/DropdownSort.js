@@ -7,9 +7,8 @@ const DropdownSort = ({
   isOpen,
   closeHandler,
   anchorEl,
-  sortByAlphabetical,
-  sortByCreatedAt,
-  sortByModifiedAt,
+  setSortMeasure,
+  check,
 }) => {
   return (
     <Popover
@@ -19,9 +18,12 @@ const DropdownSort = ({
       position={'hover'}
     >
       <MenuWrapper>
-        <MenuItem onClick={sortByAlphabetical}>Alphabetical</MenuItem>
-        <MenuItem onClick={sortByCreatedAt}>Created at</MenuItem>
-        <MenuItem onClick={sortByModifiedAt}>Modified at</MenuItem>
+        <MenuItem onClick={setSortMeasure('ALPHABETICAL')}>
+          Alphabetical
+        </MenuItem>
+        <MenuItem onClick={setSortMeasure('CREATED_AT')}>Created at</MenuItem>
+        <MenuItem onClick={setSortMeasure('MODIFIED_AT')}>Modified at</MenuItem>
+        <MenuItem onClick={check}>check</MenuItem>
       </MenuWrapper>
     </Popover>
   );
