@@ -16,7 +16,7 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
     null
   );
   const sortingMenuRef = React.createRef();
-  const [ascending, setAscending] = useState(false);
+  const [orderDirection, setOrderDirection] = useState('DESCENDING');
 
   useEffect(() => {
     setsortingMenuElementHolder(sortingMenuRef.current);
@@ -30,17 +30,17 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
     setIsOpenDropdownSort(false);
   };
 
-  const setOrderDirection = () => {
-    if (ascending) {
+  const sortOrderDirection = () => {
+    if (orderDirection === 'ASCENDING') {
       chrome.storage.sync.set({
-        ordering: 'DESCENDING',
+        orderDirection: 'DESCENDING',
       });
-      setAscending(false);
+      setOrderDirection('DESCENDING');
     } else {
       chrome.storage.sync.set({
-        ordering: 'ASSCENDING',
+        orderDirection: 'ASSCENDING',
       });
-      setAscending(true);
+      setOrderDirection('ASCENDING');
     }
   };
 
@@ -49,12 +49,6 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
     chrome.storage.sync.set({
       sortMeasure: sortMeasure,
     });
-  };
-
-  const check = () => {
-    closeDropdownSort();
-    chrome.storage.sync.get(['sortMeasure'], (result) => console.log(result));
-    chrome.storage.sync.get(['ordering'], (result) => console.log(result));
   };
 
   return (
@@ -92,9 +86,9 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
 
         <SortTypeContents>Date Created</SortTypeContents>
         <DownArrowImage
-          onClick={setOrderDirection}
+          onClick={sortOrderDirection}
           src={DownArrowSrc}
-          ascending={ascending}
+          orderDirection={orderDirection}
         />
       </SortTypeSelectorWrapper>
 
@@ -104,7 +98,6 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
         anchorEl={sortingMenuElementHolder}
         {...{
           setSortMeasure,
-          check,
         }}
       />
     </Wrapper>
@@ -163,7 +156,8 @@ const DownArrowImage = styled.img`
   &:hover {
     cursor: pointer;
   }
-  ${(props) => props.ascending && `transform:rotate(180deg)`}
+  ${(props) =>
+    props.orderDirection === 'ASCENDING' && `transform:rotate(180deg)`}
 `;
 
 export default FolderListHeader;

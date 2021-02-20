@@ -3,13 +3,7 @@ import styled from 'styled-components';
 
 import Popover from '../../Components/Popover';
 
-const DropdownSort = ({
-  isOpen,
-  closeHandler,
-  anchorEl,
-  setSortMeasure,
-  check,
-}) => {
+const DropdownSort = ({ isOpen, closeHandler, anchorEl, setSortMeasure }) => {
   return (
     <Popover
       isOpen={isOpen}
@@ -23,7 +17,6 @@ const DropdownSort = ({
         </MenuItem>
         <MenuItem onClick={setSortMeasure('CREATED_AT')}>Created at</MenuItem>
         <MenuItem onClick={setSortMeasure('MODIFIED_AT')}>Modified at</MenuItem>
-        <MenuItem onClick={check}>check</MenuItem>
       </MenuWrapper>
     </Popover>
   );
