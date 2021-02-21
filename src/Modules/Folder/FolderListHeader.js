@@ -12,14 +12,14 @@ import PopoverController from '../../Components/Popover/PopoverController';
 
 const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
   const [isOpenDropdownSort, setIsOpenDropdownSort] = useState(false);
-  const [sortingMenuElementHolder, setsortingMenuElementHolder] = useState(
+  const [sortingMenuElementHolder, setSortingMenuElementHolder] = useState(
     null
   );
   const sortingMenuRef = React.createRef();
   const [orderDirection, setOrderDirection] = useState('DESCENDING');
 
   useEffect(() => {
-    setsortingMenuElementHolder(sortingMenuRef.current);
+    setSortingMenuElementHolder(sortingMenuRef.current);
   }, [sortingMenuRef]);
 
   const openDropdownSort = () => {
@@ -30,7 +30,7 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
     setIsOpenDropdownSort(false);
   };
 
-  const sortOrderDirection = () => {
+  const setSortOrderDirection = () => {
     if (orderDirection === 'ASCENDING') {
       chrome.storage.sync.set({
         orderDirection: 'DESCENDING',
@@ -86,7 +86,7 @@ const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
 
         <SortTypeContents>Date Created</SortTypeContents>
         <DownArrowImage
-          onClick={sortOrderDirection}
+          onClick={setSortOrderDirection}
           src={DownArrowSrc}
           orderDirection={orderDirection}
         />
