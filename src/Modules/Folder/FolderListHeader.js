@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import CardFolderButtonSelectedSrc from '../../assets/img/cardFolderButtonSelected.png';
@@ -7,29 +7,99 @@ import ListFolderButtonSelectedSrc from '../../assets/img/listFolderButtonSelect
 import ListFolderButtonSrc from '../../assets/img/listFolderButton.png';
 import DownArrowSrc from '../../assets/img/downArrow.png';
 
-const FolderListHeader = ({type, setListToCardType, setListToListType}) => {
+import DropdownSort from './DropdownSort';
+import PopoverController from '../../Components/Popover/PopoverController';
+
+const FolderListHeader = ({ type, setListToCardType, setListToListType }) => {
+  const [isOpenDropdownSort, setIsOpenDropdownSort] = useState(false);
+  const [sortingMenuElementHolder, setSortingMenuElementHolder] = useState(
+    null
+  );
+  const sortingMenuRef = React.createRef();
+  const [orderDirection, setOrderDirection] = useState('DESCENDING');
+
+  useEffect(() => {
+    setSortingMenuElementHolder(sortingMenuRef.current);
+  }, [sortingMenuRef]);
+
+  const openDropdownSort = () => {
+    setIsOpenDropdownSort(true);
+  };
+
+  const closeDropdownSort = () => {
+    setIsOpenDropdownSort(false);
+  };
+
+  const setSortOrderDirection = () => {
+    if (orderDirection === 'ASCENDING') {
+      chrome.storage.sync.set({
+        orderDirection: 'DESCENDING',
+      });
+      setOrderDirection('DESCENDING');
+    } else {
+      chrome.storage.sync.set({
+        orderDirection: 'ASSCENDING',
+      });
+      setOrderDirection('ASCENDING');
+    }
+  };
+
+  const setSortMeasure = (sortMeasure) => (_event) => {
+    closeDropdownSort();
+    chrome.storage.sync.set({
+      sortMeasure: sortMeasure,
+    });
+  };
+
   return (
     <Wrapper>
       <ListTypeButtonWrapper>
-        {
-          type === 'card' ?
-            <>
-              <ListTypeButton src={CardFolderButtonSelectedSrc} onClick={setListToCardType} />
-              <ListTypeButton src={ListFolderButtonSrc} onClick={setListToListType} />
-            </>
-            :
-            <>
-              <ListTypeButton src={CardFolderButtonSrc} onClick={setListToCardType} />
-              <ListTypeButton src={ListFolderButtonSelectedSrc} onClick={setListToListType} />
-            </>
-        }
+        {type === 'card' ? (
+          <>
+            <ListTypeButton
+              src={CardFolderButtonSelectedSrc}
+              onClick={setListToCardType}
+            />
+            <ListTypeButton
+              src={ListFolderButtonSrc}
+              onClick={setListToListType}
+            />
+          </>
+        ) : (
+          <>
+            <ListTypeButton
+              src={CardFolderButtonSrc}
+              onClick={setListToCardType}
+            />
+            <ListTypeButton
+              src={ListFolderButtonSelectedSrc}
+              onClick={setListToListType}
+            />
+          </>
+        )}
       </ListTypeButtonWrapper>
 
       <SortTypeSelectorWrapper>
-        <SortTitle>Sort by:</SortTitle>
+        <PopoverController ref={sortingMenuRef} onClick={openDropdownSort}>
+          <SortTitle>Sort by:</SortTitle>
+        </PopoverController>
+
         <SortTypeContents>Date Created</SortTypeContents>
-        <DownArrowImage src={DownArrowSrc} />
+        <DownArrowImage
+          onClick={setSortOrderDirection}
+          src={DownArrowSrc}
+          orderDirection={orderDirection}
+        />
       </SortTypeSelectorWrapper>
+
+      <DropdownSort
+        isOpen={isOpenDropdownSort}
+        closeHandler={closeDropdownSort}
+        anchorEl={sortingMenuElementHolder}
+        {...{
+          setSortMeasure,
+        }}
+      />
     </Wrapper>
   );
 };
@@ -64,6 +134,10 @@ const SortTitle = styled.div`
   line-height: 18px;
   letter-spacing: -0.02em;
   color: #b9b9b9;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const SortTypeContents = styled.span`
@@ -78,6 +152,12 @@ const DownArrowImage = styled.img`
   width: 20px;
   height: 20px;
   margin-left: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
+  ${(props) =>
+    props.orderDirection === 'ASCENDING' && `transform:rotate(180deg)`}
 `;
 
 export default FolderListHeader;
