@@ -6,7 +6,7 @@ import { isValidUrl, refineUrl } from '../../Utils/urlHandler';
 import ListRowItem from './ListRowItem';
 
 
-export default function SubmitForm({ tabs, postServer }) {
+export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
   const [bookmarks, setBookmarks] = useState([]);
   const [newFolderName, setNewFolderName] = useState('');
 
@@ -133,12 +133,12 @@ export default function SubmitForm({ tabs, postServer }) {
         ))}
       </List>
       <InputRow>
-        <Font>Create</Font>
+        <Font>Folder</Font>
         <Input
           type="text"
           value={newFolderName}
           onChange={changeInputNewFolder}
-          placeholder="Enter new folder name"
+          placeholder="Enter new or exist folder name"
         />
       </InputRow>
       <ButtonRow>
