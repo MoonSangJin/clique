@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-
 import styled from 'styled-components';
+import CreatableSelect from 'react-select/creatable';
+
 import logoSrc from '../../assets/img/logo';
 import { isValidUrl, refineUrl } from '../../Utils/urlHandler';
 import ListRowItem from './ListRowItem';
@@ -8,7 +9,7 @@ import ListRowItem from './ListRowItem';
 
 export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
   const [bookmarks, setBookmarks] = useState([]);
-  const [newFolderName, setNewFolderName] = useState('');
+  const [folderName, setFolderName] = useState('');
 
   useEffect(() => {
     let activeTabTitle = '';
@@ -63,13 +64,14 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
   const getValidBookmarks = (originBookmarks) =>
     originBookmarks.filter((bookmark) => isValidUrl(bookmark.url));
 
-  const changeInputNewFolder = (e) => {
-    const { value } = e.target;
-    setNewFolderName(value);
+  const changeInputNewFolder = (changedValue, actionMeta) => {
+    if (actionMeta === 'input-change') {
+      setFolderName(changedValue);
+    }
   };
 
   const handleSubmit = () => {
-    if (newFolderName === '') {
+    if (folderName === '') {
       alert('Please Enter folder name');
       return;
     }
@@ -91,7 +93,7 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
     }
 
     const postData = {
-      bookmark_folder_name: newFolderName,
+      bookmark_folder_name: folderName,
       bookmarks: bookmarksForPayload,
     };
 
@@ -117,6 +119,10 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
 
   const isCheckedAll = () => bookmarks.findIndex((bookmark) => bookmark.isChecked === false) === -1;
 
+  const selectFolderName = (folderOptinon) => {
+    setFolderName(folderOptinon.value);
+  };
+
   return (
     <FormWrapper>
       <LogoRow>
@@ -134,13 +140,15 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
       </List>
       <InputRow>
         <Font>Folder</Font>
-        <Input
-          type="text"
-          value={newFolderName}
-          onChange={changeInputNewFolder}
-          placeholder="Enter new or exist folder name"
-        />
+        <CreatableSelectWrapper>
+          <CreatableSelect
+            onChange={selectFolderName}
+            onInputChange={changeInputNewFolder}
+            options={bookmarkFolderList.map((folder) => ({label: folder.name, value: folder.name}))}
+          />
+        </CreatableSelectWrapper>
       </InputRow>
+
       <ButtonRow>
         <CompleteButton onClick={handleSubmit}>Save</CompleteButton>
       </ButtonRow>
@@ -204,26 +212,9 @@ const Font = styled.div`
   color: #90a0ad;
 `;
 
-const Input = styled.input`
-  all: unset;
-  width: 204px;
-  height: 30px;
+const CreatableSelectWrapper = styled.div`
+  width: 214px;
   margin-left: 26px;
-  background-color: #f5f7f8;
-  border: 1px solid #dee3e6;
-  box-sizing: border-box;
-  border-radius: 8px;
-  text-indent: 12px;
-
-  ::placeholder {
-    font-size: 12px;
-    line-height: 20px;
-    color: #b5bdc2;
-    letter-spacing: -0.02em;
-  }
-  ::-webkit-calendar-picker-indicator {
-    color: #90a0ad;
-  }
 `;
 
 const ButtonRow = styled.div`
