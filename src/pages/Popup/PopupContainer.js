@@ -8,6 +8,8 @@ import { request } from '../../Utils/request';
 const PopupContainer = () => {
   const [tabs, setTabs] = useState([]);
   const [token, setToken] = useState('');
+  const [bookmarkFolderList, setBookmarkFolderList] = useState([]);
+
   const searchUrl = () => {
     chrome.tabs.query({ lastFocusedWindow: true }, (tabs) => setTabs(tabs));
   };
@@ -51,8 +53,21 @@ const PopupContainer = () => {
     });
   }, []);
 
+  useEffect(() => {
+    if (token) {
+      request({
+        url: '/bookmark-folder',
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((res) => {
+          setBookmarkFolderList(res.data);
+        })
+    }
+  }, [token]);
+
   return token ? (
-    <PopupPresenter {...{ tabs, postServer }} />
+    <PopupPresenter {...{ tabs, postServer, bookmarkFolderList }} />
   ) : (
     <NotSignInPage />
   );

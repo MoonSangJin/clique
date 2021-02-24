@@ -6,10 +6,10 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 `;
-const PopupPresenter = ({ tabs, postServer }) => {
+const PopupPresenter = ({ tabs, postServer, bookmarkFolderList }) => {
   return (
     <Container>
-      <SubmitForm {...{ tabs, postServer }} />
+      <SubmitForm {...{ tabs, postServer, bookmarkFolderList }} />
     </Container>
   );
 };
