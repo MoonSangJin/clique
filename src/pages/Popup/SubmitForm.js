@@ -142,6 +142,7 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
         <Font>Folder</Font>
         <CreatableSelectWrapper>
           <CreatableSelect
+            placeholder={'Select or create'}
             onChange={selectFolderName}
             onInputChange={changeInputNewFolder}
             options={bookmarkFolderList.map((folder) => ({label: folder.name, value: folder.name}))}
