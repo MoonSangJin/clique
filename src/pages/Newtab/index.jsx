@@ -9,6 +9,9 @@ import rootReducer from '../../Store';
 import { rootSaga } from '../../Store/rootSaga';
 import GlobalStyle from './globalStyles';
 
+import ReactGa from 'react-ga';
+import { GA_ID } from '../../Constants/ga';
+
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
@@ -17,6 +20,9 @@ const store = configureStore({
 });
 
 sagaMiddleware.run(rootSaga);
+
+ReactGa.initialize(GA_ID);
+ReactGa.ga('set', 'checkProtocolTask', null);
 
 render(
   <Provider store={store}>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import SignInPagePresenter from './SignInPagePresenter';
 import { setSignInErrorMessage, signInRequest } from '../../Store/User/actions';
+import ReactGa from 'react-ga';
 
 
 const SignInPageContainer = () => {
@@ -16,6 +17,10 @@ const SignInPageContainer = () => {
   const [passwordValidationMessage, setPasswordValidationMessage] = useState(
     ''
   );
+
+  useEffect(() => {
+    ReactGa.pageview('/sign-in');
+  }, []);
 
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
