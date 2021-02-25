@@ -12,6 +12,7 @@ const mapSearchEngineToInputPlaceholder = {
 export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchEngine, setSearchEngine] = useState('clique');
+  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
   let inputRef = createRef();
 
   const handleSearchInputChange = (e) => {
@@ -73,6 +74,8 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
       <SearchResult>
         {searchEngine === 'clique' && searchKeyword ? (
           <SearchResultList
+            selectedItemIndex={selectedItemIndex}
+            selectItem={(index) => setSelectedItemIndex(index)}
             bookmarkSearchResult={getSearchedBookmarkFolderList()}
             bookmarkFolderSearchResult={getSearchedBookmarkList()}
           />

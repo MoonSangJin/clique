@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import FavoriteFolderSrc from '../../assets/img/favoriteFolder.svg';
 import FolderSrc from '../../assets/img/folder.svg';
 
-const SearchedItem = ({ info, type }) => {
+const SearchedItem = ({ info, type, selected, selectItem }) => {
   const history = useHistory();
   let name = '';
   let iconSrc = '';
@@ -24,7 +24,7 @@ const SearchedItem = ({ info, type }) => {
   }
 
   return (
-    <ItemWrapper onClick={onClickHandler}>
+    <ItemWrapper onClick={onClickHandler} selected={selected} onMouseEnter={selectItem}>
       <Icon src={iconSrc} />
       <Name>{name}</Name>
     </ItemWrapper>
@@ -38,10 +38,8 @@ const ItemWrapper = styled.div`
   padding: 0 28px;
   align-items: center;
   cursor: pointer;
-
-  :hover {
-    background-color: #f5f7f8;
-  }
+  
+  background-color: ${props => props.selected ? '#f5f7f8' : '#ffffff'}
 `;
 
 const Icon = styled.img`

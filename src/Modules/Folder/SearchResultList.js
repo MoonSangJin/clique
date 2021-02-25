@@ -5,22 +5,35 @@ import SearchedItem from './SearchedItem';
 
 
 const SearchResultList = ({
-  bookmarkSearchResult,
-  bookmarkFolderSearchResult,
-}) => {
+                            selectedItemIndex,
+                            selectItem,
+                            bookmarkSearchResult,
+                            bookmarkFolderSearchResult,
+                          }) => {
   return (
     <ResultWrapper>
       <SearchedItemWrapper>
-        {bookmarkSearchResult.map((folder) => (
-          <SearchedItem key={folder.id} info={folder} type={'FOLDER'} />
+        {bookmarkSearchResult.map((folder, index) => (
+          <SearchedItem
+            key={folder.id}
+            info={folder} type={'FOLDER'}
+            selected={index === selectedItemIndex}
+            selectItem={() => selectItem(index)}
+          />
         ))}
       </SearchedItemWrapper>
 
       <Divider />
 
       <SearchedItemWrapper>
-        {bookmarkFolderSearchResult.map((bookmark) => (
-          <SearchedItem key={bookmark.id} info={bookmark} type={'BOOKMARK'} />
+        {bookmarkFolderSearchResult.map((bookmark, index) => (
+          <SearchedItem
+            key={bookmark.id}
+            info={bookmark}
+            type={'BOOKMARK'}
+            selected={index === selectedItemIndex - bookmarkSearchResult.length}
+            selectItem={() => selectItem(index + bookmarkSearchResult.length)}
+          />
         ))}
       </SearchedItemWrapper>
     </ResultWrapper>
