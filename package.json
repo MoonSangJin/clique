@@ -1,7 +1,7 @@
 {
   "name": "clique",
   "version": "0.1.0",
-  "description": "smart bookmark extension",
+  "description": "Modern way to save Bookmarks. All-in-one personal New Tab to save and read for later. ",
   "private": true,
   "scripts": {
     "build": "node utils/build.js",
