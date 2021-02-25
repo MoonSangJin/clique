@@ -1,7 +1,10 @@
 import React, { createRef, useState } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom'
+
 import handGlassSrc from '../../assets/img/handGlass';
 import SearchResultList from './SearchResultList';
+import openBookmark from '../../Utils/openBookmark';
 
 
 const mapSearchEngineToInputPlaceholder = {
@@ -12,7 +15,10 @@ const mapSearchEngineToInputPlaceholder = {
 export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchEngine, setSearchEngine] = useState('clique');
+  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
   let inputRef = createRef();
+
+  const history = useHistory();
 
   const handleSearchInputChange = (e) => {
     setSearchKeyword(e.target.value);
@@ -20,11 +26,28 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
 
   const handleBlur = () => {
     setSearchEngine('clique');
+    setSelectedItemIndex(0);
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && searchEngine === 'google') {
+    const searchedFolders = getSearchedBookmarkFolderList();
+    const searchedBookmarks = getSearchedBookmarkList();
+
+    if (e.key === 'Enter' && searchEngine === 'clique') {
+      if (searchedFolders.length + searchedBookmarks.length) {
+        if (selectedItemIndex < searchedFolders.length) {
+          history.push(`/detail/${searchedFolders[selectedItemIndex].id}`);
+        } else {
+          const selectedBookmark = searchedBookmarks[selectedItemIndex - searchedFolders.length];
+          openBookmark(selectedBookmark.url, selectedBookmark.scrollPos, selectedBookmark.id);
+        }
+      }
+    } else if (e.key === 'Enter' && searchEngine === 'google') {
       window.location.href = `https://www.google.co.kr/search?q=${searchKeyword}`;
+    } else if (e.key === 'ArrowUp') {
+      setSelectedItemIndex((index) => Math.max(0, index - 1))
+    } else if (e.key === 'ArrowDown') {
+      setSelectedItemIndex((index) => Math.min(searchedFolders.length + searchedBookmarks.length, index + 1))
     }
   };
 
@@ -62,7 +85,7 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
           placeholder={mapSearchEngineToInputPlaceholder[searchEngine]}
           autoComplete="off"
           onBlur={handleBlur}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyPress}
           ref={inputRef}
         />
         {/*Todo(maitracle): or google 기능을 추가할 때 주석을 해제한다*/}
@@ -73,6 +96,8 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
       <SearchResult>
         {searchEngine === 'clique' && searchKeyword ? (
           <SearchResultList
+            selectedItemIndex={selectedItemIndex}
+            selectItem={(index) => setSelectedItemIndex(index)}
             bookmarkSearchResult={getSearchedBookmarkFolderList()}
             bookmarkFolderSearchResult={getSearchedBookmarkList()}
           />
