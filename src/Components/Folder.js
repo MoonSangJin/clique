@@ -374,6 +374,7 @@ const ChangeCoverButton = styled.button`
   border: none;
   outline: none;
   margin: auto 10px 10px auto;
+  cursor: pointer;
   
   font-size: 12px;
   line-height: 18px;
@@ -588,6 +589,7 @@ const CoverImageListItem = styled.div`
   border-radius: 10px;
   margin-right: 10px;
   margin-bottom: 13px;
+  cursor: pointer;
   
   &:nth-child(4n) {
     margin-right: 0;
