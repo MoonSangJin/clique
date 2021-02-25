@@ -11,6 +11,7 @@ import BookmarkItem from '../Modules/Bookmark/BookmarkItem';
 import { fetchBookmarkFolderRequest, fetchBookmarkRequest } from '../Store/Bookmark/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import openBookmark from '../Utils/openBookmark';
+import { logOpenBookmarkAll } from '../Services/googleAnalytics';
 
 
 export default function DetailForm({ folderData, detailDataList, handleAddBookmark }) {
@@ -49,6 +50,8 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
   const goBack = () => window.history.back();
 
   const openAllBookmarks = () => {
+    logOpenBookmarkAll(folderData.id);
+
     detailDataList.forEach((detailData) => {
       openBookmark(detailData.url, detailData.scrollPos, '_blank');
     });
