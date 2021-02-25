@@ -29,6 +29,7 @@ import coverImageTwelve from '../assets/img/FolderItemImages/12';
 import checkGray from '../assets/img/checkGray.png';
 import deleteFolderModalImage from '../assets/img/deleteModalImage';
 import blankListFolder from '../assets/img/blankListFolder.png';
+import icon128 from '../assets/img/icon-128.png';
 
 import {
   changeCoverBookmarkFolderRequest,
@@ -37,6 +38,7 @@ import {
   updateIsFavoriteBookmarkFolderRequest,
 } from '../Store/Bookmark/actions';
 import { getTimeDeltaString } from '../Utils/datetimeHandler';
+import { logShareFolder } from '../Services/googleAnalytics';
 
 
 export default function Folder({ folderData, type }) {
@@ -76,7 +78,7 @@ export default function Folder({ folderData, type }) {
   };
 
   const getSharedText = () => {
-    let sharedText = 'This bookmarks are shared by Clique\n';
+    let sharedText = 'The following bookmarks are shared by Clique\n';
     sharedText += `Folder name: ${folderData.name}\n\n`;
 
     getBookmarkList().forEach((bookmark) => {
@@ -92,6 +94,7 @@ export default function Folder({ folderData, type }) {
   };
 
   const handleShareTextSuccess = () => {
+    logShareFolder(folderData.id);
     closeDropdownMenu();
     setIsOpenShareSuccessModal(true);
   };
@@ -157,7 +160,7 @@ export default function Folder({ folderData, type }) {
                 {
                   isShowingChangeCoverButton ?
                     <ChangeCoverButton onClick={openChangeCoverModal}>
-                      Change cover
+                      Change Cover
                     </ChangeCoverButton>
                     : null
                 }
@@ -180,7 +183,9 @@ export default function Folder({ folderData, type }) {
                     <VerticalLine src={verticalLine} />
                     {getBookmarkList().map((bookmark) => {
                       return (
-                        <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} />
+                        <>
+                          <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} onError={(e) => e.target.src = icon128} />
+                        </>
                       );
                     })}
                   </FaviconWrapper>
@@ -369,6 +374,7 @@ const ChangeCoverButton = styled.button`
   border: none;
   outline: none;
   margin: auto 10px 10px auto;
+  cursor: pointer;
   
   font-size: 12px;
   line-height: 18px;
@@ -583,6 +589,7 @@ const CoverImageListItem = styled.div`
   border-radius: 10px;
   margin-right: 10px;
   margin-bottom: 13px;
+  cursor: pointer;
   
   &:nth-child(4n) {
     margin-right: 0;
