@@ -49,10 +49,10 @@ export default function FolderRow({ bookmarkFolderList, isLoggedIn, type, setLis
       ) : (
         <EmptyListWrapper>
           <Image src={BlankListFolderSrc} />
-          <Description>Sign in Clique and manage your bookmarks</Description>
+          <Description>Sign in to Clique and manage your bookmarks</Description>
           <StyledLink to={'/sign-in'}>
             <ToSignInButton>
-              Sign in&nbsp;<Bold>Clique</Bold>
+              Sign in to&nbsp;<Bold>Clique</Bold>
             </ToSignInButton>
           </StyledLink>
         </EmptyListWrapper>
