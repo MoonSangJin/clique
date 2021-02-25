@@ -159,7 +159,7 @@ export default function Folder({ folderData, type }) {
                 {
                   isShowingChangeCoverButton ?
                     <ChangeCoverButton onClick={openChangeCoverModal}>
-                      Change cover
+                      Change Cover
                     </ChangeCoverButton>
                     : null
                 }
