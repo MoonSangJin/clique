@@ -1,4 +1,8 @@
-const openBookmark = (url, scrollPos, target = '') => {
+import { logOpenBookmark } from '../Services/googleAnalytics';
+
+
+const openBookmark = (url, scrollPos, id, target = '') => {
+  logOpenBookmark(id);
   chrome.storage.sync.set({
     [url]: scrollPos,
   });

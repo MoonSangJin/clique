@@ -3,12 +3,17 @@ import PopupPresenter from './PopupPresenter';
 import NotSignInPage from './NotSignInPage';
 import { getAccessToken } from '../../Utils/tokenHandler';
 import { request } from '../../Utils/request';
+import ReactGa from 'react-ga';
 
 
 const PopupContainer = () => {
   const [tabs, setTabs] = useState([]);
   const [token, setToken] = useState('');
   const [bookmarkFolderList, setBookmarkFolderList] = useState([]);
+
+  useEffect(() => {
+    ReactGa.pageview('/pop-up');
+  }, []);
 
   const searchUrl = () => {
     chrome.tabs.query({ lastFocusedWindow: true }, (tabs) => setTabs(tabs));

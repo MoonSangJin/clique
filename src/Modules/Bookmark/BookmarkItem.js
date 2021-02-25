@@ -54,7 +54,7 @@ const BookmarkItem = ({ detailData }) => {
   return (
     <>
       <UrlRow>
-        <ExternalLink onClick={() => openBookmark(url, scrollPos)}>
+        <ExternalLink onClick={() => openBookmark(url, scrollPos, id)}>
           <UrlImage src={faviconUrl} />
           <UrlTitle>{title}</UrlTitle>
           <Url>{url}</Url>

@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import DetailPresenter from './DetailPresenter';
 import { createBookmarkRequest } from '../../Store/Bookmark/actions';
+import ReactGa from 'react-ga';
 
 
 const DetailContainer = ({ match }) => {
   const { folderId } = match.params;
   const bookmarkReducer = useSelector((state) => state.bookmarkReducer);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    ReactGa.pageview(`/detail/${folderId}`);
+  }, [folderId]);
 
   const handleAddBookmark = (payload) => {
     dispatch(createBookmarkRequest(payload));

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchBookmarkFolderRequest, fetchBookmarkRequest } from '../../Store/Bookmark/actions';
 
 import HomePresenter from './HomePresenter';
+import ReactGa from 'react-ga';
 
 
 const HomeScreenContainer = () => {
@@ -10,6 +11,10 @@ const HomeScreenContainer = () => {
   const userReducer = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const [listType, setListType] = useState('card');
+
+  useEffect(() => {
+    ReactGa.pageview('/');
+  }, []);
 
   useEffect(() => {
     if (userReducer.user.isLoggedIn) {
