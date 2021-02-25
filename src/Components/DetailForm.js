@@ -20,7 +20,6 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
 
   const [isOpenAddBookmarkModal, setIsOpenAddBookmarkModal] = useState(false);
   const [newBookmarkInfo, setNewBookmarkInfo] = useState({
-    bookmarkFolderId: folderData.id,
     url: '',
     title: '',
     scrollPos: 0,
@@ -76,9 +75,21 @@ export default function DetailForm({ folderData, detailDataList, handleAddBookma
     setIsOpenAddBookmarkModal(false);
   };
 
+  const validateBookmark = (bookmarkInfo) => !!bookmarkInfo.title && !!bookmarkInfo.url;
+
   const addBookmarkAndCloseModal = () => {
-    handleAddBookmark(newBookmarkInfo);
-    closeModalAndClearBookmarkInfo();
+    const bookmarkPayload = {
+      bookmarkFolderId: folderData.id,
+      ...newBookmarkInfo,
+    };
+
+
+    if (validateBookmark(bookmarkPayload)) {
+      handleAddBookmark(bookmarkPayload);
+      closeModalAndClearBookmarkInfo();
+    } else {
+      alert('Url or bookmark name is invalid.');
+    }
   };
 
   return (
