@@ -30,10 +30,10 @@ export default function FolderRow({ bookmarkFolderList, isLoggedIn, type, setLis
           }
           <Container>
             {
-              bookmarkFolderList.map((folderData, index) => {
+              bookmarkFolderList.map((folderData) => {
                 return (
                   <FolderWrapper
-                    key={index}
+                    key={folderData.id}
                     type={type}
                   >
                     <Folder
