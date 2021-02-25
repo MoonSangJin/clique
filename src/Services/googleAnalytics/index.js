@@ -10,6 +10,15 @@ export const logOpenBookmarkAll = (folderId) => {
   });
 };
 
+export const logShareFolder = (folderId) => {
+  ReactGA.event({
+    category: 'Folder',
+    action: 'Share',
+    label: 'folder id',
+    value: folderId,
+  });
+};
+
 export const logOpenBookmark = (bookmarkId) => {
   ReactGA.event({
     category: 'Bookmark',

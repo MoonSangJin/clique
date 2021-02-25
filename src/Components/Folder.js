@@ -37,6 +37,7 @@ import {
   updateIsFavoriteBookmarkFolderRequest,
 } from '../Store/Bookmark/actions';
 import { getTimeDeltaString } from '../Utils/datetimeHandler';
+import { logShareFolder } from '../Services/googleAnalytics';
 
 
 export default function Folder({ folderData, type }) {
@@ -92,6 +93,7 @@ export default function Folder({ folderData, type }) {
   };
 
   const handleShareTextSuccess = () => {
+    logShareFolder(folderData.id);
     closeDropdownMenu();
     setIsOpenShareSuccessModal(true);
   };
