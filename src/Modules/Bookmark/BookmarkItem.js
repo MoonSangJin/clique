@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import Modal from '../../Components/Modal';
 import { deleteBookmarkRequest, renameBookmarkRequest } from '../../Store/Bookmark/actions';
 import openBookmark from '../../Utils/openBookmark';
+import icon128 from '../../assets/img/icon-128.png';
 
 
 const BookmarkItem = ({ detailData }) => {
@@ -55,7 +56,7 @@ const BookmarkItem = ({ detailData }) => {
     <>
       <UrlRow>
         <ExternalLink onClick={() => openBookmark(url, scrollPos, id)}>
-          <UrlImage src={faviconUrl} />
+          <UrlImage src={faviconUrl} onError={(e) => e.target.src = icon128} />
           <UrlTitle>{title}</UrlTitle>
           <Url>{url}</Url>
         </ExternalLink>

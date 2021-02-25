@@ -29,6 +29,7 @@ import coverImageTwelve from '../assets/img/FolderItemImages/12';
 import checkGray from '../assets/img/checkGray.png';
 import deleteFolderModalImage from '../assets/img/deleteModalImage';
 import blankListFolder from '../assets/img/blankListFolder.png';
+import icon128 from '../assets/img/icon-128.png';
 
 import {
   changeCoverBookmarkFolderRequest,
@@ -182,7 +183,9 @@ export default function Folder({ folderData, type }) {
                     <VerticalLine src={verticalLine} />
                     {getBookmarkList().map((bookmark) => {
                       return (
-                        <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} />
+                        <>
+                          <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} onError={(e) => e.target.src = icon128} />
+                        </>
                       );
                     })}
                   </FaviconWrapper>
