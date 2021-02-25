@@ -76,7 +76,7 @@ export default function Folder({ folderData, type }) {
   };
 
   const getSharedText = () => {
-    let sharedText = 'This bookmarks are shared by Clique\n';
+    let sharedText = 'The following bookmarks are shared by Clique\n';
     sharedText += `Folder name: ${folderData.name}\n\n`;
 
     getBookmarkList().forEach((bookmark) => {
