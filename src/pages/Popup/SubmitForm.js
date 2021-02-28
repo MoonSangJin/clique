@@ -167,14 +167,16 @@ const LogoRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const LogoImage = styled.img`
-  height: 20px;
+  height: 28px;
+  margin-left: -7px;
 `;
 
 const CheckAll = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   line-height: 18px;
   text-align: center;
   letter-spacing: -0.02em;
@@ -187,7 +189,7 @@ const CheckAll = styled.div`
 
 const List = styled.div`
   max-height: 200px;
-  margin-top: 37px;
+  margin-top: 28px;
   overflow: auto;
 
   ::-webkit-scrollbar {
@@ -207,7 +209,7 @@ const InputRow = styled.div`
 `;
 
 const Font = styled.div`
-  font-size: 10px;
+  font-size: 14px;
   line-height: 15px;
   letter-spacing: -0.02em;
   color: #90a0ad;
