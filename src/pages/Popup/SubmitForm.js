@@ -72,7 +72,7 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
 
   const handleSubmit = () => {
     if (folderName === '') {
-      alert('Please Enter folder name');
+      alert('Please enter folder name');
       return;
     }
 
