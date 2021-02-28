@@ -7,7 +7,6 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import NewTab from './Newtab';
 import rootReducer from '../../Store';
 import { rootSaga } from '../../Store/rootSaga';
-import GlobalStyle from './globalStyles';
 
 import ReactGa from 'react-ga';
 import { GA_ID } from '../../Constants/ga';
@@ -26,7 +25,6 @@ ReactGa.ga('set', 'checkProtocolTask', null);
 
 render(
   <Provider store={store}>
-    <GlobalStyle />
     <NewTab />
   </Provider>,
   window.document.querySelector('#app-container')
