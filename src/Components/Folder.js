@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import folder from '../assets/img/folder.svg';
 import favoriteFolder from '../assets/img/favoriteFolder.svg';
-import defaultFolderImage from '../assets/img/deafultFolderCover';
+import defaultFolderImage from '../assets/img/defaultFolderCover.png';
 import verticalLine from '../assets/img/verticalLine.svg';
 import FavoriteIconSrc from '../assets/img/isFavorite.png';
 import PopoverController from './Popover/PopoverController';

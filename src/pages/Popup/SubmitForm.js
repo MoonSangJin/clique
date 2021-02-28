@@ -5,6 +5,7 @@ import CreatableSelect from 'react-select/creatable';
 import logoSrc from '../../assets/img/logo';
 import { isValidUrl, refineUrl } from '../../Utils/urlHandler';
 import ListRowItem from './ListRowItem';
+import { useEventListener } from '../../hooks/useEventListener';
 
 
 export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
@@ -38,6 +39,14 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
     });
   }, [tabs]);
 
+  const listenEnterKeyPress = (e) => {
+    if(e.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+
+  useEventListener('keydown', listenEnterKeyPress);
+
   const handleClick = (clickedBookmarkIndex) => {
     const pageTitle = bookmarks[clickedBookmarkIndex].title;
 
@@ -65,14 +74,14 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
     originBookmarks.filter((bookmark) => isValidUrl(bookmark.url));
 
   const changeInputNewFolder = (changedValue, actionMeta) => {
-    if (actionMeta === 'input-change') {
+    if (actionMeta.action === 'input-change') {
       setFolderName(changedValue);
     }
   };
 
   const handleSubmit = () => {
     if (folderName === '') {
-      alert('Please Enter folder name');
+      alert('Please enter folder name');
       return;
     }
 
@@ -119,10 +128,6 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
 
   const isCheckedAll = () => bookmarks.findIndex((bookmark) => bookmark.isChecked === false) === -1;
 
-  const selectFolderName = (folderOptinon) => {
-    setFolderName(folderOptinon.value);
-  };
-
   return (
     <FormWrapper>
       <LogoRow>
@@ -143,7 +148,6 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
         <CreatableSelectWrapper>
           <CreatableSelect
             placeholder={'Select or create'}
-            onChange={selectFolderName}
             onInputChange={changeInputNewFolder}
             options={bookmarkFolderList.map((folder) => ({label: folder.name, value: folder.name}))}
           />
@@ -167,14 +171,16 @@ const LogoRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const LogoImage = styled.img`
-  height: 20px;
+  height: 28px;
+  margin-left: -7px;
 `;
 
 const CheckAll = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   line-height: 18px;
   text-align: center;
   letter-spacing: -0.02em;
@@ -187,7 +193,7 @@ const CheckAll = styled.div`
 
 const List = styled.div`
   max-height: 200px;
-  margin-top: 37px;
+  margin-top: 28px;
   overflow: auto;
 
   ::-webkit-scrollbar {
@@ -207,7 +213,7 @@ const InputRow = styled.div`
 `;
 
 const Font = styled.div`
-  font-size: 10px;
+  font-size: 14px;
   line-height: 15px;
   letter-spacing: -0.02em;
   color: #90a0ad;
