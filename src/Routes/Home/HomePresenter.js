@@ -33,7 +33,7 @@ const Container = styled.div``;
 const SearchInputWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding: 76px 0;
+  padding: 70px 0;
   background-image: url(${searchInputBackgroundSrc});
   background-size: cover;
 `;
