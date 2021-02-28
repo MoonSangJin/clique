@@ -1,6 +1,7 @@
 import React, { createRef, useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
+import ChosungSearch from 'hangul-chosung-search-js';
 
 import handGlassSrc from '../../assets/img/handGlass';
 import SearchResultList from './SearchResultList';
@@ -58,16 +59,12 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
 
   const getSearchedBookmarkFolderList = () =>
     searchKeyword
-      ? bookmarkFolderList.filter((folder) =>
-          folder.name.match(new RegExp(searchKeyword, 'i'))
-        )
+      ? bookmarkFolderList.filter((folder) => ChosungSearch.isSearch(searchKeyword, folder.name))
       : [];
 
   const getSearchedBookmarkList = () =>
     searchKeyword
-      ? bookmarkList.filter((bookmark) =>
-          bookmark.title.match(new RegExp(searchKeyword, 'i'))
-        )
+      ? bookmarkList.filter((bookmark) => ChosungSearch.isSearch(searchKeyword, bookmark.title))
       : [];
 
   return (
