@@ -5,6 +5,7 @@ import CreatableSelect from 'react-select/creatable';
 import logoSrc from '../../assets/img/logo';
 import { isValidUrl, refineUrl } from '../../Utils/urlHandler';
 import ListRowItem from './ListRowItem';
+import { useEventListener } from '../../hooks/useEventListener';
 
 
 export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
@@ -38,6 +39,14 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
     });
   }, [tabs]);
 
+  const listenEnterKeyPress = (e) => {
+    if(e.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+
+  useEventListener('keydown', listenEnterKeyPress);
+
   const handleClick = (clickedBookmarkIndex) => {
     const pageTitle = bookmarks[clickedBookmarkIndex].title;
 
@@ -65,7 +74,7 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
     originBookmarks.filter((bookmark) => isValidUrl(bookmark.url));
 
   const changeInputNewFolder = (changedValue, actionMeta) => {
-    if (actionMeta === 'input-change') {
+    if (actionMeta.action === 'input-change') {
       setFolderName(changedValue);
     }
   };
@@ -119,10 +128,6 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
 
   const isCheckedAll = () => bookmarks.findIndex((bookmark) => bookmark.isChecked === false) === -1;
 
-  const selectFolderName = (folderOptinon) => {
-    setFolderName(folderOptinon.value);
-  };
-
   return (
     <FormWrapper>
       <LogoRow>
@@ -143,7 +148,6 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
         <CreatableSelectWrapper>
           <CreatableSelect
             placeholder={'Select or create'}
-            onChange={selectFolderName}
             onInputChange={changeInputNewFolder}
             options={bookmarkFolderList.map((folder) => ({label: folder.name, value: folder.name}))}
           />
