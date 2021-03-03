@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 import FolderRow from '../../Components/FolderRow';
 import SearchInput from '../../Modules/Folder/SearchInput';
-import searchInputBackgroundSrc from '../../assets/img/searchInputBackground';
 
 
 const HomeScreenPresenter = ({
+  searchInputBackgroundUrl,
   bookmarkFolderList,
   bookmarkList,
   isLoggedIn,
@@ -16,7 +16,7 @@ const HomeScreenPresenter = ({
 }) => {
   return (
     <Container>
-      <SearchInputWrapper>
+      <SearchInputWrapper searchInputBackgroundUrl={searchInputBackgroundUrl}>
         <SearchInput {...{ bookmarkFolderList, bookmarkList }} />
       </SearchInputWrapper>
 
@@ -34,7 +34,7 @@ const SearchInputWrapper = styled.div`
   display: flex;
   justify-content: center;
   padding: 70px 0;
-  background-image: url(${searchInputBackgroundSrc});
+  background-image: url(${props => props.searchInputBackgroundUrl});
   background-size: cover;
 `;
 

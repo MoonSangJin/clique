@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBookmarkFolderRequest, fetchBookmarkRequest } from '../../Store/Bookmark/actions';
-
-import HomePresenter from './HomePresenter';
 import ReactGa from 'react-ga';
+
+import { fetchBookmarkFolderRequest, fetchBookmarkRequest } from '../../Store/Bookmark/actions';
+import { getSearchInputBackgroundUrl, setSearchInputBackgroundUrl } from '../../Utils/searchBackgroundHandler';
+import searchInputBackgroundOne from '../../assets/img/SearchInputBackgrounds/1.png';
+import HomePresenter from './HomePresenter';
 
 
 const HomeScreenContainer = () => {
@@ -31,6 +33,14 @@ const HomeScreenContainer = () => {
     setListType(savedType ? savedType : 'card');
   }, []);
 
+  const searchInputBackgroundUrl = useMemo(() => {
+    return getSearchInputBackgroundUrl() || searchInputBackgroundOne;
+  }, []);
+
+  const changeSearchInputBackgroundUrl = (url) => {
+    setSearchInputBackgroundUrl(url);
+  };
+
   const setListToCardType = () => {
     setListType('card');
     localStorage.setItem('listType', 'card');
@@ -43,6 +53,7 @@ const HomeScreenContainer = () => {
 
   return (
     <HomePresenter
+      searchInputBackgroundUrl={searchInputBackgroundUrl}
       bookmarkFolderList={bookmarkReducer.bookmarkFolderList}
       bookmarkList={bookmarkReducer.bookmarkList}
       isLoggedIn={userReducer.user.isLoggedIn}
