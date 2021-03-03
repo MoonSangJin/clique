@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import FavoriteFolderSrc from '../../assets/img/favoriteFolder.svg';
 import FolderSrc from '../../assets/img/folder.svg';
+import icon128 from '../../assets/img/icon-128.png';
 
 const SearchedItem = ({ info, type, selected, selectItem }) => {
   const history = useHistory();
@@ -25,7 +26,7 @@ const SearchedItem = ({ info, type, selected, selectItem }) => {
 
   return (
     <ItemWrapper onClick={onClickHandler} selected={selected} onMouseEnter={selectItem}>
-      <Icon src={iconSrc} />
+      <Icon src={iconSrc} onError={(e) => e.target.src = icon128} />
       <Name>{name}</Name>
     </ItemWrapper>
   );
