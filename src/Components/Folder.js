@@ -205,7 +205,7 @@ export default function Folder({ folderData, type }) {
               <ListCardMenuWrapper>
                 {getBookmarkList().map((bookmark) => {
                   return (
-                    <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} />
+                    <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} onError={(e) => e.target.src = icon128} />
                   );
                 })}
                 <ListCardActionWrapper>
