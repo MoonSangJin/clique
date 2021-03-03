@@ -21,7 +21,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
-  box-sizing: border-box;
 `;
 
 export default function AuthContainer({ children }) {

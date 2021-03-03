@@ -43,7 +43,6 @@ const SearchResultList = ({
 const ResultWrapper = styled.div`
   width: 458px;
   padding: 12px 0;
-  box-sizing: border-box;
   background: #ffffff;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.06);
   border-radius: 8px;
