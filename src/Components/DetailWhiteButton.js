@@ -12,7 +12,6 @@ const Container = styled.div`
   width: 74px;
   height: 30px;
   border: 1px solid #7785ff;
-  box-sizing: border-box;
   border-radius: 3px;
 
   font-style: normal;

@@ -151,7 +151,6 @@ const Container = styled.div`
 
   margin-left: 20px;
   padding: 24px 34px;
-  box-sizing: border-box;
 `;
 
 const TitleRow = styled.div`
@@ -242,7 +241,6 @@ const ModalCancelButton = styled.button`
   border: 1px solid #7785FF;
   border-radius: 3px;
   background-color: white;
-  box-sizing: border-box;
   
   font-weight: bold;
   font-size: 10px;
