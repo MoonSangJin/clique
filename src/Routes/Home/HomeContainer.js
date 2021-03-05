@@ -14,6 +14,7 @@ const HomeScreenContainer = () => {
   const dispatch = useDispatch();
   const [listType, setListType] = useState('card');
   const [isOpenChangeBackgroundModal, setIsOpenChangeBackgroundModal] = useState(false);
+  const [isShowChangeCoverButton, setIsShowChangeCoverButton] = useState(false);
 
 
   useEffect(() => {
@@ -35,7 +36,10 @@ const HomeScreenContainer = () => {
     setListType(savedType ? savedType : 'card');
   }, []);
 
-  const searchInputBackgroundUrl = useMemo(() => getSearchInputBackgroundUrl() || searchInputBackgroundOne, [isOpenChangeBackgroundModal]);
+  const searchInputBackgroundUrl = useMemo(() => {
+    // 함수에서 isOpenChangeBackgroundModal를 사용하지 않지만, 배경화면 변경 모달이 꺼질 때 배경이 바뀌었을 수 있으므로 url을 다시 계산한다.
+    return getSearchInputBackgroundUrl() || searchInputBackgroundOne
+  }, [isOpenChangeBackgroundModal]);
 
   const changeSearchInputBackground = (url) => (_e) => {
     setSearchInputBackgroundUrl(url);
@@ -59,6 +63,8 @@ const HomeScreenContainer = () => {
         isOpenChangeBackgroundModal: isOpenChangeBackgroundModal,
         isOpenModalHandler: setIsOpenChangeBackgroundModal,
         changeCover: changeSearchInputBackground,
+        isShowChangeCoverButton: isShowChangeCoverButton,
+        setIsShowChangeCoverButton: setIsShowChangeCoverButton,
       }}
       bookmarkFolderList={bookmarkReducer.bookmarkFolderList}
       bookmarkList={bookmarkReducer.bookmarkList}

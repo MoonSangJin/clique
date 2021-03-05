@@ -31,11 +31,17 @@ const HomeScreenPresenter = ({
   return (
     <>
       <Container>
-        <SearchInputWrapper searchInputBackgroundUrl={searchInputHandler.backgroundUrl}>
+        <SearchInputWrapper
+          searchInputBackgroundUrl={searchInputHandler.backgroundUrl}
+          onMouseEnter={() => searchInputHandler.setIsShowChangeCoverButton(true)}
+          onMouseLeave={() => searchInputHandler.setIsShowChangeCoverButton(false)}
+        >
           <SearchInput {...{ bookmarkFolderList, bookmarkList }} />
-          <ChangeCoverButton onClick={() => searchInputHandler.isOpenModalHandler(true)}>
-            Change Cover
-          </ChangeCoverButton>
+          {
+            searchInputHandler.isShowChangeCoverButton && <ChangeCoverButton onClick={() => searchInputHandler.isOpenModalHandler(true)}>
+              Change Cover
+            </ChangeCoverButton>
+          }
         </SearchInputWrapper>
 
         <FolderRowWrapper>
@@ -80,16 +86,32 @@ const HomeScreenPresenter = ({
 const Container = styled.div``;
 
 const SearchInputWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 70px 0;
   background-image: url(${props => props.searchInputBackgroundUrl});
   background-size: cover;
 `;
 
+
 const ChangeCoverButton = styled.button`
+  position: absolute;
+  right: 19px;
+  bottom: 13px;
+  width: 105px;
+  height: 31px;
+  border: none;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  cursor: pointer;
   
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
 `;
 
 const FolderRowWrapper = styled.div`
