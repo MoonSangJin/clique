@@ -4,7 +4,7 @@ import ReactGa from 'react-ga';
 
 import { fetchBookmarkFolderRequest, fetchBookmarkRequest } from '../../Store/Bookmark/actions';
 import { getSearchInputBackgroundUrl, setSearchInputBackgroundUrl } from '../../Utils/searchBackgroundHandler';
-import searchInputBackgroundOne from '../../assets/img/SearchInputBackgrounds/1.png';
+import searchInputBackgroundOne from '../../assets/img/SearchInputBackgrounds/search1.png';
 import HomePresenter from './HomePresenter';
 
 
@@ -13,6 +13,8 @@ const HomeScreenContainer = () => {
   const userReducer = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const [listType, setListType] = useState('card');
+  const [isOpenChangeBackgroundModal, setIsOpenChangeBackgroundModal] = useState(false);
+
 
   useEffect(() => {
     ReactGa.pageview('/');
@@ -33,12 +35,11 @@ const HomeScreenContainer = () => {
     setListType(savedType ? savedType : 'card');
   }, []);
 
-  const searchInputBackgroundUrl = useMemo(() => {
-    return getSearchInputBackgroundUrl() || searchInputBackgroundOne;
-  }, []);
+  const searchInputBackgroundUrl = useMemo(() => getSearchInputBackgroundUrl() || searchInputBackgroundOne, [isOpenChangeBackgroundModal]);
 
-  const changeSearchInputBackgroundUrl = (url) => {
+  const changeSearchInputBackground = (url) => (_e) => {
     setSearchInputBackgroundUrl(url);
+    setIsOpenChangeBackgroundModal(false);
   };
 
   const setListToCardType = () => {
@@ -53,7 +54,12 @@ const HomeScreenContainer = () => {
 
   return (
     <HomePresenter
-      searchInputBackgroundUrl={searchInputBackgroundUrl}
+      searchInputHandler={{
+        backgroundUrl: searchInputBackgroundUrl,
+        isOpenChangeBackgroundModal: isOpenChangeBackgroundModal,
+        isOpenModalHandler: setIsOpenChangeBackgroundModal,
+        changeCover: changeSearchInputBackground,
+      }}
       bookmarkFolderList={bookmarkReducer.bookmarkFolderList}
       bookmarkList={bookmarkReducer.bookmarkList}
       isLoggedIn={userReducer.user.isLoggedIn}
