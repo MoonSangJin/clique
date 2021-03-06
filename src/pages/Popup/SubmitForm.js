@@ -149,6 +149,7 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
           <CreatableSelect
             placeholder={'Select or create'}
             onInputChange={changeInputNewFolder}
+            maxMenuHeight={150}
             options={bookmarkFolderList.map((folder) => ({label: folder.name, value: folder.name}))}
           />
         </CreatableSelectWrapper>
