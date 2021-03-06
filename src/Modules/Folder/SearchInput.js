@@ -68,7 +68,7 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
       : [];
 
   return (
-    <>
+    <div>
       {
         searchKeyword !== '' ? <Overlay onClick={() =>  setSearchKeyword('')} /> : null
       }
@@ -100,7 +100,7 @@ export default function SearchInput({ bookmarkFolderList, bookmarkList }) {
           />
         ) : null}
       </SearchResult>
-    </>
+    </div>
   );
 }
 
@@ -150,7 +150,7 @@ const Input = styled.input`
 const SearchResult = styled.div`
   position: absolute;
   z-index: 1000;
-  margin-top: 55px;
+  margin-top: 6px;
 `;
 
 // Todo(maitracle): or google 기능을 추가할 때 주석을 해제한다
