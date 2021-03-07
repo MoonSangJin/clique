@@ -16,6 +16,7 @@ const SignUpPagePresenter = ({
   passwordValidationMessage,
   setPasswordValidationMessage,
   handleSignUp,
+  signWithGoogle,
   emailChangeHandler,
   passwordChangeHandler,
   isValidEmail,
@@ -57,6 +58,9 @@ const SignUpPagePresenter = ({
 
       <ButtonWrapper>
         <PurpleButton onClick={handleSignUp} text={'Sign Up'} />
+        <button onClick={signWithGoogle}>
+          Google
+        </button>
       </ButtonWrapper>
 
       <PolicyDescription>

@@ -1,12 +1,16 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import {
   fetchUserRequest,
-  removeUserInfo, setSignInErrorMessage,
+  removeUserInfo,
+  setSignInErrorMessage,
   setUserInfo,
   signInRequest,
+  signWithGoogleRequest,
 } from './actions';
 import { getAccessToken } from '../../Utils/tokenHandler';
 import { request } from '../../Utils/request';
+import { signUpSuccess } from '../SignUp/actions';
+
 
 const signInApi = (payload) =>
   request({
@@ -31,6 +35,30 @@ function* signInAsync({ payload }) {
   }
 }
 
+const signWithGoogleApi = (payload) =>
+  request({
+    url: '/user/google',
+    method: 'POST',
+    data: payload,
+  });
+
+function* signWithGoogleAsync({ payload }) {
+  try {
+    const res = yield call(signWithGoogleApi, payload);
+
+    chrome.storage.sync.set({
+      access: res.data.access,
+      userId: res.data.user.id,
+    });
+
+    yield put(signUpSuccess());
+    yield put(setUserInfo(res.data.user));
+  } catch (e) {
+    yield put(removeUserInfo());
+    yield put(setSignInErrorMessage('Google authentication is failed.'));
+  }
+}
+
 const fetchUserApi = (token) =>
   request({
     url: '/user/my-profile',
@@ -51,5 +79,6 @@ function* fetchUserAsync() {
 
 export function* watchUser() {
   yield takeEvery(signInRequest, signInAsync);
+  yield takeEvery(signWithGoogleRequest, signWithGoogleAsync);
   yield takeEvery(fetchUserRequest, fetchUserAsync);
 }

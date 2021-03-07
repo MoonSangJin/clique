@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import SignUpPagePresenter from './SignUpPagePresenter';
 import { signUpRequest } from '../../Store/SignUp/actions';
 import ReactGa from 'react-ga';
+import { getGoogleOAuthToken } from '../../Services/googleOAuth';
+import { signWithGoogleRequest } from '../../Store/User/actions';
 
 
 const SignUpPageContainer = () => {
@@ -70,6 +72,12 @@ const SignUpPageContainer = () => {
     }
   };
 
+  const signWithGoogle = async () => {
+    const token = await getGoogleOAuthToken();
+
+    dispatch(signWithGoogleRequest({oAuth: token}));
+  };
+
   const handleOnKeyUp = (e) => {
     const enterKeyCode = 13;
 
@@ -89,6 +97,7 @@ const SignUpPageContainer = () => {
           passwordValidationMessage,
           setPasswordValidationMessage,
           handleSignUp,
+          signWithGoogle,
           emailChangeHandler,
           passwordChangeHandler,
           isValidEmail,

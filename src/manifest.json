@@ -28,8 +28,13 @@
   ],
   "permissions":[
     "tabs",
-    "storage"
+    "storage",
+    "identity"
   ],
+  "oauth2": {
+    "client_id": "564288221150-kp940qhan3hvmgbgklo1f6c0kjc8nga1.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/userinfo.email"]
+  },
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.google-analytics.com; object-src 'self'"
 }

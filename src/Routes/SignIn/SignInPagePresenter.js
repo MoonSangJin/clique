@@ -21,6 +21,7 @@ const SignInPagePresenter = ({
   signInValidationMessage,
   eraseSignInValidationMessage,
   handleSignIn,
+  signWithGoogle,
   handleOnKeyUp,
   emailChangeHandler,
   passwordChangeHandler,
@@ -73,6 +74,9 @@ const SignInPagePresenter = ({
 
       <ButtonWrapper>
         <PurpleButton onClick={handleSignIn} text={'Sign In'} />
+        <button onClick={signWithGoogle}>
+          Google
+        </button>
         <SignInValidationWrapper>
           {signInValidationMessage}
         </SignInValidationWrapper>

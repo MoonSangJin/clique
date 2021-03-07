@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import SignInPagePresenter from './SignInPagePresenter';
-import { setSignInErrorMessage, signInRequest } from '../../Store/User/actions';
+import { setSignInErrorMessage, signInRequest, signWithGoogleRequest } from '../../Store/User/actions';
 import ReactGa from 'react-ga';
+import { getGoogleOAuthToken } from '../../Services/googleOAuth';
 
 
 const SignInPageContainer = () => {
@@ -71,6 +72,12 @@ const SignInPageContainer = () => {
     }
   };
 
+  const signWithGoogle = async () => {
+    const token = await getGoogleOAuthToken();
+
+    dispatch(signWithGoogleRequest({ oAuth: token }));
+  };
+
   const handleOnKeyUp = (e) => {
     const enterKeyCode = 13;
 
@@ -97,6 +104,7 @@ const SignInPageContainer = () => {
           handleOnKeyUp,
           eraseSignInValidationMessage,
           handleSignIn,
+          signWithGoogle,
           emailChangeHandler,
           passwordChangeHandler,
           isValidEmail,
