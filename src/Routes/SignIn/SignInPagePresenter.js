@@ -9,6 +9,7 @@ import PurpleText from '../../Components/PurpleText';
 import AuthContainer from '../../Components/AuthContainer';
 import LargeText from '../../Components/LargeText';
 import { mapPageToUrl } from '../../Constants/operationPageUrls';
+import GoogleButton from '../../Modules/Sign/GoogleButton';
 
 
 const SignInPagePresenter = ({
@@ -74,9 +75,7 @@ const SignInPagePresenter = ({
 
       <ButtonWrapper>
         <PurpleButton onClick={handleSignIn} text={'Sign In'} />
-        <button onClick={signWithGoogle}>
-          Google
-        </button>
+        <GoogleButton onClick={signWithGoogle} />
         <SignInValidationWrapper>
           {signInValidationMessage}
         </SignInValidationWrapper>
@@ -130,7 +129,7 @@ const SignInValidationWrapper = styled.div`
 
 const PolicyDescription = styled.div`
   display: flex;
-  margin-top: 66px;
+  margin-top: 26px;
 
   font-size: 12px;
   line-height: 18px;

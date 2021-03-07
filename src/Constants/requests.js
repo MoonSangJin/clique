@@ -4,4 +4,4 @@ const HostDictionaryByEnv = {
   production: 'https://api.withclique.dev',
 };
 
-export const HOST = HostDictionaryByEnv['local'];
+export const HOST = HostDictionaryByEnv['dev'];

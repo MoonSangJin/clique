@@ -7,22 +7,24 @@ import GrayText from '../../Components/GrayText';
 import AuthContainer from '../../Components/AuthContainer';
 import LargeText from '../../Components/LargeText';
 import { mapPageToUrl } from '../../Constants/operationPageUrls';
+import GoogleButton from '../../Modules/Sign/GoogleButton';
+
 
 const SignUpPagePresenter = ({
-  email,
-  password,
-  emailValidationMessage,
-  setEmailValidationMessage,
-  passwordValidationMessage,
-  setPasswordValidationMessage,
-  handleSignUp,
-  signWithGoogle,
-  emailChangeHandler,
-  passwordChangeHandler,
-  isValidEmail,
-  isValidPassword,
-  handleOnKeyUp,
-}) => {
+                               email,
+                               password,
+                               emailValidationMessage,
+                               setEmailValidationMessage,
+                               passwordValidationMessage,
+                               setPasswordValidationMessage,
+                               handleSignUp,
+                               signWithGoogle,
+                               emailChangeHandler,
+                               passwordChangeHandler,
+                               isValidEmail,
+                               isValidPassword,
+                               handleOnKeyUp,
+                             }) => {
   return (
     <AuthContainer>
       <LargeText text={'Complete signing up'} />
@@ -58,9 +60,7 @@ const SignUpPagePresenter = ({
 
       <ButtonWrapper>
         <PurpleButton onClick={handleSignUp} text={'Sign Up'} />
-        <button onClick={signWithGoogle}>
-          Google
-        </button>
+        <GoogleButton onClick={signWithGoogle} />
       </ButtonWrapper>
 
       <PolicyDescription>
