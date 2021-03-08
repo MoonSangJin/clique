@@ -31,8 +31,6 @@ function* fetchBookmarkFolderAsync() {
     const token = yield call(getAccessToken);
     const res = yield call(fetchBookmarkFolderApi, token);
 
-    chrome.storage.sync.set({ bookmarkFolderList: res.data });
-
     yield put(fetchBookmarkFolderSuccess({ bookmarkFolderList: res.data }));
   } catch (e) {
     yield put(fetchBookmarkFolderFailure());
@@ -128,8 +126,6 @@ function* fetchBookmarkAsync() {
   try {
     const token = yield call(getAccessToken);
     const res = yield call(fetchBookmarkApi, token);
-
-    chrome.storage.sync.set({ bookmarkList: res.data });
 
     yield put(fetchBookmarkSuccess({ bookmarkList: res.data }));
   } catch (e) {
