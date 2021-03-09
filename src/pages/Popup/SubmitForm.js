@@ -79,6 +79,10 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
     }
   };
 
+  const selectExistingFolder = (option) => {
+    setFolderName(option.value);
+  };
+
   const handleSubmit = () => {
     if (folderName === '') {
       alert('Please enter folder name');
@@ -148,6 +152,7 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
         <CreatableSelectWrapper>
           <CreatableSelect
             placeholder={'Select or create'}
+            onChange={selectExistingFolder}
             onInputChange={changeInputNewFolder}
             maxMenuHeight={150}
             options={bookmarkFolderList.map((folder) => ({label: folder.name, value: folder.name}))}
