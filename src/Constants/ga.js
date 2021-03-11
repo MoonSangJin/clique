@@ -1,1 +1,3 @@
-export const GA_ID = 'UA-190240900-1';
+import secrets from 'secrets';
+
+export const GA_ID = secrets.gaId;
