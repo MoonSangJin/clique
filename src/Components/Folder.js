@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -71,33 +71,39 @@ export default function Folder({ folderData, type }) {
     setIsOpenDropdownMenu(false);
   };
 
-  const getBookmarkList = () => {
-    return bookmarkReducer.bookmarkList.filter((bookmark) => {
-      return folderData.id === Number(bookmark.bookmarkFolderId);
-    });
-  };
+  const filteredBookmarkList = useMemo(() => bookmarkReducer.bookmarkList.filter((bookmark) => folderData.id === Number(bookmark.bookmarkFolderId))
+    , [bookmarkReducer.bookmarkList, folderData.id]);
 
-  const getSharedText = () => {
+  const faviconListComponent = useMemo(() => {
+    return filteredBookmarkList.slice(0, 5).map((bookmark) => {
+      return (
+        <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} onError={(e) => e.target.src = icon128} />
+      );
+    }).concat(filteredBookmarkList.length > 5 && [
+      <FaviconOverCount>+ {filteredBookmarkList.length - 5}</FaviconOverCount>]);
+  }, [filteredBookmarkList]);
+
+  const getSharedText = useCallback(() => {
     let sharedText = 'The following bookmarks are shared by Clique\n';
     sharedText += `Folder name: ${folderData.name}\n\n`;
 
-    getBookmarkList().forEach((bookmark) => {
+    filteredBookmarkList.forEach((bookmark) => {
       sharedText += `${bookmark.title}\n${bookmark.url}\n\n`;
     });
 
     return sharedText;
-  };
+  }, [filteredBookmarkList, folderData.name]);
 
   const handleUpdateIsFavorite = () => {
     closeDropdownMenu();
     dispatch(updateIsFavoriteBookmarkFolderRequest({folderId: folderData.id, isFavorite: !folderData.isFavorite}));
   };
 
-  const handleShareTextSuccess = () => {
+  const handleShareTextSuccess = useCallback(() => {
     logShareFolder(folderData.id);
     closeDropdownMenu();
     setIsOpenShareSuccessModal(true);
-  };
+  }, [folderData.id]);
 
   const openChangeCoverModal = (e) => {
     e.preventDefault();
@@ -181,11 +187,9 @@ export default function Folder({ folderData, type }) {
                   <FaviconWrapper>
                     <FaviconFolder src={folder} alt={folder} />
                     <VerticalLine src={verticalLine} />
-                    {getBookmarkList().map((bookmark) => {
-                      return (
-                        <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} onError={(e) => e.target.src = icon128} />
-                      );
-                    })}
+                    {
+                      faviconListComponent
+                    }
                   </FaviconWrapper>
                   <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
                     <OptionIcon />
@@ -203,17 +207,12 @@ export default function Folder({ folderData, type }) {
                 {folderData.name}
               </ListCardTitle>
               <ListCardMenuWrapper>
-                {getBookmarkList().map((bookmark) => {
-                  return (
-                    <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} onError={(e) => e.target.src = icon128} />
-                  );
-                })}
-                <ListCardActionWrapper>
-                  <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
-                    <OptionIcon />
-                  </PopoverController>
-                </ListCardActionWrapper>
-
+                {
+                  faviconListComponent
+                }
+                <PopoverController ref={dotMenuRef} onClick={openDropdownMenu}>
+                  <OptionIcon />
+                </PopoverController>
               </ListCardMenuWrapper>
             </ListCardContainer>
         }
@@ -457,6 +456,16 @@ const FaviconImage = styled.img`
   margin-right: 10px;
 `;
 
+const FaviconOverCount = styled.div`
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+  color: #90a0ad;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
 const ModalContentsWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -623,8 +632,4 @@ const ListCardMenuWrapper = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
-`;
-
-const ListCardActionWrapper = styled.div`
-  margin-left: 25px;
 `;
