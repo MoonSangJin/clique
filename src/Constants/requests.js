@@ -1,7 +1,3 @@
-const HostDictionaryByEnv = {
-  local: 'http://localhost:8000',
-  dev: 'http://ec2-52-78-239-231.ap-northeast-2.compute.amazonaws.com:8000',
-  production: 'https://api.withclique.dev',
-};
+import secrets from 'secrets';
 
-export const HOST = HostDictionaryByEnv['dev'];
+export const HOST = secrets.host;
