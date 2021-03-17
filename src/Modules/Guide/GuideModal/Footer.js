@@ -4,26 +4,33 @@ import styled from 'styled-components';
 import backArrow from '../../../assets/img/Guide/backArrow';
 
 
-const Footer = (step, handleMoveNextStep) => {
+const Footer = ({ step, moveToNextStep, moveToBeforeStep, closeModal }) => {
   return (
     <Wrapper>
       <LeftWrapper>
-        <BackButton onClick={handleMoveNextStep}>
-          <BackButtonContentsWrapper>
-            <BackArrow src={backArrow} />
-            <BackLabel>
-              Back
-            </BackLabel>
-          </BackButtonContentsWrapper>
-        </BackButton>
-        <NextButton onClick={handleMoveNextStep}>
+        {
+          step === 'step1' ?
+            <BlankBox />
+            :
+            <BackButton onClick={moveToBeforeStep}>
+              <BackButtonContentsWrapper>
+                <BackArrow src={backArrow} />
+                <BackLabel>
+                  Back
+                </BackLabel>
+              </BackButtonContentsWrapper>
+            </BackButton>
+        }
+        <NextButton onClick={moveToNextStep}>
           <NextLabel>
-            Next
+            {
+              step === 'step3' ? 'OK, I’m Good to Go!' : 'Next'
+            }
           </NextLabel>
         </NextButton>
       </LeftWrapper>
 
-      <Close>
+      <Close onClick={closeModal}>
         close
       </Close>
     </Wrapper>
@@ -64,6 +71,10 @@ const ButtonLabel = styled.span`
 
 const LeftWrapper = styled.div`
   display: flex;
+`;
+
+const BlankBox = styled.div`
+  width: 113px;
 `;
 
 const BackButton = styled(Button)`

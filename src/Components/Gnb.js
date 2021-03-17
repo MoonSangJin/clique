@@ -106,6 +106,7 @@ const GuideImage = styled.img`
 
 const StyledLink = styled(Link)`
   all: unset;
+  cursor: pointer;
   display: flex;
   align-items: center;
 `;
