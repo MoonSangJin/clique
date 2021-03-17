@@ -12,12 +12,13 @@ export default function ListRowItem({
   title,
   isChecked,
   handleClick,
+  changeBookmarkName,
 }) {
   return (
-    <ListRow key={index}>
+    <ListRow>
       <CheckBox src={isChecked ? check : notChecked} onClick={handleClick} />
       <Image src={favIconUrl} onError={(e) => e.target.src = icon128} onClick={handleClick} />
-      <Title value={title} onChange={() => console.log('chaged')} />
+      <Title value={title} onChange={changeBookmarkName(index)} />
     </ListRow>
   );
 }
