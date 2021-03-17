@@ -5,8 +5,6 @@ import GuideModal from '../../Modules/Guide/GuideModal';
 
 
 const Guide = () => {
-  console.log('how to use');
-
   return (
     <>
       <Home />
