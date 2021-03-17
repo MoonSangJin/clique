@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import check from '../../assets/img/check.png';
 import notChecked from '../../assets/img/notChecked.png';
+import icon128 from '../../assets/img/icon-128.png';
 
 
 export default function ListRowItem({
@@ -10,12 +12,13 @@ export default function ListRowItem({
   title,
   isChecked,
   handleClick,
+  changeBookmarkName,
 }) {
   return (
-    <ListRow key={index} onClick={handleClick}>
-      <CheckBox src={isChecked ? check : notChecked} />
-      <Image src={favIconUrl} />
-      <Title>{title}</Title>
+    <ListRow>
+      <CheckBox src={isChecked ? check : notChecked} onClick={handleClick} />
+      <Image src={favIconUrl} onError={(e) => e.target.src = icon128} onClick={handleClick} />
+      <Title value={title} onChange={changeBookmarkName(index)} />
     </ListRow>
   );
 }
@@ -23,8 +26,8 @@ export default function ListRowItem({
 const ListRow = styled.div`
   display: flex;
   align-items: center;
-  height: 18px;
-  margin-bottom: 22px;
+  height: 32px;
+  margin-bottom: 8px;
 `;
 
 const CheckBox = styled.img`
@@ -37,14 +40,26 @@ const Image = styled.img`
   margin-left: 14px;
 `;
 
-const Title = styled.div`
+
+const Title = styled.input`
   display: block;
-  max-width: 175px;
-  margin-right: 35px;
+  width: 200px;
+  padding: 5px 0 7px;
+  margin-right: 11px;
   margin-left: 11px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  height: 28px;
+  
+  
+  border: 1px solid transparent;
+  border-bottom-color: #ccc;
+  transition: 0.4s;
+  
+  :focus {
+    padding: 5px 10px 7px;
+    outline: none;
+    transition: 0.4s;
+    border: 1px solid #7785FF;
+  }
 
   font-size: 12px;
   line-height: 18px;

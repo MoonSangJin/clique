@@ -57,13 +57,24 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
         return respondedBookmarks.map((bookmark, index) => {
           return index === clickedBookmarkIndex
             ? {
-                ...bookmark,
-                isChecked: !bookmark.isChecked,
-                scrollPos: scrollResult,
-              }
+              ...bookmark,
+              isChecked: !bookmark.isChecked,
+              scrollPos: scrollResult,
+            }
             : bookmark;
         });
       });
+    });
+  };
+
+  const changeBookmarkName = (index) => (e) => {
+
+    setBookmarks((before) => {
+      return [
+        ...before.slice(0, index),
+        { ...before[index], title: e.target.value },
+        ...before.slice(index + 1),
+      ];
     });
   };
 
@@ -144,6 +155,7 @@ export default function SubmitForm({ tabs, postServer, bookmarkFolderList }) {
             key={index}
             {...{ index, favIconUrl, title, url, isChecked }}
             handleClick={() => handleClick(index)}
+            changeBookmarkName={changeBookmarkName}
           />
         ))}
       </List>
