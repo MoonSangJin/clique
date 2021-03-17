@@ -80,7 +80,7 @@ export default function Folder({ folderData, type }) {
         <FaviconImage key={bookmark.id} src={bookmark.faviconUrl} onError={(e) => e.target.src = icon128} />
       );
     }).concat(filteredBookmarkList.length > 5 && [
-      <FaviconOverCount>+ {filteredBookmarkList.length - 5}</FaviconOverCount>]);
+      <FaviconOverCount key={'extra-count'}>+ {filteredBookmarkList.length - 5}</FaviconOverCount>]);
   }, [filteredBookmarkList]);
 
   const getSharedText = useCallback(() => {
