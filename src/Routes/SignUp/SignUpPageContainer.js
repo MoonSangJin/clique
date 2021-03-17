@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SignUpPagePresenter from './SignUpPagePresenter';
@@ -10,17 +10,23 @@ import ReactGa from 'react-ga';
 const SignUpPageContainer = () => {
   const signUpReducer = useSelector((state) => state.signUpReducer);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
-  const [passwordValidationMessage, setPasswordValidationMessage] = useState(
-    ''
-  );
+  const [passwordValidationMessage, setPasswordValidationMessage] =
+    useState('');
 
   useEffect(() => {
     ReactGa.pageview('/sign-up');
   }, []);
+
+  useEffect(() => {
+    if (signUpReducer.signUpResult.result === 'success') {
+      history.push('/guide/');
+    }
+  }, [signUpReducer.signUpResult.result, history]);
 
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
@@ -96,9 +102,6 @@ const SignUpPageContainer = () => {
           handleOnKeyUp
         }}
       />
-      {signUpReducer.signUpResult.result === 'success' ? (
-        <Redirect to="/" />
-      ) : null}
     </>
   );
 };

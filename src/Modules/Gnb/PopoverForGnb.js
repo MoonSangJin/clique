@@ -25,13 +25,13 @@ const positionSettings = {
   },
 };
 
-const WrappedPopover = ({
-  isOpen,
-  closeHandler,
-  anchorEl,
-  children,
-  position = 'hover',
-}) => {
+const PopoverForGnb = ({
+                          isOpen,
+                          closeHandler,
+                          anchorEl,
+                          children,
+                          position = 'hover',
+                        }) => {
   return !!anchorEl && isOpen ? (
     <StyledPopover
       open={isOpen}
@@ -47,8 +47,9 @@ const WrappedPopover = ({
 
 const StyledPopover = styled(Popover)`
   .MuiPaper-rounded {
+    top: 0 !important;
     border-radius: 8px;
   }
 `;
 
-export default WrappedPopover;
+export default PopoverForGnb;

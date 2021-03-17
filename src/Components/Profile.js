@@ -6,14 +6,11 @@ const Container = styled.div`
   height: 32px;
   background-image: url(${(props) => props.profileImageSrc});
   background-size: cover;
+  cursor: pointer;
 
   display: flex;
   justify-content: center;
   align-items: center;
-
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 export default function Profile({ style, profileImageSrc }) {

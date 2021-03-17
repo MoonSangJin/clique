@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import Popover from '../../Components/Popover';
+import PopoverForGnb from './PopoverForGnb';
 import { removeUserInfo } from '../../Store/User/actions';
 import { removeAccessToken } from '../../Utils/tokenHandler';
 import { removeBookmarkInfo } from '../../Store/Bookmark/actions';
@@ -40,7 +40,7 @@ const ProfileMenu = ({
   ];
 
   return (
-    <Popover
+    <PopoverForGnb
       isOpen={isOpen}
       closeHandler={closeHandler}
       anchorEl={anchorEl}
@@ -65,7 +65,7 @@ const ProfileMenu = ({
           ))
         }
       </MenuWrapper>
-    </Popover>
+    </PopoverForGnb>
   );
 };
 
