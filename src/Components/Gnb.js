@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+
 import Logo from './Logo';
 import Profile from './Profile';
-import defaultImage from '../assets/img/defaultImage';
+import defaultProfileImage from '../assets/img/Gnb/defaultProfile.png';
+import guideImageSrc from '../assets/img/Gnb/guideImage';
 import PopoverController from './Popover/PopoverController';
 import ProfileMenu from '../Modules/Gnb/ProfileMenu';
 import { useDispatch, useSelector } from 'react-redux';
@@ -53,23 +55,29 @@ export default function Gnb() {
           <Logo />
         </StyledLink>
 
-        {
-          userReducer.user.isLoggedIn ?
-            <PopoverController onClick={openDropdownMenu} ref={ref}>
-              <Profile profileImageSrc={defaultImage} />
-            </PopoverController>
-            :
-            <StyledLink to={'/sign-in/'}>
-              <Profile profileImageSrc={defaultImage} />
-            </StyledLink>
-        }
+        <RightMenuWrapper>
+          <StyledLink to={'/guide/'}>
+            <GuideImage src={guideImageSrc} />
+          </StyledLink>
+          {
+            userReducer.user.isLoggedIn ?
+              <PopoverController onClick={openDropdownMenu} ref={ref}>
+                <Profile profileImageSrc={defaultProfileImage} />
+              </PopoverController>
+              :
+              <StyledLink to={'/sign-in/'}>
+                <Profile profileImageSrc={defaultProfileImage} />
+              </StyledLink>
+          }
+        </RightMenuWrapper>
       </Wrapper>
+
       <ProfileMenu
         isOpen={isOpenDropdownMenu}
         email={userReducer.user.email}
         closeHandler={closeDropdownMenu}
         anchorEl={profileElementHolder}
-        profileImageSrc={defaultImage}
+        profileImageSrc={defaultProfileImage}
         isLoggedIn={userReducer.user.isLoggedIn}
       />
     </>
@@ -85,6 +93,19 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
+const RightMenuWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const GuideImage = styled.img`
+  width: 32px;
+  height: 32px;
+  margin-right: 23px;
+`;
+
 const StyledLink = styled(Link)`
   all: unset;
+  display: flex;
+  align-items: center;
 `;
