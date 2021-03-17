@@ -31,7 +31,7 @@ const Footer = ({ step, moveToNextStep, moveToBeforeStep, closeModal }) => {
       </LeftWrapper>
 
       <Close onClick={closeModal}>
-        close
+        Close
       </Close>
     </Wrapper>
   );

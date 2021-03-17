@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 `;
 
 const Description = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   line-height: 25px;
   letter-spacing: -0.02em;
   color: #000000;

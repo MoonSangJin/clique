@@ -16,7 +16,7 @@ const Title = () => {
 
 const Wrapper = styled.div`
   font-weight: bold;
-  font-size: 30px;
+  font-size: 28px;
   line-height: 45px;
   letter-spacing: -0.02em;
   color: #000000;
