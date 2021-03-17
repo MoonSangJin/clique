@@ -1,6 +1,6 @@
 {
   "name": "clique",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Modern way to save Bookmarks. All-in-one personal New Tab to save and read for later. ",
   "private": true,
   "scripts": {
