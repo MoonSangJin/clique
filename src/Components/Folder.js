@@ -615,6 +615,21 @@ const ListCardContainer = styled.div`
   border-radius: 8px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
   margin-bottom: 20px;
+  
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+
+  &:hover {
+    cursor: pointer;
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
 `;
 
 const ListCardTitle = styled.span`
