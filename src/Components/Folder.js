@@ -457,6 +457,8 @@ const FaviconImage = styled.img`
 `;
 
 const FaviconOverCount = styled.div`
+  margin-right: 10px;
+
   font-size: 12px;
   line-height: 18px;
   letter-spacing: -0.02em;
