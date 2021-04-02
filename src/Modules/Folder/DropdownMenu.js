@@ -13,6 +13,7 @@ const DropdownMenu = ({
   handleUpdateIsFavorite,
   sharedText,
   shareTextSuccessHandler,
+  openShareFolderModal,
   openRenameFolderModal,
   openDeleteFolderModal,
 }) => {
@@ -25,9 +26,9 @@ const DropdownMenu = ({
     >
       <MenuWrapper>
         <MenuItem onClick={handleUpdateIsFavorite}>{isFavorite ? 'Undo Favorites': 'Add to favorites'}</MenuItem>
-        <CopyToClipboard text={sharedText} onCopy={shareTextSuccessHandler}>
-          <MenuItem>Share</MenuItem>
-        </CopyToClipboard>
+        {/*<CopyToClipboard text={sharedText} onCopy={shareTextSuccessHandler}>*/}
+        <MenuItem onClick={openShareFolderModal}>Share</MenuItem>
+        {/*</CopyToClipboard>*/}
         <MenuItem onClick={openRenameFolderModal}>Rename</MenuItem>
         <MenuItem onClick={openDeleteFolderModal}>Delete folder</MenuItem>
       </MenuWrapper>

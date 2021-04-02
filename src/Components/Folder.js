@@ -40,6 +40,7 @@ import {
 } from '../Store/Bookmark/actions';
 import { getTimeDeltaString } from '../Utils/datetimeHandler';
 import { logShareFolder } from '../Services/googleAnalytics';
+import StyledSwitch from './StyledSwitch';
 
 
 export default function Folder({ folderData, type }) {
@@ -56,6 +57,7 @@ export default function Folder({ folderData, type }) {
   const [isOpenChangeCoverModal, setIsOpenChangeCoverModal] = useState(false);
   const [isOpenDeleteFolderModal, setIsOpenDeleteFolderModal] = useState(false);
   const [isOpenRenameFolderModal, setIsOpenRenameFolderModal] = useState(false);
+  const [isOpenShareFolderModal, setIsOpenShareFolderModal] = useState(false);
 
   const [newFolderName, setNewFolderName] = useState(folderData.name);
 
@@ -153,6 +155,11 @@ export default function Folder({ folderData, type }) {
     }
   };
 
+  const openShareFolderModal = () => {
+    closeDropdownMenu();
+    setIsOpenShareFolderModal(true);
+  };
+
   return (
     <>
       <StyledLink to={`/detail/${folderData.id}`}>
@@ -235,6 +242,7 @@ export default function Folder({ folderData, type }) {
         anchorEl={dotMenuElementHolder}
         sharedText={getSharedText()}
         shareTextSuccessHandler={handleShareTextSuccess}
+        openShareFolderModal={openShareFolderModal}
         isFavorite={folderData.isFavorite}
         handleUpdateIsFavorite={handleUpdateIsFavorite}
         {...{ openDeleteFolderModal, openRenameFolderModal }}
@@ -327,6 +335,33 @@ export default function Folder({ folderData, type }) {
             Cancel
           </ModalWhiteButton>
           <ModalButton onClick={handleRenameFolder}>Save</ModalButton>
+        </ModalButtonWrapper>
+      </Modal>
+
+      <Modal
+        isOpen={isOpenShareFolderModal}
+        closeHandler={() => setIsOpenShareFolderModal(false)}
+      >
+        <ModalContentsWrapper>
+          <ModalImage src={sharedIconSrc} />
+          <PhrasesWrapper>
+            <ModalTitle>Share to web</ModalTitle>
+          </PhrasesWrapper>
+        </ModalContentsWrapper>
+
+        <ModalPhrases>
+          <StyledSwitch
+            checked={folderData.isShared}
+          />
+          Share your folder with link to anyone
+        </ModalPhrases>
+
+        <ModalInput onChange={handleNewFolderName} onKeyUp={changeFolderNameWhenPressUpEnter} value={newFolderName} />
+
+        <ModalButtonWrapper>
+          <ModalWhiteButton onClick={() => setIsOpenShareFolderModal(false)}>
+            Close
+          </ModalWhiteButton>
         </ModalButtonWrapper>
       </Modal>
     </>
