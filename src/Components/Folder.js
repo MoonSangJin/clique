@@ -30,6 +30,7 @@ import checkGray from '../assets/img/checkGray.png';
 import deleteFolderModalImage from '../assets/img/deleteModalImage';
 import blankListFolder from '../assets/img/blankListFolder.png';
 import icon128 from '../assets/img/icon-128.png';
+import sharedIconSrc from '../assets/img/Folder/sharedIcon.png';
 
 import {
   changeCoverBookmarkFolderRequest,
@@ -174,7 +175,14 @@ export default function Folder({ folderData, type }) {
               <ContentsWrapper>
                 <TitleWrapper>
                   <TextRow>
-                    <FolderName isFavorite={folderData.isFavorite}>{folderData.name}</FolderName>
+                    <FolderName isFavorite={folderData.isFavorite}>
+                      {
+                        folderData.isShared && <CardSharedIcon src={sharedIconSrc} alt={'shared'} />
+                      }
+                      <CardFolderNameText>
+                        {folderData.name}
+                      </CardFolderNameText>
+                    </FolderName>
                     <FolderTime>
                       Created {getTimeDeltaString(new Date(), folderData.createdAt)}
                     </FolderTime>
@@ -202,6 +210,9 @@ export default function Folder({ folderData, type }) {
               {
                 folderData.isFavorite ? <FaviconFolder src={favoriteFolder} alt={folder} /> :
                   <FaviconFolder src={folder} alt={folder} />
+              }
+              {
+                folderData.isShared && <StickSharedIcon src={sharedIconSrc} alt={'shared'} />
               }
               <ListCardTitle>
                 {folderData.name}
@@ -400,11 +411,14 @@ const FavoriteIcon = styled.img`
 `;
 
 const FolderName = styled.div`
-  ${(props) => props.isFavorite ? 'width: 185px' : 'width: 230px'};
-  display: block;
+  display: flex;
+  align-items: center;
+  ${(props) => {
+    return props.isFavorite ? 'width: 185px' : 'width: 230px'
+  }};
+`;
 
-  font-style: normal;
-  font-weight: normal;
+const CardFolderNameText = styled.span`
   font-size: 16px;
   line-height: 21px;
   letter-spacing: -0.02em;
@@ -633,6 +647,8 @@ const ListCardContainer = styled.div`
 `;
 
 const ListCardTitle = styled.span`
+  display: block;
+  //align-items: center;
   margin-left: 12px;
   flex-grow: 1;
   margin-right: 30px;
@@ -649,4 +665,16 @@ const ListCardMenuWrapper = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
+`;
+
+const CardSharedIcon = styled.img`
+  width: 21px;
+  height: 21px;
+  margin-right: 2px;
+`;
+
+const StickSharedIcon = styled.img`
+  width: 21px;
+  height: 21px;
+  margin-left: 4px;
 `;
