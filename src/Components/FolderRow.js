@@ -4,59 +4,46 @@ import styled from 'styled-components';
 import Folder from '../Components/Folder';
 import FolderListHeader from '../Modules/Folder/FolderListHeader';
 import BlankListFolderSrc from '../assets/img/blankListFolder.png';
-import { Link } from 'react-router-dom';
 import { mapPageToUrl } from '../Constants/operationPageUrls';
 
 
-export default function FolderRow({ bookmarkFolderList, isLoggedIn, type, setListToCardType, setListToListType }) {
+export default function FolderRow({ bookmarkFolderList, type, setListToCardType, setListToListType }) {
   return (
     <>
-      <FolderListHeader {...{type, setListToCardType, setListToListType}} />
-      {isLoggedIn ? (
-        <>
+      <FolderListHeader {...{ type, setListToCardType, setListToListType }} />
+      <>
+        {
+          bookmarkFolderList.length === 0 ?
+            <EmptyListWrapper>
+              <Image src={BlankListFolderSrc} />
+              <Description>You have not yet created a Bookmark Folder with Clique.</Description>
+              <AdditionalDescription>Folders appears here once created.</AdditionalDescription>
+              <ExternalLink href={mapPageToUrl.gettingStarted} target={'_blank'}>
+                <ToSignInButton>
+                  Learn how to use&nbsp;<Bold>Clique!</Bold>
+                </ToSignInButton>
+              </ExternalLink>
+            </EmptyListWrapper>
+            : null
+        }
+        <Container>
           {
-            bookmarkFolderList.length === 0 ?
-              <EmptyListWrapper>
-                <Image src={BlankListFolderSrc} />
-                <Description>You have not yet created a Bookmark Folder with Clique.</Description>
-                <AdditionalDescription>Folders appears here once created.</AdditionalDescription>
-                <ExternalLink href={mapPageToUrl.gettingStarted} target={'_blank'}>
-                  <ToSignInButton>
-                    Learn how to use&nbsp;<Bold>Clique!</Bold>
-                  </ToSignInButton>
-                </ExternalLink>
-              </EmptyListWrapper>
-              : null
-          }
-          <Container>
-            {
-              bookmarkFolderList.map((folderData) => {
-                return (
-                  <FolderWrapper
-                    key={folderData.id}
+            bookmarkFolderList.map((folderData) => {
+              return (
+                <FolderWrapper
+                  key={folderData.id}
+                  type={type}
+                >
+                  <Folder
+                    {...{ folderData }}
                     type={type}
-                  >
-                    <Folder
-                      {...{ folderData }}
-                      type={type}
-                    />
-                  </FolderWrapper>
-                );
-              })
-            }
-          </Container>
-        </>
-      ) : (
-        <EmptyListWrapper>
-          <Image src={BlankListFolderSrc} />
-          <Description>Sign in to Clique and manage your bookmarks</Description>
-          <StyledLink to={'/sign-in'}>
-            <ToSignInButton>
-              Sign in to&nbsp;<Bold>Clique</Bold>
-            </ToSignInButton>
-          </StyledLink>
-        </EmptyListWrapper>
-      )}
+                  />
+                </FolderWrapper>
+              );
+            })
+          }
+        </Container>
+      </>
     </>
   );
 }
@@ -103,10 +90,6 @@ const AdditionalDescription = styled.div`
   text-align: center;
   letter-spacing: -0.02em;
   color: #90A0AD;
-`;
-
-const StyledLink = styled(Link)`
-  all: unset;
 `;
 
 const ExternalLink = styled.a`

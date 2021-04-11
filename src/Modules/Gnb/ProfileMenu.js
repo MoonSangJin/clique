@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 
 import PopoverForGnb from './PopoverForGnb';
-import { removeUserInfo } from '../../Store/User/actions';
 import { removeAccessToken } from '../../Utils/tokenHandler';
-import { removeBookmarkInfo } from '../../Store/Bookmark/actions';
 import { mapPageToUrl } from '../../Constants/operationPageUrls';
 
 
@@ -16,7 +13,6 @@ const ProfileMenu = ({
   email,
   profileImageSrc,
 }) => {
-  const dispatch = useDispatch();
 
   const profileMenuInfo = [
     {
@@ -31,8 +27,6 @@ const ProfileMenu = ({
       menuName: 'Sign Out',
       onClickFunction: () => {
         removeAccessToken().then(() => {
-          dispatch(removeUserInfo());
-          dispatch(removeBookmarkInfo());
           closeHandler();
         });
       },
@@ -99,15 +93,6 @@ const Username = styled.div`
   line-height: 18px;
   letter-spacing: -0.02em;
   color: #070701;
-`;
-
-const EditProfile = styled.div`
-  margin-top: 2px;
-
-  font-size: 12px;
-  line-height: 15px;
-  letter-spacing: -0.02em;
-  color: #7785ff;
 `;
 
 const ProfileImage = styled.img`
