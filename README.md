@@ -1,147 +1,94 @@
-<img src="src/assets/img/icon-128.png" width="64"/>
+<p align="center">
+  <a target="_blank" href="https://www.withclique.com/"><img src="./img/icon-128.png" width="100"/></a>
+</p>
 
-# Chrome Extension Boilerplate with React 17 and Webpack 5
+## 📌 스크롤 위치를 기억하는 북마크 서비스 **클리크(Clique)**
 
+<br/>
+
+## Modern Way to save Bookmarks
+
+<img src="./img/Frame 1.png" />
+
+[![LandingPage](https://img.shields.io/badge/LandingPage-blueviolet)](https://www.withclique.com/)
+![download](https://img.shields.io/chrome-web-store/users/epbpopdpeadocgppmdmbgpldfemghhpb)
+
+<br/>
+
+## Based on
+
+[![ChromeExtensionBoilerplate](https://img.shields.io/badge/Boilerplate-red?style=for-the-badge)](https://github.com/lxieyang/chrome-extension-boilerplate-react)
+
+![MIT](https://img.shields.io/github/license/lxieyang/chrome-extension-boilerplate-react)
 [![npm](https://img.shields.io/npm/v/chrome-extension-boilerplate-react)](https://www.npmjs.com/package/chrome-extension-boilerplate-react)
 [![npm-download](https://img.shields.io/npm/dw/chrome-extension-boilerplate-react)](https://www.npmjs.com/package/chrome-extension-boilerplate-react)
 [![npm](https://img.shields.io/npm/dm/chrome-extension-boilerplate-react)](https://www.npmjs.com/package/chrome-extension-boilerplate-react)
 
-[![dependencies Status](https://david-dm.org/lxieyang/chrome-extension-boilerplate-react/status.svg)](https://david-dm.org/lxieyang/chrome-extension-boilerplate-react)
-[![devDependencies Status](https://david-dm.org/lxieyang/chrome-extension-boilerplate-react/dev-status.svg)](https://david-dm.org/lxieyang/chrome-extension-boilerplate-react?type=dev)
+<br/>
 
-## Announcements
+## Developer
 
-- **_Recently updated from React ~~16~~ to 17 and Webpack ~~4~~ to 5!_**
-- **_Recently added [TypeScript](https://www.typescriptlang.org/) Support!_**
+👦 **Jin**
 
-## Features
+- Clique FrontEnd developer
+- Github: [MoonSangJin](https://github.com/MoonSangJin)
 
-This is a basic Chrome Extensions boilerplate to help you write modular and modern Javascript code, load CSS easily and [automatic reload the browser on code changes](https://webpack.github.io/docs/webpack-dev-server.html#automatic-refresh).
+🙆‍♂️ **maitracle**
 
-This boilerplate is updated with:
+- Clique FullStack developer
+- Github: [maitracle](https://github.com/maitracle)
 
-- [React 17](https://reactjs.org)
-- [Webpack 5](https://webpack.js.org/)
-- [React Hot Loader](https://github.com/gaearon/react-hot-loader)
-- [eslint-config-react-app](https://www.npmjs.com/package/eslint-config-react-app)
-- [Prettier](https://prettier.io/)
-- [TypeScript](https://www.typescriptlang.org/)
+🏃‍♀️ **Baek Hyeonwoo**
 
-This boilerplate is heavily inspired by and adapted from [https://github.com/samuelsimoes/chrome-extension-webpack-boilerplate](https://github.com/samuelsimoes/chrome-extension-webpack-boilerplate), with additional support for React 17 features and Webpack 5.
+- Clique BackEnd developer
+- Github: [kkirru](https://github.com/kkirru)
 
-Please open up an issue to nudge me to keep the npm packages up-to-date. FYI, it takes time to make different packages with different versions work together nicely.
+<br/>
 
-## Installing and Running
+# 🌞 Clique 이야기
 
-### Procedures:
+## Clique는 신촌연합창업동아리 CEOS 12기 활동을 통해 시작된 프로젝트입니다.
 
-1. Check if your [Node.js](https://nodejs.org/) version is >= **14**.
-2. Clone this repository.
-3. Change the package's `name`, `description`, and `repository` fields in `package.json`.
-4. Change the name of your extension on `src/manifest.json`.
-5. Run `npm install` to install the dependencies.
-6. Run `npm start`
-7. Load your extension on Chrome following:
-   1. Access `chrome://extensions/`
-   2. Check `Developer mode`
-   3. Click on `Load unpacked extension`
-   4. Select the `build` folder.
-8. Happy hacking.
+<br/>
 
-## Structure
+## ☑️ Clique는 간편하게 북마크를 저장합니다.
 
-All your extension's code must be placed in the `src` folder.
+**한 창에 여러 페이지 탭이 열려 있어도, 비슷한 주제끼리 묶어서 클릭 한 번에 북마크 폴더로 저장할 수 있어요.**
 
-The boilerplate is already prepared to have a popup, an options page, a background page, and a new tab page (which replaces the new tab page of your browser). But feel free to customize these.
+<br/>
 
-## TypeScript
+## ☑️ Clique는 스크롤 위치를 함께 저장합니다
 
-This boilerplate now supports TypeScript! The `Options` Page is implemented using TypeScript. Please refer to `src/pages/Options/` for example usages.
+**클리크는 페이지를 어디까지 읽었는지 기억해 줍니다. 페이지에 나중에 방문하더라도 저장했을 때 읽던 흐름을 이어나갈 수 있어요.**
 
-## Webpack auto-reload and HRM
+<br/>
 
-To make your workflow much more efficient this boilerplate uses the [webpack server](https://webpack.github.io/docs/webpack-dev-server.html) to development (started with `npm start`) with auto reload feature that reloads the browser automatically every time that you save some file in your editor.
+## ☑️ 크롬 브라우저 새 탭에서 저장해놓은 북마크를 열어보세요.
 
-You can run the dev mode on other port if you want. Just specify the env var `port` like this:
+**쌓아놓은 북마크들이 꽁꽁 숨어있어서 다시 방문하지 않게 되나요? 매일 만나는 브라우저 새 탭에 북마크 목록이 보이니, 자연스럽게 다시 방문하게 돼요.**
 
-```
-$ PORT=6002 npm run start
-```
+<br/>
 
-## Content Scripts
+<img src="./img/Main B.png" />
 
-Although this boilerplate uses the webpack dev server, it's also prepared to write all your bundles files on the disk at every code change, so you can point, on your extension manifest, to your bundles that you want to use as [content scripts](https://developer.chrome.com/extensions/content_scripts), but you need to exclude these entry points from hot reloading [(why?)](https://github.com/samuelsimoes/chrome-extension-webpack-boilerplate/issues/4#issuecomment-261788690). To do so you need to expose which entry points are content scripts on the `webpack.config.js` using the `chromeExtensionBoilerplate -> notHotReload` config. Look the example below.
+## 🎁 [클리크 설치하러 가기](https://chrome.google.com/webstore/detail/clique/epbpopdpeadocgppmdmbgpldfemghhpb)
 
-Let's say that you want use the `myContentScript` entry point as content script, so on your `webpack.config.js` you will configure the entry point and exclude it from hot reloading, like this:
+## 🎁 [클리크에 대해 더 알아보기](https://www.withclique.com/?lang=ko)
 
-```js
-{
-  …
-  entry: {
-    myContentScript: "./src/js/myContentScript.js"
-  },
-  chromeExtensionBoilerplate: {
-    notHotReload: ["myContentScript"]
-  }
-  …
-}
-```
+<br/>
 
-and on your `src/manifest.json`:
+## 🛠 Tech Stack 🛠
 
-```json
-{
-  "content_scripts": [
-    {
-      "matches": ["https://www.google.com/*"],
-      "js": ["myContentScript.bundle.js"]
-    }
-  ]
-}
-```
+<img src="https://img.shields.io/badge/HTML5-red?style=flat-square&logo=HTML5&logoColor=white"/><img src="https://img.shields.io/badge/CSS3-blue?style=flat-square&logo=CSS3&logoColor=white"/><img src="https://img.shields.io/badge/JavaScript-yellow?style=flat-square&logo=JavaScript&logoColor=white"/>
 
-## Intelligent Code Completion
+<img src="https://img.shields.io/badge/React-skyblue?style=flat-square&logo=react&logoColor=white"/><img src="https://img.shields.io/badge/Redux-blueviolet?style=flat-square&logo=Redux&logoColor=white"/><img src="https://img.shields.io/badge/ReduxSaga-lightgrey?style=flat-square&logo=Redux-Saga&logoColor=white"/><img src="https://img.shields.io/badge/styledComponents-green?style=flat-square&logo=styled-components&logoColor=white"/>
 
-Thanks to [@hudidit](https://github.com/lxieyang/chrome-extension-boilerplate-react/issues/4)'s kind suggestions, this boilerplate supports chrome-specific intelligent code completion using [@types/chrome](https://www.npmjs.com/package/@types/chrome). For example:
-
-![intellisense](https://lxieyang.github.io/static/chrome-extension-boilerplate-dev-intellisense-ed9e7c485d3eaf66417e5da4748e2c97.png)
-
-## Packing
-
-After the development of your extension run the command
-
-```
-$ NODE_ENV=production npm run build
-```
-
-Now, the content of `build` folder will be the extension ready to be submitted to the Chrome Web Store. Just take a look at the [official guide](https://developer.chrome.com/webstore/publish) to more infos about publishing.
-
-## Secrets
-
-If you are developing an extension that talks with some API you probably are using different keys for testing and production. Is a good practice you not commit your secret keys and expose to anyone that have access to the repository.
-
-To this task this boilerplate import the file `./secrets.<THE-NODE_ENV>.js` on your modules through the module named as `secrets`, so you can do things like this:
-
-_./secrets.development.js_
-
-```js
-export default { key: '123' };
-```
-
-_./src/popup.js_
-
-```js
-import secrets from 'secrets';
-ApiCall({ key: secrets.key });
-```
-
-:point_right: The files with name `secrets.*.js` already are ignored on the repository.
-
-## Resources:
-
-- [Webpack documentation](https://webpack.js.org/concepts/)
-- [Chrome Extension documentation](https://developer.chrome.com/extensions/getstarted)
+<img src="https://img.shields.io/badge/Python-blue?style=flat-square&logo=Python&logoColor=white"/><img src="https://img.shields.io/badge/Django-lightgrey?style=flat-square&logo=Django&logoColor=white"/><img src="https://img.shields.io/badge/Postman-red?style=flat-square&logo=Postman&logoColor=white"/>
 
 ---
 
-Michael Xieyang Liu | [Website](https://lxieyang.github.io)
+Give a ⭐️ if this project helped you!
+
+---
+
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
