@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import PopupContainer from './PopupContainer';
 
 import ReactGa from 'react-ga';
 import { GA_ID } from '../../Constants/ga';
+import NotSignInPage from './Disable';
 
 
 ReactGa.initialize(GA_ID);
@@ -13,7 +13,7 @@ ReactGa.ga('set', 'checkProtocolTask', null);
 const App = () => {
   return (
     <>
-      <PopupContainer />
+      <NotSignInPage />
     </>
   );
 };
