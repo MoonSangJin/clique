@@ -71,9 +71,11 @@
 
 <img src="./img/Main B.png" />
 
-## 🎁 [클리크 설치하러 가기](https://chrome.google.com/webstore/detail/clique/epbpopdpeadocgppmdmbgpldfemghhpb)
+## 🎨 [클리크 사용법](https://www.notion.so/Clique-Getting-Started-3c508c5fb12a4f59a699ddd4ef3360bd)
 
-## 🎁 [클리크에 대해 더 알아보기](https://www.withclique.com/?lang=ko)
+## 🎁 [클리크 설치하러 가기(Service 종료)](https://chrome.google.com/webstore/detail/clique/epbpopdpeadocgppmdmbgpldfemghhpb)
+
+## 🎁 [클리크에 대해 더 알아보기 (Service 종료)](https://www.withclique.com/?lang=ko)
 
 <br/>
 
